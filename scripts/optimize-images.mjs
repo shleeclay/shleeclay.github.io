@@ -20,12 +20,19 @@ import { join, extname } from 'node:path';
 // 800 leaves margin for larger viewports while staying close to display size,
 // which minimises browser downsampling and keeps text edges crisp.
 const TARGET_WIDTH = 800;
-const JPG_QUALITY  = 92;
+const JPG_QUALITY  = 95;
 const PNG_COMPRESSION = 9;
 
-// Light sharpen after resize to compensate for downsampling softness on text.
-// sigma 0.7 is conservative — sharper edges without halo artifacts.
-const SHARPEN_SIGMA = 0.7;
+// Stronger sharpen to compensate for downsampling softness on text.
+// sigma 1.0 produces visibly crisper text edges, m2 set lower to enhance
+// jagged-area sharpness (text strokes) without too much halo on photos.
+const SHARPEN_SIGMA = 1.0;
+const SHARPEN_M1    = 0.5;
+const SHARPEN_M2    = 2.5;
+
+// --force re-processes images even when they're already at/under TARGET_WIDTH.
+// Use after changing TARGET_WIDTH/sharpen settings to apply new parameters.
+const FORCE = process.argv.includes('--force');
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\//, '');
 const DIRS = [
@@ -69,7 +76,7 @@ async function main() {
         const img = sharp(filePath);
         const meta = await img.metadata();
 
-        if (!meta.width || meta.width <= TARGET_WIDTH) {
+        if (!FORCE && (!meta.width || meta.width <= TARGET_WIDTH)) {
           skipped++;
           continue;
         }
@@ -79,7 +86,7 @@ async function main() {
         const tmpPath = filePath + '.tmp';
         const pipeline = sharp(filePath)
           .resize({ width: TARGET_WIDTH, withoutEnlargement: true })
-          .sharpen({ sigma: SHARPEN_SIGMA });
+          .sharpen({ sigma: SHARPEN_SIGMA, m1: SHARPEN_M1, m2: SHARPEN_M2 });
 
         if (ext === '.jpg' || ext === '.jpeg') {
           await pipeline.jpeg({ quality: JPG_QUALITY, mozjpeg: true }).toFile(tmpPath);

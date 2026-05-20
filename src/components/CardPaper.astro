@@ -51,10 +51,15 @@ const hasWeb = !!paper.doi;
     <!-- Bottom fade overlay tinted with paper hue — subtle color identity even with cover -->
     {paper.cover && <div class="paper-cover-fade"></div>}
 
-    <!-- Top-left: Q-rank badge -->
-    {paper.quartile && (
-      <div class="absolute top-3 left-3 z-10">
-        <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
+    <!-- Top-left: Q-rank + Impact Factor badges -->
+    {(paper.quartile || paper.if) && (
+      <div class="absolute top-3 left-3 z-10 flex gap-1.5">
+        {paper.quartile && (
+          <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
+        )}
+        {paper.if && (
+          <span class="cover-badge cover-badge-if">IF {paper.if.split(' ')[0]}</span>
+        )}
       </div>
     )}
   </div>

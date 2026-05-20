@@ -544,6 +544,18 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   border-color: #b89020;
 }
 
+/* Impact Factor — solid carbon green (secondary metric, paired with Q1) */
+.cover-badge-if {
+  background: #1e3a2f;
+  color: #ffffff;
+  border-color: #0f2218;
+}
+[data-theme="shlee-dark"] .cover-badge-if {
+  background: #6fbf94;
+  color: #0d1a14;
+  border-color: #3d6855;
+}
+
 /* Registered patent — solid mint (means: 등록 완료, 긍정적) */
 .cover-badge-reg {
   background: #6fbf94;

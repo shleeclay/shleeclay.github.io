@@ -7,10 +7,20 @@ const { patent } = Astro.props as Props;
 
 const isRegistered = patent.status === "registered";
 const yearText = (patent.registrationDate || patent.applicationDate || "").slice(0, 4) || "—";
+
+// Deterministic hue per patent — drives the card's color identity
+// (top stripe, bottom fade on cover, hover glow), matching CardPaper.
 const hue = ((patent.id * 47) + 200) % 360;
+const hueA = hue;
+const hueB = (hue + 40) % 360;
 ---
 
-<article class="patent-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
+<article
+  class="patent-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:-translate-y-1 transition-all duration-300"
+  style={`--patent-hue-a: ${hueA}; --patent-hue-b: ${hueB};`}
+>
+  <!-- Signature color stripe at top of card -->
+  <div class="patent-stripe"></div>
 
   <!-- Cover: A4 portrait. Registered → certificate image. Application → placeholder. -->
   <div class="relative aspect-[210/297] overflow-hidden bg-base-300">
@@ -24,7 +34,7 @@ const hue = ((patent.id * 47) + 200) % 360;
     ) : (
       <div
         class="w-full h-full relative flex items-center justify-center text-white"
-        style={`background: linear-gradient(135deg, hsl(${hue}, 30%, 30%) 0%, hsl(${(hue + 40) % 360}, 25%, 18%) 100%);`}
+        style={`background: linear-gradient(135deg, hsl(${hueA}, 30%, 30%) 0%, hsl(${hueB}, 25%, 18%) 100%);`}
       >
         <div class="absolute inset-0 opacity-12" style="background-image: linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px); background-size: 22px 22px;"></div>
         <div class="relative text-center px-5">
@@ -36,26 +46,23 @@ const hue = ((patent.id * 47) + 200) % 360;
       </div>
     )}
 
-    <!-- Top-left: status badge (cover-badge: 표지 위 가독성 보장) -->
-    <div class="absolute top-3 left-3">
+    <!-- Bottom hue fade overlay (only when certificate image is present) -->
+    {patent.certificate && <div class="patent-cover-fade"></div>}
+
+    <!-- Top-left: status badge -->
+    <div class="absolute top-3 left-3 z-10">
       <span class={`cover-badge ${isRegistered ? "cover-badge-reg" : "cover-badge-app"}`}>
         {isRegistered ? "Registered" : "Application"}
       </span>
     </div>
-
   </div>
 
   <!-- Content -->
   <div class="flex flex-col flex-1 p-4">
 
-    <!-- Tag row -->
+    <!-- Tag row — year only (dates shown in meta row below) -->
     <div class="flex flex-wrap items-center gap-1.5 mb-3">
       <span class="pill pill-co">{yearText}</span>
-      {patent.registrationDate && (
-        <span class="pill pill-co font-mono">
-          {fmtDate(patent.registrationDate)}
-        </span>
-      )}
     </div>
 
     <!-- Title -->
@@ -64,15 +71,21 @@ const hue = ((patent.id * 47) + 200) % 360;
       <span data-only="en">{patent.title.en}</span>
     </h3>
 
-    <!-- Inventors -->
+    <!-- Inventors / 발명자 -->
     <p class="type-body-sm text-base-content/55 mb-1 line-clamp-2">
-      <span class="font-medium text-base-content/65">Inventors: </span>
+      <span class="font-medium text-base-content/65">
+        <span data-only="ko">발명자: </span>
+        <span data-only="en">Inventors: </span>
+      </span>
       {patent.inventors.join(", ")}
     </p>
 
-    <!-- Owner -->
+    <!-- Owner / 특허권자 -->
     <p class="type-body-sm text-base-content/55 line-clamp-1 mb-3 flex-1">
-      <span class="font-medium text-base-content/65">Owner: </span>
+      <span class="font-medium text-base-content/65">
+        <span data-only="ko">특허권자: </span>
+        <span data-only="en">Owner: </span>
+      </span>
       <span data-only="ko">{patent.owner.ko}</span>
       <span data-only="en">{patent.owner.en}</span>
     </p>
@@ -94,4 +107,55 @@ const hue = ((patent.id * 47) + 200) % 360;
   .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
   .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* ─────────────────────────────────────────────────────────
+     PATENT HUE SIGNATURE — 각 특허의 고유 hue를 카드 정체성으로 활용
+     ───────────────────────────────────────────────────────── */
+
+  /* Top stripe (3px) — extends to 5px on hover */
+  .patent-stripe {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg,
+      hsl(var(--patent-hue-a), 55%, 50%) 0%,
+      hsl(var(--patent-hue-b), 60%, 55%) 100%);
+    transition: height 0.3s ease, filter 0.3s ease;
+  }
+  .patent-card:hover .patent-stripe {
+    height: 5px;
+    filter: brightness(1.15) saturate(1.1);
+  }
+
+  /* Bottom fade on certificate cover */
+  .patent-cover-fade {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 35%;
+    background: linear-gradient(180deg,
+      hsla(var(--patent-hue-a), 60%, 35%, 0) 0%,
+      hsla(var(--patent-hue-a), 60%, 35%, 0.18) 60%,
+      hsla(var(--patent-hue-b), 65%, 25%, 0.35) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .patent-card:hover .patent-cover-fade {
+    opacity: 0.5;
+  }
+
+  /* Card glow on hover — hue-tinted ambient shadow */
+  .patent-card {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  .patent-card:hover {
+    border-color: hsla(var(--patent-hue-a), 55%, 50%, 0.55);
+    box-shadow:
+      0 12px 32px hsla(var(--patent-hue-a), 55%, 40%, 0.22),
+      0 0 0 1px hsla(var(--patent-hue-a), 60%, 50%, 0.10);
+  }
+  :global(html[data-theme="shlee-dark"]) .patent-card:hover {
+    border-color: hsla(var(--patent-hue-a), 65%, 65%, 0.55);
+    box-shadow:
+      0 12px 32px hsla(var(--patent-hue-a), 65%, 55%, 0.30),
+      0 0 0 1px hsla(var(--patent-hue-a), 70%, 65%, 0.15);
+  }
 </style>
