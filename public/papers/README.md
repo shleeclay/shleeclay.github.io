@@ -12,12 +12,31 @@ papers/
 
 ## 파일 이름 규칙
 
-`pub_{id}_{short_name}.{ext}` 형식 사용. `{id}`는 `src/data/site.json` 의 `publications.items` 배열에서 각 항목의 `id` 필드와 동일.
+`{연도}_{저널약어}_{제목-시작-단어}.{확장자}` 형식.
+
+- **연도**: 게재 연도 4자리 (`2026`, `2025`, ...)
+- **저널약어**: 학계 통용 약어 (5자 이하면 풀이름, 길면 단축). 띄어쓰기·콤마 제거.
+  - 예: `KOSERT`, `RSE`, `AEE`, `GEC` (5자 이하 → 풀이름)
+  - 예: `EcolIndic` (Ecological Indicators), `RemoteSens` (Remote Sensing MDPI), `JGR-Bio` (J. Geophys. Res. Biogeosciences)
+- **제목-시작-단어**: 제목 첫 1~3개 단어, 하이픈 연결. 영문만, 띄어쓰기 X, 특수문자 X.
+
+### 현재 9개 논문 파일명 (참고 매핑)
+
+| id | 파일명 |
+|---|---|
+| 9  | `2026_KOSERT_Comparing-LST` |
+| 8  | `2026_KOSERT_Forest-Type-Seasonal` |
+| 7  | `2026_EcolIndic_Multi-scale-typologies` |
+| 6  | `2026_KOSERT_Non-destructive-Carbon` |
+| 5  | `2026_RSE_Three-stage-framework` |
+| 4  | `2026_AEE_Ecological-structures` |
+| 3  | `2025_GEC_Assessing-Corvus` |
+| 2  | `2024_KOSERT_Diel-Activity` |
+| 1  | `2021_RemoteSens_Feasibility` |
 
 예시:
-- `covers/pub_07_ecological_indicators.jpg` (Ecological Indicators 논문 표지)
-- `covers/pub_05_rse.jpg` (Remote Sensing of Environment 논문 표지)
-- `pdfs/pub_07_ecological_indicators.pdf` (Ecological Indicators 논문 PDF)
+- `covers/2026_EcolIndic_Multi-scale-typologies.jpg`
+- `pdfs/2026_EcolIndic_Multi-scale-typologies.pdf`
 
 ## 표지 이미지 만드는 법
 
@@ -27,8 +46,8 @@ papers/
 
 **권장 사양**:
 - 비율: A4 세로 (210:297 = 1:1.414). 카드 컴포넌트가 `aspect-[210/297]` 박스 안에 `object-cover`로 표시합니다.
-- 해상도: 가로 600~900px 정도면 충분. 너무 크면 빌드 시 자동 최적화되지 않음 (sharp 미사용).
-- 형식: `.jpg` (사진 caps) 또는 `.png` (선명한 텍스트가 많을 때)
+- 해상도: 가로 600~900px 정도면 충분.
+- 형식: `.jpg` (사진형) 또는 `.png` (선명한 텍스트가 많을 때)
 
 ## site.json 연결
 
@@ -37,14 +56,24 @@ papers/
 ```json
 {
   "id": 7,
-  "cover": "/papers/covers/pub_07_ecological_indicators.jpg",
-  "pdf":   "/papers/pdfs/pub_07_ecological_indicators.pdf",
+  "cover": "/papers/covers/2026_EcolIndic_Multi-scale-typologies.jpg",
+  "pdf":   "/papers/pdfs/2026_EcolIndic_Multi-scale-typologies.pdf",
   ...
 }
 ```
 
 - 경로는 항상 `/papers/...` 로 시작 (public 폴더 기준 절대 경로).
-- 파일이 없으면 빈 문자열 `""` 또는 필드 자체를 빈 채로 두세요 — 카드 컴포넌트가 자동으로 placeholder(저널명·연도 그라데이션)와 다운로드 버튼 비표시로 처리합니다.
+- 파일이 없으면 빈 문자열 `""` 로 두세요 — 카드 컴포넌트가 자동으로 placeholder(저널명·연도 그라데이션)를 표시하고, PDF/Web 버튼은 회색 비활성 상태가 됩니다.
+
+## 새 논문 추가 시 작업 흐름
+
+1. 표지 + PDF 파일을 위 규칙으로 명명
+2. 각각 `covers/`와 `pdfs/`에 저장
+3. `site.json`의 `publications.items` 맨 앞에 새 항목 추가:
+   - `id` 는 기존 최대값 + 1
+   - `cover`, `pdf` 경로 입력
+   - 나머지 필드 (date, year, role, journal, doi, authors, title) 채움
+4. `git add . && git commit -m "add: 논문 #N 추가" && git push`
 
 ## 저작권 주의
 
