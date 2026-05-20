@@ -7,7 +7,8 @@
 ```
 logos/
 ├── education/      # 학력 기관 로고
-└── career/         # 경력 기관 로고
+├── career/         # 경력 기관 로고
+└── scholarships/   # 장학금 재단 로고
 ```
 
 ## 권장 형식
@@ -32,6 +33,12 @@ logos/
 - `auri.svg` — 건축공간연구원 (Architecture & Urban Research Institute)
 - `sunjin.svg` — (주)선진엔지니어링종합건축사사무소
 - `atlas-china.svg` — ATLAS Landscape Architecture CHINA
+
+### Scholarships (장학금 재단)
+- `cmk-foundation.svg` — 현대차 정몽구 재단 (Chung Mong-Koo Foundation)
+- `bk21.svg` — BK21
+- `ilju.svg` — 일주학술문화재단
+- `knu.svg` — 경북대학교 (Education 폴더와 공유해도 OK — 경로만 맞추면 됩니다)
 
 ## 로고 구하는 법
 

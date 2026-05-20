@@ -91,13 +91,22 @@ export type CareerItem = {
 
 export type Scholarship = {
   period: string;
+  logo?: string;
   foundation: Bi;
   name: Bi;
   support: Bi;
 };
 
 export type Certification = { date: string; name: Bi };
-export type Book = { date: string; publisher: Bi; isbn: string; authors: Bi; title: Bi };
+export type Book = {
+  date: string;
+  cover?: string;
+  url?: string;
+  publisher: Bi;
+  isbn: string;
+  authors: Bi;
+  title: Bi;
+};
 export type LangSkill = { name: Bi; level: number };
 export type ToolSkill = { name: string; level: number };
 

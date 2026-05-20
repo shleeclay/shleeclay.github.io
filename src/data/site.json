@@ -388,12 +388,13 @@
     "eyebrow": "09 — HONORS",
     "title": { "ko": "장학 · 자격 · 저서", "en": "Honors, Certifications & Books" },
     "scholarships": {
+      "_help": "logo 필드는 public/logos/scholarships/ 기준 절대 경로 (예: '/logos/scholarships/cmk-foundation.svg'). 없으면 빈 문자열로 두세요.",
       "label": { "ko": "장학금", "en": "Scholarships" },
       "items": [
-        { "period": "2022/09 — Present", "foundation": { "ko": "현대차 정몽구 재단",  "en": "Chung Mong-Koo Foundation" }, "name": { "ko": "온드림 미래산업 인재 대학원 (2022년 장학생)", "en": "OnDream Future Industry Talent Graduate School Scholarship (2022 Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
-        { "period": "2020/09 — Present", "foundation": { "ko": "BK21",              "en": "BK21" },                       "name": { "ko": "BK21 4단계 — 스마트시티 글로벌융합 혁신인재양성 교육연구단", "en": "BK21 Four — Integrated Major in SmartCity Global Convergence" }, "support": { "ko": "학생 장학금 · 활동 장학금", "en": "Student / Activity Scholarship" } },
-        { "period": "2015/03 — 2017/02", "foundation": { "ko": "일주학술문화재단",     "en": "Ilju Foundation" },          "name": { "ko": "일주학술문화재단 국내학사 (23기 장학생)", "en": "Ilju Foundation Undergraduate Scholarship (23rd Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
-        { "period": "2011/03 — 2013/02", "foundation": { "ko": "경북대학교",          "en": "Kyungpook National University" }, "name": { "ko": "도전장학생 (교내 선발)", "en": "Challenge Scholarship (On-campus)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } }
+        { "period": "2022/09 — Present", "logo": "", "foundation": { "ko": "현대차 정몽구 재단",  "en": "Chung Mong-Koo Foundation" }, "name": { "ko": "온드림 미래산업 인재 대학원 (2022년 장학생)", "en": "OnDream Future Industry Talent Graduate School Scholarship (2022 Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2020/09 — Present", "logo": "", "foundation": { "ko": "BK21",              "en": "BK21" },                       "name": { "ko": "BK21 4단계 — 스마트시티 글로벌융합 혁신인재양성 교육연구단", "en": "BK21 Four — Integrated Major in SmartCity Global Convergence" }, "support": { "ko": "학생 장학금 · 활동 장학금", "en": "Student / Activity Scholarship" } },
+        { "period": "2015/03 — 2017/02", "logo": "", "foundation": { "ko": "일주학술문화재단",     "en": "Ilju Foundation" },          "name": { "ko": "일주학술문화재단 국내학사 (23기 장학생)", "en": "Ilju Foundation Undergraduate Scholarship (23rd Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2011/03 — 2013/02", "logo": "", "foundation": { "ko": "경북대학교",          "en": "Kyungpook National University" }, "name": { "ko": "도전장학생 (교내 선발)", "en": "Challenge Scholarship (On-campus)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } }
       ]
     },
     "certifications": {
@@ -406,9 +407,10 @@
       ]
     },
     "books": {
+      "_help": "cover 필드는 public/books/covers/ 기준 절대 경로 (예: '/books/covers/book_01_new_normal_city.jpg'). url 필드는 구매·소개 페이지 외부 링크 (예: yes24, 교보문고, 출판사 페이지). 둘 다 없으면 빈 문자열.",
       "label": { "ko": "저서", "en": "Books" },
       "items": [
-        { "date": "2021/02/06", "publisher": { "ko": "어반이슈", "en": "Urban Issue" }, "isbn": "9791197343100", "authors": { "ko": "요즘도시", "en": "YOZMDOSI" }, "title": { "ko": "뉴노멀시티", "en": "New Normal City" } }
+        { "date": "2021/02/06", "cover": "", "url": "", "publisher": { "ko": "어반이슈", "en": "Urban Issue" }, "isbn": "9791197343100", "authors": { "ko": "요즘도시", "en": "YOZMDOSI" }, "title": { "ko": "뉴노멀시티", "en": "New Normal City" } }
       ]
     },
     "skills": {

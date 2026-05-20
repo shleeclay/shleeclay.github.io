@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import L from "../components/L.astro";
 import CardPaper from "../components/CardPaper.astro";
 import CardPatent from "../components/CardPatent.astro";
+import CardBook from "../components/CardBook.astro";
 import site, {
   publications, conferences, projects, patents,
   teaching, career, education,
@@ -421,16 +422,26 @@ const confTypeLabels: Record<string, string> = {
     <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.scholarships.label.ko} en={site.honors.scholarships.label.en} />
     <div class="space-y-3 mb-10">
       {scholarships.map((s) => (
-        <div class="research-card">
-          <p class="type-caption text-base-content/55 mb-1">{s.period}</p>
-          <p class="type-card-title mb-1">
-            <span data-only="ko">{s.name.ko}</span>
-            <span data-only="en">{s.name.en}</span>
-          </p>
-          <p class="type-body-sm text-base-content/65">
-            <span data-only="ko">{s.foundation.ko}{' · '}{s.support.ko}</span>
-            <span data-only="en">{s.foundation.en}{' · '}{s.support.en}</span>
-          </p>
+        <div class="research-card flex gap-4">
+          <!-- Logo slot (square) -->
+          <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden">
+            {s.logo ? (
+              <img src={s.logo} alt="" class="max-w-[80%] max-h-[80%] object-contain" loading="lazy" />
+            ) : (
+              <span class="text-base-content/30 text-2xl">🌞</span>
+            )}
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="type-caption text-base-content/55 mb-1">{s.period}</p>
+            <p class="type-card-title mb-1">
+              <span data-only="ko">{s.name.ko}</span>
+              <span data-only="en">{s.name.en}</span>
+            </p>
+            <p class="type-body-sm text-base-content/65">
+              <span data-only="ko">{s.foundation.ko}{' · '}{s.support.ko}</span>
+              <span data-only="en">{s.foundation.en}{' · '}{s.support.en}</span>
+            </p>
+          </div>
         </div>
       ))}
     </div>
@@ -449,22 +460,10 @@ const confTypeLabels: Record<string, string> = {
       ))}
     </div>
 
-    <!-- Books -->
+    <!-- Books — card grid -->
     <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.books.label.ko} en={site.honors.books.label.en} />
-    <div class="space-y-3 mb-10">
-      {books.map((b) => (
-        <div class="research-card">
-          <p class="type-card-title mb-1">
-            <span data-only="ko">{b.title.ko}</span>
-            <span data-only="en">{b.title.en}</span>
-          </p>
-          <p class="type-body-sm text-base-content/65">
-            <span data-only="ko">{b.authors.ko}{' · '}{b.publisher.ko}{' · '}{b.date}</span>
-            <span data-only="en">{b.authors.en}{' · '}{b.publisher.en}{' · '}{b.date}</span>
-          </p>
-          {b.isbn && <p class="type-body-sm text-base-content/45 font-mono mt-0.5">ISBN {b.isbn}</p>}
-        </div>
-      ))}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+      {books.map((b) => <CardBook book={b} />)}
     </div>
 
     <!-- Skills -->
