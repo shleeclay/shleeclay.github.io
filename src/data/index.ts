@@ -14,6 +14,7 @@ export type NavItem = { id: string; ko: string; en: string };
 
 export type Education = {
   period: string;
+  logo?: string;
   degree: Bi;
   program: Bi;
   institution: Bi;
@@ -30,6 +31,8 @@ export type Publication = {
   if: string;
   quartile: string;
   doi: string;
+  cover?: string;
+  pdf?: string;
   authors: string[];
   title: Bi;
 };
@@ -59,6 +62,8 @@ export type Patent = {
   applicationDate: string;
   registrationDate: string;
   status: 'registered' | 'application' | string;
+  certificate?: string;
+  pdf?: string;
   inventors: string[];
   owner: Bi;
   title: Bi;
@@ -77,6 +82,7 @@ export type Teaching = {
 export type CareerItem = {
   id: number;
   period: string;
+  logo?: string;
   type: Bi;
   company: Bi;
   country: Bi;

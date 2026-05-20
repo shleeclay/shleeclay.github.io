@@ -1,0 +1,127 @@
+---
+import type { Patent } from "../data";
+import { fmtDate } from "../data";
+
+interface Props { patent: Patent; }
+const { patent } = Astro.props as Props;
+
+const isRegistered = patent.status === "registered";
+const yearText = (patent.registrationDate || patent.applicationDate || "").slice(0, 4) || "—";
+const hue = ((patent.id * 47) + 200) % 360;
+---
+
+<article class="patent-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
+
+  <!-- Cover: A4 portrait. Registered → certificate image. Application → placeholder. -->
+  <div class="relative aspect-[210/297] overflow-hidden bg-base-300">
+    {patent.certificate ? (
+      <img
+        src={patent.certificate}
+        alt={patent.title.en}
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    ) : (
+      <div
+        class="w-full h-full relative flex items-center justify-center text-white"
+        style={`background: linear-gradient(135deg, hsl(${hue}, 30%, 30%) 0%, hsl(${(hue + 40) % 360}, 25%, 18%) 100%);`}
+      >
+        <div class="absolute inset-0 opacity-12" style="background-image: linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px); background-size: 22px 22px;"></div>
+        <div class="relative text-center px-5">
+          <p class="text-xs tracking-widest uppercase opacity-70 mb-2">KIPO Patent</p>
+          <p class="text-3xl font-light leading-tight">#{patent.id}</p>
+          <p class="text-xs mt-3 opacity-80">{isRegistered ? "Registered" : "Application"}</p>
+          <p class="text-xs mt-1 opacity-60">{yearText}</p>
+        </div>
+      </div>
+    )}
+
+    <!-- Top-left: status badge -->
+    <div class="absolute top-3 left-3">
+      <span class={`pill ${isRegistered ? "pill-reg" : "pill-app"} shadow-sm`}>
+        {isRegistered ? "Registered" : "Application"}
+      </span>
+    </div>
+
+    <!-- Top-right: download indicator -->
+    {patent.pdf && (
+      <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+        <a
+          href={patent.pdf}
+          download
+          aria-label="Download patent PDF"
+          title="Download patent PDF"
+          class="w-7 h-7 rounded-full bg-black/45 backdrop-blur-sm text-white flex items-center justify-center hover:bg-primary"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="flex flex-col flex-1 p-4">
+
+    <!-- Tag row -->
+    <div class="flex flex-wrap items-center gap-1.5 mb-3">
+      <span class="pill pill-co">{yearText}</span>
+      {patent.registrationDate && (
+        <span class="pill pill-co font-mono">
+          {fmtDate(patent.registrationDate)}
+        </span>
+      )}
+    </div>
+
+    <!-- Title -->
+    <h3 class="type-card-title leading-snug mb-2 line-clamp-4 text-base-content group-hover:text-primary transition-colors">
+      <span data-only="ko">{patent.title.ko}</span>
+      <span data-only="en">{patent.title.en}</span>
+    </h3>
+
+    <!-- Inventors -->
+    <p class="type-body-sm text-base-content/55 mb-1 line-clamp-2">
+      <span class="font-medium text-base-content/65">Inventors: </span>
+      {patent.inventors.join(", ")}
+    </p>
+
+    <!-- Owner -->
+    <p class="type-body-sm text-base-content/55 line-clamp-1 mb-3 flex-1">
+      <span class="font-medium text-base-content/65">Owner: </span>
+      <span data-only="ko">{patent.owner.ko}</span>
+      <span data-only="en">{patent.owner.en}</span>
+    </p>
+
+    <!-- Meta row -->
+    <div class="flex items-center gap-2 pt-3 border-t border-base-300/40 mt-auto">
+      {patent.pdf ? (
+        <a
+          href={patent.pdf}
+          download
+          class="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span data-only="ko">{isRegistered ? "특허증 다운로드" : "공보 다운로드"}</span>
+          <span data-only="en">{isRegistered ? "Download certificate" : "Download document"}</span>
+        </a>
+      ) : (
+        <span class="text-xs text-base-content/40 font-mono">
+          App: {fmtDate(patent.applicationDate)}
+        </span>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
