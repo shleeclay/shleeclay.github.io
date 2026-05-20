@@ -410,7 +410,7 @@
       "_help": "cover 필드는 public/books/covers/ 기준 절대 경로 (예: '/books/covers/book_01_new_normal_city.jpg'). url 필드는 구매·소개 페이지 외부 링크 (예: yes24, 교보문고, 출판사 페이지). 둘 다 없으면 빈 문자열.",
       "label": { "ko": "저서", "en": "Books" },
       "items": [
-        { "date": "2021/02/06", "cover": "", "url": "", "publisher": { "ko": "어반이슈", "en": "Urban Issue" }, "isbn": "9791197343100", "authors": { "ko": "요즘도시", "en": "YOZMDOSI" }, "title": { "ko": "뉴노멀시티", "en": "New Normal City" } }
+        { "date": "2021/02/06", "cover": "/books/covers/2021_NewNormalCity.jpg", "url": "", "publisher": { "ko": "어반이슈", "en": "Urban Issue" }, "isbn": "9791197343100", "authors": { "ko": "요즘도시", "en": "YOZMDOSI" }, "title": { "ko": "뉴노멀시티", "en": "New Normal City" } }
       ]
     },
     "skills": {

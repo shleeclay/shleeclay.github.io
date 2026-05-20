@@ -46,8 +46,14 @@ papers/
 
 **권장 사양**:
 - 비율: A4 세로 (210:297 = 1:1.414). 카드 컴포넌트가 `aspect-[210/297]` 박스 안에 `object-cover`로 표시합니다.
-- 해상도: 가로 600~900px 정도면 충분.
-- 형식: `.jpg` (사진형) 또는 `.png` (선명한 텍스트가 많을 때)
+- **해상도: 가로 800~1200px (필수)** — 화면에 약 290px로 표시되지만 HiDPI/Retina 화면에서 2x 픽셀 필요. **600px 이하는 글자가 흐려 보입니다.**
+- **형식: PNG 강력 권장** (논문 제목·저자 같은 텍스트가 많은 페이지). JPG는 텍스트 가장자리 압축 손실로 흐림 발생. 사진형 표지면 고품질 JPG(품질 90+) 가능.
+
+**PDF → 고해상도 이미지 변환 방법**:
+- **Adobe Acrobat**: File → Export To → Image → PNG, **해상도 300 DPI**
+- **macOS Preview**: PDF 페이지 우클릭 → Export As → Format: PNG, **Resolution 300 dpi**
+- **온라인**: [pdf2png.com](https://pdf2png.com) (High Quality 옵션)
+- **무료 PowerPoint 방법**: PDF 1페이지를 슬라이드에 삽입 → 우클릭 Save as Picture → PNG 선택
 
 ## site.json 연결
 
