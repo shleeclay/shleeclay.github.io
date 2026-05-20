@@ -257,6 +257,65 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+.card, .horizontal-card-img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Pill hover — subtle color lift */
+.pill {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Stat box — used in About section (6 metric tiles) */
+.stat-box {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.stat-box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(224, 185, 65, 0.55);
+  background-color: hsl(var(--b2) / 0.85);
+  box-shadow: 0 6px 18px rgba(224, 185, 65, 0.10);
+}
+[data-theme="shlee-dark"] .stat-box:hover {
+  box-shadow: 0 6px 18px rgba(224, 185, 65, 0.16);
+}
+
+/* Certification chip — small inline chip */
+.cert-chip {
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+.cert-chip:hover {
+  border-color: rgba(224, 185, 65, 0.55);
+  background-color: rgba(224, 185, 65, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Interest pill (research interests chips) — subtle highlight on hover */
+.pill.pill-co.interest:hover {
+  background-color: rgba(224, 185, 65, 0.12);
+  color: #8a6f1a;
+  border-color: rgba(224, 185, 65, 0.45);
+}
+[data-theme="shlee-dark"] .pill.pill-co.interest:hover {
+  background-color: rgba(224, 185, 65, 0.16);
+  color: #f2d272;
+  border-color: rgba(224, 185, 65, 0.5);
+}
+
+/* Contact card icon wrapper — bg color reverses on group hover.
+   The default state shows a subtle white tint; on hover, the icon
+   wrapper fills with honey gold and the icon turns dark for contrast. */
+.contact-icon-wrap {
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.group:hover .contact-icon-wrap {
+  background-color: #e0b941;
+  color: #0d1a14;
+}
+.group:hover .contact-text-primary {
+  color: #e0b941;
+}
+
 /* Links */
 .prose a, article a {
   color: #1e3a2f;
