@@ -1,0 +1,150 @@
+// 사이트의 모든 데이터는 ./site.json 한 파일에서 관리됩니다.
+// 이 파일은 그 데이터를 타입과 함께 export 하고, 보조 계산 함수를 제공합니다.
+
+import site from './site.json';
+
+// ───────── Bilingual primitives ─────────
+
+export type Bi = { ko: string; en: string };
+export type Lang = 'ko' | 'en';
+
+// ───────── Item types ─────────
+
+export type NavItem = { id: string; ko: string; en: string };
+
+export type Education = {
+  period: string;
+  degree: Bi;
+  program: Bi;
+  institution: Bi;
+  lab: Bi | null;
+  advisor: Bi | null;
+};
+
+export type Publication = {
+  id: number;
+  date: string;
+  year: number;
+  role: 'first' | 'co' | string;
+  journal: string;
+  if: string;
+  quartile: string;
+  doi: string;
+  authors: string[];
+  title: Bi;
+};
+
+export type Conference = {
+  id: number;
+  date: string;
+  year: number;
+  type: 'oral' | 'poster' | 'video' | string;
+  scope: 'international' | 'domestic' | string;
+  conference: string;
+  venue: Bi;
+  authors: string[];
+  title: Bi;
+};
+
+export type ProjectItem = {
+  id: number;
+  period: string;
+  role: Bi;
+  institute: Bi;
+  title: Bi;
+};
+
+export type Patent = {
+  id: number;
+  applicationDate: string;
+  registrationDate: string;
+  status: 'registered' | 'application' | string;
+  inventors: string[];
+  owner: Bi;
+  title: Bi;
+};
+
+export type Teaching = {
+  date: string;
+  dateEnd: string;
+  type: 'special' | 'univ' | 'online' | string;
+  students: number;
+  url: string;
+  host: Bi;
+  title: Bi;
+};
+
+export type CareerItem = {
+  id: number;
+  period: string;
+  type: Bi;
+  company: Bi;
+  country: Bi;
+  url: string;
+};
+
+export type Scholarship = {
+  period: string;
+  foundation: Bi;
+  name: Bi;
+  support: Bi;
+};
+
+export type Certification = { date: string; name: Bi };
+export type Book = { date: string; publisher: Bi; isbn: string; authors: Bi; title: Bi };
+export type LangSkill = { name: Bi; level: number };
+export type ToolSkill = { name: string; level: number };
+
+// ───────── Typed re-exports ─────────
+
+export const nav = site.nav.items as NavItem[];
+export const publications = site.publications.items as Publication[];
+export const conferences = site.conferences.items as Conference[];
+export const projects = site.projects.items as ProjectItem[];
+export const patents = site.patents.items as Patent[];
+export const teaching = site.teaching.items as Teaching[];
+export const career = site.career.items as CareerItem[];
+export const education = site.education.items as Education[];
+export const scholarships = site.honors.scholarships.items as Scholarship[];
+export const certifications = site.honors.certifications.items as Certification[];
+export const books = site.honors.books.items as Book[];
+export const langSkills = site.honors.skills.languages as LangSkill[];
+export const toolSkills = site.honors.skills.tools as ToolSkill[];
+
+// ───────── Helpers ─────────
+
+/** date 문자열에서 연도 추출 ("2025/03/15" 또는 "2025-03-15" 또는 "" 처리) */
+export function yearOf(dateStr: string): number {
+  if (!dateStr) return 0;
+  return parseInt(dateStr.slice(0, 4), 10);
+}
+
+/** Year-based grouping (newest year first, within year date desc) */
+export function groupByYear<T extends { date: string }>(items: T[]): { year: number; items: T[] }[] {
+  const map = new Map<number, T[]>();
+  for (const it of items) {
+    const y = yearOf(it.date);
+    if (!map.has(y)) map.set(y, []);
+    map.get(y)!.push(it);
+  }
+  for (const list of map.values()) {
+    list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  }
+  return Array.from(map.entries())
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, items]) => ({ year, items }));
+}
+
+/** Date formatter: "2025/03/15" → "25.03.15"; with range: "25.03.15 ~ 25.03.17" */
+export function fmtDate(d: string): string {
+  if (!d) return '';
+  const cleaned = d.replace(/[\-\/]/g, '.');
+  return cleaned.slice(2);
+}
+export function fmtRange(start: string, end: string | null | undefined): string {
+  if (!start) return '';
+  if (!end) return fmtDate(start);
+  return `${fmtDate(start)} ~ ${fmtDate(end)}`;
+}
+
+export default site;

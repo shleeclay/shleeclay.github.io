@@ -1,0 +1,434 @@
+{
+  "_help": "이 파일 하나에 사이트의 모든 텍스트와 데이터가 들어 있습니다. 각 항목은 한국어(ko) / 영어(en) 필드로 분리되어 있으며, 사이트 헤더의 언어 토글이 두 필드를 전환합니다. 따옴표 안의 내용만 바꾸세요. 콤마(,), 중괄호({}), 대괄호([])는 건드리지 마세요. 마지막 항목 뒤에 콤마가 있으면 안 됩니다. 줄바꿈은 문자열 안에 \\n 으로 표시하세요.",
+
+  "site": {
+    "ko": {
+      "title": "이승현 (Clay Lee) — 연구 포트폴리오",
+      "description": "이승현 (Clay Lee). 서울대학교 생태계획연구실 박사과정. 산림 구조 · 원격탐사 (LiDAR / GEDI) · 도시생태 연구."
+    },
+    "en": {
+      "title": "Seunghyeon Lee (Clay Lee) — Research Portfolio",
+      "description": "Seunghyeon Lee (Clay Lee). Ph.D. student at Seoul National University, Landscape & Ecological Planning Lab. Forest structure, remote sensing (LiDAR / GEDI), and urban ecology."
+    }
+  },
+
+  "nav": {
+    "items": [
+      { "id": "about",         "ko": "프로필",     "en": "About" },
+      { "id": "publications",  "ko": "게재 논문",  "en": "Publications" },
+      { "id": "conferences",   "ko": "학회 발표",  "en": "Conferences" },
+      { "id": "projects",      "ko": "연구 과제",  "en": "Projects" },
+      { "id": "patents",       "ko": "특허",       "en": "Patents" },
+      { "id": "teaching",      "ko": "교육 · 강의","en": "Teaching" },
+      { "id": "career",        "ko": "경력",       "en": "Career" },
+      { "id": "honors",        "ko": "장학 · 자격","en": "Honors" },
+      { "id": "contact",       "ko": "연락처",     "en": "Contact" }
+    ]
+  },
+
+  "hero": {
+    "name":        { "ko": "이승현",                                                 "en": "Seunghyeon Lee" },
+    "nameSub":     { "ko": "Clay Lee",                                              "en": "(Clay Lee)" },
+    "tagline":     { "ko": "자연과 환경을 사랑하는 연구자입니다.",                      "en": "A researcher with a profound passion for nature and the environment." },
+    "description": { "ko": "책임감 있게 주도적으로 할 수 있는 모든 일을 좋아합니다.",   "en": "I take great pride in leading responsibly in all my endeavors." },
+    "affiliation": {
+      "ko": "서울대학교 협동과정 조경학 박사과정 · 생태계획연구실",
+      "en": "Ph.D. Student · Seoul National University · Landscape & Ecological Planning Lab"
+    },
+    "ctaPrimary":   { "ko": "연구 보기",  "en": "View Research" },
+    "ctaSecondary": { "ko": "연락하기",   "en": "Get in Touch" }
+  },
+
+  "about": {
+    "eyebrow": "01 — ABOUT",
+    "title": { "ko": "프로필", "en": "About" },
+    "paragraphs": {
+      "ko": [
+        "공간 데이터와 원격탐사를 활용해 산림·도시 생태계의 구조와 기능을 이해하고자 합니다.",
+        "주요 관심사는 항공/위성 LiDAR (GEDI 포함) 기반 산림 수직 구조 분석, 도시생태계 기반 그린인프라, 그리고 데이터·코드 기반 재현 가능한 연구입니다."
+      ],
+      "en": [
+        "I use spatial data and remote sensing to understand the structure and function of forest and urban ecosystems.",
+        "My research focuses on airborne / spaceborne LiDAR (incl. GEDI) for vertical forest structure, green infrastructure for urban ecosystems, and reproducible data- and code-driven science."
+      ]
+    },
+    "interestsLabel": { "ko": "연구 관심분야", "en": "Research interests" },
+    "interests": {
+      "ko": ["산림 수직 구조 (LiDAR)", "GEDI · 위성 라이다", "도시생태계 · 그린인프라", "원격탐사 · 위성영상 분석", "야생동물 모니터링 (드론·열화상)", "GIS · 공간정보 분석"],
+      "en": ["Forest vertical structure (LiDAR)", "GEDI · Spaceborne LiDAR", "Urban ecosystems · Green infrastructure", "Remote sensing · Satellite analysis", "Wildlife monitoring (UAV / thermal)", "GIS · Spatial analysis"]
+    },
+    "stats": [
+      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "9+",   "unit": { "ko": "편",    "en": "papers" } },
+      { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
+      { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12",   "unit": { "ko": "건",    "en": "projects" } },
+      { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
+      { "label": { "ko": "출강 · 강의", "en": "Lectures taught" },       "value": "20+",  "unit": { "ko": "건",    "en": "lectures" } },
+      { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "4",    "unit": { "ko": "강",    "en": "courses" } }
+    ]
+  },
+
+  "education": {
+    "eyebrow": "02 — EDUCATION",
+    "title": { "ko": "학력", "en": "Education" },
+    "items": [
+      {
+        "period": "2022.03 — Present",
+        "degree":      { "ko": "박사과정",                                                                  "en": "Ph.D. Student" },
+        "program":     { "ko": "협동과정 조경학 · 융합전공 스마트시티 글로벌 융합",                              "en": "Interdisciplinary Program in Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
+        "institution": { "ko": "서울대학교",                                                                "en": "Seoul National University, Seoul, Republic of Korea" },
+        "lab":         { "ko": "생태계획연구실",                                                            "en": "Landscape & Ecological Planning Lab" },
+        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" }
+      },
+      {
+        "period": "2020.03 — 2022.02",
+        "degree":      { "ko": "석사 (MA)",                                                                "en": "M.A." },
+        "program":     { "ko": "환경조경학과 · 융합전공 스마트시티 글로벌 융합 (석사 학위 수여)",                  "en": "Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
+        "institution": { "ko": "서울대학교 환경대학원",                                                       "en": "Graduate School of Environmental Studies, Seoul National University" },
+        "lab":         { "ko": "생태계획연구실",                                                            "en": "Landscape & Ecological Planning Lab" },
+        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" }
+      },
+      {
+        "period": "2011.03 — 2017.02",
+        "degree":      { "ko": "학사 (BS)",                                                                "en": "B.S." },
+        "program":     { "ko": "조경학과",                                                                  "en": "Landscape Architecture" },
+        "institution": { "ko": "경북대학교 농업생명과학대학",                                                  "en": "College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea" },
+        "lab":         null,
+        "advisor":     null
+      }
+    ]
+  },
+
+  "publications": {
+    "_help": "역할(role): 'first' = 1저자, 'co' = 공저자. quartile/if 정보가 없는 항목은 빈 문자열로 둡니다.",
+    "eyebrow": "03 — PUBLICATIONS",
+    "title": { "ko": "게재 논문", "en": "Publications" },
+    "intro": { "ko": "Peer-reviewed 학술논문 목록. 최신 순으로 정렬.", "en": "Peer-reviewed publications, sorted by most recent." },
+    "items": [
+      {
+        "id": 9,
+        "date": "2026/04/30",
+        "year": 2026,
+        "role": "first",
+        "journal": "KOSERT",
+        "if": "",
+        "quartile": "",
+        "doi": "",
+        "authors": ["Gukhwa Jang", "Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"],
+        "title": {
+          "ko": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches",
+          "en": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches"
+        }
+      },
+      {
+        "id": 8,
+        "date": "2026/04/30",
+        "year": 2026,
+        "role": "first",
+        "journal": "KOSERT",
+        "if": "",
+        "quartile": "",
+        "doi": "",
+        "authors": ["Seunghyeon Lee", "Youngkeun Song"],
+        "title": {
+          "ko": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si",
+          "en": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si"
+        }
+      },
+      {
+        "id": 7,
+        "date": "2026/03/24",
+        "year": 2026,
+        "role": "first",
+        "journal": "Ecological Indicators",
+        "if": "7.4 (2026)",
+        "quartile": "Q1 (2026)",
+        "doi": "10.1016/j.ecolind.2026.114798",
+        "authors": ["Seunghyeon Lee", "Uirin Ha", "Heejae Lee", "Hyeyeong Choe", "Hansoo Kim", "Youngkeun Song"],
+        "title": {
+          "ko": "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests",
+          "en": "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests"
+        }
+      },
+      {
+        "id": 6,
+        "date": "",
+        "year": 2026,
+        "role": "co",
+        "journal": "KOSERT",
+        "if": "",
+        "quartile": "",
+        "doi": "10.13087/kosert.2025.28.6.95",
+        "authors": ["Gapseong Jekal", "Seunghyeon Lee", "Youngeun Yang", "Youngkeun Song"],
+        "title": {
+          "ko": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland",
+          "en": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland"
+        }
+      },
+      {
+        "id": 5,
+        "date": "2026/01/21",
+        "year": 2026,
+        "role": "co",
+        "journal": "Remote Sensing of Environment",
+        "if": "11.4 (2026)",
+        "quartile": "Q1 (2026)",
+        "doi": "10.1016/j.rse.2026.115246",
+        "authors": ["Jinyuan Shao", "Dennis Heejoon Choi", "Jidong Liu", "Xiangxi Tian", "Bina Thapa", "Seunghyeon Lee", "Ayman Habib", "Songlin Fei"],
+        "title": {
+          "ko": "A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning",
+          "en": "A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning"
+        }
+      },
+      {
+        "id": 4,
+        "date": "2026/04/01",
+        "year": 2026,
+        "role": "co",
+        "journal": "Agriculture, Ecosystems & Environment",
+        "if": "6.4 (2026)",
+        "quartile": "Q1 (2026)",
+        "doi": "10.1016/j.agee.2025.110172",
+        "authors": ["Jaeyeon Kim", "Seungwoo Han", "Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"],
+        "title": {
+          "ko": "Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy fields",
+          "en": "Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy fields"
+        }
+      },
+      {
+        "id": 3,
+        "date": "2025/09/18",
+        "year": 2025,
+        "role": "co",
+        "journal": "Global Ecology and Conservation",
+        "if": "3.4 (2025)",
+        "quartile": "Q1 (2025)",
+        "doi": "10.1016/j.gecco.2025.e03866",
+        "authors": ["Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"],
+        "title": {
+          "ko": "Assessing Corvus Frugilegus (Rook) Habitat Preferences through Flock-Size-Specific Species Distribution Modeling Using Citizen Science Data",
+          "en": "Assessing Corvus Frugilegus (Rook) Habitat Preferences through Flock-Size-Specific Species Distribution Modeling Using Citizen Science Data"
+        }
+      },
+      {
+        "id": 2,
+        "date": "2024/04/01",
+        "year": 2024,
+        "role": "co",
+        "journal": "KOSERT (한국환경복원기술학회지)",
+        "if": "",
+        "quartile": "",
+        "doi": "",
+        "authors": ["Younha Han", "Wonhyeop Shin", "Jihwan Kim", "Dohee Kim", "Jiweon Yun", "Sokyoung Yi", "Yonghwan Kim", "Seunghyeon Lee", "Youngkeun Song"],
+        "title": {
+          "ko": "장기 카메라트래핑 모니터링 자료를 활용한 도시근교의 고라니 및 멧돼지 일주기성 연구",
+          "en": "Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping"
+        }
+      },
+      {
+        "id": 1,
+        "date": "2021/06/01",
+        "year": 2021,
+        "role": "first",
+        "journal": "Remote Sensing",
+        "if": "5.0 (2022)",
+        "quartile": "Q1 (2022)",
+        "doi": "10.3390/rs13112169",
+        "authors": ["Seunghyeon Lee", "Youngkeun Song", "Sung-Ho Kil"],
+        "title": {
+          "ko": "Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images",
+          "en": "Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images"
+        }
+      }
+    ]
+  },
+
+  "conferences": {
+    "_help": "1저자 또는 발표자(presenter)인 학회 발표만 포함.",
+    "eyebrow": "04 — CONFERENCES",
+    "title": { "ko": "학회 발표", "en": "Conference Presentations" },
+    "intro": { "ko": "1저자 또는 발표자(presenter)인 국내·국제 학회 발표.", "en": "Domestic and international presentations where I am first author or presenter." },
+    "items": [
+      { "id": 25, "date": "2025/12/17", "year": 2025, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)", "venue": { "ko": "미국 뉴올리언스",      "en": "New Orleans, US" },              "authors": ["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest", "en": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest" } },
+      { "id": 24, "date": "2025/04/04", "year": 2025, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2025 춘계)", "venue": { "ko": "대한민국 서울",       "en": "Seoul, Republic of Korea" },     "authors": ["김도희", "김용환", "김한수", "노지선", "송영근", "이승현", "이희재", "제갈갑성", "하의린"], "title": { "ko": "산림 층위구조 지수의 개발과 탄소저장량과의 상관관계 분석", "en": "Development of forest layer-structure indices and their correlation with carbon storage" } },
+      { "id": 23, "date": "2024/12/13", "year": 2024, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)", "venue": { "ko": "미국 워싱턴 D.C.",     "en": "Washington D.C, US" },            "authors": ["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types", "en": "Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types" } },
+      { "id": 22, "date": "2024/11/06", "year": 2024, "type": "oral",   "scope": "international", "conference": "Asia Week",                       "venue": { "ko": "일본 후쿠오카 / 온라인","en": "Fukuoka, Japan / Online" },        "authors": ["Seunghyeon Lee"],                                  "title": { "ko": "Invasive species monitoring development and its application", "en": "Invasive species monitoring development and its application" } },
+      { "id": 21, "date": "2024/10/06", "year": 2024, "type": "oral",   "scope": "international", "conference": "ICLEE (Intl. Consortium of Landscape and Ecological Engineering)", "venue": { "ko": "일본 기타큐슈", "en": "Kitakyushu, Japan" }, "authors": ["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR", "en": "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR" } },
+      { "id": 20, "date": "2024/08/08", "year": 2024, "type": "poster", "scope": "international", "conference": "ESA (Ecological Society of America)", "venue": { "ko": "미국 롱비치",          "en": "Long Beach, CA, US" },           "authors": ["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Characterizing the forest vegetation stratification by forest biotope types using airborne lidar", "en": "Characterizing the forest vegetation stratification by forest biotope types using airborne lidar" } },
+      { "id": 19, "date": "2024/04/19", "year": 2024, "type": "oral",   "scope": "domestic",      "conference": "한국환경생태학회 / KSEE (2024 춘계)", "venue": { "ko": "대한민국 시흥",       "en": "Siheung, Republic of Korea" },   "authors": ["김한수", "이승현", "송영근"],                       "title": { "ko": "항공라이다를 활용한 과천시 산림 층위별 피복 면적 및 변화량 분석", "en": "Analyzing the vegetation area of each forest layer and its change of Gwacheon-si using airborne LiDAR" } },
+      { "id": 18, "date": "2024/01/16", "year": 2024, "type": "oral",   "scope": "international", "conference": "NEF (Neocity Empowerment Forum)", "venue": { "ko": "미국 올란도",          "en": "Orlando, FL, US" },              "authors": ["Seunghyeon Lee"],                                  "title": { "ko": "Remotely sensed Smartcity ecological value maps", "en": "Remotely sensed Smartcity ecological value maps" } },
+      { "id": 17, "date": "2024/01/10", "year": 2024, "type": "video",  "scope": "international", "conference": "CES (Consumer Electronics Show)", "venue": { "ko": "미국 라스베가스",       "en": "Las Vegas, NV, US" },            "authors": ["BK21 Project"],                                    "title": { "ko": "Smart City & Green Infrastructure", "en": "Smart City & Green Infrastructure" } },
+      { "id": 16, "date": "2023/11/29", "year": 2023, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2023 추계)", "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["송영근", "이승현"],                                "title": { "ko": "위성라이다 GEDI를 활용하여 수종과 시기에 따라 임상별 식생 수직 구조 및 면적 변화 비교 연구", "en": "GEDI-based comparison of vegetation vertical structure and area change by tree species and seasons" } },
+      { "id": 15, "date": "2023/11/12", "year": 2023, "type": "oral",   "scope": "international", "conference": "JCK (Japan-China-Korea Landscape Architectural Symposium, 18th)", "venue": { "ko": "일본 교토", "en": "Kyoto, Japan" }, "authors": ["Lab Project"], "title": { "ko": "Property Information Analysis Study of Gyeonggi-do Province Biotope", "en": "Property Information Analysis Study of Gyeonggi-do Province Biotope" } },
+      { "id": 14, "date": "2023/11/11", "year": 2023, "type": "poster", "scope": "international", "conference": "JCK (Japan-China-Korea Landscape Architectural Symposium, 18th)", "venue": { "ko": "일본 교토", "en": "Kyoto, Japan" }, "authors": ["Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Wildfire driven forest vegetation height change comparison", "en": "Wildfire driven forest vegetation height change comparison" } },
+      { "id": 13, "date": "2023/08/10", "year": 2023, "type": "poster", "scope": "international", "conference": "ESA (Ecological Society of America)", "venue": { "ko": "미국 포틀랜드",          "en": "Portland, OR, US" },            "authors": ["Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "The Impacts of Fire-induced Disturbances On Tree Height and Structure: Using GEDI Derived Variables", "en": "The Impacts of Fire-induced Disturbances On Tree Height and Structure: Using GEDI Derived Variables" } },
+      { "id": 12, "date": "2022/12/20", "year": 2022, "type": "oral",   "scope": "international", "conference": "ICLEE (12th)",                       "venue": { "ko": "온라인",                "en": "Online" },                       "authors": ["Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Monitoring structural change of fire-induced forest vegetation using GEDI", "en": "Monitoring structural change of fire-induced forest vegetation using GEDI" } },
+      { "id": 11, "date": "2022/12/14", "year": 2022, "type": "oral",   "scope": "international", "conference": "AGU (American Geophysical Union)",   "venue": { "ko": "미국 시카고 / 온라인",    "en": "Chicago, IL, US / Online" },     "authors": ["Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Comparison of GEDI (Global Ecosystem Dynamics Investigation) and Aerial Laser Scanning Dataset according to Leaf-on and Leaf-off Seasons", "en": "Comparison of GEDI (Global Ecosystem Dynamics Investigation) and Aerial Laser Scanning Dataset according to Leaf-on and Leaf-off Seasons" } },
+      { "id": 10, "date": "2022/11/11", "year": 2022, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2022 추계)", "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["김한수", "이승현", "송영근"], "title": { "ko": "식생 종류와 촬영 시기에 따른 위성 라이다 GEDI와 항공 라이다의 상관계수 분석을 통한 현장 일치성 확인", "en": "GEDI vs. airborne LiDAR correlation by vegetation type and season" } },
+      { "id":  9, "date": "2022/05/02", "year": 2022, "type": "video",  "scope": "international", "conference": "WFC (World Forestry Congress, 15th)", "venue": { "ko": "대한민국 서울",        "en": "Seoul, Republic of Korea" },     "authors": ["Dennis Heejoon Choi", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Classification of tree species and forest floor using XGBoost algorithm with accurate forest map, airborne LiDAR data, and satellite images", "en": "Classification of tree species and forest floor using XGBoost algorithm with accurate forest map, airborne LiDAR data, and satellite images" } },
+      { "id":  8, "date": "2022/05/02", "year": 2022, "type": "poster", "scope": "international", "conference": "WFC (World Forestry Congress, 15th)", "venue": { "ko": "대한민국 서울",        "en": "Seoul, Republic of Korea" },     "authors": ["Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"], "title": { "ko": "Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images", "en": "Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images" } },
+      { "id":  7, "date": "2022/03/25", "year": 2022, "type": "oral",   "scope": "domestic",      "conference": "한국조경학회 / KILA (2022 춘계)", "venue": { "ko": "온라인",                "en": "Online" },                       "authors": ["송영근", "이승현"], "title": { "ko": "위성라이다 GEDI를 활용한 안동 지역 산불 전후의 식생 수직구조 변화 파악", "en": "GEDI-based vegetation vertical structure change before/after Andong wildfire" } },
+      { "id":  6, "date": "2021/12/16", "year": 2021, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)",   "venue": { "ko": "미국 뉴올리언스 / 온라인", "en": "New Orleans, LA, US / Online" }, "authors": ["DaeYeol Kim", "Dennis Heejoon Choi", "Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], "title": { "ko": "Detecting individual broad-leaved trees by trunk extraction method using leaf-off airborne LiDAR datasets", "en": "Detecting individual broad-leaved trees by trunk extraction method using leaf-off airborne LiDAR datasets" } },
+      { "id":  5, "date": "2021/12/03", "year": 2021, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2021 추계)", "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["길승호", "이승현", "송영근"], "title": { "ko": "무인비행체 촬영 열화상 및 실화상 이미지의 조합에 따른 육상동물 탐지율 분석", "en": "Wildlife detection rate analysis using UAV thermal and RGB image combinations" } },
+      { "id":  4, "date": "2021/05/28", "year": 2021, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2021 춘계)", "venue": { "ko": "대한민국 서울",      "en": "Seoul, Republic of Korea" },     "authors": ["길승호", "이승현", "송영근"], "title": { "ko": "무인비행체 열화상 카메라 촬영 열화상 이미지와 실화상 이미지를 사용한 야생동물 자동 탐지 활용방법 연구", "en": "Automated wildlife detection using UAV thermal and RGB imagery" } },
+      { "id":  3, "date": "2021/03/26", "year": 2021, "type": "oral",   "scope": "domestic",      "conference": "한국조경학회 / KILA (2021 춘계)", "venue": { "ko": "온라인",                "en": "Online" },                       "authors": ["손용훈", "이승현"], "title": { "ko": "안양시 녹지 서비스 공급과 수요 갭분석을 통한 공급 원활 및 부족지역 도출", "en": "Anyang City green space supply-demand gap analysis" } },
+      { "id":  2, "date": "2020/10/22", "year": 2020, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2020 추계)", "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["길승호", "이승현", "송영근"], "title": { "ko": "무인비행체 탑재 열화상 센서 촬영환경에 따른 야생동물 탐지가능성 연구", "en": "UAV-mounted thermal sensor wildlife detection feasibility under varying conditions" } },
+      { "id":  1, "date": "2020/05/22", "year": 2020, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2020 춘계)", "venue": { "ko": "온라인",              "en": "Online" },                       "authors": ["길승호", "이승현", "송영근"], "title": { "ko": "무인비행체와 열화상 센서를 활용한 야생동물 개체 수 탐지방법에 대한 연구동향 분석", "en": "Trend analysis on UAV/thermal-based wildlife population detection" } }
+    ]
+  },
+
+  "projects": {
+    "eyebrow": "05 — RESEARCH PROJECTS",
+    "title": { "ko": "연구 과제", "en": "Research Projects" },
+    "intro": { "ko": "참여한 국가 R&D · 지자체 연구과제.", "en": "National and municipal research projects." },
+    "items": [
+      { "id": 12, "period": "2025/07 — 2025/11",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "한국환경보전원",    "en": "Korea Environmental Conservation Institute" }, "title": { "ko": "장항 국가습지복원사업 생태계조사 모니터링 용역", "en": "Janghang National Wetland Restoration Project — Ecosystem Monitoring" } },
+      { "id": 11, "period": "2024/06 — 2025/05",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "경기연구원",        "en": "Gyeonggi Research Institute" },               "title": { "ko": "경기도 비오톱 유형을 고려한 탄소 저장·흡수량 분석 및 정보구축 연구", "en": "Carbon storage/sink analysis and inventory build research for Gyeonggi-do considering biotope types" } },
+      { "id": 10, "period": "2023/04 — 2027/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "생태계서비스를 고려한 탄소흡수원 통합관리 기술개발", "en": "Integrated Assessment Tool for Carbon Reduction by Offset and Synergy with Ecosystem Services" } },
+      { "id":  9, "period": "2022/12 — 2023/11",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "경기연구원",        "en": "Gyeonggi Research Institute" },               "title": { "ko": "경기도 비오톱 속성정보 분석 연구", "en": "Gyeonggi-do Biotope Property Information Analysis Research" } },
+      { "id":  8, "period": "2022/04 — 2026/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "탄소축적 묵논습지 조성 복원 관리기술", "en": "Creation, Restoration & Management Technology of Carbon Accumulated Abandoned Paddy Wetland" } },
+      { "id":  7, "period": "2021/09 — 2022/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "경기연구원",        "en": "Gyeonggi Research Institute" },               "title": { "ko": "과천시 도시생태현황지도 작성 연구 용역", "en": "Gwacheon-si Urban Ecological Status Mapping Research" } },
+      { "id":  6, "period": "2021/04 — 2023/12",  "role": { "ko": "책임 참여 연구원","en": "Project Manager" },  "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "외래생물 맞춤형 실시간 웹 기반 위치정보 추적 시스템 개발", "en": "Developing A Real-Time Web-Based Positioning Surveillance System Customized For Introduced Exotic Species" } },
+      { "id":  5, "period": "2021/04 — 2023/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "IT·ET·BT 융합 유입 외래생물 분포·확산 탐지모델 개발 연구", "en": "Developing IT·ET·BT Convergence-Based Distribution And Spread Models For Introduced Exotic Species" } },
+      { "id":  4, "period": "2020/04 — 2022/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "도시생태계 현안대응을 위한 다중기반 그린인프라 기술개발", "en": "Developing Redundancy-Based Green Infrastructure Technology Responding To The Pending Challenges In Urban Ecosystems" } },
+      { "id":  3, "period": "2020/01 — 2020/08",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "서울연구원",        "en": "The Seoul Institute" },                       "title": { "ko": "공간유형별 기후환경 모니터링 및 시뮬레이션 분석", "en": "Monitoring And Simulation Analysis Of Climate Conditions By Spatial Type" } },
+      { "id":  2, "period": "2019/04 — 2022/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "도시 생물종 맞춤형 서식환경 관리 기법 개발", "en": "Development Of Customized Habitat Management Technique For Urban Species" } },
+      { "id":  1, "period": "2018/07 — 2020/12",  "role": { "ko": "참여 연구원",    "en": "Researcher" },       "institute": { "ko": "환경부",            "en": "Korean Ministry of Environment" },           "title": { "ko": "훼손 유형별 진단평가 체계 및 생태복원 모델 개발", "en": "Developing The Assessment Scheme And Ecosystem Restoration Model Depending On The Degradation Types" } }
+    ]
+  },
+
+  "patents": {
+    "eyebrow": "06 — PATENTS",
+    "title": { "ko": "특허", "en": "Patents" },
+    "intro": { "ko": "출원 · 등록 특허 (대한민국).", "en": "Applied and registered patents (Republic of Korea)." },
+    "items": [
+      { "id": 11, "applicationDate": "2025/11/07", "registrationDate": "",            "status": "application", "inventors": ["송영근", "이승현", "최희준"],                                            "owner": { "ko": "단국대학교 천안캠퍼스 산학협력단, 서울대학교 산학협력단", "en": "Dankook University Cheonan Campus & Seoul National University" }, "title": { "ko": "위성 라이다 기반 산불 피해 정량화와 자동 분류 시스템 및 방법", "en": "Method and System for Quantitative Assessment and Automatic Classification of Wildfire Damage Using Spaceborne LiDAR" } },
+      { "id": 10, "applicationDate": "2025/09/16", "registrationDate": "",            "status": "application", "inventors": ["김용환", "송영근", "윤지원", "이승현", "제갈갑성"],                       "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "연안습지 다중시기 식생지수 기반 염생식물 분포 모니터링 방법 및 시스템", "en": "Method and System for Monitoring Halophyte Distribution Based on Multi-Period Vegetation Indices in Coastal Wetlands" } },
+      { "id":  9, "applicationDate": "2024/06/17", "registrationDate": "2025/04/28",  "status": "registered",  "inventors": ["김대열", "노지선", "송영근", "이승현", "한승우"],                          "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "드론 라이다를 활용한 습지 식생 구조 판별 방법 및 이를 구현하는 시스템", "en": "A method for determining wetland vegetation structure using drone LiDAR and a system for implementing it" } },
+      { "id":  8, "applicationDate": "2023/12/20", "registrationDate": "",            "status": "application", "inventors": ["김대열", "노지선", "송영근", "이승현", "한승우"],                          "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "다중시기 드론 라이다의 층위별 부피변화 활용한 묵논 습지 육화 판별방법", "en": "Determination method of change of abandoned paddy terrace wetland to land using multi-temporal drone lidar and stratigraphic volume change" } },
+      { "id":  7, "applicationDate": "2023/09/14", "registrationDate": "2025/09/17",  "status": "registered",  "inventors": ["이승현"],                                                              "owner": { "ko": "이승현",                  "en": "Seunghyeon Lee" }, "title": { "ko": "수목 관리 플랫폼 제공 시스템과 방법 및 이를 위한 컴퓨터 프로그램", "en": "System And Method For Providing Tree Management Platform And Computer Program For The Same" } },
+      { "id":  6, "applicationDate": "2023/08/10", "registrationDate": "2024/11/26",  "status": "registered",  "inventors": ["이승현"],                                                              "owner": { "ko": "이승현",                  "en": "Seunghyeon Lee" }, "title": { "ko": "이미지 기반의 가로수 정보 관리 시스템과 방법 및 이를 위한 컴퓨터 프로그램", "en": "System And Method For Management Of Information Of Roadside Trees Based On Images And Computer Program For The Same" } },
+      { "id":  5, "applicationDate": "2023/02/21", "registrationDate": "2023/07/31",  "status": "registered",  "inventors": ["김용환", "송영근", "이승현"],                                            "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "야생동물 위치추적 데이터와 현장 및 생물 정보를 결합한 위치정보 결측점 예측 방법", "en": "Prediction method of missing location points of wild animal tracker by combining in-situ and biological information" } },
+      { "id":  4, "applicationDate": "2023/01/31", "registrationDate": "",            "status": "application", "inventors": ["김용환", "송영근", "이승현"],                                            "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "야생동물의 위치추적 데이터와 드론 촬영 자료를 융합한 머신러닝 기반 최적 포획 범위 도출 방법", "en": "Method And System For Deriving Optimal Capture Range Based On Machine Learning By Convergence Of Wild Animal Location Tracking Data And Drone Footage" } },
+      { "id":  3, "applicationDate": "2021/06/17", "registrationDate": "2022/04/12",  "status": "registered",  "inventors": ["권예빈", "김도희", "김종희", "김지환", "박은희", "송영근", "신우림", "윤지원", "이승현"], "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "옥외 열 쾌적성 완화를 위한 최적 계획안 도출 방법", "en": "A method to create an optimal plan for outdoor thermal comfort mitigation" } },
+      { "id":  2, "applicationDate": "2021/05/13", "registrationDate": "2022/05/27",  "status": "registered",  "inventors": ["길승호", "박찬", "송영근", "이승현"],                                    "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "무인비행체 탑재 열화상 카메라로 촬영한 야생동물 개체 자동 선별 방법 및 장치", "en": "Automated wild animal detection method and device by drone-mounted thermal camera shoot image" } },
+      { "id":  1, "applicationDate": "2020/12/31", "registrationDate": "2022/10/05",  "status": "registered",  "inventors": ["송영근", "이승현"],                                                    "owner": { "ko": "서울대학교 산학협력단",     "en": "Seoul National University" }, "title": { "ko": "열화상 카메라 성능 시험 및 정밀 데이터 축적을 위한 자가발열 피사체 모듈", "en": "Self-heating object module for testing thermal image camera performance and accumulating precise data" } }
+    ]
+  },
+
+  "teaching": {
+    "eyebrow": "07 — TEACHING",
+    "title": { "ko": "교육 · 강의", "en": "Teaching" },
+    "intro": { "ko": "대학 정규수업·특강·인프런 온라인 강의.", "en": "University lectures, special workshops, and online courses on Inflearn." },
+    "_typeLabels": {
+      "special":  { "ko": "특강",        "en": "Special lecture" },
+      "univ":     { "ko": "대학 강의",   "en": "University lecture" },
+      "online":   { "ko": "온라인 강의", "en": "Online class" }
+    },
+    "items": [
+      { "date": "2025/11/10", "dateEnd": "2025/11/12", "type": "special", "students": 20,  "url": "",                   "host": { "ko": "현대NGV",                      "en": "Hyundai NGV" },                       "title": { "ko": "GIS 이해 및 DBMS를 통한 공간 분석 및 데이터 시각화 (심화)", "en": "Understanding GIS and Performing Spatial Analysis and Data Visualization Using DBMS (Advanced)" } },
+      { "date": "2025/10/23", "dateEnd": "2025/10/24", "type": "special", "students": 20,  "url": "",                   "host": { "ko": "현대NGV",                      "en": "Hyundai NGV" },                       "title": { "ko": "GIS 이해 및 DBMS를 통한 공간 분석 및 데이터 시각화 (기초)", "en": "Understanding GIS and Performing Spatial Analysis and Data Visualization Using DBMS (Basic)" } },
+      { "date": "2025/09/18", "dateEnd": "2025/09/19", "type": "special", "students": 30,  "url": "",                   "host": { "ko": "한국수자원공사",                "en": "K-water" },                            "title": { "ko": "2025 물기업 재직자 역량강화 — Q-GIS 실습", "en": "K-water Empowerment Training 2025 — Q-GIS Practice" } },
+      { "date": "2025/09/01", "dateEnd": "2025/12/31", "type": "univ",    "students": 30,  "url": "",                   "host": { "ko": "인천대학교",                    "en": "Incheon National University" },        "title": { "ko": "공간정보의 이해와 활용 (3학점)", "en": "Understanding and Application of Spatial Information (3 credits)" } },
+      { "date": "2025/07/08", "dateEnd": "2025/07/16", "type": "special", "students": 30,  "url": "",                   "host": { "ko": "서울청년취업사관학교 (SeSAC)",   "en": "Seoul Software Academy (SeSAC)" },      "title": { "ko": "AI 빅데이터분석가 양성과정 — GIS", "en": "SeSAC AI Big Data Analyst Training Course — GIS" } },
+      { "date": "2025/06/01", "dateEnd": "",           "type": "online",  "students": 145, "url": "https://inf.run/Vo32x", "host": { "ko": "인프런",                      "en": "Inflearn" },                           "title": { "ko": "QGIS 트렌디 시각화 찍먹하기 (대선개표지도)", "en": "QGIS Trendy Visualization (Election Map)" } },
+      { "date": "2025/04/23", "dateEnd": "",           "type": "special", "students": 20,  "url": "",                   "host": { "ko": "한국환경공단",                  "en": "Korea Environment Corporation" },      "title": { "ko": "데이터분석 전문가 양성 과정 (2025)", "en": "Data Analysis Expert Training Course (2025)" } },
+      { "date": "2024/10/25", "dateEnd": "",           "type": "online",  "students": 115, "url": "https://inf.run/cunhy", "host": { "ko": "인프런",                      "en": "Inflearn" },                           "title": { "ko": "QGIS 입문자 올인원 스타터팩 (이론/실습형)", "en": "QGIS Beginner All-in-One Starter Pack" } },
+      { "date": "2024/10/25", "dateEnd": "",           "type": "special", "students": 16,  "url": "",                   "host": { "ko": "한국환경공단",                  "en": "Korea Environment Corporation" },      "title": { "ko": "데이터분석 전문가 양성 과정 (2024)", "en": "Data Analysis Expert Training Course (2024)" } },
+      { "date": "2024/10/16", "dateEnd": "",           "type": "special", "students": 20,  "url": "",                   "host": { "ko": "충남농업기술원",                "en": "Chungcheongnam-do Agricultural Research and Extension Services" }, "title": { "ko": "2024 규제병해충 종합평가회 계획 — QGIS 과수화상병 발생 시각화", "en": "2024 Anti-Pest Comprehensive Evaluation — QGIS Disease Visualization" } },
+      { "date": "2024/10/02", "dateEnd": "",           "type": "special", "students": 30,  "url": "",                   "host": { "ko": "한국수자원공사",                "en": "K-water" },                            "title": { "ko": "2024 물기업 재직자 역량강화 — Q-GIS 실습", "en": "K-water Empowerment Training 2024 — Q-GIS Practice" } },
+      { "date": "2024/09/01", "dateEnd": "2024/12/31", "type": "univ",    "students": 40,  "url": "",                   "host": { "ko": "인천대학교",                    "en": "Incheon National University" },        "title": { "ko": "공간정보의 이해와 활용 (3학점)", "en": "Understanding and Application of Spatial Information (3 credits)" } },
+      { "date": "2024/07/08", "dateEnd": "2024/07/10", "type": "special", "students": 25,  "url": "",                   "host": { "ko": "서울대학교 평생교육원",          "en": "SNU ECSNU" },                          "title": { "ko": "공공데이터를 활용한 우리학교 지도 만들기 (서문여고)", "en": "Map My School Using Public Data (Seomoon Girls' HS)" } },
+      { "date": "2024/07/08", "dateEnd": "2024/07/10", "type": "special", "students": 15,  "url": "",                   "host": { "ko": "서울대학교 평생교육원",          "en": "SNU ECSNU" },                          "title": { "ko": "공공데이터를 활용한 우리학교 지도 만들기 (삼성고)", "en": "Map My School Using Public Data (Samsung HS)" } },
+      { "date": "2024/05/11", "dateEnd": "",           "type": "special", "students": 25,  "url": "",                   "host": { "ko": "서울대학교 평생교육원",          "en": "SNU ECSNU" },                          "title": { "ko": "공공데이터를 활용한 우리학교 지도 만들기 (동북고)", "en": "Map My School Using Public Data (Dongbuk HS)" } },
+      { "date": "2024/02/23", "dateEnd": "",           "type": "special", "students": 25,  "url": "",                   "host": { "ko": "BK21 스마트시티 · 서울대 환경대학원", "en": "BK21 SmartCity · SNU GSES" },     "title": { "ko": "WISE-UP WORKSHOP 도시공간 데이터 분석", "en": "WISE-UP WORKSHOP — Urban Spatial Data Analysis" } },
+      { "date": "2023/10/07", "dateEnd": "2023/10/08", "type": "special", "students": 30,  "url": "",                   "host": { "ko": "자체 주관",                    "en": "Self-hosted" },                       "title": { "ko": "QGIS 기초 특강", "en": "QGIS Special Lecture: for Beginners" } },
+      { "date": "2023/08/22", "dateEnd": "",           "type": "online",  "students": 180, "url": "https://inf.run/JcRA",  "host": { "ko": "인프런",                      "en": "Inflearn" },                           "title": { "ko": "QGIS 지도 시각화 A to Z (벡터/기초편)", "en": "QGIS Mapping Visualization A to Z (Vector / Basic)" } },
+      { "date": "2023/06/19", "dateEnd": "2023/06/20", "type": "special", "students": 50,  "url": "",                   "host": { "ko": "한국수자원공사",                "en": "K-water" },                            "title": { "ko": "물기업 재직자 역량강화 — Q-GIS 실습 (초·중급)", "en": "K-water Empowerment Training — Q-GIS Practice (Beginner / Intermediate)" } },
+      { "date": "2022/12/07", "dateEnd": "2022/12/09", "type": "special", "students": 35,  "url": "",                   "host": { "ko": "경기도 인재개발원",              "en": "Gyeonggi-do HRD Institute" },          "title": { "ko": "보고서가 달라지는 데이터 시각화 — 데이터 활용 역량강화 교육(2기)", "en": "Data Visualization for Better Reports — Data Literacy (Cohort 2)" } },
+      { "date": "2022/09/30", "dateEnd": "",           "type": "online",  "students": 310, "url": "https://inf.run/RNcr",  "host": { "ko": "인프런",                      "en": "Inflearn" },                           "title": { "ko": "QGIS 파이썬 자동화 (벡터편) Ver.2", "en": "QGIS Python Automation (Vector) Ver.2" } }
+    ]
+  },
+
+  "career": {
+    "eyebrow": "08 — CAREER",
+    "title": { "ko": "경력 · 인턴십", "en": "Work & Internships" },
+    "items": [
+      { "id": 5, "period": "2024/07 — 2024/08", "type": { "ko": "인턴",          "en": "Internship" },          "company": { "ko": "Virginia Tech (Prof. Jaeyoung Ha)",         "en": "Virginia Tech (Prof. Jaeyoung Ha)" },         "country": { "ko": "미국",       "en": "United States" },        "url": "https://design.vt.edu/faculty-staff/faculty/landscape-architecture/ha-jaeyoung.html" },
+      { "id": 4, "period": "2023/12 — 2024/02", "type": { "ko": "인턴",          "en": "Internship" },          "company": { "ko": "Purdue University FNR FUSE Lab (Prof. Brady Hardiman)", "en": "Purdue University FNR FUSE Lab (Prof. Brady Hardiman)" }, "country": { "ko": "미국",     "en": "United States" }, "url": "https://www.purdue.edu/fnr/sites/hardiman/" },
+      { "id": 3, "period": "2019/08 — 2019/11", "type": { "ko": "위촉연구원",     "en": "Research Assistant" },  "company": { "ko": "건축공간연구원 (AURI)",                       "en": "Architecture & Urban Research Institute (AURI)" }, "country": { "ko": "대한민국", "en": "Republic of Korea" }, "url": "https://www.auri.re.kr/" },
+      { "id": 2, "period": "2017/03 — 2018/11", "type": { "ko": "정규직",        "en": "Full-time" },           "company": { "ko": "(주)선진엔지니어링종합건축사사무소",            "en": "SUNJIN Engineering & Architecture Co., Ltd." }, "country": { "ko": "대한민국", "en": "Republic of Korea" }, "url": "https://www.sunjin.co.kr/" },
+      { "id": 1, "period": "2016/09 — 2017/02", "type": { "ko": "인턴",          "en": "Internship" },          "company": { "ko": "ATLAS CHINA 조경설계회사",                     "en": "ATLAS Landscape Architecture CHINA" }, "country": { "ko": "중국",     "en": "China" }, "url": "http://www.atlaschina.com.cn/" }
+    ]
+  },
+
+  "honors": {
+    "eyebrow": "09 — HONORS",
+    "title": { "ko": "장학 · 자격 · 저서", "en": "Honors, Certifications & Books" },
+    "scholarships": {
+      "label": { "ko": "장학금", "en": "Scholarships" },
+      "items": [
+        { "period": "2022/09 — Present", "foundation": { "ko": "현대차 정몽구 재단",  "en": "Chung Mong-Koo Foundation" }, "name": { "ko": "온드림 미래산업 인재 대학원 (2022년 장학생)", "en": "OnDream Future Industry Talent Graduate School Scholarship (2022 Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2020/09 — Present", "foundation": { "ko": "BK21",              "en": "BK21" },                       "name": { "ko": "BK21 4단계 — 스마트시티 글로벌융합 혁신인재양성 교육연구단", "en": "BK21 Four — Integrated Major in SmartCity Global Convergence" }, "support": { "ko": "학생 장학금 · 활동 장학금", "en": "Student / Activity Scholarship" } },
+        { "period": "2015/03 — 2017/02", "foundation": { "ko": "일주학술문화재단",     "en": "Ilju Foundation" },          "name": { "ko": "일주학술문화재단 국내학사 (23기 장학생)", "en": "Ilju Foundation Undergraduate Scholarship (23rd Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2011/03 — 2013/02", "foundation": { "ko": "경북대학교",          "en": "Kyungpook National University" }, "name": { "ko": "도전장학생 (교내 선발)", "en": "Challenge Scholarship (On-campus)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } }
+      ]
+    },
+    "certifications": {
+      "label": { "ko": "자격증", "en": "Certifications" },
+      "items": [
+        { "date": "2024/10/25", "name": { "ko": "초경량비행장치 조종자 (2종)", "en": "Drone Pilot License (Class 2)" } },
+        { "date": "2024/10/16", "name": { "ko": "1종 운전면허",                "en": "Driver's License (Type 1)" } },
+        { "date": "2024/10/02", "name": { "ko": "산림기사",                    "en": "Engineer Forest" } },
+        { "date": "2016/08/05", "name": { "ko": "조경기사",                    "en": "Engineer Landscape Architecture" } }
+      ]
+    },
+    "books": {
+      "label": { "ko": "저서", "en": "Books" },
+      "items": [
+        { "date": "2021/02/06", "publisher": { "ko": "어반이슈", "en": "Urban Issue" }, "isbn": "9791197343100", "authors": { "ko": "요즘도시", "en": "YOZMDOSI" }, "title": { "ko": "뉴노멀시티", "en": "New Normal City" } }
+      ]
+    },
+    "skills": {
+      "label": { "ko": "스킬 & 툴", "en": "Skills & Tools" },
+      "languages": [
+        { "name": { "ko": "한국어",   "en": "Korean" },   "level": 6 },
+        { "name": { "ko": "영어",     "en": "English" },  "level": 4 },
+        { "name": { "ko": "중국어",   "en": "Chinese" },  "level": 2 }
+      ],
+      "tools": [
+        { "name": "GIS",             "level": 5 },
+        { "name": "Python",          "level": 4 },
+        { "name": "LiDAR",           "level": 4 },
+        { "name": "ML / DL",         "level": 3 },
+        { "name": "Remote Sensing",  "level": 3 },
+        { "name": "Envi-met",        "level": 3 },
+        { "name": "R",               "level": 3 },
+        { "name": "AutoCAD",         "level": 4 },
+        { "name": "Photoshop",       "level": 4 },
+        { "name": "Illustrator",     "level": 4 },
+        { "name": "MS Office",       "level": 4 },
+        { "name": "Notion",          "level": 3 }
+      ]
+    }
+  },
+
+  "contact": {
+    "eyebrow": "10 — CONTACT",
+    "title": {
+      "ko": "언제든 편하게 연락주세요.",
+      "en": "Get in touch."
+    },
+    "description": {
+      "ko": "창의·도전·혁신과 관련한 모든 흥미로운 연락을 기다리고 있습니다.",
+      "en": "Open to interesting conversations around creativity, challenge, and innovation."
+    },
+    "email":          "shlee5598@snu.ac.kr",
+    "emailNote":      { "ko": "현재 소속 메일 (소속 변경 시 갱신 예정)", "en": "Current institutional email (will be updated upon affiliation change)" },
+    "phone":          "010-8455-5598",
+    "phoneTelLink":   "+82-10-8455-5598",
+    "scholarUrl":     "https://scholar.google.com/",
+    "researchGateUrl":"https://www.researchgate.net/",
+    "orcidUrl":       "",
+    "githubUrl":      "https://github.com/shleeclay"
+  }
+}

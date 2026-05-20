@@ -1,0 +1,220 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SideBar from "../components/SideBar.astro";
+
+const {
+  includeSidebar = true,
+  sideBarActiveItemID,
+  ogType,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead ogType={ogType} />
+  </head>
+  <body>
+    <!-- Animated topographic contour background (Canvas + simplex noise) -->
+    <canvas id="topo-canvas" aria-hidden="true"></canvas>
+
+    <div class="drawer lg:drawer-open">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <Header />
+        <div class="md:flex md:justify-center">
+          <main class="p-5 sm:p-6 pt-10 lg:max-w-[900px] w-full max-w-full">
+            <slot />
+          </main>
+        </div>
+        <Footer />
+      </div>
+      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
+    </div>
+
+    <!-- Cursor spotlight tracker (desktop only, fine pointer) -->
+    <script>
+      if (window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          document.body.style.setProperty('--cursor-x', e.clientX + 'px');
+          document.body.style.setProperty('--cursor-y', e.clientY + 'px');
+        });
+      }
+    </script>
+
+    <!-- Animated topographic background — simplex noise + marching squares -->
+    <script>
+      import { createNoise3D } from 'simplex-noise';
+
+      const canvas = document.getElementById('topo-canvas') as HTMLCanvasElement | null;
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          const noise3D = createNoise3D();
+
+          const isTouch =
+            window.matchMedia('(hover: none)').matches ||
+            window.matchMedia('(pointer: coarse)').matches ||
+            window.innerWidth < 1024;
+
+          const COLS = isTouch ? 65 : 90;
+          const ROWS = isTouch ? 45 : 60;
+          const LEVELS = isTouch ? 6 : 12;
+          const ACCENT_A = 3;
+          const ACCENT_B = 8;
+
+          const opacityMult = isTouch ? 0.8 : 1;
+          const lineWidthMult = isTouch ? 0.4 : 1;
+          const targetFPS = isTouch ? 24 : 60;
+          const frameInterval = 1000 / targetFPS;
+          let lastFrameTime = 0;
+
+          const IDLE_VEL = 0.00005;
+
+          let W = 0, H = 0, dpr = 1;
+          function resize() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = Math.floor(window.innerWidth * dpr);
+            H = Math.floor(window.innerHeight * dpr);
+            canvas!.width = W;
+            canvas!.height = H;
+            canvas!.style.width = window.innerWidth + 'px';
+            canvas!.style.height = window.innerHeight + 'px';
+          }
+          window.addEventListener('resize', resize);
+          resize();
+
+          let targetMx = 0.5, targetMy = 0.5, mx = 0.5, my = 0.5;
+          let lastScrollY = window.scrollY;
+          window.addEventListener('mousemove', (e) => {
+            targetMx = e.clientX / window.innerWidth;
+            targetMy = e.clientY / window.innerHeight;
+          }, { passive: true });
+
+          function themeColors() {
+            const dark = document.documentElement.getAttribute('data-theme') === 'shlee-dark';
+            const m = opacityMult;
+            return {
+              base:   dark ? `rgba(226, 232, 240, ${0.18 * m})` : `rgba(45, 80, 100, ${0.22 * m})`,
+              accent: dark ? `rgba(72, 187, 120, ${0.70 * m})`  : `rgba(56, 142, 92, ${0.60 * m})`,
+              accent2:dark ? `rgba(160, 200, 180, ${0.45 * m})` : `rgba(45, 80, 100, ${0.55 * m})`,
+            };
+          }
+
+          ctx.lineJoin = 'round';
+          ctx.lineCap = 'round';
+
+          function drawIsoline(grid: Float32Array, gw: number, gh: number, threshold: number, cellW: number, cellH: number) {
+            ctx!.beginPath();
+            for (let y = 0; y < gh - 1; y++) {
+              for (let x = 0; x < gw - 1; x++) {
+                const i = y * gw + x;
+                const tl = grid[i];
+                const tr = grid[i + 1];
+                const br = grid[i + gw + 1];
+                const bl = grid[i + gw];
+                let m = 0;
+                if (tl > threshold) m |= 1;
+                if (tr > threshold) m |= 2;
+                if (br > threshold) m |= 4;
+                if (bl > threshold) m |= 8;
+                if (m === 0 || m === 15) continue;
+
+                const px = x * cellW;
+                const py = y * cellH;
+                const iTop    = px + cellW * ((threshold - tl) / (tr - tl));
+                const iRight  = py + cellH * ((threshold - tr) / (br - tr));
+                const iBottom = px + cellW * ((threshold - bl) / (br - bl));
+                const iLeft   = py + cellH * ((threshold - tl) / (bl - tl));
+
+                switch (m) {
+                  case 1: case 14:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py); break;
+                  case 2: case 13:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight); break;
+                  case 3: case 12:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(px + cellW, iRight); break;
+                  case 4: case 11:
+                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 6: case 9:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 7: case 8:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 5:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py);
+                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 10:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight);
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
+                }
+              }
+            }
+            ctx!.stroke();
+          }
+
+          let zCurrent = 0;
+          function frame(now: number) {
+            if (now - lastFrameTime < frameInterval) {
+              requestAnimationFrame(frame);
+              return;
+            }
+            const dt = (now - lastFrameTime) || 16;
+            lastFrameTime = now;
+
+            mx += (targetMx - mx) * 0.06;
+            my += (targetMy - my) * 0.06;
+
+            const curScrollY = window.scrollY;
+            const scrollDelta = Math.abs(curScrollY - lastScrollY);
+            lastScrollY = curScrollY;
+
+            const idleStep   = IDLE_VEL * dt;
+            const scrollStep = Math.min(scrollDelta * 0.00016, idleStep * 4);
+
+            zCurrent += idleStep + scrollStep;
+
+            const cursorOffX = (mx - 0.5) * 0.5;
+            const cursorOffY = (my - 0.5) * 0.5;
+            const z = zCurrent;
+
+            const gw = COLS + 1;
+            const gh = ROWS + 1;
+            const cellW = W / COLS;
+            const cellH = H / ROWS;
+
+            const grid = new Float32Array(gw * gh);
+            for (let y = 0; y < gh; y++) {
+              for (let x = 0; x < gw; x++) {
+                const nx = (x / COLS) * 2.4 + cursorOffX;
+                const ny = (y / ROWS) * 1.8 + cursorOffY;
+                grid[y * gw + x] = noise3D(nx, ny, z);
+              }
+            }
+
+            ctx!.clearRect(0, 0, W, H);
+            const c = themeColors();
+            for (let i = 0; i < LEVELS; i++) {
+              const threshold = -0.7 + (1.4 / (LEVELS - 1)) * i;
+              if (i === ACCENT_A) {
+                ctx!.strokeStyle = c.accent;
+                ctx!.lineWidth = 1.6 * dpr * lineWidthMult;
+              } else if (i === ACCENT_B) {
+                ctx!.strokeStyle = c.accent2;
+                ctx!.lineWidth = 0.8 * dpr * lineWidthMult;
+              } else {
+                ctx!.strokeStyle = c.base;
+                ctx!.lineWidth = 1 * dpr * lineWidthMult;
+              }
+              drawIsoline(grid, gw, gh, threshold, cellW, cellH);
+            }
+
+            requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../styles/global.css';
+import { SITE_TITLE_KO, SITE_TITLE_EN, SITE_DESCRIPTION_KO, SITE_DESCRIPTION_EN } from '../config';
+
+export interface Props {
+  ogType?: string;
+}
+const { ogType = 'website' } = Astro.props;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌿%3C/text%3E%3C/svg%3E" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Theme + language detection (runs before paint to avoid flash) -->
+<script is:inline>
+  (function () {
+    // theme
+    const savedTheme = localStorage.getItem('shleeclay-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDark ? 'shlee-dark' : 'shlee-light');
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // language
+    const savedLang = localStorage.getItem('shleeclay-lang');
+    const browserLang = (navigator.language || '').toLowerCase();
+    const lang = savedLang || (browserLang.startsWith('ko') ? 'ko' : 'en');
+    document.documentElement.setAttribute('lang', lang);
+
+    // sync <title> and <meta description> on lang change
+    const titles = { ko: document.documentElement.dataset.titleKo, en: document.documentElement.dataset.titleEn };
+    const descs  = { ko: document.documentElement.dataset.descKo,  en: document.documentElement.dataset.descEn  };
+    function syncMeta() {
+      const l = document.documentElement.getAttribute('lang');
+      if (titles[l]) document.title = titles[l];
+      const m = document.querySelector('meta[name="description"]');
+      if (m && descs[l]) m.setAttribute('content', descs[l]);
+    }
+    // Run after DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncMeta);
+    } else {
+      syncMeta();
+    }
+    // Listen for custom lang-change event
+    document.addEventListener('shleeclay:langchange', syncMeta);
+  })();
+</script>
+
+<!-- Fonts: Pretendard Variable (all roles) + Inter (Latin fallback) -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link
+  rel="stylesheet"
+  as="style"
+  crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+/>
+
+<!-- Primary Meta Tags (initial values; JS swaps based on lang) -->
+<title>{SITE_TITLE_EN}</title>
+<meta name="title" content={SITE_TITLE_EN} />
+<meta name="description" content={SITE_DESCRIPTION_EN} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={SITE_TITLE_EN} />
+<meta property="og:description" content={SITE_DESCRIPTION_EN} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={SITE_TITLE_EN} />
+<meta property="twitter:description" content={SITE_DESCRIPTION_EN} />
+
+<!-- Data attributes carry both language strings; head script swaps document.title on lang change -->
+<script is:inline define:vars={{ tKo: SITE_TITLE_KO, tEn: SITE_TITLE_EN, dKo: SITE_DESCRIPTION_KO, dEn: SITE_DESCRIPTION_EN }}>
+  document.documentElement.dataset.titleKo = tKo;
+  document.documentElement.dataset.titleEn = tEn;
+  document.documentElement.dataset.descKo  = dKo;
+  document.documentElement.dataset.descEn  = dEn;
+</script>
