@@ -73,7 +73,7 @@
     "items": [
       {
         "period": "2022.03 — Present",
-        "logo":        "",
+        "logo":        "/logos/education/snu.svg",
         "degree":      { "ko": "박사과정",                                                                  "en": "Ph.D. Student" },
         "program":     { "ko": "협동과정 조경학 · 융합전공 스마트시티 글로벌 융합",                              "en": "Interdisciplinary Program in Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
         "institution": { "ko": "서울대학교",                                                                "en": "Seoul National University, Seoul, Republic of Korea" },
@@ -82,7 +82,7 @@
       },
       {
         "period": "2020.03 — 2022.02",
-        "logo":        "",
+        "logo":        "/logos/education/snu.svg",
         "degree":      { "ko": "석사 (MA)",                                                                "en": "M.A." },
         "program":     { "ko": "환경조경학과 · 융합전공 스마트시티 글로벌 융합 (석사 학위 수여)",                  "en": "Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
         "institution": { "ko": "서울대학교 환경대학원",                                                       "en": "Graduate School of Environmental Studies, Seoul National University" },
@@ -91,7 +91,7 @@
       },
       {
         "period": "2011.03 — 2017.02",
-        "logo":        "",
+        "logo":        "/logos/education/knu.svg",
         "degree":      { "ko": "학사 (BS)",                                                                "en": "B.S." },
         "program":     { "ko": "조경학과",                                                                  "en": "Landscape Architecture" },
         "institution": { "ko": "경북대학교 농업생명과학대학",                                                  "en": "College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea" },
@@ -116,8 +116,8 @@
         "if": "",
         "quartile": "",
         "doi": "",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_KOSERT_Comparing-LST.jpg",
+        "pdf":   "/papers/pdfs/2026_KOSERT_Comparing-LST.pdf",
         "authors": ["Gukhwa Jang", "Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"],
         "title": {
           "ko": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches",
@@ -133,8 +133,8 @@
         "if": "",
         "quartile": "",
         "doi": "",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_KOSERT_Forest-Type-Seasonal.jpg",
+        "pdf":   "/papers/pdfs/2026_KOSERT_Forest-Type-Seasonal.pdf",
         "authors": ["Seunghyeon Lee", "Youngkeun Song"],
         "title": {
           "ko": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si",
@@ -150,8 +150,8 @@
         "if": "7.4 (2026)",
         "quartile": "Q1 (2026)",
         "doi": "10.1016/j.ecolind.2026.114798",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_EcolIndic_Multi-scale-typologies.jpg",
+        "pdf":   "/papers/pdfs/2026_EcolIndic_Multi-scale-typologies.pdf",
         "authors": ["Seunghyeon Lee", "Uirin Ha", "Heejae Lee", "Hyeyeong Choe", "Hansoo Kim", "Youngkeun Song"],
         "title": {
           "ko": "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests",
@@ -167,8 +167,8 @@
         "if": "",
         "quartile": "",
         "doi": "10.13087/kosert.2025.28.6.95",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_KOSERT_Non-destructive-Carbon.jpg",
+        "pdf":   "/papers/pdfs/2026_KOSERT_Non-destructive-Carbon.pdf",
         "authors": ["Gapseong Jekal", "Seunghyeon Lee", "Youngeun Yang", "Youngkeun Song"],
         "title": {
           "ko": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland",
@@ -184,8 +184,8 @@
         "if": "11.4 (2026)",
         "quartile": "Q1 (2026)",
         "doi": "10.1016/j.rse.2026.115246",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_RSE_Three-stage-framework.jpg",
+        "pdf":   "/papers/pdfs/2026_RSE_Three-stage-framework.pdf",
         "authors": ["Jinyuan Shao", "Dennis Heejoon Choi", "Jidong Liu", "Xiangxi Tian", "Bina Thapa", "Seunghyeon Lee", "Ayman Habib", "Songlin Fei"],
         "title": {
           "ko": "A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning",
@@ -201,8 +201,8 @@
         "if": "6.4 (2026)",
         "quartile": "Q1 (2026)",
         "doi": "10.1016/j.agee.2025.110172",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2026_AEE_Ecological-structures.jpg",
+        "pdf":   "/papers/pdfs/2026_AEE_Ecological-structures.pdf",
         "authors": ["Jaeyeon Kim", "Seungwoo Han", "Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"],
         "title": {
           "ko": "Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy fields",
@@ -218,8 +218,8 @@
         "if": "3.4 (2025)",
         "quartile": "Q1 (2025)",
         "doi": "10.1016/j.gecco.2025.e03866",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2025_GEC_Assessing-Corvus.jpg",
+        "pdf":   "/papers/pdfs/2025_GEC_Assessing-Corvus.pdf",
         "authors": ["Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"],
         "title": {
           "ko": "Assessing Corvus Frugilegus (Rook) Habitat Preferences through Flock-Size-Specific Species Distribution Modeling Using Citizen Science Data",
@@ -235,8 +235,8 @@
         "if": "",
         "quartile": "",
         "doi": "",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2024_KOSERT_Diel-Activity.jpg",
+        "pdf":   "/papers/pdfs/2024_KOSERT_Diel-Activity.pdf",
         "authors": ["Younha Han", "Wonhyeop Shin", "Jihwan Kim", "Dohee Kim", "Jiweon Yun", "Sokyoung Yi", "Yonghwan Kim", "Seunghyeon Lee", "Youngkeun Song"],
         "title": {
           "ko": "장기 카메라트래핑 모니터링 자료를 활용한 도시근교의 고라니 및 멧돼지 일주기성 연구",
@@ -252,8 +252,8 @@
         "if": "5.0 (2022)",
         "quartile": "Q1 (2022)",
         "doi": "10.3390/rs13112169",
-        "cover": "",
-        "pdf": "",
+        "cover": "/papers/covers/2021_RemoteSens_Feasibility.jpg",
+        "pdf":   "/papers/pdfs/2021_RemoteSens_Feasibility.pdf",
         "authors": ["Seunghyeon Lee", "Youngkeun Song", "Sung-Ho Kil"],
         "title": {
           "ko": "Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images",
@@ -391,10 +391,10 @@
       "_help": "logo 필드는 public/logos/scholarships/ 기준 절대 경로 (예: '/logos/scholarships/cmk-foundation.svg'). 없으면 빈 문자열로 두세요.",
       "label": { "ko": "장학금", "en": "Scholarships" },
       "items": [
-        { "period": "2022/09 — Present", "logo": "", "foundation": { "ko": "현대차 정몽구 재단",  "en": "Chung Mong-Koo Foundation" }, "name": { "ko": "온드림 미래산업 인재 대학원 (2022년 장학생)", "en": "OnDream Future Industry Talent Graduate School Scholarship (2022 Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
-        { "period": "2020/09 — Present", "logo": "", "foundation": { "ko": "BK21",              "en": "BK21" },                       "name": { "ko": "BK21 4단계 — 스마트시티 글로벌융합 혁신인재양성 교육연구단", "en": "BK21 Four — Integrated Major in SmartCity Global Convergence" }, "support": { "ko": "학생 장학금 · 활동 장학금", "en": "Student / Activity Scholarship" } },
-        { "period": "2015/03 — 2017/02", "logo": "", "foundation": { "ko": "일주학술문화재단",     "en": "Ilju Foundation" },          "name": { "ko": "일주학술문화재단 국내학사 (23기 장학생)", "en": "Ilju Foundation Undergraduate Scholarship (23rd Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
-        { "period": "2011/03 — 2013/02", "logo": "", "foundation": { "ko": "경북대학교",          "en": "Kyungpook National University" }, "name": { "ko": "도전장학생 (교내 선발)", "en": "Challenge Scholarship (On-campus)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } }
+        { "period": "2022/09 — Present", "logo": "/logos/scholarships/hyundai.svg", "foundation": { "ko": "현대차 정몽구 재단",  "en": "Chung Mong-Koo Foundation" }, "name": { "ko": "온드림 미래산업 인재 대학원 (2022년 장학생)", "en": "OnDream Future Industry Talent Graduate School Scholarship (2022 Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2020/09 — Present", "logo": "/logos/scholarships/bk.png", "foundation": { "ko": "BK21",              "en": "BK21" },                       "name": { "ko": "BK21 4단계 — 스마트시티 글로벌융합 혁신인재양성 교육연구단", "en": "BK21 Four — Integrated Major in SmartCity Global Convergence" }, "support": { "ko": "학생 장학금 · 활동 장학금", "en": "Student / Activity Scholarship" } },
+        { "period": "2015/03 — 2017/02", "logo": "/logos/scholarships/ilju.png", "foundation": { "ko": "일주학술문화재단",     "en": "Ilju Foundation" },          "name": { "ko": "일주학술문화재단 국내학사 (23기 장학생)", "en": "Ilju Foundation Undergraduate Scholarship (23rd Scholar)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } },
+        { "period": "2011/03 — 2013/02", "logo": "/logos/scholarships/knu.svg", "foundation": { "ko": "경북대학교",          "en": "Kyungpook National University" }, "name": { "ko": "도전장학생 (교내 선발)", "en": "Challenge Scholarship (On-campus)" }, "support": { "ko": "전액 장학금 · 기타 지원", "en": "Full Scholarship · Other Supports" } }
       ]
     },
     "certifications": {
