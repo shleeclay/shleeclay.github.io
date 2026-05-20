@@ -36,9 +36,9 @@ const hue = ((patent.id * 47) + 200) % 360;
       </div>
     )}
 
-    <!-- Top-left: status badge -->
+    <!-- Top-left: status badge (cover-badge: 표지 위 가독성 보장) -->
     <div class="absolute top-3 left-3">
-      <span class={`pill ${isRegistered ? "pill-reg" : "pill-app"} shadow-sm`}>
+      <span class={`cover-badge ${isRegistered ? "cover-badge-reg" : "cover-badge-app"}`}>
         {isRegistered ? "Registered" : "Application"}
       </span>
     </div>

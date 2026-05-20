@@ -39,10 +39,10 @@ const hasWeb = !!paper.doi;
       </div>
     )}
 
-    <!-- Top-left: Q-rank badge -->
+    <!-- Top-left: Q-rank badge (cover-badge: 어떤 배경 위에서도 잘 보이는 solid 배지) -->
     {paper.quartile && (
       <div class="absolute top-3 left-3">
-        <span class="pill pill-q1 shadow-sm">{paper.quartile.split(' ')[0]}</span>
+        <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
       </div>
     )}
   </div>

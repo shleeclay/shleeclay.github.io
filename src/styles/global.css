@@ -510,6 +510,52 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   color: rgba(226, 232, 224, 0.25);
 }
 
+/* ─────────────────────────────────────────────────────────
+   COVER BADGES (overlaid on card cover images / dark gradients)
+   본문용 .pill 과 분리. 표지 위에서도 잘 보이도록 solid bg + 강한 그림자.
+   ───────────────────────────────────────────────────────── */
+.cover-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+  border: 1px solid;
+}
+
+/* Q1 / Quartile — solid Honey Gold (signature) */
+.cover-badge-q1 {
+  background: #e0b941;
+  color: #0f2218;
+  border-color: #b89020;
+}
+
+/* Registered patent — solid mint (means: 등록 완료, 긍정적) */
+.cover-badge-reg {
+  background: #6fbf94;
+  color: #0d1a14;
+  border-color: #3d6855;
+}
+
+/* Application patent — solid honey tint (means: 출원 중, 검토 단계) */
+.cover-badge-app {
+  background: #f2d272;
+  color: #4a3a0c;
+  border-color: #b89020;
+}
+
+/* Book — neutral light (📖 책의 종이 느낌) */
+.cover-badge-book {
+  background: rgba(255, 255, 255, 0.94);
+  color: #1e3a2f;
+  border-color: rgba(15, 34, 24, 0.15);
+}
+
 /* Year header in timeline — HONEY GOLD highlight */
 .year-head {
   font-size: 24px;
