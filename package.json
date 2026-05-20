@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "build": "node scripts/optimize-images.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
