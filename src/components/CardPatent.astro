@@ -43,24 +43,6 @@ const hue = ((patent.id * 47) + 200) % 360;
       </span>
     </div>
 
-    <!-- Top-right: download indicator -->
-    {patent.pdf && (
-      <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-        <a
-          href={patent.pdf}
-          download
-          aria-label="Download patent PDF"
-          title="Download patent PDF"
-          class="w-7 h-7 rounded-full bg-black/45 backdrop-blur-sm text-white flex items-center justify-center hover:bg-primary"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-        </a>
-      </div>
-    )}
   </div>
 
   <!-- Content -->
@@ -95,26 +77,14 @@ const hue = ((patent.id * 47) + 200) % 360;
       <span data-only="en">{patent.owner.en}</span>
     </p>
 
-    <!-- Meta row -->
-    <div class="flex items-center gap-2 pt-3 border-t border-base-300/40 mt-auto">
-      {patent.pdf ? (
-        <a
-          href={patent.pdf}
-          download
-          class="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <span data-only="ko">{isRegistered ? "특허증 다운로드" : "공보 다운로드"}</span>
-          <span data-only="en">{isRegistered ? "Download certificate" : "Download document"}</span>
-        </a>
-      ) : (
-        <span class="text-xs text-base-content/40 font-mono">
-          App: {fmtDate(patent.applicationDate)}
-        </span>
+    <!-- Meta row — application / registration dates -->
+    <div class="flex items-center gap-2 pt-3 border-t border-base-300/40 mt-auto text-xs text-base-content/55 font-mono">
+      <span>App: {fmtDate(patent.applicationDate)}</span>
+      {patent.registrationDate && (
+        <>
+          <span class="text-base-content/30">·</span>
+          <span>Reg: {fmtDate(patent.registrationDate)}</span>
+        </>
       )}
     </div>
   </div>
