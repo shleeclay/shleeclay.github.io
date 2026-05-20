@@ -24,7 +24,7 @@ const activeClass = "active-nav-item";
     color: hsl(var(--bc) / 0.65);
   }
   .nav-item:hover {
-    color: #2d5050;
+    color: #b89020;
     background: transparent !important;
   }
   .nav-bar {
@@ -33,19 +33,22 @@ const activeClass = "active-nav-item";
     top: 50%;
     width: 0.25rem;
     height: 0;
-    background: linear-gradient(180deg, #4a8a6e, #2d5050);
+    background: linear-gradient(180deg, #e0b941, #b89020);
     border-radius: 2px;
     transform: translateY(-50%);
     transition: height 0.25s ease;
   }
   .nav-item:hover .nav-bar { height: 1.5rem; }
   :global(.active-nav-item) {
-    color: #2d5050 !important;
+    color: #b89020 !important;
     background: transparent !important;
     font-weight: 600;
   }
+  :global(html[data-theme="shlee-dark"] .nav-item:hover) {
+    color: #e0b941 !important;
+  }
   :global(html[data-theme="shlee-dark"] .active-nav-item) {
-    color: #6fbf94 !important;
+    color: #e0b941 !important;
   }
   :global(.active-nav-item .nav-bar) { height: 1.5rem !important; }
 </style>
