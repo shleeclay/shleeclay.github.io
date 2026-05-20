@@ -462,6 +462,15 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 [data-theme="shlee-dark"] .pill-reg    { background: rgba(111, 191, 148, 0.12); color: #6fbf94; border-color: rgba(111, 191, 148, 0.35); }
 [data-theme="shlee-dark"] .pill-app    { background: rgba(224, 185, 65, 0.12); color: #f2d272; border-color: rgba(224, 185, 65, 0.4); }
 
+/* Cover image rendering hint — text crispness on downsampled card images.
+   Chrome/Edge use it as a "prefer contrast over smoothing" hint at downsample;
+   Firefox/Safari accept the value but render close to default (safe no-op). */
+.paper-card img,
+.patent-card img,
+.book-card img {
+  image-rendering: -webkit-optimize-contrast;
+}
+
 /* Mini action buttons (PDF / Web in paper cards) ─────────────────────── */
 .btn-mini {
   display: inline-flex;

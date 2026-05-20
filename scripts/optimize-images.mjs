@@ -16,9 +16,16 @@
 import { readdir, stat } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 
-const TARGET_WIDTH = 1200;
-const JPG_QUALITY  = 90;
-const PNG_COMPRESSION = 8;     // sharp 0..9 (higher = smaller, slower)
+// Target width — sized for HiDPI/Retina (cards display ~290px wide → 2x = 580px).
+// 800 leaves margin for larger viewports while staying close to display size,
+// which minimises browser downsampling and keeps text edges crisp.
+const TARGET_WIDTH = 800;
+const JPG_QUALITY  = 92;
+const PNG_COMPRESSION = 9;
+
+// Light sharpen after resize to compensate for downsampling softness on text.
+// sigma 0.7 is conservative — sharper edges without halo artifacts.
+const SHARPEN_SIGMA = 0.7;
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\//, '');
 const DIRS = [
@@ -67,9 +74,12 @@ async function main() {
           continue;
         }
 
-        // Resize (preserving aspect ratio), then write to temp + rename to be safe
+        // Resize (preserving aspect ratio) + sharpen for text crispness,
+        // then write to temp + rename to be safe
         const tmpPath = filePath + '.tmp';
-        const pipeline = sharp(filePath).resize({ width: TARGET_WIDTH, withoutEnlargement: true });
+        const pipeline = sharp(filePath)
+          .resize({ width: TARGET_WIDTH, withoutEnlargement: true })
+          .sharpen({ sigma: SHARPEN_SIGMA });
 
         if (ext === '.jpg' || ext === '.jpeg') {
           await pipeline.jpeg({ quality: JPG_QUALITY, mozjpeg: true }).toFile(tmpPath);
