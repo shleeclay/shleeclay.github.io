@@ -44,25 +44,34 @@ const {
       }
     </script>
 
-    <!-- Forest LiDAR scan background — airborne LiDAR sweep visualization.
-         A scan band sweeps top→bottom; points only fully illuminate when the
-         scan reaches them, then fade over ~1.2s (return-pulse decay).
-         Each point has its own "reflectivity" so only a subset lights up. -->
+    <!-- Animated topographic background — simplex noise + marching squares -->
     <script>
+      import { createNoise3D } from 'simplex-noise';
+
       const canvas = document.getElementById('topo-canvas') as HTMLCanvasElement | null;
       if (canvas) {
         const ctx = canvas.getContext('2d');
         if (ctx) {
+          const noise3D = createNoise3D();
+
           const isTouch =
             window.matchMedia('(hover: none)').matches ||
             window.matchMedia('(pointer: coarse)').matches ||
             window.innerWidth < 1024;
 
-          const opacityMult   = isTouch ? 0.85 : 1;
-          const sizeMult      = isTouch ? 0.75 : 1;
-          const targetFPS     = isTouch ? 24   : 60;
+          const COLS = isTouch ? 65 : 90;
+          const ROWS = isTouch ? 45 : 60;
+          const LEVELS = isTouch ? 6 : 12;
+          const ACCENT_A = 3;
+          const ACCENT_B = 8;
+
+          const opacityMult = isTouch ? 0.8 : 1;
+          const lineWidthMult = isTouch ? 0.4 : 1;
+          const targetFPS = isTouch ? 24 : 60;
           const frameInterval = 1000 / targetFPS;
           let lastFrameTime = 0;
+
+          const IDLE_VEL = 0.00005;
 
           let W = 0, H = 0, dpr = 1;
           function resize() {
@@ -77,201 +86,131 @@ const {
           window.addEventListener('resize', resize);
           resize();
 
-          // ───── Layers (top → bottom: canopy → understory) ─────
-          type Pt = {
-            x: number; y: number;
-            depth: number;
-            size: number;
-            reflectivity: number;    // 0..1, scan only activates if random < reflectivity
-            lastActivatedAt: number; // ms timestamp of most recent activation
-          };
-          type Layer = {
-            id: string;
-            yCenter: number;
-            ySpread: number;
-            density: number;
-            parallaxX: number;
-            parallaxY: number;
-            driftBase: number;
-            points: Pt[];
-          };
-
-          const densityScale = isTouch ? 0.55 : 1;
-          const layers: Layer[] = [
-            { id: 'canopy', yCenter: 0.16, ySpread: 0.10, density: Math.round(320 * densityScale), parallaxX: 0.045, parallaxY: 0.020, driftBase: 0.00010, points: [] },
-            { id: 'upper',  yCenter: 0.37, ySpread: 0.09, density: Math.round(380 * densityScale), parallaxX: 0.030, parallaxY: 0.014, driftBase: 0.00008, points: [] },
-            { id: 'mid',    yCenter: 0.56, ySpread: 0.09, density: Math.round(340 * densityScale), parallaxX: 0.020, parallaxY: 0.009, driftBase: 0.00006, points: [] },
-            { id: 'under',  yCenter: 0.78, ySpread: 0.10, density: Math.round(280 * densityScale), parallaxX: 0.012, parallaxY: 0.006, driftBase: 0.00005, points: [] },
-          ];
-
-          for (const L of layers) {
-            for (let i = 0; i < L.density; i++) {
-              L.points.push({
-                x: Math.random(),
-                y: L.yCenter + (Math.random() - 0.5) * L.ySpread * 2,
-                depth: Math.random(),
-                size: 1.4 + Math.random() * 2.0,    // bigger than before
-                reflectivity: 0.35 + Math.random() * 0.55,  // 35%-90% chance to fire on scan
-                lastActivatedAt: -10000,
-              });
-            }
-          }
-
-          // ───── Mouse + scroll state ─────
           let targetMx = 0.5, targetMy = 0.5, mx = 0.5, my = 0.5;
           let lastScrollY = window.scrollY;
-          let scrollBoost = 0;
-
           window.addEventListener('mousemove', (e) => {
             targetMx = e.clientX / window.innerWidth;
             targetMy = e.clientY / window.innerHeight;
           }, { passive: true });
 
-          window.addEventListener('scroll', () => {
-            const cur = window.scrollY;
-            scrollBoost = Math.min(scrollBoost + Math.abs(cur - lastScrollY) * 0.0008, 4);
-            lastScrollY = cur;
-          }, { passive: true });
-
-          // ───── Scan state ─────
-          // Scan band moves top→bottom continuously. When point's y is within
-          // SCAN_BAND of scanY, it has a chance to "fire" (proportional to its
-          // reflectivity). Activated points illuminate intensely then fade.
-          const SCAN_CYCLE_MS = 6500;      // one full sweep top→bottom
-          const SCAN_BAND     = 0.025;     // half-width of active band (norm units)
-          const FADE_MS       = 1200;      // how long a point stays lit after fire
-          let scanStart = performance.now();
-
-          // ───── Theme-aware colors per layer ─────
           function themeColors() {
             const dark = document.documentElement.getAttribute('data-theme') === 'shlee-dark';
+            const m = opacityMult;
             return {
-              // Active (illuminated by scan) colors — punchy
-              activeCanopy: dark ? '255, 220, 110' : '224, 185, 65',   // bright honey
-              activeUpper:  dark ? '160, 230, 190' : '111, 191, 148',  // bright mint
-              activeMid:    dark ? '190, 220, 200' : '74, 138, 110',
-              activeUnder:  dark ? '210, 225, 210' : '50, 90, 70',
-              // Dim base colors — barely visible until scan hits
-              dimCanopy:    dark ? '224, 185, 65'  : '184, 144, 32',
-              dimUpper:     dark ? '111, 191, 148' : '61, 104, 85',
-              dimMid:       dark ? '160, 200, 180' : '45, 80, 60',
-              dimUnder:     dark ? '200, 215, 200' : '30, 50, 40',
+              // base contour lines — subtle carbon green
+              base:   dark ? `rgba(160, 216, 184, ${0.16 * m})` : `rgba(30, 58, 47, ${0.20 * m})`,
+              // primary accent line — HONEY GOLD (signature)
+              accent: dark ? `rgba(224, 185, 65, ${0.65 * m})`  : `rgba(184, 144, 32, ${0.55 * m})`,
+              // secondary accent — mint/carbon
+              accent2:dark ? `rgba(111, 191, 148, ${0.50 * m})` : `rgba(61, 104, 85, ${0.55 * m})`,
             };
           }
-          function rgb(c: any, key: string, alpha: number) {
-            return `rgba(${c[key]}, ${alpha})`;
+
+          ctx.lineJoin = 'round';
+          ctx.lineCap = 'round';
+
+          function drawIsoline(grid: Float32Array, gw: number, gh: number, threshold: number, cellW: number, cellH: number) {
+            ctx!.beginPath();
+            for (let y = 0; y < gh - 1; y++) {
+              for (let x = 0; x < gw - 1; x++) {
+                const i = y * gw + x;
+                const tl = grid[i];
+                const tr = grid[i + 1];
+                const br = grid[i + gw + 1];
+                const bl = grid[i + gw];
+                let m = 0;
+                if (tl > threshold) m |= 1;
+                if (tr > threshold) m |= 2;
+                if (br > threshold) m |= 4;
+                if (bl > threshold) m |= 8;
+                if (m === 0 || m === 15) continue;
+
+                const px = x * cellW;
+                const py = y * cellH;
+                const iTop    = px + cellW * ((threshold - tl) / (tr - tl));
+                const iRight  = py + cellH * ((threshold - tr) / (br - tr));
+                const iBottom = px + cellW * ((threshold - bl) / (br - bl));
+                const iLeft   = py + cellH * ((threshold - tl) / (bl - tl));
+
+                switch (m) {
+                  case 1: case 14:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py); break;
+                  case 2: case 13:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight); break;
+                  case 3: case 12:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(px + cellW, iRight); break;
+                  case 4: case 11:
+                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 6: case 9:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 7: case 8:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 5:
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py);
+                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
+                  case 10:
+                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight);
+                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
+                }
+              }
+            }
+            ctx!.stroke();
           }
 
-          // Base layer alpha (dim, pre-activation)
-          const dimAlphaMul: Record<string, number> = {
-            canopy: 0.32, upper: 0.26, mid: 0.20, under: 0.16,
-          };
-          // Activation alpha boost (when scan hits)
-          const activeAlphaMul: Record<string, number> = {
-            canopy: 0.95, upper: 0.85, mid: 0.70, under: 0.55,
-          };
-
-          // ───── Main draw loop ─────
+          let zCurrent = 0;
           function frame(now: number) {
             if (now - lastFrameTime < frameInterval) {
               requestAnimationFrame(frame);
               return;
             }
-            const dt = Math.min((now - lastFrameTime) || 16, 60);
+            const dt = (now - lastFrameTime) || 16;
             lastFrameTime = now;
 
-            // Eased mouse follow
-            mx += (targetMx - mx) * 0.08;
-            my += (targetMy - my) * 0.08;
+            mx += (targetMx - mx) * 0.06;
+            my += (targetMy - my) * 0.06;
 
-            // Scroll boost decay
-            scrollBoost *= 0.94;
-            const driftMul = 1 + scrollBoost;
+            const curScrollY = window.scrollY;
+            const scrollDelta = Math.abs(curScrollY - lastScrollY);
+            lastScrollY = curScrollY;
 
-            // Scan progress (0..1, top→bottom). Resets seamlessly.
-            const elapsed = (now - scanStart) % SCAN_CYCLE_MS;
-            const scanY = elapsed / SCAN_CYCLE_MS;
+            const idleStep   = IDLE_VEL * dt;
+            const scrollStep = Math.min(scrollDelta * 0.00016, idleStep * 4);
+
+            zCurrent += idleStep + scrollStep;
+
+            const cursorOffX = (mx - 0.5) * 0.5;
+            const cursorOffY = (my - 0.5) * 0.5;
+            const z = zCurrent;
+
+            const gw = COLS + 1;
+            const gh = ROWS + 1;
+            const cellW = W / COLS;
+            const cellH = H / ROWS;
+
+            const grid = new Float32Array(gw * gh);
+            for (let y = 0; y < gh; y++) {
+              for (let x = 0; x < gw; x++) {
+                const nx = (x / COLS) * 2.4 + cursorOffX;
+                const ny = (y / ROWS) * 1.8 + cursorOffY;
+                grid[y * gw + x] = noise3D(nx, ny, z);
+              }
+            }
 
             ctx!.clearRect(0, 0, W, H);
-            const cols = themeColors();
-
-            // Optional: render the scan band itself as a very faint horizontal sweep
-            // (very subtle so points are the main signal, but band gives motion cue).
-            const bandTopY    = (scanY - SCAN_BAND * 0.5) * H;
-            const bandHeight  = SCAN_BAND * 1.0 * H;
-            const bandGrad = ctx!.createLinearGradient(0, bandTopY, 0, bandTopY + bandHeight);
-            bandGrad.addColorStop(0,   rgb(cols, 'activeCanopy', 0));
-            bandGrad.addColorStop(0.5, rgb(cols, 'activeCanopy', 0.10 * opacityMult));
-            bandGrad.addColorStop(1,   rgb(cols, 'activeCanopy', 0));
-            ctx!.fillStyle = bandGrad;
-            ctx!.fillRect(0, bandTopY, W, bandHeight);
-
-            // ─── Draw layers ───
-            for (const L of layers) {
-              const dimMul    = dimAlphaMul[L.id]    ?? 0.20;
-              const activeMul = activeAlphaMul[L.id] ?? 0.80;
-              const dimKey    = ('dim'    + L.id.charAt(0).toUpperCase() + L.id.slice(1));
-              const activeKey = ('active' + L.id.charAt(0).toUpperCase() + L.id.slice(1));
-
-              const parX = (mx - 0.5) * L.parallaxX;
-              const parY = (my - 0.5) * L.parallaxY;
-
-              for (const p of L.points) {
-                // Idle horizontal drift
-                p.x += L.driftBase * dt * driftMul;
-                if (p.x > 1.15) p.x -= 1.3;
-
-                // Scan hit detection — has scan band passed near this point recently?
-                const dy = Math.abs(p.y - scanY);
-                if (dy < SCAN_BAND) {
-                  // Within band → roll dice against reflectivity each frame
-                  // (rate-limited by reflectivity & dt)
-                  if (Math.random() < p.reflectivity * dt * 0.012) {
-                    p.lastActivatedAt = now;
-                  }
-                }
-
-                // Compute activation strength (1.0 right at hit → 0 after FADE_MS)
-                const sinceActive = now - p.lastActivatedAt;
-                let act = 0;
-                if (sinceActive >= 0 && sinceActive < FADE_MS) {
-                  const t = sinceActive / FADE_MS;
-                  // Sharp rise, slow decay (square-root style)
-                  act = Math.max(0, 1 - Math.sqrt(t));
-                }
-
-                const screenX = (p.x + parX) * W;
-                const screenY = (p.y + parY) * H;
-                if (screenX < -20 || screenX > W + 20) continue;
-
-                const depthFactor = 1 - p.depth * 0.50;
-
-                // Dim base — always visible (subtle)
-                const dimA = dimMul * (1 - p.depth * 0.45) * opacityMult;
-                const dimR = p.size * depthFactor * sizeMult * dpr * 0.6;
-                ctx!.fillStyle = rgb(cols, dimKey, dimA);
-                ctx!.beginPath();
-                ctx!.arc(screenX, screenY, dimR, 0, Math.PI * 2);
-                ctx!.fill();
-
-                // Active overlay — only when activated, with glow
-                if (act > 0.01) {
-                  const actA = activeMul * act * opacityMult;
-                  const actR = p.size * depthFactor * sizeMult * dpr * (1.0 + act * 1.6);
-
-                  // Outer glow (slightly larger, low alpha)
-                  ctx!.fillStyle = rgb(cols, activeKey, actA * 0.35);
-                  ctx!.beginPath();
-                  ctx!.arc(screenX, screenY, actR * 1.9, 0, Math.PI * 2);
-                  ctx!.fill();
-
-                  // Core (bright)
-                  ctx!.fillStyle = rgb(cols, activeKey, actA);
-                  ctx!.beginPath();
-                  ctx!.arc(screenX, screenY, actR, 0, Math.PI * 2);
-                  ctx!.fill();
-                }
+            const c = themeColors();
+            for (let i = 0; i < LEVELS; i++) {
+              const threshold = -0.7 + (1.4 / (LEVELS - 1)) * i;
+              if (i === ACCENT_A) {
+                ctx!.strokeStyle = c.accent;
+                ctx!.lineWidth = 1.6 * dpr * lineWidthMult;
+              } else if (i === ACCENT_B) {
+                ctx!.strokeStyle = c.accent2;
+                ctx!.lineWidth = 0.8 * dpr * lineWidthMult;
+              } else {
+                ctx!.strokeStyle = c.base;
+                ctx!.lineWidth = 1 * dpr * lineWidthMult;
               }
+              drawIsoline(grid, gw, gh, threshold, cellW, cellH);
             }
 
             requestAnimationFrame(frame);
