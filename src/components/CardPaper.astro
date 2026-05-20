@@ -7,8 +7,11 @@ const { paper } = Astro.props as Props;
 const isFirst = paper.role === "first";
 const yearText = paper.year ? String(paper.year) : "—";
 
-// Generate a deterministic hue from id for the placeholder gradient (so each card has its own tint)
+// Generate a deterministic hue from id for the placeholder gradient
 const hue = ((paper.id * 53) + 140) % 360;
+
+const hasPdf = !!paper.pdf;
+const hasWeb = !!paper.doi;
 ---
 
 <article class="paper-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
@@ -42,49 +45,12 @@ const hue = ((paper.id * 53) + 140) % 360;
         <span class="pill pill-q1 shadow-sm">{paper.quartile.split(' ')[0]}</span>
       </div>
     )}
-
-    <!-- Top-right: external link / download indicator -->
-    <div class="absolute top-3 right-3 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-      {paper.pdf && (
-        <a
-          href={paper.pdf}
-          download
-          aria-label="Download PDF"
-          title="Download PDF"
-          class="w-7 h-7 rounded-full bg-black/45 backdrop-blur-sm text-white flex items-center justify-center hover:bg-primary"
-          onclick="event.stopPropagation();"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-        </a>
-      )}
-      {paper.doi && (
-        <a
-          href={`https://doi.org/${paper.doi}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Open DOI"
-          title="Open DOI"
-          class="w-7 h-7 rounded-full bg-black/45 backdrop-blur-sm text-white flex items-center justify-center hover:bg-primary"
-          onclick="event.stopPropagation();"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-            <polyline points="15 3 21 3 21 9"></polyline>
-            <line x1="10" y1="14" x2="21" y2="3"></line>
-          </svg>
-        </a>
-      )}
-    </div>
   </div>
 
   <!-- Content -->
   <div class="flex flex-col flex-1 p-4">
 
-    <!-- Tag row — upwise CourseCard 의 카테고리/태그 표시 패턴 차용 -->
+    <!-- Tag row -->
     <div class="flex flex-wrap items-center gap-1.5 mb-3">
       <span class={`pill ${isFirst ? "pill-first" : "pill-co"}`}>
         {isFirst ? "First author" : "Co-author"}
@@ -92,20 +58,11 @@ const hue = ((paper.id * 53) + 140) % 360;
       <span class="pill pill-co">{yearText}</span>
     </div>
 
-    <!-- Title (clickable: prefer DOI > PDF) -->
-    {paper.doi ? (
-      <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener noreferrer" class="block">
-        <h3 class="type-card-title leading-snug mb-2 line-clamp-3 text-base-content group-hover:text-primary transition-colors">
-          <span data-only="ko">{paper.title.ko}</span>
-          <span data-only="en">{paper.title.en}</span>
-        </h3>
-      </a>
-    ) : (
-      <h3 class="type-card-title leading-snug mb-2 line-clamp-3 text-base-content">
-        <span data-only="ko">{paper.title.ko}</span>
-        <span data-only="en">{paper.title.en}</span>
-      </h3>
-    )}
+    <!-- Title — always group-hover highlight (KCI 한국 학술지 포함 모든 논문) -->
+    <h3 class="type-card-title leading-snug mb-2 line-clamp-3 text-base-content group-hover:text-primary transition-colors">
+      <span data-only="ko">{paper.title.ko}</span>
+      <span data-only="en">{paper.title.en}</span>
+    </h3>
 
     <!-- Journal -->
     <p class="type-body-sm text-base-content/65 mb-1 line-clamp-1 italic">
@@ -118,40 +75,58 @@ const hue = ((paper.id * 53) + 140) % 360;
       {paper.authors.join(", ")}
     </p>
 
-    <!-- Meta row at bottom: download button + DOI -->
+    <!-- Action buttons: PDF + Web, always visible. Inactive when not available. -->
     <div class="flex items-center gap-2 pt-3 border-t border-base-300/40 mt-auto">
-      {paper.pdf ? (
+      {hasPdf ? (
         <a
           href={paper.pdf}
           download
-          class="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+          class="btn-mini active"
+          aria-label="Download PDF"
+          title="Download PDF"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          <span data-only="ko">PDF 다운로드</span>
-          <span data-only="en">Download PDF</span>
+          PDF
         </a>
-      ) : paper.doi ? (
+      ) : (
+        <span class="btn-mini inactive" aria-disabled="true" title="PDF not available">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          PDF
+        </span>
+      )}
+
+      {hasWeb ? (
         <a
           href={`https://doi.org/${paper.doi}`}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 text-xs text-base-content/60 hover:text-primary"
+          class="btn-mini active"
+          aria-label="Open DOI / web page"
+          title={`https://doi.org/${paper.doi}`}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
             <polyline points="15 3 21 3 21 9"></polyline>
             <line x1="10" y1="14" x2="21" y2="3"></line>
           </svg>
-          <span class="font-mono">doi.org</span>
+          Web
         </a>
       ) : (
-        <span class="text-xs text-base-content/40">
-          <span data-only="ko">자료 준비 중</span>
-          <span data-only="en">No PDF available</span>
+        <span class="btn-mini inactive" aria-disabled="true" title="DOI not available">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          Web
         </span>
       )}
     </div>

@@ -462,6 +462,54 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 [data-theme="shlee-dark"] .pill-reg    { background: rgba(111, 191, 148, 0.12); color: #6fbf94; border-color: rgba(111, 191, 148, 0.35); }
 [data-theme="shlee-dark"] .pill-app    { background: rgba(224, 185, 65, 0.12); color: #f2d272; border-color: rgba(224, 185, 65, 0.4); }
 
+/* Mini action buttons (PDF / Web in paper cards) ─────────────────────── */
+.btn-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.btn-mini.active {
+  border-color: rgba(224, 185, 65, 0.55);
+  background-color: rgba(224, 185, 65, 0.10);
+  color: #8a6f1a;
+}
+.btn-mini.active:hover {
+  border-color: #e0b941;
+  background-color: rgba(224, 185, 65, 0.22);
+  color: #6b5510;
+}
+.btn-mini.inactive {
+  border-color: rgba(15, 34, 24, 0.12);
+  background-color: transparent;
+  color: rgba(15, 34, 24, 0.35);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+[data-theme="shlee-dark"] .btn-mini.active {
+  border-color: rgba(224, 185, 65, 0.5);
+  background-color: rgba(224, 185, 65, 0.10);
+  color: #f2d272;
+}
+[data-theme="shlee-dark"] .btn-mini.active:hover {
+  border-color: #e0b941;
+  background-color: rgba(224, 185, 65, 0.20);
+  color: #ffe294;
+}
+[data-theme="shlee-dark"] .btn-mini.inactive {
+  border-color: rgba(226, 232, 224, 0.12);
+  color: rgba(226, 232, 224, 0.25);
+}
+
 /* Year header in timeline — HONEY GOLD highlight */
 .year-head {
   font-size: 24px;
