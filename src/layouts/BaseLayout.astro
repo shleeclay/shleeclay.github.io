@@ -44,34 +44,24 @@ const {
       }
     </script>
 
-    <!-- Animated topographic background — simplex noise + marching squares -->
+    <!-- Forest LiDAR Point Cloud background — vertical layer slices (canopy / upper / mid / under)
+         Inspired by GEDI & airborne LiDAR vertical structure visualizations.
+         Points drift left→right (slow), parallax-shift with mouse, accelerate on scroll. -->
     <script>
-      import { createNoise3D } from 'simplex-noise';
-
       const canvas = document.getElementById('topo-canvas') as HTMLCanvasElement | null;
       if (canvas) {
         const ctx = canvas.getContext('2d');
         if (ctx) {
-          const noise3D = createNoise3D();
-
           const isTouch =
             window.matchMedia('(hover: none)').matches ||
             window.matchMedia('(pointer: coarse)').matches ||
             window.innerWidth < 1024;
 
-          const COLS = isTouch ? 65 : 90;
-          const ROWS = isTouch ? 45 : 60;
-          const LEVELS = isTouch ? 6 : 12;
-          const ACCENT_A = 3;
-          const ACCENT_B = 8;
-
-          const opacityMult = isTouch ? 0.8 : 1;
-          const lineWidthMult = isTouch ? 0.4 : 1;
-          const targetFPS = isTouch ? 24 : 60;
+          const opacityMult  = isTouch ? 0.75 : 1;
+          const sizeMult     = isTouch ? 0.7  : 1;
+          const targetFPS    = isTouch ? 24   : 60;
           const frameInterval = 1000 / targetFPS;
           let lastFrameTime = 0;
-
-          const IDLE_VEL = 0.00005;
 
           let W = 0, H = 0, dpr = 1;
           function resize() {
@@ -86,131 +76,171 @@ const {
           window.addEventListener('resize', resize);
           resize();
 
+          // ───── Layer definitions (top → bottom = canopy → forest floor) ─────
+          // Colors picked per theme inside themeColors(); shapes/density here.
+          type Pt = { x: number; y: number; depth: number; phase: number; size: number };
+          type Layer = {
+            id: string;
+            yCenter: number;       // 0..1 (vertical position)
+            ySpread: number;       // half-height in normalized units
+            density: number;       // approx points per layer
+            parallaxX: number;     // mouse parallax horizontal speed
+            parallaxY: number;     // mouse parallax vertical speed (smaller)
+            driftBase: number;     // idle horizontal drift (norm units / ms)
+            points: Pt[];
+          };
+
+          const densityScale = isTouch ? 0.55 : 1;
+          const layers: Layer[] = [
+            // canopy (uppermost, sparse, large bright points — Honey Gold accent)
+            { id: 'canopy', yCenter: 0.16, ySpread: 0.09, density: Math.round(280 * densityScale), parallaxX: 0.045, parallaxY: 0.020, driftBase: 0.00012, points: [] },
+            // upper (mint)
+            { id: 'upper',  yCenter: 0.36, ySpread: 0.08, density: Math.round(340 * densityScale), parallaxX: 0.030, parallaxY: 0.014, driftBase: 0.00010, points: [] },
+            // mid (sage / secondary)
+            { id: 'mid',    yCenter: 0.55, ySpread: 0.08, density: Math.round(300 * densityScale), parallaxX: 0.020, parallaxY: 0.009, driftBase: 0.00008, points: [] },
+            // under (carbon — deepest, denser to suggest understory)
+            { id: 'under',  yCenter: 0.76, ySpread: 0.10, density: Math.round(260 * densityScale), parallaxX: 0.012, parallaxY: 0.006, driftBase: 0.00006, points: [] },
+          ];
+
+          // Seed points within each layer's vertical band
+          for (const L of layers) {
+            for (let i = 0; i < L.density; i++) {
+              L.points.push({
+                x: Math.random(),
+                y: L.yCenter + (Math.random() - 0.5) * L.ySpread * 2,
+                depth: Math.random(),                       // 0=front 1=back
+                phase: Math.random() * Math.PI * 2,         // pulse phase offset
+                size:  0.7 + Math.random() * 1.4,           // base point radius (in dpr units)
+              });
+            }
+          }
+
+          // ───── Mouse + scroll state ─────
           let targetMx = 0.5, targetMy = 0.5, mx = 0.5, my = 0.5;
           let lastScrollY = window.scrollY;
+          let scrollBoost = 0; // decays each frame
+
           window.addEventListener('mousemove', (e) => {
             targetMx = e.clientX / window.innerWidth;
             targetMy = e.clientY / window.innerHeight;
           }, { passive: true });
 
+          window.addEventListener('scroll', () => {
+            const cur = window.scrollY;
+            scrollBoost = Math.min(scrollBoost + Math.abs(cur - lastScrollY) * 0.0008, 6);
+            lastScrollY = cur;
+          }, { passive: true });
+
+          // ───── Theme-aware colors per layer ─────
           function themeColors() {
             const dark = document.documentElement.getAttribute('data-theme') === 'shlee-dark';
-            const m = opacityMult;
             return {
-              // base contour lines — subtle carbon green
-              base:   dark ? `rgba(160, 216, 184, ${0.16 * m})` : `rgba(30, 58, 47, ${0.20 * m})`,
-              // primary accent line — HONEY GOLD (signature)
-              accent: dark ? `rgba(224, 185, 65, ${0.65 * m})`  : `rgba(184, 144, 32, ${0.55 * m})`,
-              // secondary accent — mint/carbon
-              accent2:dark ? `rgba(111, 191, 148, ${0.50 * m})` : `rgba(61, 104, 85, ${0.55 * m})`,
+              canopy: dark ? '224, 185, 65'  : '184, 144, 32',  // Honey Gold (signature)
+              upper:  dark ? '111, 191, 148' : '61, 104, 85',   // Mint / Secondary
+              mid:    dark ? '160, 200, 180' : '45, 80, 60',    // Sage
+              under:  dark ? '200, 215, 200' : '30, 50, 40',    // Carbon faded
             };
           }
 
-          ctx.lineJoin = 'round';
-          ctx.lineCap = 'round';
-
-          function drawIsoline(grid: Float32Array, gw: number, gh: number, threshold: number, cellW: number, cellH: number) {
-            ctx!.beginPath();
-            for (let y = 0; y < gh - 1; y++) {
-              for (let x = 0; x < gw - 1; x++) {
-                const i = y * gw + x;
-                const tl = grid[i];
-                const tr = grid[i + 1];
-                const br = grid[i + gw + 1];
-                const bl = grid[i + gw];
-                let m = 0;
-                if (tl > threshold) m |= 1;
-                if (tr > threshold) m |= 2;
-                if (br > threshold) m |= 4;
-                if (bl > threshold) m |= 8;
-                if (m === 0 || m === 15) continue;
-
-                const px = x * cellW;
-                const py = y * cellH;
-                const iTop    = px + cellW * ((threshold - tl) / (tr - tl));
-                const iRight  = py + cellH * ((threshold - tr) / (br - tr));
-                const iBottom = px + cellW * ((threshold - bl) / (br - bl));
-                const iLeft   = py + cellH * ((threshold - tl) / (bl - tl));
-
-                switch (m) {
-                  case 1: case 14:
-                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py); break;
-                  case 2: case 13:
-                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight); break;
-                  case 3: case 12:
-                    ctx!.moveTo(px, iLeft); ctx!.lineTo(px + cellW, iRight); break;
-                  case 4: case 11:
-                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
-                  case 6: case 9:
-                    ctx!.moveTo(iTop, py); ctx!.lineTo(iBottom, py + cellH); break;
-                  case 7: case 8:
-                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
-                  case 5:
-                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iTop, py);
-                    ctx!.moveTo(px + cellW, iRight); ctx!.lineTo(iBottom, py + cellH); break;
-                  case 10:
-                    ctx!.moveTo(iTop, py); ctx!.lineTo(px + cellW, iRight);
-                    ctx!.moveTo(px, iLeft); ctx!.lineTo(iBottom, py + cellH); break;
-                }
-              }
-            }
-            ctx!.stroke();
+          function colorFor(layerId: string, alpha: number) {
+            const c = themeColors() as any;
+            return `rgba(${c[layerId]}, ${alpha})`;
           }
 
-          let zCurrent = 0;
+          // Layer-level alpha multiplier (canopy a bit punchier)
+          const layerAlphaMul: Record<string, number> = {
+            canopy: 0.85,
+            upper:  0.70,
+            mid:    0.55,
+            under:  0.45,
+          };
+
+          // ───── Pulse rings (LiDAR scan emit) ─────
+          // Occasional concentric ring from a random near-center point, very subtle.
+          type Pulse = { x: number; y: number; t: number; max: number };
+          const pulses: Pulse[] = [];
+          let nextPulseIn = 2200; // ms until next pulse
+
+          // ───── Main draw loop ─────
           function frame(now: number) {
             if (now - lastFrameTime < frameInterval) {
               requestAnimationFrame(frame);
               return;
             }
-            const dt = (now - lastFrameTime) || 16;
+            const dt = Math.min((now - lastFrameTime) || 16, 60);
             lastFrameTime = now;
 
-            mx += (targetMx - mx) * 0.06;
-            my += (targetMy - my) * 0.06;
+            // Eased mouse follow
+            mx += (targetMx - mx) * 0.08;
+            my += (targetMy - my) * 0.08;
 
-            const curScrollY = window.scrollY;
-            const scrollDelta = Math.abs(curScrollY - lastScrollY);
-            lastScrollY = curScrollY;
+            // Scroll boost decay
+            scrollBoost *= 0.94;
+            const driftMul = 1 + scrollBoost;
 
-            const idleStep   = IDLE_VEL * dt;
-            const scrollStep = Math.min(scrollDelta * 0.00016, idleStep * 4);
+            ctx!.clearRect(0, 0, W, H);
 
-            zCurrent += idleStep + scrollStep;
+            // ─── Draw layers back→front so depth feels right ───
+            for (const L of layers) {
+              const baseAlphaMul = (layerAlphaMul[L.id] ?? 0.6) * opacityMult;
 
-            const cursorOffX = (mx - 0.5) * 0.5;
-            const cursorOffY = (my - 0.5) * 0.5;
-            const z = zCurrent;
+              // Mouse parallax offset for this layer
+              const parX = (mx - 0.5) * L.parallaxX;
+              const parY = (my - 0.5) * L.parallaxY;
 
-            const gw = COLS + 1;
-            const gh = ROWS + 1;
-            const cellW = W / COLS;
-            const cellH = H / ROWS;
+              for (const p of L.points) {
+                // Idle horizontal drift + scroll boost
+                p.x += L.driftBase * dt * driftMul;
+                if (p.x > 1.15) p.x -= 1.3;
 
-            const grid = new Float32Array(gw * gh);
-            for (let y = 0; y < gh; y++) {
-              for (let x = 0; x < gw; x++) {
-                const nx = (x / COLS) * 2.4 + cursorOffX;
-                const ny = (y / ROWS) * 1.8 + cursorOffY;
-                grid[y * gw + x] = noise3D(nx, ny, z);
+                // Slow pulse phase (subtle brightness oscillation per point)
+                p.phase += 0.0004 * dt;
+                const pulse = 0.7 + 0.3 * Math.sin(p.phase);
+
+                const screenX = (p.x + parX) * W;
+                const screenY = (p.y + parY) * H;
+
+                // Skip if off-screen (with margin for parallax)
+                if (screenX < -20 || screenX > W + 20) continue;
+
+                // Depth-based size + alpha
+                const depthFactor = 1 - p.depth * 0.55;
+                const r = p.size * depthFactor * sizeMult * dpr * (0.85 + 0.15 * pulse);
+                const a = baseAlphaMul * (1 - p.depth * 0.45) * (0.65 + 0.35 * pulse);
+
+                ctx!.fillStyle = colorFor(L.id, a);
+                ctx!.beginPath();
+                ctx!.arc(screenX, screenY, r, 0, Math.PI * 2);
+                ctx!.fill();
               }
             }
 
-            ctx!.clearRect(0, 0, W, H);
-            const c = themeColors();
-            for (let i = 0; i < LEVELS; i++) {
-              const threshold = -0.7 + (1.4 / (LEVELS - 1)) * i;
-              if (i === ACCENT_A) {
-                ctx!.strokeStyle = c.accent;
-                ctx!.lineWidth = 1.6 * dpr * lineWidthMult;
-              } else if (i === ACCENT_B) {
-                ctx!.strokeStyle = c.accent2;
-                ctx!.lineWidth = 0.8 * dpr * lineWidthMult;
-              } else {
-                ctx!.strokeStyle = c.base;
-                ctx!.lineWidth = 1 * dpr * lineWidthMult;
-              }
-              drawIsoline(grid, gw, gh, threshold, cellW, cellH);
+            // ─── LiDAR pulse rings (emit) ───
+            nextPulseIn -= dt;
+            if (nextPulseIn <= 0 && !isTouch) {
+              // Spawn from a random point biased toward viewport center-ish
+              pulses.push({
+                x: 0.35 + Math.random() * 0.30,
+                y: 0.30 + Math.random() * 0.45,
+                t: 0,
+                max: 700 + Math.random() * 600, // duration in ms
+              });
+              nextPulseIn = 3200 + Math.random() * 2400;
+            }
+            for (let i = pulses.length - 1; i >= 0; i--) {
+              const pl = pulses[i];
+              pl.t += dt;
+              if (pl.t >= pl.max) { pulses.splice(i, 1); continue; }
+
+              const progress = pl.t / pl.max;
+              const radius = progress * Math.min(W, H) * 0.18 * dpr;
+              const alpha = 0.20 * (1 - progress) * (1 - progress) * opacityMult;
+
+              ctx!.strokeStyle = colorFor('canopy', alpha);
+              ctx!.lineWidth = 1.0 * dpr;
+              ctx!.beginPath();
+              ctx!.arc(pl.x * W, pl.y * H, radius, 0, Math.PI * 2);
+              ctx!.stroke();
             }
 
             requestAnimationFrame(frame);
