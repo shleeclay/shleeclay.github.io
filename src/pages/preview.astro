@@ -1,0 +1,473 @@
+---
+// Color palette preview page — 4 candidate palettes side by side.
+// Inline styles only, no theme dependency. Visit /preview/ to compare.
+
+type Palette = {
+  id: string;
+  name: string;
+  subtitle: string;
+  mood: string;
+  fit: string;
+  primary: string;
+  primaryDeep: string;
+  secondary: string;
+  accent: string;
+  bg: string;
+  surface: string;
+  border: string;
+  text: string;
+  textMuted: string;
+  pillBg: string;
+  pillText: string;
+};
+
+const palettes: Palette[] = [
+  {
+    id: "sage",
+    name: "B. Temperate Sage",
+    subtitle: "균형 · 미니멀 · 학자",
+    mood: "차분하면서 따뜻한 세이지 톤. 학자 페이지 트렌드와 호환.",
+    fit: "도시생태 · 산림 정책 · 일반 환경연구",
+    primary:     "#3d6e58",
+    primaryDeep: "#2c5340",
+    secondary:   "#5a8e74",
+    accent:      "#b87333",
+    bg:          "#f4f7f5",
+    surface:     "#ffffff",
+    border:      "#dbe5de",
+    text:        "#1e3a2f",
+    textMuted:   "#6b7e74",
+    pillBg:      "rgba(184, 115, 51, 0.12)",
+    pillText:    "#9c5e26",
+  },
+  {
+    id: "forest",
+    name: "A. Forest Deep",
+    subtitle: "고전 · 권위 · 따뜻함",
+    mood: "짙은 캐노피 녹색 + 오커 액센트. 산림 정체성이 가장 직접적.",
+    fit: "산림 생태 · 임학 · 전통적 환경연구",
+    primary:     "#2c5e2e",
+    primaryDeep: "#1d4220",
+    secondary:   "#4a7d3f",
+    accent:      "#b8862e",
+    bg:          "#f7f5ee",
+    surface:     "#ffffff",
+    border:      "#e2dccc",
+    text:        "#2c2c2c",
+    textMuted:   "#6e6a5d",
+    pillBg:      "rgba(184, 134, 46, 0.14)",
+    pillText:    "#8c6420",
+  },
+  {
+    id: "carbon",
+    name: "C. Boreal Carbon",
+    subtitle: "과학 · 진중 · 탄소",
+    mood: "거의 검은 카본 그린 + 민트 하이라이트. 무게감, 다크모드 친화.",
+    fit: "탄소 · 기후 · 데이터 사이언스",
+    primary:     "#1e3a2f",
+    primaryDeep: "#0f2218",
+    secondary:   "#3d6855",
+    accent:      "#6fbf94",
+    bg:          "#f5f3ed",
+    surface:     "#ffffff",
+    border:      "#d8d6cf",
+    text:        "#1a1a1a",
+    textMuted:   "#5f6661",
+    pillBg:      "rgba(111, 191, 148, 0.18)",
+    pillText:    "#1e3a2f",
+  },
+  {
+    id: "ndvi",
+    name: "D. NDVI Earth Observation",
+    subtitle: "위성 · 데이터 · 분야 직접",
+    mood: "NDVI 캐노피 녹색 + 위성 네이비 + 리켄 노란색. 본인 분야와 직접 매칭.",
+    fit: "GEDI · LiDAR · 원격탐사",
+    primary:     "#4a7c3f",
+    primaryDeep: "#345829",
+    secondary:   "#1a2e44",
+    accent:      "#c4a548",
+    bg:          "#f6f4ec",
+    surface:     "#ffffff",
+    border:      "#dad8ce",
+    text:        "#1a2e44",
+    textMuted:   "#5e6b7a",
+    pillBg:      "rgba(196, 165, 72, 0.16)",
+    pillText:    "#8a7224",
+  },
+];
+---
+
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Color palette preview — shleeclay portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌿%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #1a1a1a;
+      color: #e2e8f0;
+      font-feature-settings: "kern" 1;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+    .page-title {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin: 0 0 8px;
+    }
+    .page-intro {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 36px;
+      max-width: 640px;
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .nav a {
+      padding: 6px 12px;
+      border: 1px solid #334155;
+      border-radius: 9999px;
+      color: #cbd5e1;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav a:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .palette {
+      margin-bottom: 64px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    }
+    .pal-head {
+      padding: 24px 28px;
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+    }
+    .pal-name {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin: 0 0 4px;
+    }
+    .pal-sub {
+      font-size: 13px;
+      color: #94a3b8;
+      margin: 0 0 14px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .pal-mood, .pal-fit {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin: 0 0 4px;
+      line-height: 1.5;
+    }
+    .pal-fit { color: #64748b; font-size: 13px; }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+    }
+    .swatch {
+      aspect-ratio: 1.6/1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-family: 'Pretendard Variable', monospace;
+      letter-spacing: 0;
+    }
+    .swatch .lbl { font-size: 9px; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+    .swatch .hex { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; font-weight: 500; }
+    .pal-body {
+      padding: 40px;
+    }
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 760px) {
+      .mockup-grid { grid-template-columns: 1fr; }
+      .swatches { grid-template-columns: repeat(4, 1fr); }
+    }
+    .mock-hero h3 {
+      font-size: 28px;
+      font-weight: 380;
+      letter-spacing: -0.8px;
+      margin: 0 0 8px;
+      line-height: 1.05;
+    }
+    .mock-tagline {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 16px;
+    }
+    .mock-affiliation {
+      font-size: 12px;
+      padding-left: 10px;
+      border-left: 2px solid;
+      margin: 0 0 18px;
+    }
+    .mock-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid;
+    }
+    .mock-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-cover {
+      aspect-ratio: 210/297;
+      max-height: 220px;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      position: relative;
+      color: #fff;
+    }
+    .card-cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.5) 100%);
+    }
+    .card-cover-title {
+      position: relative;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .card-cover-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .card-body {
+      padding: 14px 16px;
+    }
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+      margin: 0 0 4px;
+    }
+    .card-meta {
+      font-size: 11px;
+      font-style: italic;
+      margin: 0;
+    }
+    .legend-list { font-size: 12px; line-height: 1.7; margin: 16px 0 0; padding: 0 0 0 18px; }
+    .legend-list li { margin-bottom: 2px; }
+    .choose-note {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 24px;
+      border-radius: 12px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+    }
+    .choose-note h2 { margin: 0 0 10px; font-size: 18px; }
+    .choose-note p { font-size: 14px; line-height: 1.6; color: #cbd5e1; margin: 0 0 6px; }
+    .choose-note code {
+      background: #1e293b;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <h1 class="page-title">🎨 색상 팔레트 비교</h1>
+    <p class="page-intro">
+      환경/생태/산림/탄소 분야 연구자 사이트를 위한 4개 후보 팔레트.
+      각 팔레트의 색상 견본과 실제 적용된 미니 mockup(Hero · 버튼 · 카드 · 칩)을 동시에 보여줍니다.
+      마음에 드는 것을 골라주시면 사이트 전체에 적용하겠습니다.
+    </p>
+
+    <nav class="nav">
+      {palettes.map((p) => <a href={`#${p.id}`}>{p.name}</a>)}
+      <a href="/">← 메인으로 돌아가기</a>
+    </nav>
+
+    {palettes.map((p) => (
+      <article id={p.id} class="palette" style={`background:${p.bg};`}>
+        <div class="pal-head">
+          <p class="pal-name" style={`color:${p.accent};`}>{p.name}</p>
+          <p class="pal-sub">{p.subtitle}</p>
+          <p class="pal-mood">{p.mood}</p>
+          <p class="pal-fit">적합 분야: {p.fit}</p>
+        </div>
+
+        <div class="swatches">
+          <div class="swatch" style={`background:${p.primary}; color:#fff;`}>
+            <span class="lbl">Primary</span>
+            <span class="hex">{p.primary}</span>
+          </div>
+          <div class="swatch" style={`background:${p.primaryDeep}; color:#fff;`}>
+            <span class="lbl">Primary Deep</span>
+            <span class="hex">{p.primaryDeep}</span>
+          </div>
+          <div class="swatch" style={`background:${p.secondary}; color:#fff;`}>
+            <span class="lbl">Secondary</span>
+            <span class="hex">{p.secondary}</span>
+          </div>
+          <div class="swatch" style={`background:${p.accent}; color:#fff;`}>
+            <span class="lbl">Accent</span>
+            <span class="hex">{p.accent}</span>
+          </div>
+          <div class="swatch" style={`background:${p.surface}; color:${p.text}; border:1px solid ${p.border};`}>
+            <span class="lbl">Surface</span>
+            <span class="hex">{p.surface}</span>
+          </div>
+          <div class="swatch" style={`background:${p.bg}; color:${p.text}; border:1px solid ${p.border};`}>
+            <span class="lbl">BG</span>
+            <span class="hex">{p.bg}</span>
+          </div>
+          <div class="swatch" style={`background:${p.text}; color:#fff;`}>
+            <span class="lbl">Text</span>
+            <span class="hex">{p.text}</span>
+          </div>
+        </div>
+
+        <div class="pal-body">
+          <div class="mockup-grid">
+
+            <!-- LEFT: Mini hero -->
+            <div class="mock-hero" style={`color:${p.text};`}>
+              <p style={`font-size:10px;letter-spacing:0.5px;text-transform:uppercase;color:${p.textMuted};margin:0 0 8px;`}>
+                🌿 Research Portfolio
+              </p>
+              <h3 style={`color:${p.text};`}>
+                이승현 <span style={`font-size:14px;color:${p.textMuted};`}>(Clay Lee)</span>
+              </h3>
+              <p class="mock-tagline" style={`color:${p.textMuted};`}>
+                자연과 환경을 사랑하는 연구자입니다. 책임감 있게 주도적으로 할 수 있는 모든 일을 좋아합니다.
+              </p>
+              <p class="mock-affiliation" style={`color:${p.textMuted};border-color:${p.primary};`}>
+                서울대학교 협동과정 조경학 박사과정 · 생태계획연구실
+              </p>
+              <div class="mock-btns">
+                <a class="btn" style={`background:${p.primary};color:#fff;`}>연구 보기 →</a>
+                <a class="btn btn-secondary" style={`color:${p.primary};border-color:${p.primary};`}>연락하기</a>
+              </div>
+
+              <ul class="legend-list" style={`color:${p.textMuted};`}>
+                <li><strong style={`color:${p.text};`}>Primary</strong> — 버튼, 제목 강조, 네비게이션</li>
+                <li><strong style={`color:${p.text};`}>Accent</strong> — Q1 배지, 통계 강조</li>
+                <li><strong style={`color:${p.text};`}>BG</strong> — 페이지 배경</li>
+              </ul>
+            </div>
+
+            <!-- RIGHT: Mini paper card -->
+            <div>
+              <div class="mock-card" style={`background:${p.surface};border-color:${p.border};color:${p.text};`}>
+                <div class="card-cover" style={`background:linear-gradient(135deg, ${p.primary} 0%, ${p.primaryDeep} 100%);`}>
+                  <div class="card-cover-overlay"></div>
+                  <span class="card-cover-badge" style={`background:${p.accent};color:#fff;`}>Q1</span>
+                  <p class="card-cover-title">Ecological Indicators · 2026</p>
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="pill" style={`background:${p.primary}1f;color:${p.primary};border:1px solid ${p.primary}40;`}>First author</span>
+                    <span class="pill" style={`background:${p.pillBg};color:${p.pillText};border:1px solid ${p.accent}30;`}>2026</span>
+                  </div>
+                  <p class="card-title" style={`color:${p.text};`}>
+                    Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR
+                  </p>
+                  <p class="card-meta" style={`color:${p.textMuted};`}>
+                    Ecological Indicators · IF 7.4
+                  </p>
+                </div>
+              </div>
+
+              <!-- Mini stats -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;">
+                {[
+                  { v: "9+", l: "Papers" },
+                  { v: "25+", l: "Talks" },
+                  { v: "11", l: "Patents" },
+                ].map((s) => (
+                  <div style={`background:${p.surface};border:1px solid ${p.border};border-radius:10px;padding:10px;`}>
+                    <p style={`font-size:9px;letter-spacing:0.5px;text-transform:uppercase;color:${p.textMuted};margin:0 0 4px;`}>{s.l}</p>
+                    <p style={`font-size:18px;font-weight:600;color:${p.primary};margin:0;line-height:1;`}>{s.v}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    ))}
+
+    <div class="choose-note">
+      <h2>마음에 드는 팔레트가 정해지면</h2>
+      <p>다음 중 하나로 회신해 주세요:</p>
+      <p>
+        <code>A</code> Forest Deep ·
+        <code>B</code> Temperate Sage ·
+        <code>C</code> Boreal Carbon ·
+        <code>D</code> NDVI Earth Observation
+      </p>
+      <p style="margin-top:10px;">또는 "B와 C 사이에서 좀 더 따뜻하게" 같은 미세 조정 요청도 가능합니다. 선택 후 사이트 전체에 적용하겠습니다.</p>
+    </div>
+  </div>
+</body>
+</html>
