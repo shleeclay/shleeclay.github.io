@@ -18,6 +18,10 @@ const contact = site.contact;
 const confsByYear  = groupByYear(conferences);
 const teachByYear  = groupByYear(teaching);
 
+// Split patents: registered → card grid; application → compact list
+const registeredPatents  = patents.filter((p) => p.status === 'registered');
+const applicationPatents = patents.filter((p) => p.status === 'application');
+
 // Star renderer (skills levels)
 function stars(level: number, max = 5): string {
   return "★".repeat(level) + "☆".repeat(Math.max(0, max - level));
@@ -249,15 +253,61 @@ const confTypeLabels: Record<string, string> = {
     </div>
   </section>
 
-  <!-- ───────── PATENTS — card grid (3 cols) ───────── -->
+  <!-- ───────── PATENTS — registered = card grid, application = list ───────── -->
   <section id="patents" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.patents.eyebrow}</p>
     <L tag="h2" class="type-display-lg mb-3" ko={site.patents.title.ko} en={site.patents.title.en} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.patents.intro.ko} en={site.patents.intro.en} />
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {patents.map((pt) => <CardPatent patent={pt} />)}
-    </div>
+    <!-- Registered patents — card grid (certificates) -->
+    {registeredPatents.length > 0 && (
+      <div class="mb-10">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="pill pill-reg">Registered</span>
+          <p class="type-caption text-base-content/55">
+            <span data-only="ko">등록 특허 · {registeredPatents.length}건</span>
+            <span data-only="en">{registeredPatents.length} registered</span>
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
+        </div>
+      </div>
+    )}
+
+    <!-- Pending applications — compact list -->
+    {applicationPatents.length > 0 && (
+      <div>
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="pill pill-app">Application</span>
+          <p class="type-caption text-base-content/55">
+            <span data-only="ko">출원 중 · {applicationPatents.length}건</span>
+            <span data-only="en">{applicationPatents.length} pending</span>
+          </p>
+        </div>
+        <div class="space-y-2">
+          {applicationPatents.map((pt) => (
+            <div class="flex items-start gap-3 py-3 px-3 -mx-2 rounded-lg bg-base-200/40 border border-base-300/40 hover:border-primary/40 transition-colors">
+              <span class="shrink-0 type-body-sm text-base-content/55 font-mono w-24 pt-0.5">
+                {fmtDate(pt.applicationDate)}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="type-body text-base-content leading-snug" style="font-weight:480;">
+                  <span data-only="ko">{pt.title.ko}</span>
+                  <span data-only="en">{pt.title.en}</span>
+                </p>
+                <p class="type-body-sm text-base-content/55 mt-0.5">
+                  <span class="font-medium">Inventors: </span>{pt.inventors.join(', ')}
+                  <span class="mx-1.5 text-base-content/30">·</span>
+                  <span data-only="ko">{pt.owner.ko}</span>
+                  <span data-only="en">{pt.owner.en}</span>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </section>
 
   <!-- ───────── TEACHING ───────── -->
