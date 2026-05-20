@@ -145,7 +145,7 @@ const confTypeLabels: Record<string, string> = {
       {education.map((e) => (
         <div class="research-card flex gap-4">
           <!-- Logo slot (square) -->
-          <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden">
+          <div class="shrink-0 w-[84px] h-[84px] md:w-24 md:h-24 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden">
             {e.logo ? (
               <img src={e.logo} alt="" class="max-w-[80%] max-h-[80%] object-contain" loading="lazy" />
             ) : (
@@ -374,7 +374,7 @@ const confTypeLabels: Record<string, string> = {
       {career.map((w) => (
         <div class="flex items-start gap-3 py-3 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors border-b border-base-300/30">
           <!-- Logo slot (square) -->
-          <div class="shrink-0 w-12 h-12 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden mt-0.5">
+          <div class="shrink-0 w-[72px] h-[72px] rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden mt-0.5">
             {w.logo ? (
               <img src={w.logo} alt="" class="max-w-[80%] max-h-[80%] object-contain" loading="lazy" />
             ) : (
@@ -424,7 +424,7 @@ const confTypeLabels: Record<string, string> = {
       {scholarships.map((s) => (
         <div class="research-card flex gap-4">
           <!-- Logo slot (square) -->
-          <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden">
+          <div class="shrink-0 w-[84px] h-[84px] md:w-24 md:h-24 rounded-lg bg-base-100/80 border border-base-300/60 flex items-center justify-center overflow-hidden">
             {s.logo ? (
               <img src={s.logo} alt="" class="max-w-[80%] max-h-[80%] object-contain" loading="lazy" />
             ) : (
