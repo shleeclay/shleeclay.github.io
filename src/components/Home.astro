@@ -18,7 +18,17 @@ const hero    = site.hero;
 const about   = site.about;
 const contact = site.contact;
 
-// Group time-based items by year (Publications/Patents now render as a grid; Conferences/Teaching stay year-grouped)
+// Publications order: SCI (newest first) → KCI (newest first).
+// SCI is detected by presence of quartile/IF (국제 저널 지표); KCI(KOSERT 등)은 없음.
+const isSCI = (p: typeof publications[number]) => !!(p.quartile || p.if);
+const pubDateKey = (p: typeof publications[number]) => p.date || `${p.year}/00/00`;
+const sortedPublications = [...publications].sort((a, b) => {
+  const sa = isSCI(a), sb = isSCI(b);
+  if (sa !== sb) return sa ? -1 : 1;                 // SCI group first
+  return pubDateKey(b).localeCompare(pubDateKey(a)); // newest first within group
+});
+
+// Group time-based items by year (Patents render as a grid; Conferences/Teaching stay year-grouped)
 const confsByYear  = groupByYear(conferences);
 const teachByYear  = groupByYear(teaching);
 
@@ -184,7 +194,7 @@ const confTypeLabels: Record<string, string> = {
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.publications.intro.ko} en={site.publications.intro.en} />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {publications.map((p) => <CardPaper paper={p} />)}
+      {sortedPublications.map((p) => <CardPaper paper={p} />)}
     </div>
   </section>
 
