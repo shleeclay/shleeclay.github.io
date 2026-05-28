@@ -16,6 +16,10 @@ const hueB = (hue + 30) % 360;
 
 const hasPdf = !!paper.pdf;
 const hasWeb = !!paper.doi;
+
+// Cover is always served as .webp (optimize-images.mjs converts jpg/png → webp).
+// site.json can keep any extension; map it to .webp here.
+const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") : "";
 ---
 
 <article
@@ -27,9 +31,9 @@ const hasWeb = !!paper.doi;
 
   <!-- Cover: A4 portrait aspect ratio -->
   <div class="relative aspect-[210/297] overflow-hidden bg-base-300">
-    {paper.cover ? (
+    {coverSrc ? (
       <img
-        src={paper.cover}
+        src={coverSrc}
         alt={paper.title.en}
         class="w-full h-full object-cover"
         loading="lazy"

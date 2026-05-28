@@ -1,37 +1,31 @@
 // Image optimizer — runs before `astro build`.
-// Downscales large cover / certificate images to a sensible web size.
+// Converts cover / certificate images to WebP and downscales to a web size.
 //
-// Why: high-resolution (2K+) JPG/PNG covers look blurry when displayed in
-// small (~290px) cards because the browser performs fractional-ratio
-// downsampling that destroys text edges. A pre-scaled image (~1200px) lets
-// the browser do at most a clean ~2x downsample → crisp text.
+// Why WebP: best text-edge preservation for the journal-cover / figure mix,
+// ~25-35% smaller than JPG at equal quality. Cards display ~290px wide, so a
+// pre-scaled 800px WebP gives a clean ~2x downsample → crisp text + small files.
 //
 // Behavior:
 //   - Scans public/papers/covers/, public/patents/certificates/, public/books/covers/
-//   - For images wider than TARGET_WIDTH, resizes in-place to TARGET_WIDTH
-//   - Uses Lanczos resampling (sharp default) + sets quality 90 for JPG
-//   - Idempotent: images already at or below TARGET_WIDTH are skipped
+//   - JPG/PNG/JPEG → converted to .webp (original deleted), resized to <= TARGET_WIDTH, sharpened
+//   - Existing .webp → re-encoded only if wider than TARGET_WIDTH (or --force)
+//   - The card components map cover paths to ".webp" automatically, so site.json
+//     can keep any extension (e.g. ".jpg") — the served file will be ".webp".
 //   - No-op if sharp not installed (graceful)
 
-import { readdir, stat } from 'node:fs/promises';
+import { readdir, stat, rename, unlink } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 
-// Target width — sized for HiDPI/Retina (cards display ~290px wide → 2x = 580px).
-// 800 leaves margin for larger viewports while staying close to display size,
-// which minimises browser downsampling and keeps text edges crisp.
+// Target width — sized for HiDPI/Retina (cards display ~290px → 2x = 580px).
 const TARGET_WIDTH = 800;
-const JPG_QUALITY  = 95;
-const PNG_COMPRESSION = 9;
+const WEBP_QUALITY = 90;   // high enough to keep text/graphics crisp
 
-// Stronger sharpen to compensate for downsampling softness on text.
-// sigma 1.0 produces visibly crisper text edges, m2 set lower to enhance
-// jagged-area sharpness (text strokes) without too much halo on photos.
+// Sharpen to compensate for downsampling softness on text.
 const SHARPEN_SIGMA = 1.0;
 const SHARPEN_M1    = 0.5;
 const SHARPEN_M2    = 2.5;
 
-// --force re-processes images even when they're already at/under TARGET_WIDTH.
-// Use after changing TARGET_WIDTH/sharpen settings to apply new parameters.
+// --force re-encodes images even when already .webp and within TARGET_WIDTH.
 const FORCE = process.argv.includes('--force');
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\//, '');
@@ -41,7 +35,7 @@ const DIRS = [
   'public/books/covers',
 ];
 
-const SUPPORTED = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+const CONVERTIBLE = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 
 async function main() {
   let sharp;
@@ -52,7 +46,8 @@ async function main() {
     return;
   }
 
-  let processed = 0;
+  let converted = 0;
+  let resized   = 0;
   let skipped   = 0;
 
   for (const dir of DIRS) {
@@ -66,52 +61,56 @@ async function main() {
 
     for (const name of files) {
       const ext = extname(name).toLowerCase();
-      if (!SUPPORTED.has(ext)) continue;
+      if (!CONVERTIBLE.has(ext)) continue;
 
       const filePath = join(abs, name);
       const st = await stat(filePath);
       if (!st.isFile()) continue;
 
-      try {
-        const img = sharp(filePath);
-        const meta = await img.metadata();
+      const isWebp = ext === '.webp';
 
-        if (!FORCE && (!meta.width || meta.width <= TARGET_WIDTH)) {
+      try {
+        const meta = await sharp(filePath).metadata();
+        const needsResize = !!meta.width && meta.width > TARGET_WIDTH;
+
+        // Already-webp + small enough + not forced → leave it
+        if (isWebp && !needsResize && !FORCE) {
           skipped++;
           continue;
         }
 
-        // Resize (preserving aspect ratio) + sharpen for text crispness,
-        // then write to temp + rename to be safe
-        const tmpPath = filePath + '.tmp';
-        const pipeline = sharp(filePath)
-          .resize({ width: TARGET_WIDTH, withoutEnlargement: true })
-          .sharpen({ sigma: SHARPEN_SIGMA, m1: SHARPEN_M1, m2: SHARPEN_M2 });
+        const webpPath = filePath.replace(/\.(jpe?g|png|webp)$/i, '.webp');
+        const tmpPath  = webpPath + '.tmp';
 
-        if (ext === '.jpg' || ext === '.jpeg') {
-          await pipeline.jpeg({ quality: JPG_QUALITY, mozjpeg: true }).toFile(tmpPath);
-        } else if (ext === '.png') {
-          await pipeline.png({ compressionLevel: PNG_COMPRESSION }).toFile(tmpPath);
-        } else if (ext === '.webp') {
-          await pipeline.webp({ quality: JPG_QUALITY }).toFile(tmpPath);
-        } else {
-          await pipeline.toFile(tmpPath);
+        let pipeline = sharp(filePath);
+        if (needsResize) {
+          pipeline = pipeline.resize({ width: TARGET_WIDTH, withoutEnlargement: true });
+        }
+        pipeline = pipeline.sharpen({ sigma: SHARPEN_SIGMA, m1: SHARPEN_M1, m2: SHARPEN_M2 });
+
+        await pipeline.webp({ quality: WEBP_QUALITY }).toFile(tmpPath);
+        await rename(tmpPath, webpPath);
+
+        // Remove the original source if it wasn't already the .webp we just wrote
+        if (filePath !== webpPath) {
+          await unlink(filePath);
         }
 
-        // Replace original with optimized
-        const { rename } = await import('node:fs/promises');
-        await rename(tmpPath, filePath);
-
-        const newMeta = await sharp(filePath).metadata();
-        console.log(`  ${dir}/${name}  ${meta.width}px → ${newMeta.width}px`);
-        processed++;
+        const newMeta = await sharp(webpPath).metadata();
+        if (isWebp) {
+          console.log(`  ${dir}/${name}  ${meta.width}px → ${newMeta.width}px (webp)`);
+          resized++;
+        } else {
+          console.log(`  ${dir}/${name} → ${name.replace(/\.(jpe?g|png)$/i, '.webp')}  ${meta.width}px → ${newMeta.width}px`);
+          converted++;
+        }
       } catch (err) {
         console.warn(`  ⚠ failed: ${dir}/${name} — ${err.message}`);
       }
     }
   }
 
-  console.log(`[optimize-images] done — ${processed} resized, ${skipped} already optimized.`);
+  console.log(`[optimize-images] done — ${converted} converted to webp, ${resized} webp resized, ${skipped} already optimized.`);
 }
 
 main().catch((err) => {

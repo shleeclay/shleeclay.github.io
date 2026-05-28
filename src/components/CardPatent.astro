@@ -13,6 +13,9 @@ const yearText = (patent.registrationDate || patent.applicationDate || "").slice
 const hue = ((patent.id * 47) + 200) % 360;
 const hueA = hue;
 const hueB = (hue + 40) % 360;
+
+// Certificate is served as .webp (optimize-images.mjs converts jpg/png → webp).
+const certSrc = patent.certificate ? patent.certificate.replace(/\.(jpe?g|png)$/i, ".webp") : "";
 ---
 
 <article
@@ -24,9 +27,9 @@ const hueB = (hue + 40) % 360;
 
   <!-- Cover: A4 portrait. Registered → certificate image. Application → placeholder. -->
   <div class="relative aspect-[210/297] overflow-hidden bg-base-300">
-    {patent.certificate ? (
+    {certSrc ? (
       <img
-        src={patent.certificate}
+        src={certSrc}
         alt={patent.title.en}
         class="w-full h-full object-cover"
         loading="lazy"
