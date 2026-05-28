@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 
 const {
+  lang = "ko",
   includeSidebar = true,
   sideBarActiveItemID,
   ogType,
@@ -12,9 +13,9 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
-    <BaseHead ogType={ogType} />
+    <BaseHead lang={lang} ogType={ogType} />
   </head>
   <body>
     <!-- Animated topographic contour background (Canvas + simplex noise) -->
@@ -23,7 +24,7 @@ const {
     <div class="drawer lg:drawer-open">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
-        <Header />
+        <Header lang={lang} />
         <div class="md:flex md:justify-center">
           <main class="p-5 sm:p-6 pt-10 lg:max-w-[900px] w-full max-w-full">
             <slot />
@@ -31,7 +32,7 @@ const {
         </div>
         <Footer />
       </div>
-      {includeSidebar && <SideBar sideBarActiveItemID={sideBarActiveItemID} />}
+      {includeSidebar && <SideBar lang={lang} sideBarActiveItemID={sideBarActiveItemID} />}
     </div>
 
     <!-- Cursor spotlight tracker (desktop only, fine pointer) -->

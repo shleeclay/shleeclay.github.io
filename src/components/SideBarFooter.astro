@@ -1,6 +1,9 @@
 ---
 import site from "../data/site.json";
 const c = site.contact;
+const { lang = "ko" } = Astro.props;
+const otherLangHref  = lang === "ko" ? "/en" : "/";
+const otherLangLabel = lang === "ko" ? "EN" : "KO";
 ---
 
 <div class="block sticky pointer-events-none bottom-10 bg-base-200 justify-center h-12 [mask-image:linear-gradient(transparent,#000000)]"></div>
@@ -45,10 +48,10 @@ const c = site.contact;
   <!-- Divider -->
   <span class="w-px h-5 bg-base-300 mx-1"></span>
 
-  <!-- Language toggle -->
-  <button id="lang-toggle" class="icon-btn lang-toggle-btn" aria-label="Toggle language" title="Toggle KO / EN">
-    <span id="lang-label" class="text-[11px] font-semibold tracking-wider">EN</span>
-  </button>
+  <!-- Language switch — links to the other-language route (URL-based i18n) -->
+  <a href={otherLangHref} class="icon-btn lang-toggle-btn" aria-label="Switch language" title={`Switch to ${otherLangLabel}`}>
+    <span class="text-[11px] font-semibold tracking-wider">{otherLangLabel}</span>
+  </a>
 
   <!-- Theme toggle -->
   <button id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Toggle theme" title="Toggle light / dark">
@@ -83,25 +86,7 @@ const c = site.contact;
         syncIcon();
       });
     }
-
-    // Language toggle. Label shows "the OTHER language" (i.e. the action target).
-    const lToggle = document.getElementById('lang-toggle');
-    const lLabel  = document.getElementById('lang-label');
-    function syncLangLabel() {
-      const cur = document.documentElement.getAttribute('lang');
-      lLabel.textContent = cur === 'ko' ? 'EN' : 'KO';
-    }
-    if (lToggle) {
-      syncLangLabel();
-      lToggle.addEventListener('click', () => {
-        const cur = document.documentElement.getAttribute('lang');
-        const next = cur === 'ko' ? 'en' : 'ko';
-        document.documentElement.setAttribute('lang', next);
-        localStorage.setItem('shleeclay-lang', next);
-        syncLangLabel();
-        document.dispatchEvent(new CustomEvent('shleeclay:langchange'));
-      });
-    }
+    // Language is route-based now (/, /en) — switch handled by the <a> link, no JS needed.
   })();
 </script>
 

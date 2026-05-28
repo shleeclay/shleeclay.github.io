@@ -1,13 +1,14 @@
 ---
 import { nav } from "../data";
-const { sideBarActiveItemID } = Astro.props;
+const { lang = "ko", sideBarActiveItemID } = Astro.props;
 const activeClass = "active-nav-item";
+const base = lang === "en" ? "/en" : "/";
 ---
 
 <ul class="menu grow shrink menu-md overflow-y-auto gap-0.5 px-0">
   {nav.map((item) => (
     <li>
-      <a class="py-2 text-sm nav-item" id={item.id} href={`/#${item.id}`}>
+      <a class="py-2 text-sm nav-item" id={item.id} href={`${base}#${item.id}`}>
         <span class="nav-bar"></span>
         <span data-only="ko">{item.ko}</span>
         <span data-only="en">{item.en}</span>
