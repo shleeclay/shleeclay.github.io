@@ -112,10 +112,11 @@ const hueB = (hue + 40) % 360;
      PATENT HUE SIGNATURE — 각 특허의 고유 hue를 카드 정체성으로 활용
      ───────────────────────────────────────────────────────── */
 
-  /* Top stripe (3px) — extends to 5px on hover */
+  /* Top stripe (3px) — extends to 5px on hover — 70% 톤다운 */
   .patent-stripe {
     height: 3px;
     width: 100%;
+    opacity: 0.7;
     background: linear-gradient(90deg,
       hsl(var(--patent-hue-a), 55%, 50%) 0%,
       hsl(var(--patent-hue-b), 60%, 55%) 100%);
@@ -126,15 +127,15 @@ const hueB = (hue + 40) % 360;
     filter: brightness(1.15) saturate(1.1);
   }
 
-  /* Bottom fade on certificate cover */
+  /* Bottom fade on certificate cover — alpha ×0.7 */
   .patent-cover-fade {
     position: absolute;
     inset: auto 0 0 0;
     height: 35%;
     background: linear-gradient(180deg,
       hsla(var(--patent-hue-a), 60%, 35%, 0) 0%,
-      hsla(var(--patent-hue-a), 60%, 35%, 0.18) 60%,
-      hsla(var(--patent-hue-b), 65%, 25%, 0.35) 100%);
+      hsla(var(--patent-hue-a), 60%, 35%, 0.126) 60%,
+      hsla(var(--patent-hue-b), 65%, 25%, 0.245) 100%);
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
@@ -142,20 +143,20 @@ const hueB = (hue + 40) % 360;
     opacity: 0.5;
   }
 
-  /* Card glow on hover — hue-tinted ambient shadow */
+  /* Card glow on hover — hue-tinted ambient shadow — alpha ×0.7 */
   .patent-card {
     box-shadow: 0 0 0 rgba(0,0,0,0);
   }
   .patent-card:hover {
-    border-color: hsla(var(--patent-hue-a), 55%, 50%, 0.55);
+    border-color: hsla(var(--patent-hue-a), 55%, 50%, 0.385);
     box-shadow:
-      0 12px 32px hsla(var(--patent-hue-a), 55%, 40%, 0.22),
-      0 0 0 1px hsla(var(--patent-hue-a), 60%, 50%, 0.10);
+      0 12px 32px hsla(var(--patent-hue-a), 55%, 40%, 0.154),
+      0 0 0 1px hsla(var(--patent-hue-a), 60%, 50%, 0.07);
   }
   :global(html[data-theme="shlee-dark"]) .patent-card:hover {
-    border-color: hsla(var(--patent-hue-a), 65%, 65%, 0.55);
+    border-color: hsla(var(--patent-hue-a), 65%, 65%, 0.385);
     box-shadow:
-      0 12px 32px hsla(var(--patent-hue-a), 65%, 55%, 0.30),
-      0 0 0 1px hsla(var(--patent-hue-a), 70%, 65%, 0.15);
+      0 12px 32px hsla(var(--patent-hue-a), 65%, 55%, 0.21),
+      0 0 0 1px hsla(var(--patent-hue-a), 70%, 65%, 0.105);
   }
 </style>

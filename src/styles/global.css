@@ -236,7 +236,7 @@ body::before {
   [data-theme="shlee-dark"] body::after {
     background: radial-gradient(
       600px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
-      rgba(224, 185, 65, 0.07),
+      rgba(224, 185, 65, 0.049),
       transparent 40%
     );
   }

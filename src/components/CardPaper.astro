@@ -147,10 +147,11 @@ const hasWeb = !!paper.doi;
      --paper-hue-a / --paper-hue-b 는 article에서 인라인 style로 주입.
      ───────────────────────────────────────────────────────── */
 
-  /* Top stripe: 카드 최상단의 3px 가로 띠 (저널 표지 색띠 느낌) */
+  /* Top stripe: 카드 최상단의 3px 가로 띠 (저널 표지 색띠 느낌) — 70% 톤다운 */
   .paper-stripe {
     height: 3px;
     width: 100%;
+    opacity: 0.7;
     background: linear-gradient(90deg,
       hsl(var(--paper-hue-a), 55%, 50%) 0%,
       hsl(var(--paper-hue-b), 60%, 55%) 100%);
@@ -161,15 +162,15 @@ const hasWeb = !!paper.doi;
     filter: brightness(1.15) saturate(1.1);
   }
 
-  /* Bottom fade on cover: 표지 하단에 hue 색 fade (이미지가 있을 때만) */
+  /* Bottom fade on cover: 표지 하단에 hue 색 fade (이미지가 있을 때만) — alpha ×0.7 */
   .paper-cover-fade {
     position: absolute;
     inset: auto 0 0 0;
     height: 35%;
     background: linear-gradient(180deg,
       hsla(var(--paper-hue-a), 60%, 35%, 0) 0%,
-      hsla(var(--paper-hue-a), 60%, 35%, 0.18) 60%,
-      hsla(var(--paper-hue-b), 65%, 25%, 0.35) 100%);
+      hsla(var(--paper-hue-a), 60%, 35%, 0.126) 60%,
+      hsla(var(--paper-hue-b), 65%, 25%, 0.245) 100%);
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
@@ -177,22 +178,22 @@ const hasWeb = !!paper.doi;
     opacity: 0.5;
   }
 
-  /* Card glow on hover — hue-tinted ambient shadow (signature lighting) */
+  /* Card glow on hover — hue-tinted ambient shadow (signature lighting) — alpha ×0.7 */
   .paper-card {
     box-shadow: 0 0 0 rgba(0,0,0,0);
   }
   .paper-card:hover {
-    border-color: hsla(var(--paper-hue-a), 55%, 50%, 0.55);
+    border-color: hsla(var(--paper-hue-a), 55%, 50%, 0.385);
     box-shadow:
-      0 12px 32px hsla(var(--paper-hue-a), 55%, 40%, 0.22),
-      0 0 0 1px hsla(var(--paper-hue-a), 60%, 50%, 0.10);
+      0 12px 32px hsla(var(--paper-hue-a), 55%, 40%, 0.154),
+      0 0 0 1px hsla(var(--paper-hue-a), 60%, 50%, 0.07);
   }
 
-  /* Dark mode: 더 밝은 hue (어두운 배경 위에서 글로우 강조) */
+  /* Dark mode: 더 밝은 hue (어두운 배경 위에서 글로우 강조) — alpha ×0.7 */
   :global(html[data-theme="shlee-dark"]) .paper-card:hover {
-    border-color: hsla(var(--paper-hue-a), 65%, 65%, 0.55);
+    border-color: hsla(var(--paper-hue-a), 65%, 65%, 0.385);
     box-shadow:
-      0 12px 32px hsla(var(--paper-hue-a), 65%, 55%, 0.30),
-      0 0 0 1px hsla(var(--paper-hue-a), 70%, 65%, 0.15);
+      0 12px 32px hsla(var(--paper-hue-a), 65%, 55%, 0.21),
+      0 0 0 1px hsla(var(--paper-hue-a), 70%, 65%, 0.105);
   }
 </style>
