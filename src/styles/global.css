@@ -462,13 +462,18 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 [data-theme="shlee-dark"] .pill-reg    { background: rgba(111, 191, 148, 0.12); color: #6fbf94; border-color: rgba(111, 191, 148, 0.35); }
 [data-theme="shlee-dark"] .pill-app    { background: rgba(224, 185, 65, 0.12); color: #f2d272; border-color: rgba(224, 185, 65, 0.4); }
 
-/* Cover image rendering hint — text crispness on downsampled card images.
-   Chrome/Edge use it as a "prefer contrast over smoothing" hint at downsample;
-   Firefox/Safari accept the value but render close to default (safe no-op). */
+/* Cover images — keep browser's high-quality default downscaling.
+   NOTE: image-rendering:-webkit-optimize-contrast was REMOVED. On downscaled
+   images it doesn't help (often worse), and combined with the hover
+   transform:scale() it caused images to re-sample blurrier after each hover.
+   backface-visibility:hidden stabilizes the GPU compositing layer so the image
+   stays crisp before/after the hover scale. */
 .paper-card img,
 .patent-card img,
 .book-card img {
-  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Mini action buttons (PDF / Web in paper cards) ─────────────────────── */
