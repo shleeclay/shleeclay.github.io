@@ -18,12 +18,15 @@ import { join, extname } from 'node:path';
 
 // Target width — sized for HiDPI/Retina (cards display ~290px → 2x = 580px).
 const TARGET_WIDTH = 800;
-const WEBP_QUALITY = 90;   // high enough to keep text/graphics crisp
+// High quality + max effort. Text/line-art docs (certificates) develop
+// mosquito-noise on edges at lower quality, so keep this high.
+const WEBP_QUALITY = 95;
+const WEBP_EFFORT  = 6;
 
-// Sharpen to compensate for downsampling softness on text.
-const SHARPEN_SIGMA = 1.0;
-const SHARPEN_M1    = 0.5;
-const SHARPEN_M2    = 2.5;
+// NOTE: post-resize sharpen was REMOVED. On high-contrast text/line documents
+// (e.g. patent certificates) it over-sharpened edges, which then froze into
+// compression artifacts under WebP. Lanczos downscale (sharp default) is clean
+// enough on its own.
 
 // --force re-encodes images even when already .webp and within TARGET_WIDTH.
 const FORCE = process.argv.includes('--force');
@@ -86,9 +89,8 @@ async function main() {
         if (needsResize) {
           pipeline = pipeline.resize({ width: TARGET_WIDTH, withoutEnlargement: true });
         }
-        pipeline = pipeline.sharpen({ sigma: SHARPEN_SIGMA, m1: SHARPEN_M1, m2: SHARPEN_M2 });
 
-        await pipeline.webp({ quality: WEBP_QUALITY }).toFile(tmpPath);
+        await pipeline.webp({ quality: WEBP_QUALITY, effort: WEBP_EFFORT }).toFile(tmpPath);
         await rename(tmpPath, webpPath);
 
         // Remove the original source if it wasn't already the .webp we just wrote
