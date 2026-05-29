@@ -34,7 +34,7 @@ const FORCE = process.argv.includes('--force');
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\//, '');
 const DIRS = [
   'public/papers/covers',
-  'public/patents/certificates',
+  'public/patents/covers',
   'public/books/covers',
 ];
 
