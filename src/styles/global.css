@@ -637,14 +637,14 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   }
   .section-head-inner { flex: 1; min-width: 0; }
 
-  /* Chevron (▾) — rotates when collapsed */
+  /* Chevron (▾) — rotates when collapsed. 1.5× size. */
   .section-chevron {
     display: block;
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
+    width: 33px;
+    height: 33px;
     margin-top: 2px;
-    border-radius: 6px;
+    border-radius: 8px;
     position: relative;
     transition: transform 0.25s ease, background-color 0.2s ease;
   }
@@ -653,10 +653,10 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 9px;
-    height: 9px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    width: 14px;
+    height: 14px;
+    border-right: 3px solid currentColor;
+    border-bottom: 3px solid currentColor;
     color: hsl(var(--bc) / 0.55);
     transform: translate(-50%, -65%) rotate(45deg);
     transition: transform 0.25s ease;
@@ -668,6 +668,8 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   .section-collapsed .section-chevron::before {
     transform: translate(-50%, -50%) rotate(-45deg);
   }
-  /* When collapsed, trim the big title bottom-margin so headers stack tightly */
+  /* When collapsed, tighten spacing: zero the big title margin AND shrink the
+     section's bottom padding so the title sits close to the next divider. */
   .section-collapsed .section-head-inner :where(h2) { margin-bottom: 0 !important; }
+  .section-collapsed { padding-bottom: 1.25rem !important; }
 }
