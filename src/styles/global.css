@@ -542,6 +542,19 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   border: 1px solid;
 }
 
+/* Indexing tier — SCI(E): solid navy (국제 등재, 권위) */
+.cover-badge-sci {
+  background: #1e3a5f;
+  color: #ffffff;
+  border-color: #14283f;
+}
+/* Indexing tier — KCI: solid slate (국내 등재) */
+.cover-badge-kci {
+  background: #5a6b7a;
+  color: #ffffff;
+  border-color: #45525e;
+}
+
 /* Q1 / Quartile — solid Honey Gold (signature) */
 .cover-badge-q1 {
   background: #e0b941;

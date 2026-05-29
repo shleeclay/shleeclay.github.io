@@ -17,6 +17,9 @@ const hueB = (hue + 30) % 360;
 const hasPdf = !!paper.pdf;
 const hasWeb = !!paper.doi;
 
+// Indexing tier: SCI(E) if it carries quartile/IF, otherwise KCI (domestic).
+const isSCI = !!(paper.quartile || paper.if);
+
 // Cover is always served as .webp (optimize-images.mjs converts jpg/png → webp).
 // site.json can keep any extension; map it to .webp here.
 const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") : "";
@@ -55,17 +58,22 @@ const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") :
     <!-- Bottom fade overlay tinted with paper hue — subtle color identity even with cover -->
     {paper.cover && <div class="paper-cover-fade"></div>}
 
-    <!-- Top-left: Q-rank + Impact Factor badges -->
-    {(paper.quartile || paper.if) && (
-      <div class="absolute top-3 left-3 z-10 flex gap-1.5">
-        {paper.quartile && (
-          <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
-        )}
-        {paper.if && (
-          <span class="cover-badge cover-badge-if">IF {paper.if.split(' ')[0]}</span>
-        )}
-      </div>
-    )}
+    <!-- Top-left: indexing tier (SCI/KCI) + Q-rank + Impact Factor badges -->
+    <div class="absolute top-3 left-3 z-10 flex gap-1.5 flex-wrap">
+      {isSCI ? (
+        <>
+          <span class="cover-badge cover-badge-sci">SCI</span>
+          {paper.quartile && (
+            <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
+          )}
+          {paper.if && (
+            <span class="cover-badge cover-badge-if">IF {paper.if.split(' ')[0]}</span>
+          )}
+        </>
+      ) : (
+        <span class="cover-badge cover-badge-kci">KCI</span>
+      )}
+    </div>
   </div>
 
   <!-- Content -->
