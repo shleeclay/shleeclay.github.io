@@ -1,34 +1,25 @@
 // Image optimizer — runs before `astro build`.
-// Converts cover / certificate images to WebP and downscales to a web size.
 //
-// Why WebP: best text-edge preservation for the journal-cover / figure mix,
-// ~25-35% smaller than JPG at equal quality. Cards display ~290px wide, so a
-// pre-scaled 800px WebP gives a clean ~2x downsample → crisp text + small files.
+// Strategy: ORIGINALS are preserved. For each cover image we write a
+// downscaled, web-optimized WebP into a `web/` subfolder next to it.
+// The site references the `web/` versions; originals stay untouched as masters.
 //
-// Behavior:
-//   - Scans public/papers/covers/, public/patents/certificates/, public/books/covers/
-//   - JPG/PNG/JPEG → converted to .webp (original deleted), resized to <= TARGET_WIDTH, sharpened
-//   - Existing .webp → re-encoded only if wider than TARGET_WIDTH (or --force)
-//   - The card components map cover paths to ".webp" automatically, so site.json
-//     can keep any extension (e.g. ".jpg") — the served file will be ".webp".
-//   - No-op if sharp not installed (graceful)
+//   public/papers/covers/2026_x.webp        ← original (any size, kept)
+//   public/papers/covers/web/2026_x.webp    ← 800px web version (generated)
+//
+// Why: high-res (2K-3K) covers look blurry when the browser downsamples them
+// into ~290px cards. A pre-scaled 800px WebP downsamples cleanly → crisp text.
+//
+// Run:  npm run optimize-images   (build runs it automatically)
+//       add --force to ignore the up-to-date check and regenerate everything.
 
-import { readdir, stat, rename, unlink } from 'node:fs/promises';
-import { join, extname } from 'node:path';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
+import { join, extname, basename } from 'node:path';
 
-// Target width — sized for HiDPI/Retina (cards display ~290px → 2x = 580px).
 const TARGET_WIDTH = 800;
-// High quality + max effort. Text/line-art docs (certificates) develop
-// mosquito-noise on edges at lower quality, so keep this high.
-const WEBP_QUALITY = 95;
+const WEBP_QUALITY = 92;
 const WEBP_EFFORT  = 6;
 
-// NOTE: post-resize sharpen was REMOVED. On high-contrast text/line documents
-// (e.g. patent certificates) it over-sharpened edges, which then froze into
-// compression artifacts under WebP. Lanczos downscale (sharp default) is clean
-// enough on its own.
-
-// --force re-encodes images even when already .webp and within TARGET_WIDTH.
 const FORCE = process.argv.includes('--force');
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\//, '');
@@ -38,7 +29,7 @@ const DIRS = [
   'public/books/covers',
 ];
 
-const CONVERTIBLE = new Set(['.jpg', '.jpeg', '.png', '.webp']);
+const SOURCE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 
 async function main() {
   let sharp;
@@ -49,73 +40,60 @@ async function main() {
     return;
   }
 
-  let converted = 0;
-  let resized   = 0;
-  let skipped   = 0;
+  let generated = 0;
+  let skipped = 0;
 
   for (const dir of DIRS) {
     const abs = join(ROOT, dir);
+    const webDir = join(abs, 'web');
     let files;
     try {
       files = await readdir(abs);
     } catch {
-      continue; // directory missing
+      continue;
     }
+    await mkdir(webDir, { recursive: true });
 
     for (const name of files) {
       const ext = extname(name).toLowerCase();
-      if (!CONVERTIBLE.has(ext)) continue;
+      if (!SOURCE_EXT.has(ext)) continue;
 
-      const filePath = join(abs, name);
-      const st = await stat(filePath);
-      if (!st.isFile()) continue;
+      const srcPath = join(abs, name);
+      const st = await stat(srcPath);
+      if (!st.isFile()) continue; // skip the web/ subdir itself
 
-      const isWebp = ext === '.webp';
+      const outName = basename(name, ext) + '.webp';
+      const outPath = join(webDir, outName);
+
+      // Skip if web version is newer than the source (unless --force)
+      if (!FORCE) {
+        try {
+          const outSt = await stat(outPath);
+          if (outSt.mtimeMs >= st.mtimeMs) { skipped++; continue; }
+        } catch { /* output missing → generate */ }
+      }
 
       try {
-        const meta = await sharp(filePath).metadata();
-        const needsResize = !!meta.width && meta.width > TARGET_WIDTH;
-
-        // Already-webp + small enough + not forced → leave it
-        if (isWebp && !needsResize && !FORCE) {
-          skipped++;
-          continue;
-        }
-
-        const webpPath = filePath.replace(/\.(jpe?g|png|webp)$/i, '.webp');
-        const tmpPath  = webpPath + '.tmp';
-
-        let pipeline = sharp(filePath);
-        if (needsResize) {
+        const meta = await sharp(srcPath).metadata();
+        let pipeline = sharp(srcPath);
+        if (meta.width && meta.width > TARGET_WIDTH) {
           pipeline = pipeline.resize({ width: TARGET_WIDTH, withoutEnlargement: true });
         }
-
-        await pipeline.webp({ quality: WEBP_QUALITY, effort: WEBP_EFFORT }).toFile(tmpPath);
-        await rename(tmpPath, webpPath);
-
-        // Remove the original source if it wasn't already the .webp we just wrote
-        if (filePath !== webpPath) {
-          await unlink(filePath);
-        }
-
-        const newMeta = await sharp(webpPath).metadata();
-        if (isWebp) {
-          console.log(`  ${dir}/${name}  ${meta.width}px → ${newMeta.width}px (webp)`);
-          resized++;
-        } else {
-          console.log(`  ${dir}/${name} → ${name.replace(/\.(jpe?g|png)$/i, '.webp')}  ${meta.width}px → ${newMeta.width}px`);
-          converted++;
-        }
+        // Write directly to the web/ path (no temp-rename → avoids Windows file-lock issues)
+        await pipeline.webp({ quality: WEBP_QUALITY, effort: WEBP_EFFORT }).toFile(outPath);
+        const outMeta = await sharp(outPath).metadata();
+        console.log(`  ${dir}/web/${outName}  (${meta.width}px → ${outMeta.width}px)`);
+        generated++;
       } catch (err) {
         console.warn(`  ⚠ failed: ${dir}/${name} — ${err.message}`);
       }
     }
   }
 
-  console.log(`[optimize-images] done — ${converted} converted to webp, ${resized} webp resized, ${skipped} already optimized.`);
+  console.log(`[optimize-images] done — ${generated} web versions generated, ${skipped} up-to-date.`);
 }
 
 main().catch((err) => {
   console.error('[optimize-images] error:', err);
-  process.exit(0); // never fail the build because of optimization
+  process.exit(0); // never fail the build
 });

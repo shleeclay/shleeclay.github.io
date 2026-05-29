@@ -16,13 +16,17 @@ const hueB = (hue + 30) % 360;
 
 const hasPdf = !!paper.pdf;
 const hasWeb = !!paper.doi;
+const doiUrl = paper.doi ? `https://doi.org/${paper.doi}` : "";
 
 // Indexing tier: SCI(E) if it carries quartile/IF, otherwise KCI (domestic).
 const isSCI = !!(paper.quartile || paper.if);
 
-// Cover is always served as .webp (optimize-images.mjs converts jpg/png → webp).
-// site.json can keep any extension; map it to .webp here.
-const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") : "";
+// Cover is served from the generated web/ subfolder (800px webp). Originals in
+// covers/ are preserved; optimize-images.mjs writes covers/web/<name>.webp.
+// site.json may use any extension → map to /web/<name>.webp.
+const coverSrc = paper.cover
+  ? paper.cover.replace(/\/([^/]+)\.(jpe?g|png|webp)$/i, "/web/$1.webp")
+  : "";
 ---
 
 <article
@@ -74,6 +78,18 @@ const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") :
         <span class="cover-badge cover-badge-kci">KCI</span>
       )}
     </div>
+
+    <!-- Click cover → DOI (overlay link below badges z-10, above image). Web button below remains. -->
+    {hasWeb && (
+      <a
+        href={doiUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="absolute inset-0 z-[5]"
+        aria-label="View paper (DOI)"
+        title="View paper (DOI)"
+      ></a>
+    )}
   </div>
 
   <!-- Content -->
@@ -93,10 +109,9 @@ const coverSrc = paper.cover ? paper.cover.replace(/\.(jpe?g|png)$/i, ".webp") :
       <span data-only="en">{paper.title.en}</span>
     </h3>
 
-    <!-- Journal -->
-    <p class="type-body-sm text-base-content/65 mb-1 line-clamp-1 italic">
+    <!-- Journal (wraps if long; IF/year omitted — shown as cover badge) -->
+    <p class="type-body-sm text-base-content/65 mb-1 line-clamp-2 italic">
       {paper.journal}
-      {paper.if && <span class="not-italic"> · IF {paper.if}</span>}
     </p>
 
     <!-- Authors -->

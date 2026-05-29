@@ -14,8 +14,10 @@ const hue = ((patent.id * 47) + 200) % 360;
 const hueA = hue;
 const hueB = (hue + 40) % 360;
 
-// Certificate is served as .webp (optimize-images.mjs converts jpg/png → webp).
-const certSrc = patent.certificate ? patent.certificate.replace(/\.(jpe?g|png)$/i, ".webp") : "";
+// Certificate served from generated web/ subfolder (800px webp); original kept.
+const certSrc = patent.certificate
+  ? patent.certificate.replace(/\/([^/]+)\.(jpe?g|png|webp)$/i, "/web/$1.webp")
+  : "";
 ---
 
 <article

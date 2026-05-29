@@ -9,8 +9,10 @@ const yearText = (book.date || "").slice(0, 4) || "—";
 const seed = book.isbn ? book.isbn.split("").reduce((s, c) => s + c.charCodeAt(0), 0) : (book.title.en || "").length;
 const hue = (seed * 31) % 360;
 
-// Cover is served as .webp (optimize-images.mjs converts jpg/png → webp).
-const coverSrc = book.cover ? book.cover.replace(/\.(jpe?g|png)$/i, ".webp") : "";
+// Cover served from generated web/ subfolder (800px webp); original kept.
+const coverSrc = book.cover
+  ? book.cover.replace(/\/([^/]+)\.(jpe?g|png|webp)$/i, "/web/$1.webp")
+  : "";
 ---
 
 <article class="book-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:border-primary/60 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300">
