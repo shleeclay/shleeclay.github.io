@@ -20,14 +20,14 @@ const TARGETS = [
   { name: 'qr_en', url: `${SITE}/go-en` },
 ];
 
-// Brand colors — carbon green on transparent/white. High error correction (H)
-// so the QR stays scannable even with a bit of print wear or a center logo.
-const OPTS = {
-  errorCorrectionLevel: 'H',
-  margin: 2,
-  color: { dark: '#1e3a2f', light: '#ffffff' },
-};
-const PNG_OPTS = { ...OPTS, width: 1024 };
+// Color variants. Default file (no suffix) = brand carbon green; "_black" = pure black.
+const VARIANTS = [
+  { suffix: '',       dark: '#1e3a2f' },  // brand carbon green
+  { suffix: '_black', dark: '#000000' },  // pure black (universal print)
+];
+
+// High error correction (H) so the QR stays scannable with print wear / center logo.
+const BASE = { errorCorrectionLevel: 'H', margin: 2 };
 
 async function main() {
   let QRCode;
@@ -41,13 +41,18 @@ async function main() {
   await mkdir(OUT, { recursive: true });
 
   for (const t of TARGETS) {
-    const svg = await QRCode.toString(t.url, { ...OPTS, type: 'svg' });
-    await writeFile(join(OUT, `${t.name}.svg`), svg, 'utf8');
+    for (const v of VARIANTS) {
+      const opts = { ...BASE, color: { dark: v.dark, light: '#ffffff' } };
+      const fname = `${t.name}${v.suffix}`;
 
-    const pngBuf = await QRCode.toBuffer(t.url, { ...PNG_OPTS, type: 'png' });
-    await writeFile(join(OUT, `${t.name}.png`), pngBuf);
+      const svg = await QRCode.toString(t.url, { ...opts, type: 'svg' });
+      await writeFile(join(OUT, `${fname}.svg`), svg, 'utf8');
 
-    console.log(`  ${t.name}  → ${t.url}  (svg + png 1024px)`);
+      const pngBuf = await QRCode.toBuffer(t.url, { ...opts, type: 'png', width: 1024 });
+      await writeFile(join(OUT, `${fname}.png`), pngBuf);
+
+      console.log(`  ${fname}  → ${t.url}  (${v.dark}, svg + png 1024px)`);
+    }
   }
   console.log('[make-qr] done — public/qr/');
 }
