@@ -29,3 +29,5 @@ _reference/
 
 # Temp files from image optimization (in case of file-lock failure on Windows)
 public/**/*.tmp
+# Microsoft Office lock/temp files
+~$*
