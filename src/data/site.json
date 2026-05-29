@@ -457,9 +457,11 @@
     "emailNote":      { "ko": "현재 소속 메일 (소속 변경 시 갱신 예정)", "en": "Current institutional email (will be updated upon affiliation change)" },
     "phone":          "010-8455-5598",
     "phoneTelLink":   "+82-10-8455-5598",
-    "scholarUrl":     "https://scholar.google.com/",
-    "researchGateUrl":"https://www.researchgate.net/",
+    "_socialHelp": "아래 프로필 URL을 채우면 사이드바 아이콘 + Contact 카드 + 검색엔진용 구조화데이터(JSON-LD)에 자동 연결됩니다. 빈 문자열이면 해당 항목은 자동으로 숨겨집니다.",
+    "scholarUrl":     "",
     "orcidUrl":       "",
+    "researchGateUrl":"",
+    "linkedinUrl":    "",
     "githubUrl":      "https://github.com/shleeclay"
   }
 }

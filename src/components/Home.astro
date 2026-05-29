@@ -533,6 +533,45 @@ const confTypeLabels: Record<string, string> = {
           </a>
         )}
 
+        <!-- ORCID -->
+        {contact.orcidUrl && (
+          <a href={contact.orcidUrl} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
+            <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zM86.4 186.2H70.5V79.1h15.9v107.1zm-7.9-122.3a9.2 9.2 0 1 1 0-18.4 9.2 9.2 0 0 1 0 18.4zm116.6 122.3h-15.7v-52c0-12.4-.2-28.4-17.3-28.4-17.3 0-20 13.5-20 27.5v52.9h-15.7V79.1h15v14.6h.2c2.1-4 7.2-8.2 14.8-8.2 15.8 0 18.7 10.4 18.7 24v76.7z"/></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="type-caption mb-0.5">ORCID</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">orcid.org</p>
+            </div>
+          </a>
+        )}
+
+        <!-- ResearchGate -->
+        {contact.researchGateUrl && (
+          <a href={contact.researchGateUrl} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
+            <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a3.193 3.193 0 0 0-.112.437 8.365 8.365 0 0 0-.078.53 9 9 0 0 0-.05.727L16.04 4.5l.02 1.052.05.725a8.5 8.5 0 0 0 .078.531c.029.165.066.31.112.438.243.742.65 1.302 1.213 1.678.565.376 1.255.566 2.073.566.857 0 1.638-.213 2.342-.64a4.51 4.51 0 0 0 1.66-1.736l-1.92-1.104a2.39 2.39 0 0 1-.86.92 2.27 2.27 0 0 1-1.221.317 2.42 2.42 0 0 1-.785-.12 1.61 1.61 0 0 1-.6-.36 1.717 1.717 0 0 1-.39-.575 2.797 2.797 0 0 1-.205-.79 8.3 8.3 0 0 1-.07-.99 8.3 8.3 0 0 1 .07-.99c.044-.295.115-.553.205-.79a1.7 1.7 0 0 1 .39-.575c.165-.16.365-.282.6-.36.235-.078.495-.12.785-.12.466 0 .872.107 1.221.317.349.21.636.516.86.92l1.92-1.103A4.514 4.514 0 0 0 21.928.64C21.224.214 20.444 0 19.586 0zM7.99 4.853c-2.317 0-3.96 1.5-3.96 4.135 0 2.732 1.515 4.13 3.84 4.13.79 0 1.557-.21 1.937-.553h.05v.514c0 1.5-.717 2.353-2.234 2.353-1.075 0-1.694-.42-1.85-1.107H3.205c.198 1.71 1.704 2.97 4.486 2.97 3.022 0 4.764-1.485 4.764-4.612V4.985H10.18v.685h-.05c-.38-.456-1.247-.817-2.14-.817zm.198 1.71c1.354 0 2.234.954 2.234 2.495 0 1.522-.88 2.413-2.234 2.413-1.354 0-2.234-.94-2.234-2.413 0-1.541.88-2.495 2.234-2.495z"/></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="type-caption mb-0.5">RESEARCHGATE</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">researchgate.net</p>
+            </div>
+          </a>
+        )}
+
+        <!-- LinkedIn -->
+        {contact.linkedinUrl && (
+          <a href={contact.linkedinUrl} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
+            <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="type-caption mb-0.5">LINKEDIN</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">linkedin.com</p>
+            </div>
+          </a>
+        )}
+
         <!-- GitHub -->
         {contact.githubUrl && (
           <a href={contact.githubUrl} target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
