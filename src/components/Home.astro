@@ -193,7 +193,7 @@ const confTypeLabels: Record<string, string> = {
     <L tag="h2" class="type-display-lg mb-3" ko={site.publications.title.ko} en={site.publications.title.en} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.publications.intro.ko} en={site.publications.intro.en} />
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
       {sortedPublications.map((p) => <CardPaper paper={p} />)}
     </div>
   </section>
@@ -283,7 +283,7 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="en">{registeredPatents.length} registered</span>
           </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
           {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
         </div>
       </div>
@@ -483,7 +483,7 @@ const confTypeLabels: Record<string, string> = {
 
     <!-- Books — card grid -->
     <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.books.label.ko} en={site.honors.books.label.en} />
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 mb-10">
       {books.map((b) => <CardBook book={b} />)}
     </div>
 
