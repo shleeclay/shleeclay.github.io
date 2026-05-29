@@ -3,6 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import { SITE_TITLE_KO, SITE_TITLE_EN, SITE_DESCRIPTION_KO, SITE_DESCRIPTION_EN } from '../config';
+import site from '../data/site.json';
 
 export interface Props {
   lang?: 'ko' | 'en';
@@ -19,6 +20,29 @@ const koUrl = `${SITE}/`;
 const enUrl = `${SITE}/en`;
 const canonical = lang === 'en' ? enUrl : koUrl;
 const ogLocale = lang === 'en' ? 'en_US' : 'ko_KR';
+const ogImage = `${SITE}/profile.jpg`;
+
+// ─── JSON-LD: Person (structured data for Google → richer search presence) ───
+const c = site.contact as any;
+const sameAs = [c.scholarUrl, c.researchGateUrl, c.orcidUrl, c.githubUrl].filter(Boolean);
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: lang === 'en' ? "Seunghyeon Lee" : "이승현",
+  alternateName: lang === 'en' ? ["이승현", "Clay Lee"] : ["Seunghyeon Lee", "Clay Lee"],
+  url: SITE,
+  image: ogImage,
+  jobTitle: lang === 'en' ? "Ph.D. Researcher" : "박사과정 연구자",
+  affiliation: {
+    "@type": "Organization",
+    name: lang === 'en' ? "Seoul National University" : "서울대학교",
+  },
+  knowsAbout: [
+    "Forest vertical structure", "LiDAR", "GEDI", "Airborne laser scanning",
+    "Remote sensing", "Urban ecology", "Carbon", "Green infrastructure",
+  ],
+  ...(sameAs.length ? { sameAs } : {}),
+};
 ---
 
 <!-- Global Metadata -->
@@ -69,9 +93,15 @@ const ogLocale = lang === 'en' ? 'en_US' : 'ko_KR';
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:locale" content={ogLocale} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Seunghyeon Lee (Clay Lee)" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonical} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage} />
+
+<!-- Structured data: Person (Google rich results / knowledge graph) -->
+<script type="application/ld+json" set:html={JSON.stringify(personLd)} />
