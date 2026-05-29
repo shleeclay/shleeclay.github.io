@@ -588,6 +588,92 @@ const confTypeLabels: Record<string, string> = {
     </div>
   </section>
 
+  <!-- Mobile: collapsible sections (header tap toggles body). Desktop unaffected. -->
+  <script is:inline>
+    (function () {
+      const COLLAPSIBLE = ['about','education','publications','conferences','projects','patents','teaching','career','honors'];
+
+      function wrap() {
+        COLLAPSIBLE.forEach((id) => {
+          const sec = document.getElementById(id);
+          if (!sec || sec.dataset.collapsible) return;
+
+          const children = Array.from(sec.children);
+          // Header = leading eyebrow <p> + <h2> title(s); body = everything after.
+          let i = 0;
+          while (i < children.length) {
+            const el = children[i];
+            const tag = el.tagName.toLowerCase();
+            const cls = el.getAttribute('class') || '';
+            if (tag === 'h2' || cls.indexOf('type-eyebrow') !== -1) { i++; continue; }
+            break;
+          }
+          if (i === 0 || i >= children.length) return;
+
+          const body = document.createElement('div');
+          body.className = 'section-body';
+          children.slice(i).forEach((c) => body.appendChild(c));
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'section-toggle';
+          btn.setAttribute('aria-expanded', 'true');
+          btn.setAttribute('aria-controls', id + '-body');
+          body.id = id + '-body';
+
+          const head = document.createElement('div');
+          head.className = 'section-head-inner';
+          children.slice(0, i).forEach((c) => head.appendChild(c));
+
+          const chev = document.createElement('span');
+          chev.className = 'section-chevron';
+          chev.setAttribute('aria-hidden', 'true');
+
+          btn.appendChild(head);
+          btn.appendChild(chev);
+          sec.appendChild(btn);
+          sec.appendChild(body);
+
+          btn.addEventListener('click', () => {
+            // Only act on mobile (button is non-interactive on desktop via CSS, but guard anyway)
+            if (window.matchMedia('(min-width: 1024px)').matches) return;
+            const collapsed = sec.classList.toggle('section-collapsed');
+            btn.setAttribute('aria-expanded', String(!collapsed));
+          });
+
+          sec.dataset.collapsible = '1';
+        });
+      }
+
+      // When navigating to a section via the menu, make sure it's expanded.
+      function expandTarget() {
+        const id = (location.hash || '').replace('#', '');
+        if (!id) return;
+        const sec = document.getElementById(id);
+        if (sec && sec.classList.contains('section-collapsed')) {
+          sec.classList.remove('section-collapsed');
+          const btn = sec.querySelector('.section-toggle');
+          if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      function start() {
+        wrap();
+        window.addEventListener('hashchange', expandTarget);
+        // Expand on nav click even if hash doesn't change
+        document.querySelectorAll('.nav-item').forEach((l) => {
+          l.addEventListener('click', () => setTimeout(expandTarget, 0));
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
+    })();
+  </script>
+
   <!-- Scroll-spy: highlight current section in sidebar -->
   <script is:inline>
     (function () {
