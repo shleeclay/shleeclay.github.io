@@ -12,6 +12,12 @@
     }
   },
 
+  "qrTargets": {
+    "_help": "QR 코드가 가리키는 리다이렉트 페이지의 최종 목적지. QR은 /go(한글)·/go-en(영문)을 가리키고, 실제 이동 주소는 여기서 관리합니다. 목적지를 바꿔도 인쇄된 QR은 그대로 유효합니다 (재인쇄 불필요). QR 이미지 재생성: npm run qr",
+    "kr": "https://drseunghyeonlee.com/",
+    "en": "https://drseunghyeonlee.com/en"
+  },
+
   "nav": {
     "items": [
       { "id": "about",         "ko": "프로필",     "en": "About" },
