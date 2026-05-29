@@ -458,10 +458,10 @@
     "phone":          "010-8455-5598",
     "phoneTelLink":   "+82-10-8455-5598",
     "_socialHelp": "아래 프로필 URL을 채우면 사이드바 아이콘 + Contact 카드 + 검색엔진용 구조화데이터(JSON-LD)에 자동 연결됩니다. 빈 문자열이면 해당 항목은 자동으로 숨겨집니다.",
-    "scholarUrl":     "",
-    "orcidUrl":       "",
+    "scholarUrl":     "https://scholar.google.com/citations?user=Ew1_-r0AAAAJ&hl=ko",
+    "orcidUrl":       "https://orcid.org/0000-0003-4612-065X",
     "researchGateUrl":"",
-    "linkedinUrl":    "",
+    "linkedinUrl":    "https://www.linkedin.com/in/seung-hyeon-lee-379024272/",
     "githubUrl":      "https://github.com/shleeclay"
   }
 }

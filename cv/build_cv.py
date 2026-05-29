@@ -174,9 +174,10 @@ r = p.add_run("Name in bold = author.  † = first author.  (9 publications; rev
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 pubs = [
-    (True, ["Gukhwa Jang", "Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"], 2026,
+    (True, ["Seunghyeon Lee", "Gukhwa Jang", "Sung-Ho Kil", "Youngkeun Song"], 2026,
      "Comparing LST estimation methods under matched spatiotemporal conditions in low- and high-rise "
-     "residential areas: satellite, simulation, and UAV approaches.", "KOSERT", ""),
+     "residential areas: satellite, simulation, and UAV approaches.", "KOSERT",
+     "doi:10.13087/kosert.2026.29.2.41"),
     (True, ["Seunghyeon Lee", "Youngkeun Song"], 2026,
      "Forest-type and seasonal analysis of GEDI–ALS canopy height agreement and GEDI structural metrics "
      "(FHD, PAI): a case study of forests in Gwacheon-si and Uiwang-si.", "KOSERT", ""),
