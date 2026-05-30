@@ -406,13 +406,34 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   background: linear-gradient(135deg, #0d1a14 0%, #1e3a2f 100%);
   color: #e2e8e0;
 }
+/* Light mode: a LIGHT sage block (matches the rest of the light page) rather
+   than a dark closing block. Inner cards restyled to light tones below. */
 [data-theme="shlee-light"] .color-block-deep {
-  background: linear-gradient(135deg, #1e3a2f 0%, #14241b 100%);
-  color: #f5f3ed;
+  background: linear-gradient(135deg, #eef3ef 0%, #e2ece6 100%);
+  color: #1e3a2f;
+  border: 1px solid rgba(30, 58, 47, 0.12);
 }
 
 .color-block-deep h1, .color-block-deep h2, .color-block-deep h3, .color-block-deep h4 { color: inherit; }
 .color-block-deep .type-eyebrow, .color-block-deep .type-caption { color: #e0b941; }
+/* Eyebrow/caption need a darker honey on the light block for contrast */
+[data-theme="shlee-light"] .color-block-deep .type-eyebrow,
+[data-theme="shlee-light"] .color-block-deep .type-caption { color: #9a7a18; }
+
+/* ── Light-mode contact cards: override the dark-mode white-tint utilities ── */
+[data-theme="shlee-light"] .color-block-deep .group {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border-color: rgba(30, 58, 47, 0.12) !important;
+}
+[data-theme="shlee-light"] .color-block-deep .group:hover {
+  background-color: #ffffff !important;
+  border-color: rgba(30, 58, 47, 0.32) !important;
+}
+[data-theme="shlee-light"] .color-block-deep .contact-icon-wrap {
+  background-color: rgba(30, 58, 47, 0.10) !important;
+  color: #1e3a2f;
+}
+[data-theme="shlee-light"] .color-block-deep .group:hover .contact-text-primary { color: #9a7a18; }
 
 /* Research card (used on patents, education, etc.) */
 .research-card {
