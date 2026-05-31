@@ -434,6 +434,10 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   color: #1e3a2f;
 }
 [data-theme="shlee-light"] .color-block-deep .group:hover .contact-text-primary { color: #9a7a18; }
+[data-theme="shlee-light"] .color-block-deep .cv-placeholder {
+  background-color: rgba(30, 58, 47, 0.04) !important;
+  border-color: rgba(30, 58, 47, 0.12) !important;
+}
 
 /* Research card (used on patents, education, etc.) */
 .research-card {
