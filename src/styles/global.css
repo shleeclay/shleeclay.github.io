@@ -764,15 +764,13 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 
 .cite-block { margin-bottom: 18px; }
 .cite-block:last-child { margin-bottom: 0; }
-/* First block's header sits at the top-right corner where the × button is —
-   reserve space so the APA "Copy" button never overlaps the close button.
-   NOTE: the panel's first child is the × button, so use :first-of-type
-   (first .cite-block div), not :first-child. */
-.cite-block:first-of-type .cite-head { padding-right: 46px; }
 .cite-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* Both headers share the same right padding so the APA / BibTeX "Copy"
+     buttons line up vertically — and the top (APA) one clears the × button. */
+  padding-right: 46px;
   margin-bottom: 8px;
 }
 .cite-label {
