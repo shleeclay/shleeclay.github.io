@@ -51,11 +51,11 @@
     "paragraphs": {
       "ko": [
         "공간 데이터와 원격탐사를 활용해 산림·도시 생태계의 구조와 기능을 이해하고자 합니다.",
-        "주요 관심사는 항공/위성 LiDAR (GEDI 포함) 기반 산림 수직 구조 분석, 도시생태계 기반 그린인프라, 그리고 데이터·코드 기반 재현 가능한 연구입니다."
+        "주요 관심사는 항공/위성 LiDAR 기반 산림 수직 구조 분석, 도시생태계 기반 그린인프라, 그리고 데이터·코드 기반 재현 가능한 연구입니다."
       ],
       "en": [
         "I use spatial data and remote sensing to understand the structure and function of forest and urban ecosystems.",
-        "My research focuses on airborne / spaceborne LiDAR (incl. GEDI) for vertical forest structure, green infrastructure for urban ecosystems, and reproducible data- and code-driven science."
+        "My research focuses on airborne / spaceborne LiDAR for vertical forest structure, green infrastructure for urban ecosystems, and reproducible data- and code-driven science."
       ]
     },
     "interestsLabel": { "ko": "연구 관심분야", "en": "Research interests" },
