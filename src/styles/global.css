@@ -765,8 +765,10 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 .cite-block { margin-bottom: 18px; }
 .cite-block:last-child { margin-bottom: 0; }
 /* First block's header sits at the top-right corner where the × button is —
-   reserve space so the APA "Copy" button never overlaps the close button. */
-.cite-block:first-child .cite-head { padding-right: 44px; }
+   reserve space so the APA "Copy" button never overlaps the close button.
+   NOTE: the panel's first child is the × button, so use :first-of-type
+   (first .cite-block div), not :first-child. */
+.cite-block:first-of-type .cite-head { padding-right: 46px; }
 .cite-head {
   display: flex;
   align-items: center;
