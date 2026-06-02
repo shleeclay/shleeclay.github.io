@@ -55,7 +55,7 @@ export type Conference = {
   year: number;
   type: 'oral' | 'poster' | 'video' | string;
   scope: 'international' | 'domestic' | string;
-  conference: string;
+  conference: string | Bi;
   venue: Bi;
   authors: string[];
   title: Bi;

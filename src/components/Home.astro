@@ -151,7 +151,7 @@ const confTypeLabels: Record<string, string> = {
 
     <div class="space-y-4">
       {education.map((e) => (
-        <div class="research-card flex gap-4">
+        <div class="research-card flex gap-4 -mx-[18px]">
           <!-- Logo slot (square) -->
           <div class="shrink-0 w-[72px] h-[72px] rounded-lg bg-white border border-base-300/60 flex items-center justify-center overflow-hidden">
             {e.logo ? (
@@ -223,7 +223,8 @@ const confTypeLabels: Record<string, string> = {
                     <span data-only="en">{c.title.en}</span>
                   </p>
                   <p class="type-body-sm text-base-content/55 mt-0.5">
-                    {c.conference}
+                    <span data-only="ko">{typeof c.conference === "string" ? c.conference : c.conference.ko}</span>
+                    <span data-only="en">{typeof c.conference === "string" ? c.conference : c.conference.en}</span>
                     {' · '}
                     <span data-only="ko">{c.venue.ko}</span>
                     <span data-only="en">{c.venue.en}</span>
@@ -458,7 +459,7 @@ const confTypeLabels: Record<string, string> = {
     <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.scholarships.label.ko} en={site.honors.scholarships.label.en} />
     <div class="space-y-3 mb-10">
       {scholarships.map((s) => (
-        <div class="research-card flex gap-4">
+        <div class="research-card flex gap-4 -mx-[18px]">
           <!-- Logo slot (square) -->
           <div class="shrink-0 w-[72px] h-[72px] rounded-lg bg-white border border-base-300/60 flex items-center justify-center overflow-hidden">
             {s.logo ? (
