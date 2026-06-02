@@ -471,50 +471,49 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 }
 
 /* upwise badge — links to upwise.co.kr from the Teaching section title row.
-   White chip keeps the brand logo legible in both light and dark themes. */
+   The wordmark is rendered as TEXT (like upwise's own header) so the color
+   follows the theme: UP/dot stay brand-orange, WISE uses base-content (dark in
+   light theme, light in dark theme). The chip uses theme tokens — subtle and
+   adaptive in both modes, no light plate needed. */
 .upwise-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   flex-shrink: 0;
   padding: 6px 11px;
   border-radius: 11px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(30, 41, 59, 0.10);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  transition: transform .2s ease, box-shadow .2s ease;
+  background: hsl(var(--b2) / 0.7);
+  border: 1px solid hsl(var(--b3) / 0.7);
+  transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
 }
-.upwise-badge img { height: 17px; width: auto; display: block; }
+.upwise-badge:hover {
+  transform: translateY(-1px);
+  background: hsl(var(--b2) / 0.95);
+  border-color: hsl(var(--bc) / 0.25);
+}
+/* Text wordmark: UPWISE. */
+.upwise-wordmark {
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.upwise-wordmark .uw-up,
+.upwise-wordmark .uw-dot { color: #ef7d2e; }      /* upwise brand orange */
+.upwise-wordmark .uw-wise { color: hsl(var(--bc) / 0.92); }
+/* Descriptor text (GIS Professional Instructor) */
 .upwise-badge-text {
   font-size: 11px;
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0.01em;
-  color: #334155;
+  color: hsl(var(--bc) / 0.55);
   white-space: nowrap;
   padding-left: 7px;
-  border-left: 1px solid rgba(30, 41, 59, 0.16);
+  border-left: 1px solid hsl(var(--bc) / 0.18);
 }
-.upwise-badge svg { color: #64748b; }
-.upwise-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-}
-/* Dark mode: the logo's "WISE" wordmark is dark navy, so the chip must stay
-   light enough to read — but a pure-white chip glares on a dark page. Use a
-   muted, semi-transparent light surface with no glow to tone it down. */
-[data-theme="shlee-dark"] .upwise-badge {
-  background: rgba(220, 226, 234, 0.78);
-  border-color: rgba(255, 255, 255, 0.10);
-  box-shadow: none;
-}
-[data-theme="shlee-dark"] .upwise-badge:hover {
-  background: rgba(232, 238, 245, 0.9);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.32);
-}
-[data-theme="shlee-dark"] .upwise-badge-text {
-  border-left-color: rgba(30, 41, 59, 0.22);
-}
+.upwise-badge svg { color: hsl(var(--bc) / 0.45); }
 
 /* Research card (used on patents, education, etc.) */
 .research-card {
