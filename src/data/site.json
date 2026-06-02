@@ -64,12 +64,12 @@
       "en": ["Forest vertical structure (LiDAR)", "GEDI · Spaceborne LiDAR", "Urban ecosystems · Green infrastructure", "Remote sensing · Satellite analysis", "Wildlife monitoring (UAV / thermal)", "GIS · Spatial analysis"]
     },
     "stats": [
-      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "9+",   "unit": { "ko": "편",    "en": "papers" } },
+      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "9",    "unit": { "ko": "편",    "en": "papers" } },
       { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12",   "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
-      { "label": { "ko": "출강 · 강의", "en": "Lectures taught" },       "value": "20+",  "unit": { "ko": "건",    "en": "lectures" } },
-      { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "4",    "unit": { "ko": "강",    "en": "courses" } }
+      { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "2/20+", "unit": { "ko": "건", "en": "lectures" } },
+      { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "4",    "unit": { "ko": "강 · 1000+ 수강생", "en": "courses · 1000+ students" } }
     ]
   },
 
