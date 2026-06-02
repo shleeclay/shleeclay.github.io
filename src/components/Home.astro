@@ -645,6 +645,25 @@ const confTypeLabels: Record<string, string> = {
     </div>
   </div>
 
+  <!-- Carry the current light/dark theme to upwise.co.kr via ?theme= so the
+       external site opens in the matching theme. Keeps in sync on toggle. -->
+  <script is:inline>
+    (function () {
+      const badge = document.querySelector('a.upwise-badge');
+      if (!badge) return;
+      const base = badge.getAttribute('href'); // clean base URL (ko or /en)
+      function sync() {
+        const dark = document.documentElement.getAttribute('data-theme') === 'shlee-dark';
+        const sep = base.indexOf('?') >= 0 ? '&' : '?';
+        badge.setAttribute('href', base + sep + 'theme=' + (dark ? 'dark' : 'light'));
+      }
+      sync();
+      new MutationObserver(sync).observe(document.documentElement, {
+        attributes: true, attributeFilter: ['data-theme'],
+      });
+    })();
+  </script>
+
   <script is:inline>
     (function () {
       const modal = document.getElementById('cite-modal');
