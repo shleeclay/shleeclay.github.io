@@ -134,8 +134,6 @@ export const education = site.education.items as Education[];
 export const scholarships = site.honors.scholarships.items as Scholarship[];
 export const certifications = site.honors.certifications.items as Certification[];
 export const books = site.honors.books.items as Book[];
-export const langSkills = site.honors.skills.languages as LangSkill[];
-export const toolSkills = site.honors.skills.tools as ToolSkill[];
 
 // ───────── Helpers ─────────
 
