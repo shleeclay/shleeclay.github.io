@@ -612,6 +612,102 @@ const confTypeLabels: Record<string, string> = {
     </div>
   </section>
 
+  <!-- ───────── Cite modal (shared; populated by .cite-toggle buttons) ───────── -->
+  <div id="cite-modal" class="cite-modal" hidden>
+    <div class="cite-modal-backdrop" data-cite-close></div>
+    <div class="cite-modal-panel" role="dialog" aria-modal="true" aria-label="Citation">
+      <button type="button" class="cite-modal-x" data-cite-close aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-label">APA</span>
+          <button type="button" class="cite-copy" data-cite-src="apa">
+            <span class="cite-copy-default">
+              <span data-only="ko">복사</span><span data-only="en">Copy</span>
+            </span>
+            <span class="cite-copy-done">
+              <span data-only="ko">복사됨 ✓</span><span data-only="en">Copied ✓</span>
+            </span>
+          </button>
+        </div>
+        <p id="cite-apa" class="cite-text"></p>
+      </div>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-label">BibTeX</span>
+          <button type="button" class="cite-copy" data-cite-src="bibtex">
+            <span class="cite-copy-default">
+              <span data-only="ko">복사</span><span data-only="en">Copy</span>
+            </span>
+            <span class="cite-copy-done">
+              <span data-only="ko">복사됨 ✓</span><span data-only="en">Copied ✓</span>
+            </span>
+          </button>
+        </div>
+        <pre id="cite-bibtex" class="cite-text cite-text-mono"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const modal = document.getElementById('cite-modal');
+      if (!modal) return;
+      const apaEl = document.getElementById('cite-apa');
+      const bibEl = document.getElementById('cite-bibtex');
+
+      function openModal(apa, bibtex) {
+        apaEl.textContent = apa || '';
+        bibEl.textContent = bibtex || '';
+        modal.querySelectorAll('.cite-copy').forEach((b) => b.classList.remove('copied'));
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        modal.hidden = true;
+        document.body.style.overflow = '';
+      }
+
+      // Open from any Cite button (event delegation)
+      document.addEventListener('click', (e) => {
+        const t = e.target.closest('.cite-toggle');
+        if (t) {
+          e.preventDefault();
+          openModal(t.getAttribute('data-apa'), t.getAttribute('data-bibtex'));
+        }
+      });
+
+      // Close on backdrop / X
+      modal.querySelectorAll('[data-cite-close]').forEach((el) => {
+        el.addEventListener('click', closeModal);
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+      // Copy buttons
+      modal.querySelectorAll('.cite-copy').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const src = btn.getAttribute('data-cite-src');
+          const text = (src === 'bibtex' ? bibEl : apaEl).textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch {
+            // Fallback for non-secure contexts
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch {}
+            document.body.removeChild(ta);
+          }
+          btn.classList.add('copied');
+          setTimeout(() => btn.classList.remove('copied'), 1600);
+        });
+      });
+    })();
+  </script>
+
   <!-- Mobile: collapsible sections (header tap toggles body). Desktop unaffected. -->
   <script is:inline>
     (function () {

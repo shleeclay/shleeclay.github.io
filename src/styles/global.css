@@ -702,3 +702,112 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   .section-collapsed .section-head-inner :where(h2) { margin-bottom: 0 !important; }
   .section-collapsed { padding-bottom: 1.25rem !important; }
 }
+
+/* ─────────────────────────────────────────────────────────
+   CITE MODAL (APA / BibTeX copy) — shared modal at page level
+   ───────────────────────────────────────────────────────── */
+.cite-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cite-modal[hidden] { display: none; }
+.cite-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 25, 20, 0.55);
+  backdrop-filter: blur(2px);
+}
+.cite-modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: hsl(var(--b1));
+  color: hsl(var(--bc));
+  border: 1px solid hsl(var(--b3));
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  padding: 22px;
+  animation: cite-pop 0.18s ease-out;
+}
+@keyframes cite-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cite-modal-x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: hsl(var(--bc) / 0.55);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.cite-modal-x:hover { background: hsl(var(--b3)); color: hsl(var(--bc)); }
+
+.cite-block { margin-bottom: 18px; }
+.cite-block:last-child { margin-bottom: 0; }
+.cite-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.cite-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2d5340;
+}
+[data-theme="shlee-dark"] .cite-label { color: #6fbf94; }
+
+.cite-copy {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 7px;
+  border: 1px solid rgba(74, 138, 110, 0.4);
+  background: rgba(74, 138, 110, 0.08);
+  color: #2d5340;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.cite-copy:hover { background: rgba(74, 138, 110, 0.16); border-color: rgba(74, 138, 110, 0.6); }
+[data-theme="shlee-dark"] .cite-copy { color: #8fd4ad; border-color: rgba(111, 191, 148, 0.4); background: rgba(111, 191, 148, 0.08); }
+.cite-copy .cite-copy-done { display: none; }
+.cite-copy.copied { color: #1e3a2f; border-color: #6fbf94; background: rgba(111, 191, 148, 0.22); }
+.cite-copy.copied .cite-copy-default { display: none; }
+.cite-copy.copied .cite-copy-done { display: inline; }
+[data-theme="shlee-dark"] .cite-copy.copied { color: #aee3c6; }
+
+.cite-text {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: hsl(var(--bc) / 0.85);
+  background: hsl(var(--b2) / 0.6);
+  border: 1px solid hsl(var(--b3) / 0.6);
+  border-radius: 10px;
+  padding: 12px 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.cite-text-mono {
+  font-size: 12.5px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
