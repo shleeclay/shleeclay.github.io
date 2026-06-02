@@ -35,8 +35,8 @@
   "hero": {
     "name":        { "ko": "이승현",                                                 "en": "Seunghyeon Lee" },
     "nameSub":     { "ko": "Clay Lee",                                              "en": "(Clay Lee)" },
-    "tagline":     { "ko": "자연과 환경을 사랑하는 연구자입니다.",                      "en": "A researcher with a profound passion for nature and the environment." },
-    "description": { "ko": "책임감 있게 주도적으로 할 수 있는 모든 일을 좋아합니다.",   "en": "I take great pride in leading responsibly in all my endeavors." },
+    "tagline":     { "ko": "LiDAR와 원격탐사로 산림·도시 생태계의 구조를 측정합니다.",                      "en": "Measuring the structure of forest and urban ecosystems with LiDAR and remote sensing." },
+    "description": { "ko": "항공·위성 데이터를 현장과 잇고, 재현 가능한 분석으로 생태계의 변화를 설명합니다.",   "en": "Connecting airborne and satellite data with field observations, and explaining ecosystem change through reproducible analysis." },
     "affiliation": {
       "ko": "서울대학교 협동과정 조경학 박사과정 · 생태계획연구실",
       "en": "Ph.D. Student · Seoul National University · Landscape & Ecological Planning Lab"
@@ -273,7 +273,7 @@
     "_help": "1저자 또는 발표자(presenter)인 학회 발표만 포함.",
     "eyebrow": "04 — CONFERENCES",
     "title": { "ko": "학회 발표", "en": "Conference Presentations" },
-    "intro": { "ko": "1저자 또는 발표자(presenter)인 국내·국제 학회 발표.", "en": "Domestic·international presentations where I am first author or presenter." },
+    "intro": { "ko": "1저자 또는 발표자(presenter)인 국내·국제 학회 발표.", "en": "Domestic and international presentations where I am first author or presenter." },
     "items": [
       { "id": 25, "date": "2025/12/17", "year": 2025, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)", "venue": { "ko": "미국 뉴올리언스",      "en": "New Orleans, US" },              "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest", "en": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest" } },
       { "id": 24, "date": "2025/04/04", "year": 2025, "type": "oral",   "scope": "domestic",      "conference": "한국환경복원기술학회 / KOSERT (2025 춘계)", "venue": { "ko": "대한민국 서울",       "en": "Seoul, Republic of Korea" },     "authors": ["이승현", "김도희", "김용환", "김한수", "노지선", "송영근", "이희재", "제갈갑성", "하의린"], "title": { "ko": "산림 층위구조 지수의 개발과 탄소저장량과의 상관관계 분석", "en": "Development of forest layer-structure indices and their correlation with carbon storage" } },
@@ -451,8 +451,8 @@
       "en": "Get in touch."
     },
     "description": {
-      "ko": "창의·도전·혁신과 관련한 모든 흥미로운 연락을 기다리고 있습니다.",
-      "en": "Open to interesting conversations around creativity, challenge, and innovation."
+      "ko": "연구 협업, 데이터·분석 문의, 새로운 도전에 관한 연락을 환영합니다.",
+      "en": "Open to research collaborations, data and analysis inquiries, and new challenges."
     },
     "email":          "shlee5598@snu.ac.kr",
     "emailNote":      { "ko": "현재 소속 메일 (소속 변경 시 갱신 예정)", "en": "Current institutional email (will be updated upon affiliation change)" },
