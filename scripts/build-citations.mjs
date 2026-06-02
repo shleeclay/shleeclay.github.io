@@ -56,10 +56,14 @@ function parseFields(body) {
   return fields;
 }
 
-// ── APA helpers (mirror build_cv.py) ──
+// ── APA helpers ──
+// Single initial per given-name token. Hyphenated romanized Korean names
+// (e.g. "Youn-Ha") collapse to one initial ("Y."), not "Y.-H.".
+// Space-separated given names (e.g. "Dennis Heejoon") keep one initial each
+// ("D. H.").
 function initials(given) {
   return given.split(/\s+/).filter(Boolean)
-    .map(part => part.split('-').filter(Boolean).map(s => s[0].toUpperCase() + '.').join('-'))
+    .map(part => part[0].toUpperCase() + '.')
     .join(' ');
 }
 function apaAuthor(name) {
