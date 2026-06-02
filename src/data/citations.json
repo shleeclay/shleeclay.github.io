@@ -1,10 +1,10 @@
 {
   "10.3390/rs13112169": {
-    "apa": "Lee, S., Song, Y., & Kil, S.-H. (2021). Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images. Remote Sensing, 13(11), 2169. https://doi.org/10.3390/rs13112169",
+    "apa": "Lee, S., Song, Y., & Kil, S. (2021). Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images. Remote Sensing, 13(11), 2169. https://doi.org/10.3390/rs13112169",
     "bibtex": "@article{lee2021_rs,\n  author  = {Lee, Seunghyeon and Song, Youngkeun and Kil, Sung-Ho},\n  title   = {Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images},\n  journal = {Remote Sensing},\n  volume  = {13},\n  number  = {11},\n  pages   = {2169},\n  year    = {2021},\n  month   = {jun},\n  doi     = {10.3390/rs13112169}\n}"
   },
   "10.13087/kosert.2024.27.2.55": {
-    "apa": "Han, Y.-H., Shin, W.-H., Kim, J.-H., Kim, D.-H., Yun, J.-W., Yi, S.-Y., Kim, Y.-H., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55",
+    "apa": "Han, Y., Shin, W., Kim, J., Kim, D., Yun, J., Yi, S., Kim, Y., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55",
     "bibtex": "@article{han2024_kosert,\n  author  = {Han, Youn-Ha and Shin, Won-Hyeop and Kim, Ji-Hwan and Kim, Do-Hee and Yun, Ji-Weon and Yi, Sok-Young and Kim, Yong-Hwan and Lee, Seunghyeon and Song, Youngkeun},\n  title   = {Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping},\n  journal = {Journal of the Korean Society of Environmental Restoration Technology},\n  volume  = {27},\n  number  = {2},\n  pages   = {55-65},\n  year    = {2024},\n  month   = {apr},\n  doi     = {10.13087/kosert.2024.27.2.55}\n}"
   },
   "10.1016/j.gecco.2025.e03866": {
@@ -32,7 +32,7 @@
     "bibtex": "@article{lee2026_kosert_gedi,\n  author  = {Lee, Seunghyeon and Song, Youngkeun},\n  title   = {Forest-Type and Seasonal Analysis of GEDI-ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) - A Case Study of Forests in Gwacheon-si and Uiwang-si -},\n  journal = {Journal of the Korean Society of Environmental Restoration Technology},\n  volume  = {29},\n  number  = {2},\n  pages   = {21-40},\n  year    = {2026},\n  month   = {apr},\n  doi     = {10.13087/kosert.2026.29.2.21}\n}"
   },
   "10.13087/kosert.2026.29.2.41": {
-    "apa": "Lee, S., Jang, G., Song, Y., & Kil, S.-H. (2026). Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 41–59. https://doi.org/10.13087/kosert.2026.29.2.41",
+    "apa": "Lee, S., Jang, G., Song, Y., & Kil, S. (2026). Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 41–59. https://doi.org/10.13087/kosert.2026.29.2.41",
     "bibtex": "@article{lee2026_kosert_lst,\n  author  = {Lee, Seunghyeon and Jang, Gukhwa and Song, Youngkeun and Kil, Sung-Ho},\n  title   = {Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas - Satellite, Simulation, and UAV Approaches -},\n  journal = {Journal of the Korean Society of Environmental Restoration Technology},\n  volume  = {29},\n  number  = {2},\n  pages   = {41-59},\n  year    = {2026},\n  month   = {apr},\n  doi     = {10.13087/kosert.2026.29.2.41}\n}"
   }
 }

@@ -634,21 +634,6 @@ const confTypeLabels: Record<string, string> = {
         </div>
         <p id="cite-apa" class="cite-text"></p>
       </div>
-
-      <div class="cite-block">
-        <div class="cite-head">
-          <span class="cite-label">BibTeX</span>
-          <button type="button" class="cite-copy" data-cite-src="bibtex">
-            <span class="cite-copy-default">
-              <span data-only="ko">복사</span><span data-only="en">Copy</span>
-            </span>
-            <span class="cite-copy-done">
-              <span data-only="ko">복사됨 ✓</span><span data-only="en">Copied ✓</span>
-            </span>
-          </button>
-        </div>
-        <pre id="cite-bibtex" class="cite-text cite-text-mono"></pre>
-      </div>
     </div>
   </div>
 
@@ -657,11 +642,9 @@ const confTypeLabels: Record<string, string> = {
       const modal = document.getElementById('cite-modal');
       if (!modal) return;
       const apaEl = document.getElementById('cite-apa');
-      const bibEl = document.getElementById('cite-bibtex');
 
-      function openModal(apa, bibtex) {
+      function openModal(apa) {
         apaEl.textContent = apa || '';
-        bibEl.textContent = bibtex || '';
         modal.querySelectorAll('.cite-copy').forEach((b) => b.classList.remove('copied'));
         modal.hidden = false;
         document.body.style.overflow = 'hidden';
@@ -676,7 +659,7 @@ const confTypeLabels: Record<string, string> = {
         const t = e.target.closest('.cite-toggle');
         if (t) {
           e.preventDefault();
-          openModal(t.getAttribute('data-apa'), t.getAttribute('data-bibtex'));
+          openModal(t.getAttribute('data-apa'));
         }
       });
 
@@ -686,11 +669,10 @@ const confTypeLabels: Record<string, string> = {
       });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
 
-      // Copy buttons
+      // Copy button
       modal.querySelectorAll('.cite-copy').forEach((btn) => {
         btn.addEventListener('click', async () => {
-          const src = btn.getAttribute('data-cite-src');
-          const text = (src === 'bibtex' ? bibEl : apaEl).textContent || '';
+          const text = apaEl.textContent || '';
           try {
             await navigator.clipboard.writeText(text);
           } catch {
