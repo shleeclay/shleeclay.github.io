@@ -407,8 +407,8 @@
     "certifications": {
       "label": { "ko": "자격증", "en": "Certifications" },
       "items": [
-        { "date": "2024/10/25", "name": { "ko": "초경량비행장치 조종자 (2종)", "en": "Drone Pilot License Class 2" } },
-        { "date": "2024/10/16", "name": { "ko": "1종 운전면허",                "en": "Driver's License Type 1" } },
+        { "date": "2024/10/25", "name": { "ko": "초경량비행장치 조종자 (2종)", "en": "Drone Pilot License" } },
+        { "date": "2024/10/16", "name": { "ko": "1종 운전면허",                "en": "Driver's License" } },
         { "date": "2024/10/02", "name": { "ko": "산림기사",                    "en": "Engineer Forest" } },
         { "date": "2016/08/05", "name": { "ko": "조경기사",                    "en": "Engineer Landscape Architecture" } }
       ]
