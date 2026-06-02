@@ -1,9 +1,6 @@
 ---
 import site from "../data/site.json";
 const c = site.contact;
-const { lang = "ko" } = Astro.props;
-const otherLangHref  = lang === "ko" ? "/en" : "/";
-const otherLangLabel = lang === "ko" ? "EN" : "KO";
 ---
 
 <div class="block sticky pointer-events-none bottom-10 bg-base-200 justify-center h-12 [mask-image:linear-gradient(transparent,#000000)]"></div>
@@ -58,11 +55,6 @@ const otherLangLabel = lang === "ko" ? "EN" : "KO";
 
   <!-- Divider -->
   <span class="w-px h-5 bg-base-300 mx-1"></span>
-
-  <!-- Language switch — links to the other-language route (URL-based i18n) -->
-  <a href={otherLangHref} class="icon-btn lang-toggle-btn" aria-label="Switch language" title={`Switch to ${otherLangLabel}`}>
-    <span class="text-[11px] font-semibold tracking-wider">{otherLangLabel}</span>
-  </a>
 
   <!-- Theme toggle -->
   <button id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Toggle theme" title="Toggle light / dark">
@@ -119,7 +111,7 @@ const otherLangLabel = lang === "ko" ? "EN" : "KO";
   :global(html[data-theme="shlee-dark"]) .icon-btn:hover {
     color: #6fbf94;
   }
-  .lang-toggle-btn, .theme-toggle-btn {
+  .theme-toggle-btn {
     color: hsl(var(--bc) / 0.7);
   }
 </style>

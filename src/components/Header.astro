@@ -1,4 +1,5 @@
 ---
+import LangToggle from "./LangToggle.astro";
 const { lang = "ko" } = Astro.props;
 const homeHref = lang === "en" ? "/en" : "/";
 ---
@@ -20,6 +21,8 @@ const homeHref = lang === "en" ? "/en" : "/";
         <span data-only="ko">이승현</span><span data-only="en">Seunghyeon Lee</span>
       </a>
     </div>
-    <div class="navbar-end"></div>
+    <div class="navbar-end">
+      <LangToggle lang={lang} />
+    </div>
   </div>
 </div>
