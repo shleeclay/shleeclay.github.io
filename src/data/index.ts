@@ -75,7 +75,7 @@ export type Patent = {
   registrationDate: string;
   status: 'registered' | 'application' | string;
   certificate?: string;
-  inventors: string[];
+  inventors: { ko: string[]; en: string[] };
   owner: Bi;
   title: Bi;
 };

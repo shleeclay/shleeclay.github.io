@@ -82,7 +82,8 @@ const certSrc = patent.certificate
         <span data-only="ko">발명자: </span>
         <span data-only="en">Inventors: </span>
       </span>
-      {patent.inventors.join(", ")}
+      <span data-only="ko">{patent.inventors.ko.join(", ")}</span>
+      <span data-only="en">{patent.inventors.en.join(", ")}</span>
     </p>
 
     <!-- Owner / 특허권자 -->

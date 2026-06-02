@@ -313,7 +313,8 @@ const confTypeLabels: Record<string, string> = {
                     <span data-only="ko">발명자: </span>
                     <span data-only="en">Inventors: </span>
                   </span>
-                  {pt.inventors.join(', ')}
+                  <span data-only="ko">{pt.inventors.ko.join(', ')}</span>
+                  <span data-only="en">{pt.inventors.en.join(', ')}</span>
                   <span class="mx-1.5 text-base-content/30">·</span>
                   <span class="font-medium">
                     <span data-only="ko">특허권자: </span>
