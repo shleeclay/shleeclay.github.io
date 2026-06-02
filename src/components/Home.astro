@@ -209,12 +209,14 @@ const confTypeLabels: Record<string, string> = {
           <div class="space-y-2">
             {items.map((c) => (
               <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2.5 hover:bg-base-200/60 -mx-2 px-2 rounded-md transition-colors">
-                <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-24 md:pr-3">
-                  {fmtDate(c.date)}
-                </span>
-                <span class={`shrink-0 pill ${c.scope === 'international' ? 'pill-intl' : 'pill-domestic'}`}>
-                  {confTypeLabels[c.type] || c.type} · {c.scope === 'international' ? 'Intl.' : 'Domestic'}
-                </span>
+                <div class="flex flex-wrap items-center gap-2 md:contents">
+                  <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-24 md:pr-3">
+                    {fmtDate(c.date)}
+                  </span>
+                  <span class={`shrink-0 pill ${c.scope === 'international' ? 'pill-intl' : 'pill-domestic'}`}>
+                    {confTypeLabels[c.type] || c.type} · {c.scope === 'international' ? 'Intl.' : 'Domestic'}
+                  </span>
+                </div>
                 <div class="flex-1 min-w-0">
                   <p class="type-body text-base-content leading-snug" style="font-weight:480;">
                     <span data-only="ko">{c.title.ko}</span>
@@ -330,10 +332,14 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── TEACHING ───────── -->
   <section id="teaching" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.teaching.eyebrow}</p>
-    <div class="flex items-center justify-between gap-4 mb-3">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
       <L tag="h2" class="type-display-lg" ko={site.teaching.title.ko} en={site.teaching.title.en} />
-      <a href="https://upwise.co.kr" target="_blank" rel="noopener noreferrer" class="upwise-badge" aria-label="upwise.co.kr — 강의 플랫폼" title="upwise.co.kr">
+      <a href="https://upwise.co.kr" target="_blank" rel="noopener noreferrer" class="upwise-badge" aria-label="upwise.co.kr — GIS 전문 강사" title="upwise.co.kr — GIS Professional Instructor">
         <img src="/logos/upwise.png" alt="upwise" />
+        <span class="upwise-badge-text">
+          <span data-only="ko">GIS 전문 강사</span>
+          <span data-only="en">GIS Professional Instructor</span>
+        </span>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
           <polyline points="15 3 21 3 21 9"></polyline>
@@ -355,13 +361,15 @@ const confTypeLabels: Record<string, string> = {
               const label = teachTypeLabels[t.type] || { ko: t.type, en: t.type };
               return (
                 <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors">
-                  <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
-                    {fmtRange(t.date, t.dateEnd)}
-                  </span>
-                  <span class="shrink-0 pill pill-co">
-                    <span data-only="ko">{label.ko}</span>
-                    <span data-only="en">{label.en}</span>
-                  </span>
+                  <div class="flex flex-wrap items-center gap-2 md:contents">
+                    <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
+                      {fmtRange(t.date, t.dateEnd)}
+                    </span>
+                    <span class="shrink-0 pill pill-co">
+                      <span data-only="ko">{label.ko}</span>
+                      <span data-only="en">{label.en}</span>
+                    </span>
+                  </div>
                   <div class="flex-1 min-w-0">
                     {t.url ? (
                       <a href={t.url} target="_blank" rel="noopener noreferrer" class="type-body text-base-content hover:text-primary" style="font-weight:480;">
