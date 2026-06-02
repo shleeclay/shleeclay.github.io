@@ -470,7 +470,7 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 .pill-q1     { background: rgba(224, 185, 65, 0.18); color: #8a6f1a; border: 1px solid rgba(224, 185, 65, 0.45); }
 
 /* First author — primary carbon green */
-.pill-first  { background: rgba(30, 58, 47, 0.12); color: #1e3a2f;  border: 1px solid rgba(30, 58, 47, 0.30); }
+.pill-first  { background: rgba(224, 185, 65, 0.20); color: #8a6f1a;  border: 1px solid rgba(224, 185, 65, 0.45); }
 
 /* Co-author / generic chip — secondary carbon */
 .pill-co     { background: rgba(61, 104, 85, 0.10); color: #3d6855; border: 1px solid rgba(61, 104, 85, 0.30); }
@@ -484,7 +484,7 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 .pill-app    { background: rgba(224, 185, 65, 0.12);color: #8a6f1a; border: 1px solid rgba(224, 185, 65, 0.35); }
 
 [data-theme="shlee-dark"] .pill-q1     { background: rgba(224, 185, 65, 0.20); color: #f2d272; border-color: rgba(224, 185, 65, 0.5); }
-[data-theme="shlee-dark"] .pill-first  { background: rgba(111, 191, 148, 0.16); color: #6fbf94; border-color: rgba(111, 191, 148, 0.40); }
+[data-theme="shlee-dark"] .pill-first  { background: rgba(224, 185, 65, 0.18); color: #f2d272; border-color: rgba(224, 185, 65, 0.45); }
 [data-theme="shlee-dark"] .pill-co     { background: rgba(111, 191, 148, 0.08); color: #a0d8b8; border-color: rgba(111, 191, 148, 0.25); }
 [data-theme="shlee-dark"] .pill-intl   { background: rgba(160, 200, 180, 0.08); color: #a0d8b8; border-color: rgba(160, 200, 180, 0.25); }
 [data-theme="shlee-dark"] .pill-domestic{background: rgba(111, 191, 148, 0.10); color: #a0d8b8; border-color: rgba(111, 191, 148, 0.3); }
