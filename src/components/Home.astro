@@ -502,7 +502,6 @@ const confTypeLabels: Record<string, string> = {
           <div class="min-w-0 flex-1">
             <p class="type-caption mb-0.5">EMAIL</p>
             <p class="type-body contact-text-primary" style="font-weight:550;">{contact.email}</p>
-            <L tag="p" class="text-xs opacity-65 mt-0.5" ko={contact.emailNote.ko} en={contact.emailNote.en} />
           </div>
         </a>
 
@@ -515,8 +514,10 @@ const confTypeLabels: Record<string, string> = {
           </div>
           <div class="min-w-0 flex-1">
             <p class="type-caption mb-0.5">PHONE</p>
-            <p class="type-body contact-text-primary" style="font-weight:550;">{contact.phone}</p>
-            <p class="text-xs opacity-65 mt-0.5">+82</p>
+            <p class="type-body contact-text-primary" style="font-weight:550;">
+              <span data-only="ko">{contact.phone.ko}</span>
+              <span data-only="en">{contact.phone.en}</span>
+            </p>
           </div>
         </a>
 
@@ -528,7 +529,7 @@ const confTypeLabels: Record<string, string> = {
             </div>
             <div class="min-w-0 flex-1">
               <p class="type-caption mb-0.5">GOOGLE SCHOLAR</p>
-              <p class="type-body contact-text-primary" style="font-weight:550;">scholar.google.com</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">Seunghyeon Lee</p>
             </div>
           </a>
         )}
@@ -541,7 +542,7 @@ const confTypeLabels: Record<string, string> = {
             </div>
             <div class="min-w-0 flex-1">
               <p class="type-caption mb-0.5">ORCID</p>
-              <p class="type-body contact-text-primary" style="font-weight:550;">orcid.org</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">0000-0003-4612-065X</p>
             </div>
           </a>
         )}
@@ -567,47 +568,34 @@ const confTypeLabels: Record<string, string> = {
             </div>
             <div class="min-w-0 flex-1">
               <p class="type-caption mb-0.5">LINKEDIN</p>
-              <p class="type-body contact-text-primary" style="font-weight:550;">linkedin.com</p>
+              <p class="type-body contact-text-primary" style="font-weight:550;">Seunghyeon Lee</p>
             </div>
           </a>
         )}
 
-        <!-- CV download (PDF). Active when cvUrl set; otherwise a "coming soon" placeholder. -->
-        {contact.cvUrl ? (
-          <a href={contact.cvUrl} download class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
-            <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="type-caption mb-0.5">CV</p>
-              <p class="type-body contact-text-primary" style="font-weight:550;">
-                <span data-only="ko">이력서 다운로드 (PDF)</span>
-                <span data-only="en">Download CV (PDF)</span>
-              </p>
-            </div>
-          </a>
-        ) : (
-          <div class="cv-placeholder flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/10 opacity-60 cursor-default">
-            <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/8 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="type-caption mb-0.5">CV</p>
-              <p class="type-body" style="font-weight:550;">
-                <span data-only="ko">이력서 준비 중</span>
-                <span data-only="en">CV — coming soon</span>
-              </p>
+        <!-- CV downloads — two variants: Simplified (2p) + Full -->
+        <div class="flex items-center gap-3 p-4 rounded-2xl bg-white/8 border border-white/15">
+          <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="type-caption mb-1.5">CV</p>
+            <div class="flex flex-wrap gap-2">
+              <a href={contact.cvSimplifiedUrl} download class="cv-dl-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span data-only="ko">간략 (2p)</span><span data-only="en">Simplified (2p)</span>
+              </a>
+              <a href={contact.cvFullUrl} download class="cv-dl-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span data-only="ko">전체 CV</span><span data-only="en">Full CV</span>
+              </a>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   </section>

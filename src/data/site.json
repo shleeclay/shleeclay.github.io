@@ -66,7 +66,7 @@
     "stats": [
       { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "9",    "unit": { "ko": "편",    "en": "papers" } },
       { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
-      { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12",   "unit": { "ko": "건",    "en": "projects" } },
+      { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
       { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "2/20+", "unit": { "ko": "건", "en": "lectures" } },
       { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "1000+", "unit": { "ko": "수강생 · 4강", "en": "students · 4 courses" } }
@@ -433,8 +433,7 @@
       "en": "Open to research collaborations, data and analysis inquiries, and new challenges."
     },
     "email":          "shlee5598@snu.ac.kr",
-    "emailNote":      { "ko": "현재 소속 메일 (소속 변경 시 갱신 예정)", "en": "Current institutional email (will be updated upon affiliation change)" },
-    "phone":          "010-8455-5598",
+    "phone":          { "ko": "010-8455-5598", "en": "+82 10-8455-5598" },
     "phoneTelLink":   "+82-10-8455-5598",
     "_socialHelp": "아래 프로필 URL을 채우면 사이드바 아이콘 + Contact 카드 + 검색엔진용 구조화데이터(JSON-LD)에 자동 연결됩니다. 빈 문자열이면 해당 항목은 자동으로 숨겨집니다.",
     "scholarUrl":     "https://scholar.google.com/citations?user=Ew1_-r0AAAAJ&hl=ko",
@@ -442,6 +441,7 @@
     "researchGateUrl":"",
     "linkedinUrl":    "https://www.linkedin.com/in/seung-hyeon-lee-379024272/",
     "githubUrl":      "",
-    "cvUrl":          ""
+    "cvSimplifiedUrl": "/cv/Seunghyeon_Lee_CV_simplified.pdf",
+    "cvFullUrl":       "/cv/Seunghyeon_Lee_CV_full.pdf"
   }
 }

@@ -439,6 +439,37 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   border-color: rgba(30, 58, 47, 0.12) !important;
 }
 
+/* CV download buttons (two variants inside one contact card) */
+.cv-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 550;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: inherit;
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease, color .2s ease;
+}
+.cv-dl-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.42);
+  transform: translateY(-1px);
+}
+[data-theme="shlee-light"] .color-block-deep .cv-dl-btn {
+  background: rgba(30, 58, 47, 0.06);
+  border-color: rgba(30, 58, 47, 0.16);
+  color: #1e3a2f;
+}
+[data-theme="shlee-light"] .color-block-deep .cv-dl-btn:hover {
+  background: rgba(30, 58, 47, 0.12);
+  border-color: rgba(30, 58, 47, 0.32);
+  color: #9a7a18;
+}
+
 /* Research card (used on patents, education, etc.) */
 .research-card {
   padding: 16px 18px;
