@@ -477,10 +477,9 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 }
 
 /* upwise badge — links to upwise.co.kr from the Teaching section title row.
-   The wordmark is rendered as TEXT (like upwise's own header) so the color
-   follows the theme: UP/dot stay brand-orange, WISE uses base-content (dark in
-   light theme, light in dark theme). The chip uses theme tokens — subtle and
-   adaptive in both modes, no light plate needed. */
+   The wordmark is rendered as TEXT (like upwise's own header). Colors use the
+   theme's explicit hex/rgba (NOT hsl(var(--bc)) — DaisyUI v4 stores tokens as
+   OKLCH, so hsl(var(...)) is invalid and renders nothing). */
 .upwise-badge {
   display: inline-flex;
   align-items: center;
@@ -488,17 +487,17 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   flex-shrink: 0;
   padding: 7px 15px;
   border-radius: 999px;
-  background: hsl(var(--b2));
-  border: 1.5px solid hsl(var(--bc) / 0.22);
-  box-shadow: 0 1px 3px hsl(var(--bc) / 0.10);
+  background: #f5f3ed;                       /* base-200 (light) */
+  border: 1.5px solid rgba(15, 34, 24, 0.18);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   transition: transform .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
 }
 .upwise-badge:hover {
   transform: translateY(-1px);
-  border-color: hsl(var(--bc) / 0.4);
-  box-shadow: 0 3px 9px hsl(var(--bc) / 0.14);
+  border-color: rgba(15, 34, 24, 0.32);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.10);
 }
-/* Text wordmark: UPWISE. (~20% larger than before) */
+/* Text wordmark: UPWISE. */
 .upwise-wordmark {
   font-weight: 800;
   font-size: 16px;
@@ -508,19 +507,36 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 }
 .upwise-wordmark .uw-up,
 .upwise-wordmark .uw-dot { color: #ef7d2e; }      /* upwise brand orange */
-.upwise-wordmark .uw-wise { color: hsl(var(--bc) / 0.92); }
+.upwise-wordmark .uw-wise { color: #0f2218; }     /* base-content (light) */
 /* Descriptor text (GIS Instructor) */
 .upwise-badge-text {
   font-size: 13px;
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0.01em;
-  color: hsl(var(--bc) / 0.55);
+  color: rgba(15, 34, 24, 0.6);
   white-space: nowrap;
   padding-left: 8px;
-  border-left: 1px solid hsl(var(--bc) / 0.18);
+  border-left: 1px solid rgba(15, 34, 24, 0.18);
 }
-.upwise-badge svg { color: hsl(var(--bc) / 0.45); }
+.upwise-badge svg { color: rgba(15, 34, 24, 0.45); }
+
+/* Dark mode: subtle chip (not the bright white plate), light text, clear border. */
+[data-theme="shlee-dark"] .upwise-badge {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.20);
+  box-shadow: none;
+}
+[data-theme="shlee-dark"] .upwise-badge:hover {
+  border-color: rgba(255, 255, 255, 0.36);
+  box-shadow: none;
+}
+[data-theme="shlee-dark"] .upwise-wordmark .uw-wise { color: #e2e8e0; }
+[data-theme="shlee-dark"] .upwise-badge-text {
+  color: rgba(226, 232, 224, 0.62);
+  border-left-color: rgba(255, 255, 255, 0.20);
+}
+[data-theme="shlee-dark"] .upwise-badge svg { color: rgba(226, 232, 224, 0.5); }
 
 /* Research card (used on patents, education, etc.) */
 .research-card {
