@@ -719,7 +719,7 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 .cite-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(10, 25, 20, 0.55);
+  background: rgba(8, 18, 14, 0.72);
   backdrop-filter: blur(2px);
 }
 .cite-modal-panel {
@@ -728,13 +728,20 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   max-width: 620px;
   max-height: 85vh;
   overflow-y: auto;
-  background: hsl(var(--b1));
-  color: hsl(var(--bc));
-  border: 1px solid hsl(var(--b3));
+  /* Explicit opaque background so the card cover never shows through */
+  background: #ffffff;
+  color: #1e3a2f;
+  border: 1px solid #dcd6c2;
   border-radius: 18px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  /* Extra top padding so the first row clears the close (×) button */
   padding: 22px;
   animation: cite-pop 0.18s ease-out;
+}
+[data-theme="shlee-dark"] .cite-modal-panel {
+  background: #10201a;
+  color: #e2e8e0;
+  border-color: #243a2b;
 }
 @keyframes cite-pop {
   from { opacity: 0; transform: translateY(8px) scale(0.98); }
@@ -757,6 +764,9 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 
 .cite-block { margin-bottom: 18px; }
 .cite-block:last-child { margin-bottom: 0; }
+/* First block's header sits at the top-right corner where the × button is —
+   reserve space so the APA "Copy" button never overlaps the close button. */
+.cite-block:first-child .cite-head { padding-right: 44px; }
 .cite-head {
   display: flex;
   align-items: center;
@@ -798,13 +808,18 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   font-family: var(--font-sans);
   font-size: 13.5px;
   line-height: 1.6;
-  color: hsl(var(--bc) / 0.85);
-  background: hsl(var(--b2) / 0.6);
-  border: 1px solid hsl(var(--b3) / 0.6);
+  color: #2c3a33;
+  background: #f4f7f5;
+  border: 1px solid #dcd6c2;
   border-radius: 10px;
   padding: 12px 14px;
   white-space: pre-wrap;
   word-break: break-word;
+}
+[data-theme="shlee-dark"] .cite-text {
+  color: #cfe0d6;
+  background: #0b1712;
+  border-color: #243a2b;
 }
 .cite-text-mono {
   font-size: 12.5px;
