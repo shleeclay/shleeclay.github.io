@@ -417,13 +417,15 @@ const confTypeLabels: Record<string, string> = {
           </div>
 
           <div class="flex-1 min-w-0 flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4">
-            <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
-              {w.period}
-            </span>
-            <span class="shrink-0 pill pill-co">
-              <span data-only="ko">{w.type.ko}</span>
-              <span data-only="en">{w.type.en}</span>
-            </span>
+            <div class="flex flex-wrap items-center gap-2 md:contents">
+              <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
+                {w.period}
+              </span>
+              <span class="shrink-0 pill pill-co">
+                <span data-only="ko">{w.type.ko}</span>
+                <span data-only="en">{w.type.en}</span>
+              </span>
+            </div>
             <div class="flex-1 min-w-0">
               {w.url ? (
                 <a href={w.url} target="_blank" rel="noopener noreferrer" class="type-body text-base-content hover:text-primary" style="font-weight:480;">
