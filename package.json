@@ -7,8 +7,9 @@
     "dev": "astro dev",
     "start": "astro dev",
     "optimize-images": "node scripts/optimize-images.mjs",
+    "build-citations": "node scripts/build-citations.mjs",
     "qr": "node scripts/make-qr.mjs",
-    "build": "node scripts/optimize-images.mjs && astro build",
+    "build": "node scripts/build-citations.mjs && node scripts/optimize-images.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

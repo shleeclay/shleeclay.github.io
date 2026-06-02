@@ -1,8 +1,11 @@
 ---
 import type { Publication } from "../data";
+import { citationFor } from "../data";
 
 interface Props { paper: Publication; }
 const { paper } = Astro.props as Props;
+
+const citation = citationFor(paper.doi);
 
 const isFirst = paper.role === "first";
 const yearText = paper.year ? String(paper.year) : "—";
@@ -159,6 +162,22 @@ const coverSrc = paper.cover
           </svg>
           Web
         </span>
+      )}
+
+      {citation && (
+        <button
+          type="button"
+          class="btn-mini active cite-toggle"
+          aria-label="Cite this paper"
+          title="Cite (APA / BibTeX)"
+          data-apa={citation.apa}
+          data-bibtex={citation.bibtex}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h10M4 18h13"></path>
+          </svg>
+          Cite
+        </button>
       )}
     </div>
   </div>

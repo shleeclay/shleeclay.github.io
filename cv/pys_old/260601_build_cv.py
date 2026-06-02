@@ -15,9 +15,6 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
 from docx.enum.section import WD_SECTION
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
-import os, re, json
-
-HERE = os.path.dirname(os.path.abspath(__file__))
 
 # ---------------------------------------------------------------- palette
 INK    = RGBColor(0x1a, 0x1a, 0x1a)
@@ -83,7 +80,7 @@ contact = [
     "+82-10-8455-5598",
     "shleeclay.github.io",
     "github.com/shleeclay",
-    "ORCID: 0000-0003-4612-065X",
+    "Google Scholar / ORCID: [add URL]",
 ]
 p = doc.add_paragraph()
 for i, c in enumerate(contact):
@@ -143,15 +140,11 @@ edu = [
      "2022.03 — Aug 2026 (expected)",
      "Integrated Major in SmartCity Global Convergence · Seoul National University · "
      "Landscape & Ecological Planning Lab · Advisor: Prof. Youngkeun Song",
-     ["Dissertation: “LiDAR-Based Characterization of Vertical Structure and Disturbance in "
-      "Temperate Forests”",
-      "Committee: Dongkun Lee, Youngryel Ryu (Seoul National Univ.); Hansoo Kim (Gyeonggi Research "
-      "Institute); Dennis Heejoon Choi (Dankook Univ.); Youngkeun Song (advisor, SNU)"]),
+     ["Dissertation: [title — to be added]"]),
     ("M.A., Landscape Architecture",
      "2020.03 — 2022.02",
      "Integrated Major in SmartCity Global Convergence · Graduate School of Environmental Studies, "
-     "Seoul National University · Advisor: Prof. Youngkeun Song",
-     ["Thesis: “Feasibility of Wildlife Detection Using UAV-derived Thermal and True-color Imagery”"]),
+     "Seoul National University · Advisor: Prof. Youngkeun Song", None),
     ("B.S., Landscape Architecture",
      "2011.03 — 2017.02",
      "College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea", None),
@@ -177,195 +170,84 @@ for lead, rest, date, sub in exp:
 # ---------------------------------------------------------------- Publications
 section("Peer-Reviewed Publications")
 p = doc.add_paragraph()
-r = p.add_run("APA 7th.  Name in bold = author; † = first author.  "
-              "Impact Factor / quartile shown where available.  (oldest → newest)")
+r = p.add_run("Name in bold = author.  † = first author.  (9 publications; reverse chronological)")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
-# --- source: citations/publications.bib (ascending) + IF/quartile from site.json (matched by DOI) ---
-def _bib_entries(path):
-    txt = open(path, encoding="utf-8").read()
-    out, i = [], 0
-    while True:
-        at = txt.find("@", i)
-        if at < 0: break
-        b = txt.find("{", at); depth, j = 0, b
-        while j < len(txt):
-            if txt[j] == "{": depth += 1
-            elif txt[j] == "}":
-                depth -= 1
-                if depth == 0: break
-            j += 1
-        out.append(txt[at:j + 1]); i = j + 1
-    return out
-
-def _bf(raw, name):
-    m = re.search(r"\b" + name + r"\s*=\s*\{(.*?)\}\s*[,}\n]", raw, re.I | re.S)
-    return m.group(1).strip() if m else ""
-
-def _initials(given):
-    return " ".join("-".join(s[0].upper() + "." for s in part.split("-") if s)
-                    for part in given.split())
-
-def _apa_author(name):
-    if "," in name:
-        sur, giv = [x.strip() for x in name.split(",", 1)]
-    else:
-        ps = name.split(); sur, giv = ps[-1], " ".join(ps[:-1])
-    return f"{sur}, {_initials(giv)}".strip().rstrip(","), (sur == "Lee" and giv.startswith("Seunghyeon"))
-
-_site = json.load(open(os.path.join(HERE, "..", "src", "data", "site.json"), encoding="utf-8"))
-IFQ = {(it.get("doi") or "").lower().strip(): (it.get("if", ""), it.get("quartile", ""))
-       for it in _site["publications"]["items"] if it.get("doi")}
-
-for n, raw in enumerate(_bib_entries(os.path.join(HERE, "citations", "publications.bib")), 1):
-    apa = [_apa_author(a.strip()) for a in _bf(raw, "author").split(" and ")]
-    year = _bf(raw, "year")
-    title = re.sub(r"\s*-\s*$", "", _bf(raw, "title")).replace(" - ", ": ").rstrip(". ")
-    journal = _bf(raw, "journal").replace("\\&", "&")
-    vol, num = _bf(raw, "volume"), _bf(raw, "number")
-    pages = _bf(raw, "pages").replace("-", "–")
-    doi = _bf(raw, "doi")
-    iff, q = IFQ.get(doi.lower(), ("", ""))
-
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
-    p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
-    _set_run(p.add_run(f"{n}. "), 9, color=GREY)
-    nA = len(apa)
-    for i, (disp, is_user) in enumerate(apa):
-        if i > 0:
-            _set_run(p.add_run(", "), 9)
-        if i == nA - 1 and nA > 1:
-            _set_run(p.add_run("& "), 9)
-        _set_run(p.add_run(disp), 9, bold=is_user)
-        if i == 0 and is_user:
-            _set_run(p.add_run("†"), 9, bold=True, color=ACCENT)
-    _set_run(p.add_run(f" ({year}). "), 9)
-    _set_run(p.add_run(title + ". "), 9)
-    _set_run(p.add_run(journal), 9, italic=True)
-    if vol:
-        _set_run(p.add_run(", "), 9)
-        _set_run(p.add_run(vol), 9, italic=True)
-        if num:
-            _set_run(p.add_run(f"({num})"), 9)
-        if pages:
-            _set_run(p.add_run(f", {pages}"), 9)
-    _set_run(p.add_run(". "), 9)
-    if doi:
-        _set_run(p.add_run(f"https://doi.org/{doi}"), 9, color=GREY)
-    if iff or q:
-        iv = iff.split("(")[0].strip()
-        tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", q] if x)
-        _set_run(p.add_run(tag), 8.5, color=ACCENT)
-
-# ---------------------------------------------------------------- Manuscripts under review
-section("Manuscripts Under Review")
-p = doc.add_paragraph()
-r = p.add_run("APA 7th.  Name in bold = author; † = first author.  (5 manuscripts; first-author listed first)")
-_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
-under_review = [
-    (["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song", "James H. Thorne"],
-     "Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer "
-     "plantation.", "Science of Remote Sensing", "Under review (2026.04)"),
-    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"],
-     "Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic "
-     "conditions on discrepancies between ALS and field surveys.", "Geoscience Letters",
-     "In review (2026.06)"),
-    (["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],
-     "Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural "
-     "association in a temperate urban forest.", "Forest Science and Technology", "In review (2026.05)"),
-    (["Yonghwan Kim", "Seunghyeon Lee", "Wonhyeop Shin", "Youngkeun Song"],
-     "Integrating UAV-derived habitat metrics with movement persistence and species distribution models "
-     "to characterize seasonal habitat use of invasive turtles in urban wetlands.",
-     "Global Ecology and Conservation", "In review (2026.05)"),
-    (["Gapseong Jekal", "Yong Hwan Kim", "Seunghyeon Lee", "Ji Weon Yun", "Dae Yeol Kim", "Youngkeun Song"],
-     "Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from "
-     "multi-season Sentinel-2 in a coastal wetland.", "Journal of Coastal Conservation",
-     "In review (2026.02)"),
+pubs = [
+    (True, ["Seunghyeon Lee", "Gukhwa Jang", "Sung-Ho Kil", "Youngkeun Song"], 2026,
+     "Comparing LST estimation methods under matched spatiotemporal conditions in low- and high-rise "
+     "residential areas: satellite, simulation, and UAV approaches.", "KOSERT",
+     "doi:10.13087/kosert.2026.29.2.41"),
+    (True, ["Seunghyeon Lee", "Youngkeun Song"], 2026,
+     "Forest-type and seasonal analysis of GEDI–ALS canopy height agreement and GEDI structural metrics "
+     "(FHD, PAI): a case study of forests in Gwacheon-si and Uiwang-si.", "KOSERT", ""),
+    (True, ["Seunghyeon Lee", "Uirin Ha", "Heejae Lee", "Hyeyeong Choe", "Hansoo Kim", "Youngkeun Song"], 2026,
+     "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate "
+     "mixed forests.", "Ecological Indicators", "IF 7.4, Q1 · doi:10.1016/j.ecolind.2026.114798"),
+    (False, ["Gapseong Jekal", "Seunghyeon Lee", "Youngeun Yang", "Youngkeun Song"], 2026,
+     "Non-destructive carbon storage estimation of Salix spp. community in wetlands using LiDAR: a case "
+     "study of Ungok Wetland.", "KOSERT", "doi:10.13087/kosert.2025.28.6.95"),
+    (False, ["Jinyuan Shao", "Dennis Heejoon Choi", "Jidong Liu", "Xiangxi Tian", "Bina Thapa",
+             "Seunghyeon Lee", "Ayman Habib", "Songlin Fei"], 2026,
+     "A three-stage framework for stand-level automated stem volume estimation in temperate forests using "
+     "mobile laser scanning.", "Remote Sensing of Environment", "IF 11.4, Q1 · doi:10.1016/j.rse.2026.115246"),
+    (False, ["Jaeyeon Kim", "Seungwoo Han", "Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"], 2026,
+     "Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy "
+     "fields.", "Agriculture, Ecosystems & Environment", "IF 6.4, Q1 · doi:10.1016/j.agee.2025.110172"),
+    (False, ["Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"], 2025,
+     "Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species "
+     "distribution modeling using citizen science data.", "Global Ecology and Conservation",
+     "IF 3.4, Q1 · doi:10.1016/j.gecco.2025.e03866"),
+    (False, ["Younha Han", "Wonhyeop Shin", "Jihwan Kim", "Dohee Kim", "Jiweon Yun", "Sokyoung Yi",
+             "Yonghwan Kim", "Seunghyeon Lee", "Youngkeun Song"], 2024,
+     "Diel activity patterns of water deer (Hydropotes inermis) and wild boar (Sus scrofa) in a suburban "
+     "area monitored by long-term camera-trapping.", "KOSERT", ""),
+    (True, ["Seunghyeon Lee", "Youngkeun Song", "Sung-Ho Kil"], 2021,
+     "Feasibility analyses of real-time detection of wildlife using UAV-derived thermal and RGB images.",
+     "Remote Sensing", "IF 5.0, Q1 · doi:10.3390/rs13112169"),
 ]
-for n, (auth, title, jour, status) in enumerate(under_review, 1):
-    apa = [_apa_author(a) for a in auth]
-    ym = re.search(r"\((20\d\d(?:\.\d+)?)\)", status)
-    yr = (ym.group(1).split(".")[0] if ym else "2026")
+for n, (first, auth, yr, title, jour, meta) in enumerate(pubs, 1):
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
-    p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
-    _set_run(p.add_run(f"{n}. "), 9, color=GREY)
-    nA = len(apa)
-    for i, (disp, is_user) in enumerate(apa):
-        if i > 0:
-            _set_run(p.add_run(", "), 9)
-        if i == nA - 1 and nA > 1:
-            _set_run(p.add_run("& "), 9)
-        _set_run(p.add_run(disp), 9, bold=is_user)
-        if i == 0 and is_user:
-            _set_run(p.add_run("†"), 9, bold=True, color=ACCENT)
-    _set_run(p.add_run(f" ({yr}). "), 9)
-    _set_run(p.add_run(title.rstrip(". ")), 9, italic=True)       # APA: unpublished title in italics
-    _set_run(p.add_run(" [Manuscript under review]. "), 9)
-    _set_run(p.add_run(jour + "."), 9)
-    if ym:
-        _set_run(p.add_run(f"  · submitted {ym.group(1)}"), 8.5, color=GREY)
-
-# ---------------------------------------------------------------- Invited talks
-section("Invited Talks")
-invited = [
-    ("Remotely sensed smart-city ecological value maps.",
-     "NEF (Neocity Empowerment Forum), Orlando, FL, US", "2024"),
-    ("Invasive species monitoring development and its application.",
-     "Asia Week, Fukuoka, Japan", "2024"),
-]
-for title, venue, yr in invited:
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
-    p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
-    b = p.add_run("• "); _set_run(b, 9, color=ACCENT)
-    r = p.add_run("Seunghyeon Lee"); _set_run(r, 9, bold=True)
-    r = p.add_run(f" ({yr}). "); _set_run(r, 9)
-    r = p.add_run(title + " "); _set_run(r, 9)
-    r = p.add_run(venue + "."); _set_run(r, 9, italic=True, color=GREY)
+    p.paragraph_format.left_indent = Inches(0.28)
+    p.paragraph_format.first_line_indent = Inches(-0.28)
+    lead = p.add_run(f"{len(pubs)-n+1}. "); _set_run(lead, 9, color=GREY)
+    authors_run(p, auth, mark_first=True)
+    yr_r = p.add_run(f" ({yr}). "); _set_run(yr_r, 9)
+    t = p.add_run(title + " "); _set_run(t, 9)
+    j = p.add_run(jour + ".") ; _set_run(j, 9, italic=True)
+    if meta:
+        m = p.add_run("  " + meta); _set_run(m, 8.5, color=LIGHT)
 
 # ---------------------------------------------------------------- Conferences
-section("Conference Presentations (International)")
+section("Selected Conference Presentations")
 p = doc.add_paragraph()
-r = p.add_run("First author / presenter unless marked “team”.  "
-              "10 domestic presentations (KOSERT, KSEE, KILA) available on request.")
+r = p.add_run("International first-author / presenter highlights (full list of 25 available on request).")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 confs = [
-    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2025, "Poster",
+    (["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], 2025, "Poster",
      "Novel LiDAR indices reveal scale-dependent vertical structure and typologies in a temperate forest.",
      "AGU Fall Meeting, New Orleans, US"),
-    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Poster",
+    (["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], 2024, "Poster",
      "Quantifying the number of forest stratification layers of city-scale forest and characterizing by "
      "forest types.", "AGU Fall Meeting, Washington D.C., US"),
-    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Oral",
+    (["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], 2024, "Oral",
      "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR.",
      "ICLEE, Kitakyushu, Japan"),
-    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Poster",
+    (["Hansoo Kim", "Seunghyeon Lee", "Youngkeun Song"], 2024, "Poster",
      "Characterizing forest vegetation stratification by forest biotope types using airborne LiDAR.",
      "ESA Annual Meeting, Long Beach, CA, US"),
-    (["BK21 SmartCity Team"], 2024, "Video, team",
-     "Smart city & green infrastructure.", "CES (Consumer Electronics Show), Las Vegas, NV, US"),
-    (["Landscape & Ecological Planning Lab"], 2023, "Oral, team",
-     "Property-information analysis of Gyeonggi-do Province biotopes.",
-     "JCK Symposium (18th), Kyoto, Japan"),
-    (["Seunghyeon Lee", "Youngkeun Song"], 2023, "Poster",
-     "Wildfire-driven forest vegetation height change comparison.", "JCK Symposium (18th), Kyoto, Japan"),
     (["Seunghyeon Lee", "Youngkeun Song"], 2023, "Poster",
      "The impacts of fire-induced disturbances on tree height and structure using GEDI-derived variables.",
      "ESA Annual Meeting, Portland, OR, US"),
     (["Seunghyeon Lee", "Youngkeun Song"], 2022, "Oral",
-     "Monitoring structural change of fire-induced forest vegetation using GEDI.", "ICLEE (12th), Online"),
-    (["Seunghyeon Lee", "Youngkeun Song"], 2022, "Oral",
      "Comparison of GEDI and aerial laser scanning datasets according to leaf-on and leaf-off seasons.",
      "AGU Fall Meeting, Chicago, IL, US / Online"),
-    (["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song"], 2022, "Video",
-     "Classification of tree species and forest floor using an XGBoost algorithm with forest maps, "
-     "airborne LiDAR, and satellite imagery.", "World Forestry Congress (15th), Seoul, Republic of Korea"),
+    (["Seunghyeon Lee", "Youngkeun Song"], 2022, "Oral",
+     "Monitoring structural change of fire-induced forest vegetation using GEDI.", "ICLEE (12th), Online"),
     (["Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"], 2022, "Poster",
      "Feasibility analyses of real-time detection of wildlife using UAV-derived thermal and RGB images.",
      "World Forestry Congress (15th), Seoul, Republic of Korea"),
-    (["Seunghyeon Lee", "DaeYeol Kim", "Dennis Heejoon Choi", "Hansoo Kim", "Youngkeun Song"], 2021, "Poster",
-     "Detecting individual broad-leaved trees by a trunk-extraction method using leaf-off airborne LiDAR.",
-     "AGU Fall Meeting, New Orleans, US / Online"),
 ]
 for auth, yr, kind, title, venue in confs:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
@@ -378,50 +260,27 @@ for auth, yr, kind, title, venue in confs:
     v = p.add_run(f"[{kind}] {venue}."); _set_run(v, 9, italic=True, color=GREY)
 
 # ---------------------------------------------------------------- Patents
-section("Patents (Republic of Korea)")
+section("Patents")
 p = doc.add_paragraph()
-r = p.add_run("7 registered, 4 pending.")
+r = p.add_run("Republic of Korea — 6 registered, 5 pending (selected; full list available on request).")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
-
-def _patent_sub(text):
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(5)
-    r = p.add_run(text); _set_run(r, 9.5, bold=True, color=ACCENT)
-
-def _patent_list(items):
-    for title, meta in items:
-        p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
-        p.paragraph_format.left_indent = Inches(0.28)
-        p.paragraph_format.first_line_indent = Inches(-0.28)
-        bullet = p.add_run("• "); _set_run(bullet, 9, color=ACCENT)
-        t = p.add_run(title + " "); _set_run(t, 9)
-        m = p.add_run(meta); _set_run(m, 8.5, italic=True, color=GREY)
-
-_patent_sub("Registered")
-_patent_list([
-    ("System and method for providing a tree-management platform.", "Registered 2025.09 · Sole inventor"),
-    ("Method and system for determining wetland vegetation structure using drone LiDAR.",
-     "Registered 2025.04 · Seoul National University"),
+patents = [
+    ("A method for determining wetland vegetation structure using drone LiDAR and a system for "
+     "implementing it.", "Registered 2025.04 · Seoul National University"),
+    ("Method and system for quantitative assessment and automatic classification of wildfire damage using "
+     "spaceborne LiDAR.", "Pending (2025) · Dankook Univ. & Seoul National University"),
+    ("System and method for providing a tree management platform.", "Registered 2025.09 · Sole inventor"),
     ("Image-based roadside-tree information management system and method.", "Registered 2024.11 · Sole inventor"),
-    ("Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological "
-     "information.", "Registered 2023.07 · Seoul National University"),
-    ("Self-heating target module for thermal-camera performance testing and precision data acquisition.",
-     "Registered 2022.10 · Seoul National University"),
-    ("Automated wildlife detection method and device using drone-mounted thermal-camera imagery.",
+    ("Automated wild-animal detection method and device using drone-mounted thermal camera imagery.",
      "Registered 2022.05 · Seoul National University"),
-    ("A method to derive an optimal plan for outdoor thermal-comfort mitigation.",
-     "Registered 2022.04 · Seoul National University"),
-])
-_patent_sub("Pending")
-_patent_list([
-    ("Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR.",
-     "Pending 2025 · Dankook Univ. & Seoul National University"),
-    ("Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands.",
-     "Pending 2025 · Seoul National University"),
-    ("Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and "
-     "stratigraphic volume change.", "Pending 2023 · Seoul National University"),
-    ("Deriving optimal wildlife-capture range via machine learning by fusing GPS-tracking data and drone "
-     "footage.", "Pending 2023 · Seoul National University"),
-])
+]
+for title, meta in patents:
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.left_indent = Inches(0.28)
+    p.paragraph_format.first_line_indent = Inches(-0.28)
+    bullet = p.add_run("• "); _set_run(bullet, 9, color=ACCENT)
+    t = p.add_run(title + " "); _set_run(t, 9)
+    m = p.add_run(meta); _set_run(m, 8.5, italic=True, color=GREY)
 
 # ---------------------------------------------------------------- Grants / Projects
 section("Research Projects & Grants")
@@ -443,54 +302,24 @@ p = doc.add_paragraph(); r = p.add_run("…and 7 additional national/municipal R
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_before = Pt(2)
 
 # ---------------------------------------------------------------- Honors
-section("Awards & Honors")
-
-def _subhead(text):
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
-    r = p.add_run(text); _set_run(r, 9.5, bold=True, color=ACCENT)
-
-def _tabbed(rows):
-    for h, d in rows:
-        p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
-        r = p.add_run(h); _set_run(r, 9)
-        r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
-
-_subhead("Awards")
-_tabbed([
-    ("Best Presentation Award — KOSERT Autumn Meeting "
-     "(GEDI vs. airborne LiDAR field agreement by vegetation type and season)", "2022"),
-    ("Best Presentation Award — KOSERT Spring Meeting "
-     "(forest layer-structure indices and their correlation with carbon storage)", "2025"),
-])
-_subhead("Scholarships & Fellowships")
-_tabbed([
+section("Honors & Scholarships")
+honors = [
     ("Chung Mong-Koo Foundation — OnDream Future Industry Talent Graduate Scholarship (Full)", "2022 — Present"),
     ("BK21 FOUR — Integrated Major in SmartCity Global Convergence (Full)", "2020 — Present"),
     ("Ilju Foundation Undergraduate Scholarship, 23rd Scholar (Full)", "2015 — 2017"),
     ("Challenge Scholarship, Kyungpook National University (Full)", "2011 — 2013"),
-])
-
-# ---------------------------------------------------------------- Service & Membership
-section("Professional Service & Membership")
-p = doc.add_paragraph()
-r = p.add_run("Peer reviewer:  "); _set_run(r, 9, bold=True, color=ACCENT)
-r = p.add_run("International Journal of Applied Earth Observation and Geoinformation (2026 – present)")
-_set_run(r, 9)
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
-r = p.add_run("Member:  "); _set_run(r, 9, bold=True, color=ACCENT)
-r = p.add_run("American Geophysical Union (AGU, 2021–); Ecological Society of America (ESA, 2021–); "
-              "Korean Society of Environmental Restoration Technology (KOSERT, 2020–); "
-              "Ecological Society of Korea (2023–)")
-_set_run(r, 9)
+]
+for h, d in honors:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
+    r = p.add_run(h); _set_run(r, 9)
+    r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
 
 # ---------------------------------------------------------------- Teaching
 section("Teaching & Outreach")
 teach = [
-    ("University Lecturer (sole instructor) — “Understanding and Application of Spatial Information” "
-     "(3 cr.; ~30 students/yr), Incheon National University — GIS theory & QGIS labs, "
-     "remote-sensing theory & analysis", "2024, 2025"),
-    ("Online Instructor — 4 GIS/QGIS courses on an online learning platform "
-     "(1,000+ enrolled students total)", "2022 — 2025"),
+    ("University Lecturer — “Understanding and Application of Spatial Information” (3 cr.), "
+     "Incheon National University", "2024, 2025"),
+    ("Online Instructor — 4 GIS/QGIS courses on Inflearn (750+ enrolled students total)", "2022 — 2025"),
     ("Invited Workshops — K-water, Korea Environment Corporation, Hyundai NGV, SeSAC, SNU (20+ sessions)",
      "2020 — 2025"),
 ]
@@ -530,6 +359,6 @@ for name, detail in refs:
     r = p.add_run(detail); _set_run(r, 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v2.docx"
+out = "Lee_Seunghyeon_CV_v1.docx"
 doc.save(out)
 print("saved:", out)
