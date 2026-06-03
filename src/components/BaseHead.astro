@@ -20,7 +20,9 @@ const koUrl = `${SITE}/`;
 const enUrl = `${SITE}/en`;
 const canonical = lang === 'en' ? enUrl : koUrl;
 const ogLocale = lang === 'en' ? 'en_US' : 'ko_KR';
-const ogImage = `${SITE}/profile.jpg`;
+// Dedicated OG image (copy of the current profile). A distinct URL forces social
+// scrapers past their per-URL image cache when the photo is refreshed.
+const ogImage = `${SITE}/og-image.jpg`;
 
 // ─── JSON-LD: Person (structured data for Google → richer search presence) ───
 const c = site.contact as any;
