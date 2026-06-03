@@ -367,7 +367,7 @@ const confTypeLabels: Record<string, string> = {
                     <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
                       {fmtRange(t.date, t.dateEnd)}
                     </span>
-                    <span class="shrink-0 pill pill-co">
+                    <span class={`shrink-0 pill ${t.type === "univ" ? "pill-first" : "pill-co"}`}>
                       <span data-only="ko">{label.ko}</span>
                       <span data-only="en">{label.en}</span>
                     </span>
