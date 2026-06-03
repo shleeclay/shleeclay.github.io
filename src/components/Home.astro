@@ -5,7 +5,7 @@ import CardPaper from "./CardPaper.astro";
 import CardPatent from "./CardPatent.astro";
 import CardBook from "./CardBook.astro";
 import site, {
-  publications, conferences, projects, patents,
+  publications, underReview, conferences, projects, patents,
   teaching, career, education,
   scholarships, certifications, books,
   groupByYear, fmtRange, fmtDate,
@@ -191,6 +191,47 @@ const confTypeLabels: Record<string, string> = {
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
       {sortedPublications.map((p) => <CardPaper paper={p} />)}
     </div>
+
+    <!-- Manuscripts under review — list (conference-style), not cards -->
+    {underReview.length > 0 && (
+      <div class="mt-12">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="pill pill-app">
+            <span data-only="ko">심사 중</span>
+            <span data-only="en">Under Review</span>
+          </span>
+          <p class="type-caption text-base-content/55">
+            <span data-only="ko">{site.publications.underReview.note.ko}</span>
+            <span data-only="en">{site.publications.underReview.note.en}</span>
+          </p>
+        </div>
+        <div class="space-y-2 pl-4 border-l-2 border-base-300/40">
+          {underReview.map((m) => (
+            <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2.5 hover:bg-base-200/60 -mx-2 px-2 rounded-md transition-colors">
+              <div class="flex flex-wrap items-center gap-2 md:contents">
+                <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-20">
+                  {m.date.replace("/", ".")}
+                </span>
+                <span class={`shrink-0 pill ${m.role === "first" ? "pill-first" : "pill-co"}`}>
+                  <span data-only="ko">{m.status.ko}</span>
+                  <span data-only="en">{m.status.en}</span>
+                </span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="type-body text-base-content leading-snug" style="font-weight:480;">{m.title}</p>
+                <p class="type-body-sm text-base-content/55 mt-0.5">
+                  {m.authors.map((a, i) => (
+                    <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-semibold text-base-content/75">{a}</strong> : a}</>
+                  ))}
+                  <span class="mx-1.5 text-base-content/30">·</span>
+                  <span class="italic">{m.journal}</span>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </section>
 
   <!-- ───────── CONFERENCES ───────── -->

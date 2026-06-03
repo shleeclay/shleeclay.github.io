@@ -49,6 +49,15 @@ export type Publication = {
   title: Bi;
 };
 
+export type UnderReviewItem = {
+  role: 'first' | 'co' | string;
+  date: string;
+  journal: string;
+  status: Bi;
+  authors: string[];
+  title: string;
+};
+
 export type Conference = {
   id: number;
   date: string;
@@ -125,6 +134,7 @@ export type ToolSkill = { name: string; level: number };
 
 export const nav = site.nav.items as NavItem[];
 export const publications = site.publications.items as Publication[];
+export const underReview = site.publications.underReview.items as UnderReviewItem[];
 export const conferences = site.conferences.items as Conference[];
 export const projects = site.projects.items as ProjectItem[];
 export const patents = site.patents.items as Patent[];
