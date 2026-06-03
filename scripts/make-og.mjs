@@ -52,7 +52,7 @@ const bg = Buffer.from(`
 
   <!-- title + focus -->
   <text x="84" y="384" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#dbe6df">Ph.D. Researcher · Seoul National University</text>
-  <text x="84" y="426" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#a9c6b5">Forest &amp; Urban Ecology · LiDAR / Remote Sensing</text>
+  <text x="84" y="426" font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#a9c6b5">Forest &amp; Urban Ecology · LiDAR / Remote Sensing / GIS</text>
 
   <!-- url -->
   <text x="84" y="552" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#e0b941" font-weight="600">drseunghyeonlee.com</text>
