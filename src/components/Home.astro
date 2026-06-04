@@ -232,6 +232,12 @@ const confTypeLabels: Record<string, string> = {
         </div>
       </div>
     )}
+
+    <!-- Books (moved from Honors) -->
+    <L tag="p" class="type-caption text-base-content/65 mb-4 mt-12" ko={`${site.honors.books.label.ko} (${books.length})`} en={`${site.honors.books.label.en} (${books.length})`} />
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+      {books.map((b) => <CardBook book={b} />)}
+    </div>
   </section>
 
   <!-- ───────── CONFERENCES ───────── -->
@@ -277,122 +283,6 @@ const confTypeLabels: Record<string, string> = {
         </div>
       ))}
     </div>
-  </section>
-
-  <!-- ───────── PROJECTS ───────── -->
-  <section id="projects" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
-    <p class="type-eyebrow text-primary mb-3">{site.projects.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={`${site.projects.title.ko} (${projects.length})`} en={`${site.projects.title.en} (${projects.length})`} />
-    <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.projects.intro.ko} en={site.projects.intro.en} />
-
-    <div class="space-y-2">
-      {projects.map((p) => (
-        <div class="flex flex-col md:flex-row md:items-start gap-1 md:gap-4 py-3 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors border-b border-base-300/30">
-          <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-44">
-            {p.period}
-          </span>
-          <div class="flex-1 min-w-0">
-            <p class="type-body text-base-content leading-snug" style="font-weight:480;">
-              <span data-only="ko">{p.title.ko}</span>
-              <span data-only="en">{p.title.en}</span>
-            </p>
-            <p class="type-body-sm text-base-content/55 mt-0.5">
-              <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}{p.pi ? ` · PI: ${p.pi.ko}` : ''}</span>
-              <span data-only="en">{p.institute.en}{' · '}{p.role.en}{p.pi ? ` · PI: ${p.pi.en}` : ''}{p.budgetUsd ? ` · ${p.budgetUsd}` : ''}</span>
-            </p>
-            {p.contributions && (
-              <ul class="mt-2 space-y-1">
-                {p.contributions.map((c) => (
-                  <li class="type-body-sm text-base-content/70 flex gap-2 leading-snug">
-                    <span class="text-primary shrink-0">›</span>
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {p.papers && (
-              <p class="type-body-sm mt-1.5 leading-snug">
-                <span class="font-semibold text-primary">{p.papers.includes(' · ') ? 'Papers' : 'Paper'}: </span>
-                <span class="text-base-content/65">{p.papers}</span>
-              </p>
-            )}
-            {p.patents && (
-              <p class="type-body-sm mt-1 leading-snug">
-                <span class="font-semibold text-primary">{p.patents.includes(' · ') ? 'Patents' : 'Patent'}: </span>
-                <span class="text-base-content/65">{p.patents}</span>
-              </p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- ───────── PATENTS — registered = card grid, application = list ───────── -->
-  <section id="patents" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
-    <p class="type-eyebrow text-primary mb-3">{site.patents.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={`${site.patents.title.ko} (${patents.length})`} en={`${site.patents.title.en} (${patents.length})`} />
-    <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.patents.intro.ko} en={site.patents.intro.en} />
-
-    <!-- Registered patents — card grid (certificates) -->
-    {registeredPatents.length > 0 && (
-      <div class="mb-10">
-        <div class="flex items-baseline gap-3 mb-4">
-          <span class="pill pill-reg">Registered</span>
-          <p class="type-caption text-base-content/55">
-            <span data-only="ko">등록 특허 · {registeredPatents.length}건</span>
-            <span data-only="en">{registeredPatents.length} registered</span>
-          </p>
-        </div>
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-          {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
-        </div>
-      </div>
-    )}
-
-    <!-- Pending applications — compact list -->
-    {applicationPatents.length > 0 && (
-      <div>
-        <div class="flex items-baseline gap-3 mb-4">
-          <span class="pill pill-app">Application</span>
-          <p class="type-caption text-base-content/55">
-            <span data-only="ko">출원 중 · {applicationPatents.length}건</span>
-            <span data-only="en">{applicationPatents.length} pending</span>
-          </p>
-        </div>
-        <div class="space-y-2">
-          {applicationPatents.map((pt) => (
-            <div class="flex items-start gap-3 py-3 px-3 -mx-2 rounded-lg bg-base-200/40 border border-base-300/40 hover:border-primary/40 transition-colors">
-              <span class="shrink-0 type-body-sm text-base-content/55 font-medium tracking-tight w-24 pt-0.5">
-                {fmtDate(pt.applicationDate)}
-              </span>
-              <div class="flex-1 min-w-0">
-                <p class="type-body text-base-content leading-snug" style="font-weight:480;">
-                  <span data-only="ko">{pt.title.ko}</span>
-                  <span data-only="en">{pt.title.en}</span>
-                </p>
-                <p class="type-body-sm text-base-content/55 mt-0.5">
-                  <span class="font-medium">
-                    <span data-only="ko">발명자: </span>
-                    <span data-only="en">Inventors: </span>
-                  </span>
-                  <span data-only="ko">{pt.inventors.ko.join(', ')}</span>
-                  <span data-only="en">{pt.inventors.en.join(', ')}</span>
-                  <span class="hidden md:inline mx-1.5 text-base-content/30">·</span>
-                  <br class="md:hidden" />
-                  <span class="font-medium">
-                    <span data-only="ko">특허권자: </span>
-                    <span data-only="en">Owner: </span>
-                  </span>
-                  <span data-only="ko">{pt.owner.ko}</span>
-                  <span data-only="en">{pt.owner.en}</span>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )}
   </section>
 
   <!-- ───────── TEACHING ───────── -->
@@ -527,14 +417,28 @@ const confTypeLabels: Record<string, string> = {
     </div>
   </section>
 
-  <!-- ───────── HONORS (Scholarships + Certifications + Books) ───────── -->
-  <section id="honors" class="pb-10 border-t border-base-300 pt-14 scroll-mt-12">
-    <p class="type-eyebrow text-primary mb-3">{site.honors.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-10" ko={site.honors.title.ko} en={site.honors.title.en} />
+  <!-- ───────── CERTIFICATIONS (moved from Honors) ───────── -->
+  <section id="certifications" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
+    <p class="type-eyebrow text-primary mb-3">07 — CERTIFICATIONS</p>
+    <L tag="h2" class="type-display-lg mb-8" ko={`${site.honors.certifications.label.ko} (${certifications.length})`} en={`${site.honors.certifications.label.en} (${certifications.length})`} />
+    <div class="flex flex-wrap gap-2">
+      {certifications.map((c) => (
+        <div class="cert-chip px-3 py-2 rounded-lg bg-base-200/60 border border-base-300/60">
+          <p class="type-body-sm text-base-content" style="font-weight:500;">
+            <span data-only="ko">{c.name.ko}</span>
+            <span data-only="en">{c.name.en}</span>
+          </p>
+          {c.date && <p class="type-caption text-base-content/55 mt-0.5">{c.date}</p>}
+        </div>
+      ))}
+    </div>
+  </section>
 
-    <!-- Scholarships -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.scholarships.label.ko} (${scholarships.length})`} en={`${site.honors.scholarships.label.en} (${scholarships.length})`} />
-    <div class="space-y-3 mb-10">
+  <!-- ───────── FUNDING (scholarships / fellowships; was Honors) ───────── -->
+  <section id="funding" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
+    <p class="type-eyebrow text-primary mb-3">08 — FUNDING</p>
+    <L tag="h2" class="type-display-lg mb-8" ko={`장학 · 펀딩 (${scholarships.length})`} en={`Funding & Fellowships (${scholarships.length})`} />
+    <div class="space-y-3">
       {scholarships.map((s) => (
         <div class="research-card flex gap-4 -mx-[18px]">
           <!-- Logo slot (square) -->
@@ -559,26 +463,122 @@ const confTypeLabels: Record<string, string> = {
         </div>
       ))}
     </div>
+  </section>
 
-    <!-- Certifications -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.certifications.label.ko} (${certifications.length})`} en={`${site.honors.certifications.label.en} (${certifications.length})`} />
-    <div class="flex flex-wrap gap-2 mb-10">
-      {certifications.map((c) => (
-        <div class="cert-chip px-3 py-2 rounded-lg bg-base-200/60 border border-base-300/60">
-          <p class="type-body-sm text-base-content" style="font-weight:500;">
-            <span data-only="ko">{c.name.ko}</span>
-            <span data-only="en">{c.name.en}</span>
-          </p>
-          {c.date && <p class="type-caption text-base-content/55 mt-0.5">{c.date}</p>}
+  <!-- ───────── PROJECTS ───────── -->
+  <section id="projects" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
+    <p class="type-eyebrow text-primary mb-3">{site.projects.eyebrow}</p>
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.projects.title.ko} (${projects.length})`} en={`${site.projects.title.en} (${projects.length})`} />
+    <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.projects.intro.ko} en={site.projects.intro.en} />
+
+    <div class="space-y-2">
+      {projects.map((p) => (
+        <div class="flex flex-col md:flex-row md:items-start gap-1 md:gap-4 py-3 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors border-b border-base-300/30">
+          <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-44">
+            {p.period}
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="type-body text-base-content leading-snug" style="font-weight:480;">
+              <span data-only="ko">{p.title.ko}</span>
+              <span data-only="en">{p.title.en}</span>
+            </p>
+            <p class="type-body-sm text-base-content/55 mt-0.5">
+              <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}{p.pi ? ` · PI: ${p.pi.ko}` : ''}</span>
+              <span data-only="en">{p.institute.en}{' · '}{p.role.en}{p.pi ? ` · PI: ${p.pi.en}` : ''}{p.budgetUsd ? ` · ${p.budgetUsd}` : ''}</span>
+            </p>
+            {p.contributions && (
+              <ul class="mt-2 space-y-1">
+                {p.contributions.map((c) => (
+                  <li class="type-body-sm text-base-content/70 flex gap-2 leading-snug">
+                    <span class="text-primary shrink-0">›</span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {p.papers && (
+              <p class="type-body-sm mt-1.5 leading-snug">
+                <span class="font-semibold text-primary">{p.papers.includes(' · ') ? 'Papers' : 'Paper'}: </span>
+                <span class="text-base-content/65">{p.papers}</span>
+              </p>
+            )}
+            {p.patents && (
+              <p class="type-body-sm mt-1 leading-snug">
+                <span class="font-semibold text-primary">{p.patents.includes(' · ') ? 'Patents' : 'Patent'}: </span>
+                <span class="text-base-content/65">{p.patents}</span>
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </div>
+  </section>
 
-    <!-- Books — card grid -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.books.label.ko} (${books.length})`} en={`${site.honors.books.label.en} (${books.length})`} />
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-      {books.map((b) => <CardBook book={b} />)}
-    </div>
+  <!-- ───────── PATENTS — registered = card grid, application = list ───────── -->
+  <section id="patents" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
+    <p class="type-eyebrow text-primary mb-3">{site.patents.eyebrow}</p>
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.patents.title.ko} (${patents.length})`} en={`${site.patents.title.en} (${patents.length})`} />
+    <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.patents.intro.ko} en={site.patents.intro.en} />
+
+    <!-- Registered patents — card grid (certificates) -->
+    {registeredPatents.length > 0 && (
+      <div class="mb-10">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="pill pill-reg">Registered</span>
+          <p class="type-caption text-base-content/55">
+            <span data-only="ko">등록 특허 · {registeredPatents.length}건</span>
+            <span data-only="en">{registeredPatents.length} registered</span>
+          </p>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+          {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
+        </div>
+      </div>
+    )}
+
+    <!-- Pending applications — compact list -->
+    {applicationPatents.length > 0 && (
+      <div>
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="pill pill-app">Application</span>
+          <p class="type-caption text-base-content/55">
+            <span data-only="ko">출원 중 · {applicationPatents.length}건</span>
+            <span data-only="en">{applicationPatents.length} pending</span>
+          </p>
+        </div>
+        <div class="space-y-2">
+          {applicationPatents.map((pt) => (
+            <div class="flex items-start gap-3 py-3 px-3 -mx-2 rounded-lg bg-base-200/40 border border-base-300/40 hover:border-primary/40 transition-colors">
+              <span class="shrink-0 type-body-sm text-base-content/55 font-medium tracking-tight w-24 pt-0.5">
+                {fmtDate(pt.applicationDate)}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="type-body text-base-content leading-snug" style="font-weight:480;">
+                  <span data-only="ko">{pt.title.ko}</span>
+                  <span data-only="en">{pt.title.en}</span>
+                </p>
+                <p class="type-body-sm text-base-content/55 mt-0.5">
+                  <span class="font-medium">
+                    <span data-only="ko">발명자: </span>
+                    <span data-only="en">Inventors: </span>
+                  </span>
+                  <span data-only="ko">{pt.inventors.ko.join(', ')}</span>
+                  <span data-only="en">{pt.inventors.en.join(', ')}</span>
+                  <span class="hidden md:inline mx-1.5 text-base-content/30">·</span>
+                  <br class="md:hidden" />
+                  <span class="font-medium">
+                    <span data-only="ko">특허권자: </span>
+                    <span data-only="en">Owner: </span>
+                  </span>
+                  <span data-only="ko">{pt.owner.ko}</span>
+                  <span data-only="en">{pt.owner.en}</span>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </section>
 
   <!-- ───────── CONTACT ───────── -->
@@ -798,7 +798,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- Mobile: collapsible sections (header tap toggles body). Desktop unaffected. -->
   <script is:inline>
     (function () {
-      const COLLAPSIBLE = ['about','education','publications','conferences','projects','patents','teaching','career','honors'];
+      const COLLAPSIBLE = ['about','education','publications','conferences','teaching','career','certifications','funding','projects','patents'];
 
       function wrap() {
         COLLAPSIBLE.forEach((id) => {
