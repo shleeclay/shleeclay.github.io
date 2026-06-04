@@ -77,6 +77,8 @@ export type ProjectItem = {
   institute: Bi;
   pi?: Bi;
   budgetUsd?: string;   // EN-only converted total budget (e.g., "$863K", "$1.13M")
+  contributions?: string[];  // EN-only "what I did" bullets (key projects)
+  outputs?: string;          // EN-only resulting papers / patents / talks
   title: Bi;
 };
 

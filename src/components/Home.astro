@@ -300,6 +300,22 @@ const confTypeLabels: Record<string, string> = {
               <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}{p.pi ? ` · PI: ${p.pi.ko}` : ''}</span>
               <span data-only="en">{p.institute.en}{' · '}{p.role.en}{p.pi ? ` · PI: ${p.pi.en}` : ''}{p.budgetUsd ? ` · ${p.budgetUsd}` : ''}</span>
             </p>
+            {p.contributions && (
+              <ul class="mt-2 space-y-1">
+                {p.contributions.map((c) => (
+                  <li class="type-body-sm text-base-content/70 flex gap-2 leading-snug">
+                    <span class="text-primary shrink-0">›</span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {p.outputs && (
+              <p class="type-body-sm mt-1.5 leading-snug">
+                <span class="font-semibold text-primary">Outputs → </span>
+                <span class="text-base-content/65">{p.outputs}</span>
+              </p>
+            )}
           </div>
         </div>
       ))}
