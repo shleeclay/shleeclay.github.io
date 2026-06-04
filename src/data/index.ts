@@ -113,6 +113,7 @@ export type CareerItem = {
   url: string;
   fundingUsd?: string;   // EN-only funding/grant amount (e.g., "$72,000")
   patents?: string[];    // EN-only patents held as assignee (e.g., TREE:ID)
+  outputs?: string;      // EN-only resulting publication (e.g., visiting research)
 };
 
 export type Scholarship = {
