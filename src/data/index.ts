@@ -75,6 +75,8 @@ export type ProjectItem = {
   period: string;
   role: Bi;
   institute: Bi;
+  pi?: Bi;
+  budgetUsd?: string;   // EN-only converted total budget (e.g., "$863K", "$1.13M")
   title: Bi;
 };
 

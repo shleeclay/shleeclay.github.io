@@ -297,8 +297,8 @@ const confTypeLabels: Record<string, string> = {
               <span data-only="en">{p.title.en}</span>
             </p>
             <p class="type-body-sm text-base-content/55 mt-0.5">
-              <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}</span>
-              <span data-only="en">{p.institute.en}{' · '}{p.role.en}</span>
+              <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}{p.pi ? ` · PI: ${p.pi.ko}` : ''}</span>
+              <span data-only="en">{p.institute.en}{' · '}{p.role.en}{p.pi ? ` · PI: ${p.pi.en}` : ''}{p.budgetUsd ? ` · ${p.budgetUsd}` : ''}</span>
             </p>
           </div>
         </div>
