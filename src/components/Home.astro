@@ -502,6 +502,12 @@ const confTypeLabels: Record<string, string> = {
                 <span data-only="ko">{w.country.ko}</span>
                 <span data-only="en">{w.country.en}{w.fundingUsd ? ` · ${w.fundingUsd} startup grant` : ''}</span>
               </p>
+              {w.patents && (
+                <p class="type-body-sm mt-1 leading-snug">
+                  <span class="font-semibold text-primary">Patents (assignee) → </span>
+                  <span class="text-base-content/65">{w.patents.join(' · ')}</span>
+                </p>
+              )}
             </div>
           </div>
         </div>
