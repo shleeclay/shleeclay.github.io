@@ -185,7 +185,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── PUBLICATIONS — card grid (3 cols) ───────── -->
   <section id="publications" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.publications.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={site.publications.title.ko} en={site.publications.title.en} />
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.publications.title.ko} (${publications.length})`} en={`${site.publications.title.en} (${publications.length})`} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.publications.intro.ko} en={site.publications.intro.en} />
 
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
@@ -237,7 +237,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── CONFERENCES ───────── -->
   <section id="conferences" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.conferences.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={site.conferences.title.ko} en={site.conferences.title.en} />
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.conferences.title.ko} (${conferences.length})`} en={`${site.conferences.title.en} (${conferences.length})`} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.conferences.intro.ko} en={site.conferences.intro.en} />
 
     <div class="space-y-8 pl-4 border-l-2 border-base-300/40">
@@ -282,7 +282,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── PROJECTS ───────── -->
   <section id="projects" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.projects.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={site.projects.title.ko} en={site.projects.title.en} />
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.projects.title.ko} (${projects.length})`} en={`${site.projects.title.en} (${projects.length})`} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.projects.intro.ko} en={site.projects.intro.en} />
 
     <div class="space-y-2">
@@ -309,7 +309,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── PATENTS — registered = card grid, application = list ───────── -->
   <section id="patents" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.patents.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-3" ko={site.patents.title.ko} en={site.patents.title.en} />
+    <L tag="h2" class="type-display-lg mb-3" ko={`${site.patents.title.ko} (${patents.length})`} en={`${site.patents.title.en} (${patents.length})`} />
     <L tag="p" class="type-body text-base-content/70 mb-8" ko={site.patents.intro.ko} en={site.patents.intro.en} />
 
     <!-- Registered patents — card grid (certificates) -->
@@ -377,7 +377,7 @@ const confTypeLabels: Record<string, string> = {
   <section id="teaching" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.teaching.eyebrow}</p>
     <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-      <L tag="h2" class="type-display-lg" ko={site.teaching.title.ko} en={site.teaching.title.en} />
+      <L tag="h2" class="type-display-lg" ko={`${site.teaching.title.ko} (${teaching.length})`} en={`${site.teaching.title.en} (${teaching.length})`} />
       <a href={lang === "en" ? "https://upwise.co.kr/en" : "https://upwise.co.kr"} target="_blank" rel="noopener noreferrer" class="upwise-badge" aria-label="upwise.co.kr — GIS 강사" title="upwise.co.kr — GIS Instructor">
         <span class="upwise-wordmark"><span class="uw-up">UP</span><span class="uw-wise">WISE</span><span class="uw-dot">.</span></span>
         <span class="upwise-badge-text">
@@ -446,7 +446,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- ───────── CAREER ───────── -->
   <section id="career" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
     <p class="type-eyebrow text-primary mb-3">{site.career.eyebrow}</p>
-    <L tag="h2" class="type-display-lg mb-8" ko={site.career.title.ko} en={site.career.title.en} />
+    <L tag="h2" class="type-display-lg mb-8" ko={`${site.career.title.ko} (${career.length})`} en={`${site.career.title.en} (${career.length})`} />
 
     <div class="space-y-2">
       {career.map((w) => (
@@ -499,7 +499,7 @@ const confTypeLabels: Record<string, string> = {
     <L tag="h2" class="type-display-lg mb-10" ko={site.honors.title.ko} en={site.honors.title.en} />
 
     <!-- Scholarships -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.scholarships.label.ko} en={site.honors.scholarships.label.en} />
+    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.scholarships.label.ko} (${scholarships.length})`} en={`${site.honors.scholarships.label.en} (${scholarships.length})`} />
     <div class="space-y-3 mb-10">
       {scholarships.map((s) => (
         <div class="research-card flex gap-4 -mx-[18px]">
@@ -527,7 +527,7 @@ const confTypeLabels: Record<string, string> = {
     </div>
 
     <!-- Certifications -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.certifications.label.ko} en={site.honors.certifications.label.en} />
+    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.certifications.label.ko} (${certifications.length})`} en={`${site.honors.certifications.label.en} (${certifications.length})`} />
     <div class="flex flex-wrap gap-2 mb-10">
       {certifications.map((c) => (
         <div class="cert-chip px-3 py-2 rounded-lg bg-base-200/60 border border-base-300/60">
@@ -541,7 +541,7 @@ const confTypeLabels: Record<string, string> = {
     </div>
 
     <!-- Books — card grid -->
-    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={site.honors.books.label.ko} en={site.honors.books.label.en} />
+    <L tag="p" class="type-caption text-base-content/65 mb-4" ko={`${site.honors.books.label.ko} (${books.length})`} en={`${site.honors.books.label.en} (${books.length})`} />
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
       {books.map((b) => <CardBook book={b} />)}
     </div>
