@@ -310,10 +310,16 @@ const confTypeLabels: Record<string, string> = {
                 ))}
               </ul>
             )}
-            {p.outputs && (
+            {p.papers && (
               <p class="type-body-sm mt-1.5 leading-snug">
-                <span class="font-semibold text-primary">Outputs → </span>
-                <span class="text-base-content/65">{p.outputs}</span>
+                <span class="font-semibold text-primary">{p.papers.includes(' · ') ? 'Papers' : 'Paper'}: </span>
+                <span class="text-base-content/65">{p.papers}</span>
+              </p>
+            )}
+            {p.patents && (
+              <p class="type-body-sm mt-1 leading-snug">
+                <span class="font-semibold text-primary">{p.patents.includes(' · ') ? 'Patents' : 'Patent'}: </span>
+                <span class="text-base-content/65">{p.patents}</span>
               </p>
             )}
           </div>
@@ -502,16 +508,16 @@ const confTypeLabels: Record<string, string> = {
                 <span data-only="ko">{w.country.ko}</span>
                 <span data-only="en">{w.country.en}{w.fundingUsd ? ` · ${w.fundingUsd} startup grant` : ''}</span>
               </p>
-              {w.patents && (
+              {w.papers && (
                 <p class="type-body-sm mt-1 leading-snug">
-                  <span class="font-semibold text-primary">Patents (assignee) → </span>
-                  <span class="text-base-content/65">{w.patents.join(' · ')}</span>
+                  <span class="font-semibold text-primary">{w.papers.includes(' · ') ? 'Papers' : 'Paper'}: </span>
+                  <span class="text-base-content/65">{w.papers}</span>
                 </p>
               )}
-              {w.outputs && (
+              {w.patents && (
                 <p class="type-body-sm mt-1 leading-snug">
-                  <span class="font-semibold text-primary">Output → </span>
-                  <span class="text-base-content/65">{w.outputs}</span>
+                  <span class="font-semibold text-primary">{w.patents.includes(' · ') ? 'Patents' : 'Patent'}: </span>
+                  <span class="text-base-content/65">{w.patents}</span>
                 </p>
               )}
             </div>

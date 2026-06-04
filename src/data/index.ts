@@ -78,7 +78,8 @@ export type ProjectItem = {
   pi?: Bi;
   budgetUsd?: string;   // EN-only converted total budget (e.g., "$863K", "$1.13M")
   contributions?: string[];  // EN-only "what I did" bullets (key projects)
-  outputs?: string;          // EN-only resulting papers / patents / talks
+  papers?: string;           // EN-only resulting papers ( · separated)
+  patents?: string;          // EN-only resulting patents ( · separated)
   title: Bi;
 };
 
@@ -112,8 +113,8 @@ export type CareerItem = {
   country: Bi;
   url: string;
   fundingUsd?: string;   // EN-only funding/grant amount (e.g., "$72,000")
-  patents?: string[];    // EN-only patents held as assignee (e.g., TREE:ID)
-  outputs?: string;      // EN-only resulting publication (e.g., visiting research)
+  papers?: string;       // EN-only resulting papers ( · separated)
+  patents?: string;      // EN-only resulting patents ( · separated)
 };
 
 export type Scholarship = {
