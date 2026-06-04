@@ -484,7 +484,7 @@ const confTypeLabels: Record<string, string> = {
               )}
               <p class="type-body-sm text-base-content/55 mt-0.5">
                 <span data-only="ko">{w.country.ko}</span>
-                <span data-only="en">{w.country.en}</span>
+                <span data-only="en">{w.country.en}{w.fundingUsd ? ` · ${w.fundingUsd} startup grant` : ''}</span>
               </p>
             </div>
           </div>
@@ -519,7 +519,7 @@ const confTypeLabels: Record<string, string> = {
             </p>
             <p class="type-body-sm text-base-content/65">
               <span data-only="ko">{s.foundation.ko}{' · '}{s.support.ko}</span>
-              <span data-only="en">{s.foundation.en}{' · '}{s.support.en}</span>
+              <span data-only="en">{s.foundation.en}{' · '}{s.support.en}{s.fundingUsd ? ` · ${s.fundingUsd}` : ''}</span>
             </p>
           </div>
         </div>

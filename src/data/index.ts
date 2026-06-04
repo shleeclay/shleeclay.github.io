@@ -107,6 +107,7 @@ export type CareerItem = {
   company: Bi;
   country: Bi;
   url: string;
+  fundingUsd?: string;   // EN-only funding/grant amount (e.g., "$72,000")
 };
 
 export type Scholarship = {
@@ -115,6 +116,7 @@ export type Scholarship = {
   foundation: Bi;
   name: Bi;
   support: Bi;
+  fundingUsd?: string;   // EN-only funding/award amount (e.g., "$25,000")
 };
 
 export type Certification = { date: string; name: Bi };
