@@ -508,6 +508,12 @@ const confTypeLabels: Record<string, string> = {
                   <span class="text-base-content/65">{w.patents.join(' · ')}</span>
                 </p>
               )}
+              {w.outputs && (
+                <p class="type-body-sm mt-1 leading-snug">
+                  <span class="font-semibold text-primary">Output → </span>
+                  <span class="text-base-content/65">{w.outputs}</span>
+                </p>
+              )}
             </div>
           </div>
         </div>
