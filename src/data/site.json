@@ -23,11 +23,11 @@
       { "id": "about",         "ko": "프로필",     "en": "About" },
       { "id": "publications",  "ko": "게재 논문",  "en": "Publications" },
       { "id": "conferences",   "ko": "학회 발표",  "en": "Conferences" },
-      { "id": "projects",      "ko": "연구 과제",  "en": "Projects" },
-      { "id": "patents",       "ko": "특허",       "en": "Patents" },
       { "id": "teaching",      "ko": "교육 · 강의","en": "Teaching" },
       { "id": "career",        "ko": "경력",       "en": "Career" },
-      { "id": "honors",        "ko": "장학 · 자격","en": "Honors" },
+      { "id": "funding",       "ko": "펀딩 · 장학","en": "Funding" },
+      { "id": "projects",      "ko": "연구 과제",  "en": "Projects" },
+      { "id": "patents",       "ko": "특허",       "en": "Patents" },
       { "id": "contact",       "ko": "연락처",     "en": "Contact" }
     ]
   },
@@ -316,7 +316,7 @@
   },
 
   "projects": {
-    "eyebrow": "05 — RESEARCH PROJECTS",
+    "eyebrow": "09 — RESEARCH PROJECTS",
     "title": { "ko": "참여 연구과제 · 역할", "en": "Participated Research Projects & Roles" },
     "intro": { "ko": "참여한 국가 R&D · 지자체 연구과제.", "en": "National and municipal research projects." },
     "items": [
@@ -337,7 +337,7 @@
 
   "patents": {
     "_help": "certificate 필드는 public/patents/covers/ 기준 절대 경로 (예: '/patents/covers/patent_09_xxx.jpg'). 등록 특허(status: 'registered')에만 카드 표지로 사용됨. 출원 중 특허는 리스트 형식으로 표시됨. PDF 다운로드는 비활성화 — 공식 자료는 KIPRIS에서 조회 가능.",
-    "eyebrow": "06 — PATENTS",
+    "eyebrow": "10 — PATENTS",
     "title": { "ko": "특허", "en": "Patents" },
     "intro": { "ko": "출원 · 등록 특허 (대한민국).", "en": "Applied and registered patents (Republic of Korea)." },
     "items": [
@@ -356,7 +356,7 @@
   },
 
   "teaching": {
-    "eyebrow": "07 — TEACHING",
+    "eyebrow": "05 — TEACHING",
     "title": { "ko": "교육 · 강의", "en": "Teaching" },
     "intro": { "ko": "대학 정규수업·특강·인프런 온라인 강의.", "en": "University lectures, special workshops, and online courses on a learning platform." },
     "_typeLabels": {
@@ -391,7 +391,7 @@
 
   "career": {
     "_help": "logo 필드는 public/logos/career/ 기준 절대 경로 (예: '/logos/career/virginia-tech.svg'). SVG 권장 (다크모드 호환). 없으면 빈 문자열로 두세요 — 자동으로 placeholder 이니셜 표시.",
-    "eyebrow": "08 — CAREER",
+    "eyebrow": "06 — CAREER",
     "title": { "ko": "경력 · 인턴십", "en": "Work & Internships" },
     "items": [
       { "id": 6, "period": "2023/09 — 2025/03", "logo": "/logos/career/treeid.svg", "type": { "ko": "스타트업 대표",     "en": "Startup CEO" },        "company": { "ko": "TREE:ID",                                  "en": "TREE:ID" },                                  "country": { "ko": "대한민국",   "en": "Republic of Korea" },    "url": "", "fundingUsd": "$71,428", "patents": "Tree-management platform system & method (reg. 2025) · Image-based roadside-tree information management (reg. 2024)" },
@@ -435,7 +435,7 @@
   },
 
   "contact": {
-    "eyebrow": "10 — CONTACT",
+    "eyebrow": "11 — CONTACT",
     "title": {
       "ko": "언제든 편하게 연락주세요.",
       "en": "Get in touch."
