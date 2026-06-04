@@ -316,7 +316,7 @@
   },
 
   "projects": {
-    "eyebrow": "09 — RESEARCH PROJECTS",
+    "eyebrow": "08 — RESEARCH PROJECTS",
     "title": { "ko": "참여 연구과제 · 역할", "en": "Participated Research Projects & Roles" },
     "intro": { "ko": "참여한 국가 R&D · 지자체 연구과제.", "en": "National and municipal research projects." },
     "items": [
@@ -337,7 +337,7 @@
 
   "patents": {
     "_help": "certificate 필드는 public/patents/covers/ 기준 절대 경로 (예: '/patents/covers/patent_09_xxx.jpg'). 등록 특허(status: 'registered')에만 카드 표지로 사용됨. 출원 중 특허는 리스트 형식으로 표시됨. PDF 다운로드는 비활성화 — 공식 자료는 KIPRIS에서 조회 가능.",
-    "eyebrow": "10 — PATENTS",
+    "eyebrow": "09 — PATENTS",
     "title": { "ko": "특허", "en": "Patents" },
     "intro": { "ko": "출원 · 등록 특허 (대한민국).", "en": "Applied and registered patents (Republic of Korea)." },
     "items": [
@@ -435,7 +435,7 @@
   },
 
   "contact": {
-    "eyebrow": "11 — CONTACT",
+    "eyebrow": "10 — CONTACT",
     "title": {
       "ko": "언제든 편하게 연락주세요.",
       "en": "Get in touch."

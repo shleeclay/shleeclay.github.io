@@ -415,12 +415,9 @@ const confTypeLabels: Record<string, string> = {
         </div>
       ))}
     </div>
-  </section>
 
-  <!-- ───────── CERTIFICATIONS (moved from Honors) ───────── -->
-  <section id="certifications" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
-    <p class="type-eyebrow text-primary mb-3">07 — CERTIFICATIONS</p>
-    <L tag="h2" class="type-display-lg mb-8" ko={`${site.honors.certifications.label.ko} (${certifications.length})`} en={`${site.honors.certifications.label.en} (${certifications.length})`} />
+    <!-- Certifications (included in Career, like Books in Publications) -->
+    <L tag="p" class="type-caption text-base-content/65 mb-4 mt-12" ko={`${site.honors.certifications.label.ko} (${certifications.length})`} en={`${site.honors.certifications.label.en} (${certifications.length})`} />
     <div class="flex flex-wrap gap-2">
       {certifications.map((c) => (
         <div class="cert-chip px-3 py-2 rounded-lg bg-base-200/60 border border-base-300/60">
@@ -436,7 +433,7 @@ const confTypeLabels: Record<string, string> = {
 
   <!-- ───────── FUNDING (scholarships / fellowships; was Honors) ───────── -->
   <section id="funding" class="pb-20 border-t border-base-300 pt-14 scroll-mt-12">
-    <p class="type-eyebrow text-primary mb-3">08 — FUNDING</p>
+    <p class="type-eyebrow text-primary mb-3">07 — FUNDING</p>
     <L tag="h2" class="type-display-lg mb-8" ko={`장학 · 펀딩 (${scholarships.length})`} en={`Funding & Fellowships (${scholarships.length})`} />
     <div class="space-y-3">
       {scholarships.map((s) => (
@@ -798,7 +795,7 @@ const confTypeLabels: Record<string, string> = {
   <!-- Mobile: collapsible sections (header tap toggles body). Desktop unaffected. -->
   <script is:inline>
     (function () {
-      const COLLAPSIBLE = ['about','education','publications','conferences','teaching','career','certifications','funding','projects','patents'];
+      const COLLAPSIBLE = ['about','education','publications','conferences','teaching','career','funding','projects','patents'];
 
       function wrap() {
         COLLAPSIBLE.forEach((id) => {
