@@ -658,20 +658,42 @@ for name, period in members:
     _set_run(p.add_run("\t" + period), 9, color=GREY)
 
 # ---------------------------------------------------------------- Teaching
-section("Teaching & Outreach")
-teach = [
-    ("University Lecturer (sole instructor) — “Understanding and Application of Spatial Information” "
-     "(3 cr.; ~30 students/yr), Incheon National University — GIS theory & QGIS labs, "
-     "remote-sensing theory & analysis", "2024, 2025"),
-    ("Online Instructor — 4 GIS/QGIS courses on an online learning platform "
-     "(1,000+ enrolled students total)", "2022 — 2025"),
-    ("Invited Workshops — K-water, Korea Environment Corporation, Hyundai NGV, SeSAC, SNU (20+ sessions)",
-     "2020 — 2025"),
-]
-for t, d in teach:
+section("Teaching Experience")
+p = doc.add_paragraph()
+r = p.add_run("2 university courses · 4 online courses (1,000+ students) · 20+ invited lectures and workshops.")
+_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
+
+def _t_sub(text):
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(6)
+    r = p.add_run(text); _set_run(r, 9.5, bold=True, color=ACCENT)
+
+def _t_item(text, date):
     p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
-    r = p.add_run(t); _set_run(r, 9)
-    r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
+    p.paragraph_format.left_indent = Inches(0.28)
+    p.paragraph_format.first_line_indent = Inches(-0.28)
+    b = p.add_run("• "); _set_run(b, 9, color=ACCENT)
+    r = p.add_run(text); _set_run(r, 9)
+    r = p.add_run("\t" + date); _set_run(r, 9, color=GREY)
+
+_t_sub("University Courses")
+_t_item("Sole Instructor — “Understanding and Application of Spatial Information” (3 credits; ~30 students/yr), "
+        "Incheon National University.  GIS theory, hands-on QGIS labs, and remote-sensing analysis.", "2024 — 2025")
+
+_t_sub("Online Courses  (1,000+ students enrolled)")
+_t_item("“QGIS Trendy Visualization — Election-Result Mapping”", "2025")
+_t_item("“QGIS Beginner All-in-One Starter Pack (theory & practice)”", "2024")
+_t_item("“QGIS Mapping Visualization A to Z (Vector / Basic)”", "2023")
+_t_item("“QGIS Python Automation (Vector) Ver. 2”", "2022")
+
+_t_sub("Invited Lectures & Workshops  (20+ sessions, 2020 — 2025)")
+_t_item("Hyundai NGV — Understanding GIS & spatial analysis/visualization via DBMS (basic & advanced)", "2025")
+_t_item("Korea Water Resources Corp. (K-water) — Q-GIS practice for water-sector professionals", "2023 — 2025")
+_t_item("Korea Environment Corporation (K-eco) — Data-analysis expert training program", "2024 — 2025")
+_t_item("Seoul Software Academy (SeSAC) — AI Big-Data Analyst course: GIS module", "2025")
+_t_item("Chungcheongnam-do Agricultural Research & Extension Services — QGIS disease-spread visualization", "2024")
+_t_item("Gyeonggi-do HRD Institute — Data visualization for better reports", "2022")
+_t_item("BK21 SmartCity · SNU GSES — WISE-UP urban spatial-data analysis workshop", "2024")
+_t_item("SNU Lifelong Education Center — “Map My School Using Public Data” (high-school outreach)", "2024")
 
 # ---------------------------------------------------------------- Professional Experience
 section("Professional Experience")
@@ -730,6 +752,6 @@ _set_run(p.add_run("Seunghyeon Lee"), 9.5, bold=True)
 _set_run(p.add_run("\tSignature: ____________________     Date: ________________"), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v4.docx"
+out = "Lee_Seunghyeon_CV_v5.docx"
 doc.save(out)
 print("saved:", out)
