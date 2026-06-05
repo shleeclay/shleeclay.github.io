@@ -117,9 +117,11 @@ const coverSrc = paper.cover
       {paper.journal}
     </p>
 
-    <!-- Authors -->
+    <!-- Authors (own name emphasized) -->
     <p class="type-body-sm text-base-content/70 mb-3 line-clamp-2 flex-1">
-      {paper.authors.join(", ")}
+      {paper.authors.map((a, i) => (
+        <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+      ))}
     </p>
 
     <!-- Action buttons: PDF + Web -->

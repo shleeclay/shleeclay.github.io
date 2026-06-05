@@ -221,7 +221,7 @@ const confTypeLabels: Record<string, string> = {
                 <p class="type-body text-base-content leading-snug" style="font-weight:480;">{m.title}</p>
                 <p class="type-body-sm text-base-content/70 mt-0.5">
                   {m.authors.map((a, i) => (
-                    <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-semibold text-base-content/75">{a}</strong> : a}</>
+                    <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
                   ))}
                   <span class="mx-1.5 text-base-content/30">·</span>
                   <span class="italic">{m.journal}</span>
