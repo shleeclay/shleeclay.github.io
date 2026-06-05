@@ -79,7 +79,7 @@
     "title": { "ko": "학력", "en": "Education" },
     "items": [
       {
-        "period": "2022.03 — Present",
+        "period": "2022.03 — 2026.08",
         "logo":        "/logos/education/snu.svg",
         "degree":      { "ko": "박사",                                                                      "en": "Ph.D." },
         "program":     { "ko": "협동과정 조경학 · 융합전공 스마트시티 글로벌 융합",                              "en": "Interdisciplinary Program in Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
