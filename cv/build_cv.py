@@ -676,8 +676,13 @@ def _t_item(text, date):
     r = p.add_run("\t" + date); _set_run(r, 9, color=GREY)
 
 _t_sub("University Courses")
-_t_item("Sole Instructor — “Understanding and Application of Spatial Information” (3 credits; ~30 students/yr), "
-        "Incheon National University.  GIS theory, hands-on QGIS labs, and remote-sensing analysis.", "2024 — 2025")
+_t_item("Instructor — “Understanding and Application of Spatial Information” (3 credits; 30 students), "
+        "Division of Architecture & Urban Design, Incheon National University.  Designed and taught a "
+        "semester-long undergraduate course (20% lecture / 80% hands-on lab): GIS fundamentals (coordinate "
+        "systems, vector/raster data models); QGIS labs (data acquisition, editing, spatial analysis, "
+        "cartographic visualization); and remote sensing — satellite-image preprocessing and spectral-index "
+        "(e.g., NDVI) analysis, plus UAV imagery.  Term project: an original thematic map from public open data.",
+        "2024 — 2025")
 
 _t_sub("Online Courses  (1,000+ students enrolled)")
 _t_item("“QGIS Trendy Visualization — Election-Result Mapping”", "2025")
