@@ -22,7 +22,7 @@ const {
     <canvas id="topo-canvas" aria-hidden="true"></canvas>
 
     <div class="drawer lg:drawer-open">
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" aria-label="메뉴 열기/닫기" />
       <div class="drawer-content">
         <Header lang={lang} />
         <div class="md:flex md:justify-center">
@@ -71,6 +71,15 @@ const {
           const targetFPS = isTouch ? 24 : 60;
           const frameInterval = 1000 / targetFPS;
           let lastFrameTime = 0;
+
+          // 성능: 모션 비선호 존중 + 탭 가려지면 일시정지(CPU 절약)
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          let running = false;
+          function schedule() {
+            if (document.hidden || reduceMotion) { running = false; return; }
+            running = true;
+            requestAnimationFrame(frame);
+          }
 
           const IDLE_VEL = 0.00005;
 
@@ -161,7 +170,7 @@ const {
           let zCurrent = 0;
           function frame(now: number) {
             if (now - lastFrameTime < frameInterval) {
-              requestAnimationFrame(frame);
+              schedule();
               return;
             }
             const dt = (now - lastFrameTime) || 16;
@@ -214,9 +223,28 @@ const {
               drawIsoline(grid, gw, gh, threshold, cellW, cellH);
             }
 
-            requestAnimationFrame(frame);
+            schedule();
           }
-          requestAnimationFrame(frame);
+
+          // 탭 가시성 변화 시 일시정지/재개 (재개 시 dt 폭주 방지)
+          document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && !running && !reduceMotion) {
+              lastFrameTime = performance.now();
+              schedule();
+            }
+          });
+
+          // 첫 화면(LCP)이 그려진 뒤 idle 시점에 애니메이션 시작 → 저속 기기 LCP/TBT 개선
+          function begin() {
+            if (reduceMotion) { frame(performance.now()); }
+            else { lastFrameTime = performance.now(); schedule(); }
+          }
+          function deferBegin() {
+            if ('requestIdleCallback' in window) requestIdleCallback(begin, { timeout: 1500 });
+            else setTimeout(begin, 300);
+          }
+          if (document.readyState === 'complete') deferBegin();
+          else window.addEventListener('load', deferBegin, { once: true });
         }
       }
     </script>

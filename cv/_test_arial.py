@@ -25,8 +25,8 @@ INK    = RGBColor(0x1a, 0x1a, 0x1a)
 ACCENT = RGBColor(0x1f, 0x4e, 0x3d)   # deep forest green
 GREY   = RGBColor(0x55, 0x55, 0x55)
 LIGHT  = RGBColor(0x88, 0x88, 0x88)
-BODYFONT = "Calibri"
-HEADFONT = "Calibri"
+BODYFONT = "Arial"
+HEADFONT = "Arial"
 
 doc = Document()
 
@@ -742,6 +742,6 @@ _set_run(p.add_run("\tSignature: ____________________     Date: " + _dtdate.toda
          9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v7.docx"
+out = "_fonttest_arial.docx"
 doc.save(out)
 print("saved:", out)
