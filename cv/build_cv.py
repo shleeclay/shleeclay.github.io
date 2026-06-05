@@ -25,8 +25,8 @@ INK    = RGBColor(0x1a, 0x1a, 0x1a)
 ACCENT = RGBColor(0x1f, 0x4e, 0x3d)   # deep forest green
 GREY   = RGBColor(0x55, 0x55, 0x55)
 LIGHT  = RGBColor(0x88, 0x88, 0x88)
-BODYFONT = "Calibri"
-HEADFONT = "Calibri"
+BODYFONT = "Arial"   # Calibri causes broken glyph widths / uneven spacing in Word→PDF export
+HEADFONT = "Arial"
 
 doc = Document()
 
@@ -36,6 +36,13 @@ for s in doc.sections:
     s.left_margin = Inches(0.8); s.right_margin = Inches(0.8)
 
 RIGHT_TAB = Inches(6.9)  # within 7.0" text width
+
+# Disable OpenType kerning/ligatures — Word applies them unevenly when exporting to PDF,
+# producing the "some letters too tight, some too loose" spacing. Turning the feature off
+# gives uniform metric spacing.
+for _cs in doc.settings.element.iter(qn('w:compatSetting')):
+    if _cs.get(qn('w:name')) == 'enableOpenTypeFeatures':
+        _cs.set(qn('w:val'), '0')
 
 # base style
 st = doc.styles["Normal"]
@@ -678,12 +685,15 @@ def _t_sub(text):
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(6)
     r = p.add_run(text); _set_run(r, 9.5, bold=True, color=ACCENT)
 
-def _t_item(text, date):
+def _t_item(text, date, url=None):
     p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.left_indent = Inches(0.28)
     p.paragraph_format.first_line_indent = Inches(-0.28)
     b = p.add_run("• "); _set_run(b, 9, color=ACCENT)
-    r = p.add_run(text); _set_run(r, 9)
+    if url:
+        add_hyperlink(p, url, text, color="1a1a1a", size=9)   # clickable title, normal colour
+    else:
+        r = p.add_run(text); _set_run(r, 9)
     r = p.add_run("\t" + date); _set_run(r, 9, color=GREY)
 
 _t_sub("University Courses")
@@ -704,10 +714,10 @@ _set_run(p.add_run("Term project: original thematic maps from public open data."
 _set_run(p.add_run("\t2024 — 2025"), 9, color=GREY)
 
 _t_sub("Online Courses  (1,000+ students enrolled)")
-_t_item("QGIS Trendy Visualization — Election-Result Mapping", "2025")
-_t_item("QGIS Beginner All-in-One Starter Pack (theory & practice)", "2024")
-_t_item("QGIS Mapping Visualization A to Z (Vector / Basic)", "2023")
-_t_item("QGIS Python Automation", "2022")
+_t_item("QGIS Trendy Visualization — Election-Result Mapping", "2025", "https://inf.run/Vo32x")
+_t_item("QGIS Beginner All-in-One Starter Pack (theory & practice)", "2024", "https://inf.run/cunhy")
+_t_item("QGIS Mapping Visualization A to Z (Vector / Basic)", "2023", "https://inf.run/JcRA")
+_t_item("QGIS Python Automation", "2022", "https://inf.run/RNcr")
 
 _t_sub("Invited Lectures & Workshops  (20+ sessions, 2020 — 2025)")
 _t_item("Hyundai NGV — Understanding GIS & spatial analysis/visualization via DBMS (basic & advanced)", "2025")
