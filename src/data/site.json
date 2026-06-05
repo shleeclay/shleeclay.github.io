@@ -4,11 +4,11 @@
   "site": {
     "ko": {
       "title": "이승현 (Clay Lee) — 연구 포트폴리오",
-      "description": "이승현 (Clay Lee). 서울대학교 생태계획연구실 박사과정. 산림 구조 · 원격탐사 (LiDAR / GEDI) · 도시생태 연구."
+      "description": "이승현 (Clay Lee). 서울대학교 생태계획연구실 박사 연구자. 산림 구조 · 원격탐사 (LiDAR / GEDI) · 도시생태 연구."
     },
     "en": {
       "title": "Seunghyeon Lee (Clay Lee) — Research Portfolio",
-      "description": "Seunghyeon Lee (Clay Lee). Ph.D. student at Seoul National University, Landscape & Ecological Planning Lab. Forest structure, remote sensing (LiDAR / GEDI), and urban ecology."
+      "description": "Seunghyeon Lee (Clay Lee). Ph.D. researcher at Seoul National University, Landscape & Ecological Planning Lab. Forest structure, remote sensing (LiDAR / GEDI), and urban ecology."
     }
   },
 
@@ -39,8 +39,8 @@
     "tagline":     { "ko": "LiDAR와 원격탐사로 산림·도시 생태계의 구조를 측정합니다.",                      "en": "Measuring the structure of forest and urban ecosystems with LiDAR and remote sensing." },
     "description": { "ko": "항공·위성 데이터를 현장과 잇고, 재현 가능한 분석으로 생태계의 변화를 설명합니다.",   "en": "Connecting airborne and satellite data with field observations, and explaining ecosystem change through reproducible analysis." },
     "affiliation": {
-      "ko": "서울대학교 협동과정 조경학 박사과정 · 생태계획연구실",
-      "en": "Ph.D. Student · Seoul National University · Landscape & Ecological Planning Lab"
+      "ko": "서울대학교 협동과정 조경학 박사 · 생태계획연구실",
+      "en": "Ph.D. · Seoul National University · Landscape & Ecological Planning Lab"
     },
     "ctaPrimary":   { "ko": "연구 보기",  "en": "View Research" },
     "ctaSecondary": { "ko": "연락하기",   "en": "Get in Touch" }
@@ -81,7 +81,7 @@
       {
         "period": "2022.03 — Present",
         "logo":        "/logos/education/snu.svg",
-        "degree":      { "ko": "박사과정",                                                                  "en": "Ph.D. Student" },
+        "degree":      { "ko": "박사",                                                                      "en": "Ph.D." },
         "program":     { "ko": "협동과정 조경학 · 융합전공 스마트시티 글로벌 융합",                              "en": "Interdisciplinary Program in Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
         "institution": { "ko": "서울대학교",                                                                "en": "Seoul National University, Seoul, Republic of Korea" },
         "lab":         { "ko": "생태계획연구실",                                                            "en": "Landscape & Ecological Planning Lab" },
