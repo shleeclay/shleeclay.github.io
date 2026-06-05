@@ -21,6 +21,7 @@
   "nav": {
     "items": [
       { "id": "about",         "ko": "프로필",     "en": "About" },
+      { "id": "education",     "ko": "학력",       "en": "Education" },
       { "id": "publications",  "ko": "게재 논문",  "en": "Publications" },
       { "id": "conferences",   "ko": "학회 발표",  "en": "Conferences" },
       { "id": "teaching",      "ko": "교육 · 강의","en": "Teaching" },
