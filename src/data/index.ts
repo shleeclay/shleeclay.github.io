@@ -113,6 +113,7 @@ export type CareerItem = {
   country: Bi;
   url: string;
   fundingUsd?: string;   // EN-only funding/grant amount (e.g., "$72,000")
+  desc?: string;         // EN-only one-line description (e.g., startup product)
   papers?: string;       // EN-only resulting papers ( · separated)
   patents?: string;      // EN-only resulting patents ( · separated)
 };
