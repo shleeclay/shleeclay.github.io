@@ -52,6 +52,29 @@ def _set_run(r, size=9.5, bold=False, italic=False, color=INK, font=BODYFONT, ca
         rPr = r._element.get_or_add_rPr(); sp = OxmlElement('w:spacing')
         sp.set(qn('w:val'), str(spacing)); rPr.append(sp)
 
+def add_hyperlink(paragraph, url, text, color="555555", size=9,
+                  underline=False, italic=False, bold=False, font=BODYFONT):
+    """Append a real, clickable hyperlink run to a paragraph (works in Word and exported PDF)."""
+    r_id = paragraph.part.relate_to(
+        url, "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink",
+        is_external=True)
+    link = OxmlElement('w:hyperlink'); link.set(qn('r:id'), r_id)
+    run = OxmlElement('w:r'); rPr = OxmlElement('w:rPr')
+    rf = OxmlElement('w:rFonts')
+    for a in ('w:ascii', 'w:hAnsi', 'w:cs'):
+        rf.set(qn(a), font)
+    rPr.append(rf)
+    sz = OxmlElement('w:sz'); sz.set(qn('w:val'), str(int(size * 2))); rPr.append(sz)
+    col = OxmlElement('w:color'); col.set(qn('w:val'), color); rPr.append(col)
+    if underline:
+        u = OxmlElement('w:u'); u.set(qn('w:val'), 'single'); rPr.append(u)
+    if italic: rPr.append(OxmlElement('w:i'))
+    if bold:   rPr.append(OxmlElement('w:b'))
+    run.append(rPr)
+    t = OxmlElement('w:t'); t.set(qn('xml:space'), 'preserve'); t.text = text
+    run.append(t); link.append(run); paragraph._p.append(link)
+    return link
+
 def add_right_tab(p):
     p.paragraph_format.tab_stops.add_tab_stop(RIGHT_TAB, WD_TAB_ALIGNMENT.RIGHT)
 
@@ -62,10 +85,28 @@ def bottom_border(p):
     b.set(qn('w:space'), '2'); b.set(qn('w:color'), '1f4e3d')
     pbdr.append(b); pPr.append(pbdr)
 
+# ---------------------------------------------------------------- running header / footer (every page)
+_sec = doc.sections[0]
+_hp = _sec.header.paragraphs[0]
+_hp.paragraph_format.tab_stops.add_tab_stop(RIGHT_TAB, WD_TAB_ALIGNMENT.RIGHT)
+_set_run(_hp.add_run("\tSeunghyeon Lee  —  Curriculum Vitae"), 8, color=LIGHT)
+_fp = _sec.footer.paragraphs[0]
+_fp.paragraph_format.tab_stops.add_tab_stop(RIGHT_TAB, WD_TAB_ALIGNMENT.RIGHT)
+_set_run(_fp.add_run("\tSeunghyeon Lee    "), 8, color=LIGHT)
+_pg = _fp.add_run()
+for _t, _v in (("begin", None), ("instr", " PAGE "), ("end", None)):
+    if _t == "instr":
+        e = OxmlElement('w:instrText'); e.set(qn('xml:space'), 'preserve'); e.text = _v
+    else:
+        e = OxmlElement('w:fldChar'); e.set(qn('w:fldCharType'), _t)
+    _pg._r.append(e)
+_set_run(_pg, 8, color=LIGHT)
+
 # ---------------------------------------------------------------- header
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 r = p.add_run("Seunghyeon Lee"); _set_run(r, 22, bold=True, color=INK)
-r = p.add_run("  (이승현 · Clay Lee)"); _set_run(r, 12, color=GREY)
+r = p.add_run("  (Clay Lee)"); _set_run(r, 12, color=GREY)
+r = p.add_run("    ·    Curriculum Vitae"); _set_run(r, 10.5, color=LIGHT, caps=True, spacing=20)
 p.paragraph_format.space_after = Pt(1)
 
 p = doc.add_paragraph()
@@ -79,17 +120,20 @@ _set_run(r, 9.5, color=GREY)
 p.paragraph_format.space_after = Pt(2)
 
 contact = [
-    "shlee5598@snu.ac.kr",
-    "+82-10-8455-5598",
-    "shleeclay.github.io",
-    "github.com/shleeclay",
-    "ORCID: 0000-0003-4612-065X",
+    ("shlee5598@snu.ac.kr", "mailto:shlee5598@snu.ac.kr"),
+    ("+82-10-8455-5598", None),
+    ("drseunghyeonlee.com", "https://drseunghyeonlee.com/en"),
+    ("ORCID 0000-0003-4612-065X", "https://orcid.org/0000-0003-4612-065X"),
+    ("Google Scholar", "https://scholar.google.com/citations?user=Ew1_-r0AAAAJ"),
 ]
 p = doc.add_paragraph()
-for i, c in enumerate(contact):
+for i, (disp, url) in enumerate(contact):
     if i:
         sep = p.add_run("   |   "); _set_run(sep, 9, color=LIGHT)
-    r = p.add_run(c); _set_run(r, 9, color=GREY)
+    if url:
+        add_hyperlink(p, url, disp, color="555555", size=9)
+    else:
+        _set_run(p.add_run(disp), 9, color=GREY)
 bottom_border(p); p.paragraph_format.space_after = Pt(6)
 
 # ---------------------------------------------------------------- section helper
@@ -178,7 +222,7 @@ for lead, rest, date, sub in exp:
 section("Peer-Reviewed Publications")
 p = doc.add_paragraph()
 r = p.add_run("APA 7th.  Name in bold = author; † = first author.  "
-              "Impact Factor / quartile shown where available.  (oldest → newest)")
+              "Impact Factor / quartile shown where available.  (SCI then KCI; newest first)")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 # --- source: citations/publications.bib (ascending) + IF/quartile from site.json (matched by DOI) ---
@@ -217,16 +261,32 @@ _site = json.load(open(os.path.join(HERE, "..", "src", "data", "site.json"), enc
 IFQ = {(it.get("doi") or "").lower().strip(): (it.get("if", ""), it.get("quartile", ""))
        for it in _site["publications"]["items"] if it.get("doi")}
 
-for n, raw in enumerate(_bib_entries(os.path.join(HERE, "citations", "publications.bib")), 1):
-    apa = [_apa_author(a.strip()) for a in _bf(raw, "author").split(" and ")]
-    year = _bf(raw, "year")
-    title = re.sub(r"\s*-\s*$", "", _bf(raw, "title")).replace(" - ", ": ").rstrip(". ")
-    journal = _bf(raw, "journal").replace("\\&", "&")
-    vol, num = _bf(raw, "volume"), _bf(raw, "number")
-    pages = _bf(raw, "pages").replace("-", "–")
+_MO = {m: i for i, m in enumerate(
+    ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"], 1)}
+def _monthnum(raw):
+    m = _bf(raw, "month").lower()[:3]
+    return _MO.get(m, int(m) if m.isdigit() else 0)
+
+_pubs = []
+for raw in _bib_entries(os.path.join(HERE, "citations", "publications.bib")):
     doi = _bf(raw, "doi")
     iff, q = IFQ.get(doi.lower(), ("", ""))
+    yv = _bf(raw, "year"); yv = int(yv) if yv.isdigit() else 0
+    _pg = re.search(r"\d+", _bf(raw, "pages")); sp = int(_pg.group()) if _pg else 0
+    _pubs.append({
+        "apa": [_apa_author(a.strip()) for a in _bf(raw, "author").split(" and ")],
+        "year": _bf(raw, "year"),
+        "title": re.sub(r"\s*-\s*$", "", _bf(raw, "title")).replace(" - ", ": ").rstrip(". "),
+        "journal": _bf(raw, "journal").replace("\\&", "&"),
+        "vol": _bf(raw, "volume"), "num": _bf(raw, "number"),
+        "pages": _bf(raw, "pages").replace("-", "–"), "doi": doi, "iff": iff, "q": q,
+        "sortk": (0 if (iff or q) else 1, -yv, -_monthnum(raw), sp),  # SCI→KCI, newest first, then start page
+    })
+_pubs.sort(key=lambda d: d["sortk"])
 
+for n, d in enumerate(_pubs, 1):
+    apa, year, title, journal = d["apa"], d["year"], d["title"], d["journal"]
+    vol, num, pages, doi, iff, q = d["vol"], d["num"], d["pages"], d["doi"], d["iff"], d["q"]
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     _set_run(p.add_run(f"{n}. "), 9, color=GREY)
@@ -251,7 +311,7 @@ for n, raw in enumerate(_bib_entries(os.path.join(HERE, "citations", "publicatio
             _set_run(p.add_run(f", {pages}"), 9)
     _set_run(p.add_run(". "), 9)
     if doi:
-        _set_run(p.add_run(f"https://doi.org/{doi}"), 9, color=GREY)
+        add_hyperlink(p, f"https://doi.org/{doi}", f"https://doi.org/{doi}", color="555555", size=9)
     if iff or q:
         iv = iff.split("(")[0].strip()
         tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", q] if x)
@@ -262,30 +322,32 @@ section("Manuscripts Under Review")
 p = doc.add_paragraph()
 r = p.add_run("APA 7th.  Name in bold = author; † = first author.  (5 manuscripts; first-author listed first)")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
+# status = "stage|date"  (stage shown in brackets, date in grey)
 under_review = [
     (["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song", "James H. Thorne"],
      "Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer "
-     "plantation.", "Science of Remote Sensing", "Under review (2026.04)"),
+     "plantation.", "Science of Remote Sensing", "Manuscript under review|2026.04"),
     (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"],
      "Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic "
      "conditions on discrepancies between ALS and field surveys.", "Geoscience Letters",
-     "In review (2026.06)"),
+     "Revise and resubmit, 1st round|2026.06"),
     (["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],
      "Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural "
-     "association in a temperate urban forest.", "Forest Science and Technology", "In review (2026.05)"),
+     "association in a temperate urban forest.", "Forest Science and Technology",
+     "Revise and resubmit, 2nd round|2026.05"),
     (["Yonghwan Kim", "Seunghyeon Lee", "Wonhyeop Shin", "Youngkeun Song"],
      "Integrating UAV-derived habitat metrics with movement persistence and species distribution models "
      "to characterize seasonal habitat use of invasive turtles in urban wetlands.",
-     "Global Ecology and Conservation", "In review (2026.05)"),
+     "Global Ecology and Conservation", "Revise and resubmit, 1st round|2026.05"),
     (["Gapseong Jekal", "Yong Hwan Kim", "Seunghyeon Lee", "Ji Weon Yun", "Dae Yeol Kim", "Youngkeun Song"],
      "Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from "
      "multi-season Sentinel-2 in a coastal wetland.", "Journal of Coastal Conservation",
-     "In review (2026.02)"),
+     "Revise and resubmit, 1st round|2026.02"),
 ]
 for n, (auth, title, jour, status) in enumerate(under_review, 1):
     apa = [_apa_author(a) for a in auth]
-    ym = re.search(r"\((20\d\d(?:\.\d+)?)\)", status)
-    yr = (ym.group(1).split(".")[0] if ym else "2026")
+    stage, _, dt = status.partition("|")
+    yr = dt[:4] if dt[:4].isdigit() else "2026"
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     _set_run(p.add_run(f"{n}. "), 9, color=GREY)
@@ -300,14 +362,47 @@ for n, (auth, title, jour, status) in enumerate(under_review, 1):
             _set_run(p.add_run("†"), 9, bold=True, color=ACCENT)
     _set_run(p.add_run(f" ({yr}). "), 9)
     _set_run(p.add_run(title.rstrip(". ")), 9, italic=True)       # APA: unpublished title in italics
-    _set_run(p.add_run(" [Manuscript under review]. "), 9)
+    _set_run(p.add_run(f" [{stage}]. "), 9)
     _set_run(p.add_run(jour + "."), 9)
-    if ym:
-        _set_run(p.add_run(f"  · submitted {ym.group(1)}"), 8.5, color=GREY)
+    if dt:
+        _set_run(p.add_run(f"  · {dt}"), 8.5, color=GREY)
+
+# ---------------------------------------------------------------- Books
+section("Books")
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
+p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
+_set_run(p.add_run("1. "), 9, color=GREY)
+_set_run(p.add_run("YOZMDOSI collective ("), 9)
+_set_run(p.add_run("Seunghyeon Lee"), 9, bold=True)
+_set_run(p.add_run(", contributing author) (2021). "), 9)
+_set_run(p.add_run("New Normal City"), 9, italic=True)
+_set_run(p.add_run(". Urban Issue. ISBN 9791197343100."), 9)
+
+# ---------------------------------------------------------------- Fellowships & Funding
+section("Fellowships & Funding")
+p = doc.add_paragraph()
+r = p.add_run("Competitive fellowships / scholarships (amounts converted at ₩1,400 = $1).")
+_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
+funding = [
+    ("Chung Mong-Koo Foundation — OnDream Future Industry Talent Graduate Fellowship (full)",
+     "2022 — Present", "$25,000"),
+    ("BK21 FOUR — Integrated Major in SmartCity Global Convergence (full)", "2020 — Present", "$39,285"),
+    ("Ilju Foundation Undergraduate Scholarship, 23rd Scholar (full)", "2015 — 2017", "$10,714"),
+    ("Challenge Scholarship, Kyungpook National University (full)", "2011 — 2013", "$18,571"),
+]
+for name, period, amount in funding:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
+    _set_run(p.add_run(name), 9)
+    _set_run(p.add_run(f"  ({amount})"), 9, color=ACCENT)
+    _set_run(p.add_run("\t" + period), 9, color=GREY)
 
 # ---------------------------------------------------------------- Invited talks
 section("Invited Talks")
 invited = [
+    ("The understanding and applications of thermal sensors.",
+     "Guest lecture, SmartCity Industrial Technology Seminar (3 cr.), Seoul National University", "2025"),
+    ("Understanding spatial information and research cases.",
+     "Guest lecture, Environmental Conservation & Land Management (3 cr.), Seoul National University", "2025"),
     ("Remotely sensed smart-city ecological value maps.",
      "NEF (Neocity Empowerment Forum), Orlando, FL, US", "2024"),
     ("Invasive species monitoring development and its application.",
@@ -377,6 +472,104 @@ for auth, yr, kind, title, venue in confs:
     t = p.add_run(title + " "); _set_run(t, 9)
     v = p.add_run(f"[{kind}] {venue}."); _set_run(v, 9, italic=True, color=GREY)
 
+# ---------------------------------------------------------------- Grants / Projects
+section("Research Projects")
+p = doc.add_paragraph()
+r = p.add_run("National R&D and municipal projects (newest first).  "
+              "Budget = total project funding (national R&D; managing agency KEITI).  PI = principal investigator.")
+_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
+
+projects = [
+    ("Janghang National Wetland Restoration — ecosystem monitoring",
+     "Korea Environmental Conservation Institute", "2025.07 — 2025.11", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Led UAV multispectral and LiDAR mapping of the restoration site",
+      "Estimated current carbon stock from UAV LiDAR and predicted future stock from the wetland-park vegetation master plan"],
+     "Coastal-wetland multi-season Sentinel-2 monitoring (manuscript under review)"),
+    ("Carbon storage/sink analysis and inventory for Gyeonggi-do by biotope type",
+     "Gyeonggi Research Institute", "2024.06 — 2025.05", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Analyzed province-wide vertical and horizontal forest structure from ALS",
+      "Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery"],
+     "Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Science of Remote Sensing, under review); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations"),
+    ("Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services",
+     "Korean Ministry of Environment", "2023.04 — 2027.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$1.13M",
+     ["Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR",
+      "Quantified carbon storage of abandoned paddies and adjacent vegetation"],
+     "Insect diversity & ecological structure (Agric., Ecosyst. & Environ. 2026); Rook habitat preferences (Global Ecology & Conservation 2025); water-deer diel activity (KOSERT 2024)"),
+    ("Gyeonggi-do biotope property-information analysis",
+     "Gyeonggi Research Institute", "2022.12 — 2023.11", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Developed and quantified a method to analyze vegetation layer structure by forest type"],
+     "Forest layer-typology metrics (Ecological Indicators 2026); JCK 2023 presentation"),
+    ("Creation, restoration & management technology of carbon-accumulated abandoned-paddy wetland",
+     "Korean Ministry of Environment", "2022.04 — 2026.12", "Researcher",
+     "Prof. Bonhak Koo (Sangmyung Univ.)", "$391K",
+     ["Mapped abandoned-paddy sites and built field drone multispectral / LiDAR datasets"],
+     "Non-destructive carbon storage of Salix spp. (KOSERT 2026); abandoned-paddy terrestrialization patent (pending)"),
+    ("Gwacheon-si urban ecological status mapping",
+     "Gyeonggi Research Institute", "2021.09 — 2022.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Classified forest types and tree species of Gwacheon-si forests and urban green spaces",
+      "Analyzed the vertical and horizontal forest structure of Gwacheon-si"],
+     "Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science & Technology, under review)"),
+    ("Real-time web-based positioning surveillance system for introduced exotic species",
+     "Korean Ministry of Environment", "2021.04 — 2023.12", "Project Manager",
+     "Prof. Youngkeun Song (SNU)", "$863K",
+     ["Led the project as managing researcher — scheduling, budget, and research-output management",
+      "Attached GPS trackers to four invasive species (red-eared slider, Formosan sika deer, nutria, raccoon) and built movement datasets",
+      "Built drone multispectral, LiDAR, and hyperspectral imagery of invasive-turtle habitats",
+      "Produced invasive-species control manuals and developed a real-time positioning-tracking platform"],
+     "Invasive-turtle habitat model (manuscript under review, GEC); wildlife-tracker missing-point patent (reg. 2023) and optimal-capture-range patent (pending)"),
+    ("IT·ET·BT convergence-based distribution and spread models for introduced exotic species",
+     "Korean Ministry of Environment", "2021.04 — 2023.12", "Researcher",
+     "Prof. Wanmo Kang (Kookmin Univ.)", "$464K",
+     ["Modeled habitat distribution and spread of invasive turtles from GPS-tracking data using MaxEnt"],
+     "Invasive-turtle MaxEnt distribution model (manuscript under review, GEC)"),
+    ("Redundancy-based green-infrastructure technology for urban ecosystem challenges",
+     "Korean Ministry of Environment", "2020.04 — 2022.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$662K",
+     ["Tracked wild-boar distribution / movement with camera traps and analyzed home range",
+      "Built drone multispectral / LiDAR imagery of wild-boar habitat and performed real-time thermal-UAV tracking"],
+     "Drone thermal/RGB wildlife tracking datasets (wild boar, home-range analysis)"),
+    ("Monitoring and simulation of climate conditions by spatial type",
+     "The Seoul Institute", "2020.01 — 2020.08", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Acquired and analyzed field measurements of particulate matter and temperature/humidity by urban spatial type",
+      "Ran ENVI-met microclimate simulations and designed green-space planting plans for PM reduction, predicting post-implementation outcomes"],
+     "LST estimation comparison — satellite / simulation / UAV (KOSERT 2026); outdoor thermal-comfort optimization patent (reg. 2022)"),
+    ("Customized habitat-management technique for urban species",
+     "Korean Ministry of Environment", "2019.04 — 2022.12", "Researcher",
+     "Prof. Chan Park (Univ. of Seoul)", "$525K",
+     ["Developed a wildlife-detection method using thermal UAV imagery"],
+     "Real-time UAV thermal/RGB wildlife detection (Remote Sensing 2021, first author); UAV thermal wildlife-detection patent (reg. 2022)"),
+    ("Assessment scheme and ecosystem-restoration model by degradation type",
+     "Korean Ministry of Environment", "2018.07 — 2020.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$257K",
+     ["Performed land-cover classification using satellite imagery"],
+     None),
+]
+for title, funder, period, role, pi, budget, bullets, outputs in projects:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+    _set_run(p.add_run(title), 9.5, bold=True)
+    _set_run(p.add_run("\t" + period), 9, color=GREY)
+    ps = doc.add_paragraph()
+    _set_run(ps.add_run(f"{funder} · "), 9, italic=True, color=GREY)
+    _set_run(ps.add_run(f"Role: {role}"), 9, italic=True, bold=True, color=ACCENT)
+    _set_run(ps.add_run(f" · PI: {pi}"), 9, italic=True, color=GREY)
+    if budget:
+        _set_run(ps.add_run(f" · {budget} (total project)"), 9, italic=True, color=GREY)
+    for b in bullets:
+        pb = doc.add_paragraph(style="List Bullet")
+        pb.paragraph_format.left_indent = Inches(0.25); pb.paragraph_format.space_after = Pt(0)
+        _set_run(pb.add_run(b), 9)
+    if outputs:
+        po = doc.add_paragraph(); po.paragraph_format.left_indent = Inches(0.25)
+        po.paragraph_format.space_before = Pt(1)
+        _set_run(po.add_run("→ Related outputs:  "), 8.5, bold=True, color=ACCENT)
+        _set_run(po.add_run(outputs), 8.5, italic=True, color=GREY)
+
 # ---------------------------------------------------------------- Patents
 section("Patents (Republic of Korea)")
 p = doc.add_paragraph()
@@ -414,7 +607,7 @@ _patent_list([
 _patent_sub("Pending")
 _patent_list([
     ("Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR.",
-     "Pending 2025 · Dankook Univ. & Seoul National University"),
+     "Pending 2025 · Seoul National University & Dankook Univ."),
     ("Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands.",
      "Pending 2025 · Seoul National University"),
     ("Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and "
@@ -422,25 +615,6 @@ _patent_list([
     ("Deriving optimal wildlife-capture range via machine learning by fusing GPS-tracking data and drone "
      "footage.", "Pending 2023 · Seoul National University"),
 ])
-
-# ---------------------------------------------------------------- Grants / Projects
-section("Research Projects & Grants")
-projects = [
-    ("Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services",
-     "Korean Ministry of Environment", "2023 — 2027", "Researcher"),
-    ("Creation, restoration & management technology of carbon-accumulated abandoned-paddy wetland",
-     "Korean Ministry of Environment", "2022 — 2026", "Researcher"),
-    ("Carbon storage/sink analysis and inventory for Gyeonggi-do considering biotope types",
-     "Gyeonggi Research Institute", "2024 — 2025", "Researcher"),
-    ("Real-time web-based positioning surveillance system for introduced exotic species",
-     "Korean Ministry of Environment", "2021 — 2023", "Project Manager"),
-    ("Redundancy-based green-infrastructure technology for urban ecosystem challenges",
-     "Korean Ministry of Environment", "2020 — 2022", "Researcher"),
-]
-for title, inst, period, role in projects:
-    entry(title, right=period, sub=f"{inst} · {role}")
-p = doc.add_paragraph(); r = p.add_run("…and 7 additional national/municipal R&D projects (2018 — present).")
-_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_before = Pt(2)
 
 # ---------------------------------------------------------------- Honors
 section("Awards & Honors")
@@ -462,26 +636,26 @@ _tabbed([
     ("Best Presentation Award — KOSERT Spring Meeting "
      "(forest layer-structure indices and their correlation with carbon storage)", "2025"),
 ])
-_subhead("Scholarships & Fellowships")
-_tabbed([
-    ("Chung Mong-Koo Foundation — OnDream Future Industry Talent Graduate Scholarship (Full)", "2022 — Present"),
-    ("BK21 FOUR — Integrated Major in SmartCity Global Convergence (Full)", "2020 — Present"),
-    ("Ilju Foundation Undergraduate Scholarship, 23rd Scholar (Full)", "2015 — 2017"),
-    ("Challenge Scholarship, Kyungpook National University (Full)", "2011 — 2013"),
-])
 
 # ---------------------------------------------------------------- Service & Membership
 section("Professional Service & Membership")
-p = doc.add_paragraph()
-r = p.add_run("Peer reviewer:  "); _set_run(r, 9, bold=True, color=ACCENT)
-r = p.add_run("International Journal of Applied Earth Observation and Geoinformation (2026 – present)")
-_set_run(r, 9)
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
-r = p.add_run("Member:  "); _set_run(r, 9, bold=True, color=ACCENT)
-r = p.add_run("American Geophysical Union (AGU, 2021–); Ecological Society of America (ESA, 2021–); "
-              "Korean Society of Environmental Restoration Technology (KOSERT, 2020–); "
-              "Ecological Society of Korea (2023–)")
-_set_run(r, 9)
+p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
+_set_run(p.add_run("Peer reviewer, "), 9, bold=True, color=ACCENT)
+_set_run(p.add_run("International Journal of Applied Earth Observation and Geoinformation"), 9)
+_set_run(p.add_run("\t2026 – present"), 9, color=GREY)
+
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+_set_run(p.add_run("Professional memberships"), 9, bold=True, color=ACCENT)
+members = [
+    ("American Geophysical Union (AGU)", "2021 – present"),
+    ("Ecological Society of America (ESA)", "2021 – present"),
+    ("Korean Society of Environmental Restoration Technology (KOSERT)", "2020 – present"),
+    ("Ecological Society of Korea (ESK)", "2023 – present"),
+]
+for name, period in members:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(1)
+    _set_run(p.add_run("Member, " + name), 9)
+    _set_run(p.add_run("\t" + period), 9, color=GREY)
 
 # ---------------------------------------------------------------- Teaching
 section("Teaching & Outreach")
@@ -499,6 +673,20 @@ for t, d in teach:
     r = p.add_run(t); _set_run(r, 9)
     r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
 
+# ---------------------------------------------------------------- Professional Experience
+section("Professional Experience")
+prof = [
+    ("Founder / CEO", " — TREE:ID (startup)", "2023.09 — 2025.03",
+     "A web platform for individual-tree detection & mapping — urban-tree inventory, diagnosis, and "
+     "management. ~$71,000 startup grant; two patents held as assignee. Republic of Korea"),
+    ("Landscape Architect", " — SUNJIN Engineering & Architecture Co., Ltd. (full-time)",
+     "2017.03 — 2018.11", "Seoul, Republic of Korea · landscape and urban-planning practice"),
+    ("Design Intern", " — ATLAS Landscape Architecture, China", "2016.09 — 2017.02",
+     "China · landscape design practice"),
+]
+for lead, rest, date, sub in prof:
+    entry(lead, right=date, sub=sub, left_rest=rest)
+
 # ---------------------------------------------------------------- Skills
 section("Technical Skills & Certifications")
 skills = [
@@ -507,7 +695,7 @@ skills = [
     ("Remote sensing & GIS", "QGIS, ArcGIS, satellite & UAV imagery, thermal imaging, Envi-met microclimate"),
     ("Machine learning", "classification / regression (XGBoost, deep learning) for forest & wildlife mapping"),
     ("Certifications", "Engineer Forest, Engineer Landscape Architecture, Drone Pilot License (Class 2)"),
-    ("Languages", "Korean (native), English (professional working), Chinese (elementary)"),
+    ("Languages", "Korean (native), English (professional working)"),
 ]
 for label, val in skills:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
@@ -517,19 +705,31 @@ for label, val in skills:
 # ---------------------------------------------------------------- References
 section("References")
 refs = [
-    ("Prof. Youngkeun Song (Doctoral advisor)",
-     "Landscape & Ecological Planning Lab, Seoul National University · [email — to be added]"),
+    ("Prof. Youngkeun Song",
+     "Doctoral advisor — Landscape & Ecological Planning Lab, Seoul National University", None),
     ("Prof. Brady S. Hardiman",
-     "Dept. of Forestry & Natural Resources, Purdue University · [email — to be added]"),
+     "Visiting-scholar host — Forestry & Natural Resources, Purdue University", "bhardima@purdue.edu"),
     ("Prof. Jaeyoung Ha",
-     "School of Architecture + Design, Virginia Tech · [email — to be added]"),
+     "Visiting-scholar host — School of Design, Virginia Tech", "jaeyoung@vt.edu"),
 ]
-for name, detail in refs:
+for name, detail, email in refs:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
-    r = p.add_run(name + " — "); _set_run(r, 9, bold=True)
-    r = p.add_run(detail); _set_run(r, 9, color=GREY)
+    _set_run(p.add_run(name + " — "), 9, bold=True)
+    _set_run(p.add_run(detail), 9, color=GREY)
+    _set_run(p.add_run(" · "), 9, color=GREY)
+    if email:
+        add_hyperlink(p, "mailto:" + email, email, color="555555", size=9)
+    else:
+        _set_run(p.add_run("[email — to be added]"), 9, color=GREY)
+
+# ---------------------------------------------------------------- date / signature
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(18)
+_set_run(p.add_run("Last updated: June 2026."), 9, italic=True, color=GREY)
+p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(14)
+_set_run(p.add_run("Seunghyeon Lee"), 9.5, bold=True)
+_set_run(p.add_run("\tSignature: ____________________     Date: ________________"), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v2.docx"
+out = "Lee_Seunghyeon_CV_v4.docx"
 doc.save(out)
 print("saved:", out)
