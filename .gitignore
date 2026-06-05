@@ -32,3 +32,6 @@ public/**/*.tmp
 *.tmp
 # Microsoft Office lock/temp files
 ~$*
+
+# CV scratch screenshots (underscore-prefixed)
+cv/_*.png
