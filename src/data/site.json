@@ -42,8 +42,8 @@
       "ko": "서울대학교 협동과정 조경학 박사 · 생태계획연구실",
       "en": "Ph.D. · Seoul National University · Landscape & Ecological Planning Lab"
     },
-    "ctaPrimary":   { "ko": "연구 보기",  "en": "View Research" },
-    "ctaSecondary": { "ko": "연락하기",   "en": "Get in Touch" }
+    "ctaPrimary":   { "ko": "게재 논문",  "en": "Published Articles" },
+    "ctaSecondary": { "ko": "Contact",   "en": "Contact" }
   },
 
   "about": {
