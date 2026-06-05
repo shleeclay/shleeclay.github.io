@@ -89,7 +89,7 @@ const coverSrc = paper.cover
         target="_blank"
         rel="noopener noreferrer"
         class="absolute inset-0 z-[5]"
-        aria-label="View paper (DOI)"
+        aria-label={`View paper: ${paper.title.en}`}
         title="View paper (DOI)"
       ></a>
     )}
@@ -118,7 +118,7 @@ const coverSrc = paper.cover
     </p>
 
     <!-- Authors -->
-    <p class="type-body-sm text-base-content/55 mb-3 line-clamp-2 flex-1">
+    <p class="type-body-sm text-base-content/70 mb-3 line-clamp-2 flex-1">
       {paper.authors.join(", ")}
     </p>
 
