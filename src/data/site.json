@@ -26,7 +26,7 @@
       { "id": "conferences",   "ko": "학회 발표",  "en": "Conferences" },
       { "id": "teaching",      "ko": "교육 · 강의","en": "Teaching" },
       { "id": "career",        "ko": "경력",       "en": "Career" },
-      { "id": "funding",       "ko": "펀딩 · 장학","en": "Funding" },
+      { "id": "funding",       "ko": "펀딩",       "en": "Funding" },
       { "id": "projects",      "ko": "연구 과제",  "en": "Projects" },
       { "id": "patents",       "ko": "특허",       "en": "Patents" },
       { "id": "contact",       "ko": "연락처",     "en": "Contact" }
