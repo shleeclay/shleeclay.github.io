@@ -61,7 +61,7 @@ const confTypeLabels: Record<string, string> = {
           <span data-only="ko">{hero.name.ko}</span>
           <span data-only="en">{hero.name.en}</span>
           <span class="text-primary"> </span>
-          <span class="type-headline text-base-content/55 align-baseline">
+          <span class="type-headline text-base-content/70 align-baseline">
             <span data-only="ko">{hero.nameSub.ko}</span>
             <span data-only="en">{hero.nameSub.en}</span>
           </span>
@@ -128,13 +128,13 @@ const confTypeLabels: Record<string, string> = {
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
       {about.stats.map((stat) => (
         <div class="stat-box p-4 rounded-2xl bg-base-200/60 border border-base-300/60">
-          <p class="type-caption text-base-content/55 mb-1">
+          <p class="type-caption text-base-content/70 mb-1">
             <span data-only="ko">{stat.label.ko}</span>
             <span data-only="en">{stat.label.en}</span>
           </p>
           <p class="text-primary" style="font-size:26px;font-weight:600;line-height:1;">
             {stat.value}
-            <span class="text-xs font-normal text-base-content/55 ml-1">
+            <span class="text-xs font-normal text-base-content/70 ml-1">
               <span data-only="ko">{stat.unit.ko}</span>
               <span data-only="en">{stat.unit.en}</span>
             </span>
@@ -161,7 +161,7 @@ const confTypeLabels: Record<string, string> = {
             )}
           </div>
           <div class="flex-1 min-w-0">
-            <p class="type-caption text-base-content/55 mb-1">{e.period}</p>
+            <p class="type-caption text-base-content/70 mb-1">{e.period}</p>
             <h3 class="type-card-title mb-1">
               <span data-only="ko">{e.degree.ko}{' · '}{e.program.ko}</span>
               <span data-only="en">{e.degree.en}{' · '}{e.program.en}</span>
@@ -171,7 +171,7 @@ const confTypeLabels: Record<string, string> = {
               <span data-only="en">{e.institution.en}</span>
             </p>
             {e.lab && (
-              <p class="type-body-sm text-base-content/60 mt-1">
+              <p class="type-body-sm text-base-content/70 mt-1">
                 <span data-only="ko">{e.lab.ko}{e.advisor ? ` · ${e.advisor.ko}` : ''}</span>
                 <span data-only="en">{e.lab.en}{e.advisor ? ` · ${e.advisor.en}` : ''}</span>
               </p>
@@ -200,7 +200,7 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="ko">심사 중</span>
             <span data-only="en">Under Review</span>
           </span>
-          <p class="type-caption text-base-content/55">
+          <p class="type-caption text-base-content/70">
             <span data-only="ko">{site.publications.underReview.note.ko}</span>
             <span data-only="en">{site.publications.underReview.note.en}</span>
           </p>
@@ -209,7 +209,7 @@ const confTypeLabels: Record<string, string> = {
           {underReview.map((m) => (
             <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2.5 hover:bg-base-200/60 -mx-2 px-2 rounded-md transition-colors">
               <div class="flex flex-wrap items-center gap-2 md:contents">
-                <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-20">
+                <span class="shrink-0 type-body-sm text-base-content/70 whitespace-nowrap w-fit md:w-20">
                   {m.date.replace("/", ".")}
                 </span>
                 <span class={`shrink-0 pill ${m.role === "first" ? "pill-first" : "pill-co"}`}>
@@ -219,7 +219,7 @@ const confTypeLabels: Record<string, string> = {
               </div>
               <div class="flex-1 min-w-0">
                 <p class="type-body text-base-content leading-snug" style="font-weight:480;">{m.title}</p>
-                <p class="type-body-sm text-base-content/55 mt-0.5">
+                <p class="type-body-sm text-base-content/70 mt-0.5">
                   {m.authors.map((a, i) => (
                     <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-semibold text-base-content/75">{a}</strong> : a}</>
                   ))}
@@ -257,7 +257,7 @@ const confTypeLabels: Record<string, string> = {
             {items.map((c) => (
               <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2.5 hover:bg-base-200/60 -mx-2 px-2 rounded-md transition-colors">
                 <div class="flex flex-wrap items-center gap-2 md:contents">
-                  <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-24 md:pr-3">
+                  <span class="shrink-0 type-body-sm text-base-content/70 whitespace-nowrap w-fit md:w-24 md:pr-3">
                     {fmtDate(c.date)}
                   </span>
                   <span class={`shrink-0 pill ${c.scope === 'international' ? 'pill-intl' : 'pill-domestic'}`}>
@@ -269,7 +269,7 @@ const confTypeLabels: Record<string, string> = {
                     <span data-only="ko">{c.title.ko}</span>
                     <span data-only="en">{c.title.en}</span>
                   </p>
-                  <p class="type-body-sm text-base-content/55 mt-0.5">
+                  <p class="type-body-sm text-base-content/70 mt-0.5">
                     <span data-only="ko">{typeof c.conference === "string" ? c.conference : c.conference.ko}</span>
                     <span data-only="en">{typeof c.conference === "string" ? c.conference : c.conference.en}</span>
                     {' · '}
@@ -318,7 +318,7 @@ const confTypeLabels: Record<string, string> = {
               return (
                 <div class="group flex flex-col md:flex-row md:items-baseline gap-1 md:gap-3 py-2 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors">
                   <div class="flex flex-wrap items-center gap-2 md:contents">
-                    <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
+                    <span class="shrink-0 type-body-sm text-base-content/70 whitespace-nowrap w-fit md:w-36">
                       {fmtRange(t.date, t.dateEnd)}
                     </span>
                     <span class={`shrink-0 pill ${t.type === "univ" ? "pill-first" : "pill-co"}`}>
@@ -338,7 +338,7 @@ const confTypeLabels: Record<string, string> = {
                         <span data-only="en">{t.title.en}</span>
                       </p>
                     )}
-                    <p class="type-body-sm text-base-content/55 mt-0.5">
+                    <p class="type-body-sm text-base-content/70 mt-0.5">
                       <span data-only="ko">{t.host.ko}</span>
                       <span data-only="en">{t.host.en}</span>
                       {t.students > 0 && ` · ${t.students}`}
@@ -374,7 +374,7 @@ const confTypeLabels: Record<string, string> = {
 
           <div class="flex-1 min-w-0 flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4">
             <div class="flex flex-wrap items-center gap-2 md:contents">
-              <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-36">
+              <span class="shrink-0 type-body-sm text-base-content/70 whitespace-nowrap w-fit md:w-36">
                 {w.period}
               </span>
               <span class="shrink-0 pill pill-co">
@@ -397,7 +397,7 @@ const confTypeLabels: Record<string, string> = {
               {w.desc && (
                 <p class="type-body-sm text-base-content/70 mt-0.5 italic">{w.desc}</p>
               )}
-              <p class="type-body-sm text-base-content/55 mt-0.5">
+              <p class="type-body-sm text-base-content/70 mt-0.5">
                 <span data-only="ko">{w.country.ko}</span>
                 <span data-only="en">{w.country.en}{w.fundingUsd ? ` · ${w.fundingUsd} startup grant` : ''}</span>
               </p>
@@ -428,7 +428,7 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="ko">{c.name.ko}</span>
             <span data-only="en">{c.name.en}</span>
           </p>
-          {c.date && <p class="type-caption text-base-content/55 mt-0.5">{c.date}</p>}
+          {c.date && <p class="type-caption text-base-content/70 mt-0.5">{c.date}</p>}
         </div>
       ))}
     </div>
@@ -450,7 +450,7 @@ const confTypeLabels: Record<string, string> = {
             )}
           </div>
           <div class="flex-1 min-w-0">
-            <p class="type-caption text-base-content/55 mb-1">{s.period}</p>
+            <p class="type-caption text-base-content/70 mb-1">{s.period}</p>
             <p class="type-card-title mb-1">
               <span data-only="ko">{s.name.ko}</span>
               <span data-only="en">{s.name.en}</span>
@@ -474,7 +474,7 @@ const confTypeLabels: Record<string, string> = {
     <div class="space-y-2">
       {projects.map((p) => (
         <div class="flex flex-col md:flex-row md:items-start gap-1 md:gap-4 py-3 px-2 -mx-2 rounded-md hover:bg-base-200/60 transition-colors border-b border-base-300/30">
-          <span class="shrink-0 type-body-sm text-base-content/55 whitespace-nowrap w-fit md:w-44">
+          <span class="shrink-0 type-body-sm text-base-content/70 whitespace-nowrap w-fit md:w-44">
             {p.period}
           </span>
           <div class="flex-1 min-w-0">
@@ -482,7 +482,7 @@ const confTypeLabels: Record<string, string> = {
               <span data-only="ko">{p.title.ko}</span>
               <span data-only="en">{p.title.en}</span>
             </p>
-            <p class="type-body-sm text-base-content/55 mt-0.5">
+            <p class="type-body-sm text-base-content/70 mt-0.5">
               <span data-only="ko">{p.institute.ko}{' · '}{p.role.ko}{p.pi ? ` · PI: ${p.pi.ko}` : ''}</span>
               <span data-only="en">{p.institute.en}{' · '}{p.role.en}{p.pi ? ` · PI: ${p.pi.en}` : ''}{p.budgetUsd ? ` · ${p.budgetUsd}` : ''}</span>
             </p>
@@ -525,7 +525,7 @@ const confTypeLabels: Record<string, string> = {
       <div class="mb-10">
         <div class="flex items-baseline gap-3 mb-4">
           <span class="pill pill-reg">Registered</span>
-          <p class="type-caption text-base-content/55">
+          <p class="type-caption text-base-content/70">
             <span data-only="ko">등록 특허 · {registeredPatents.length}건</span>
             <span data-only="en">{registeredPatents.length} registered</span>
           </p>
@@ -541,7 +541,7 @@ const confTypeLabels: Record<string, string> = {
       <div>
         <div class="flex items-baseline gap-3 mb-4">
           <span class="pill pill-app">Application</span>
-          <p class="type-caption text-base-content/55">
+          <p class="type-caption text-base-content/70">
             <span data-only="ko">출원 중 · {applicationPatents.length}건</span>
             <span data-only="en">{applicationPatents.length} pending</span>
           </p>
@@ -549,7 +549,7 @@ const confTypeLabels: Record<string, string> = {
         <div class="space-y-2">
           {applicationPatents.map((pt) => (
             <div class="flex items-start gap-3 py-3 px-3 -mx-2 rounded-lg bg-base-200/40 border border-base-300/40 hover:border-primary/40 transition-colors">
-              <span class="shrink-0 type-body-sm text-base-content/55 font-medium tracking-tight w-24 pt-0.5">
+              <span class="shrink-0 type-body-sm text-base-content/70 font-medium tracking-tight w-24 pt-0.5">
                 {fmtDate(pt.applicationDate)}
               </span>
               <div class="flex-1 min-w-0">
@@ -557,7 +557,7 @@ const confTypeLabels: Record<string, string> = {
                   <span data-only="ko">{pt.title.ko}</span>
                   <span data-only="en">{pt.title.en}</span>
                 </p>
-                <p class="type-body-sm text-base-content/55 mt-0.5">
+                <p class="type-body-sm text-base-content/70 mt-0.5">
                   <span class="font-medium">
                     <span data-only="ko">발명자: </span>
                     <span data-only="en">Inventors: </span>

@@ -88,7 +88,7 @@ const coverSrc = book.cover
       <span data-only="en">{book.publisher.en}</span>
     </p>
 
-    {book.isbn && <p class="type-body-sm text-base-content/45 font-medium tracking-tight mb-3 flex-1">ISBN {book.isbn}</p>}
+    {book.isbn && <p class="type-body-sm text-base-content/70 font-medium tracking-tight mb-3 flex-1">ISBN {book.isbn}</p>}
 
     <div class="flex items-center gap-2 pt-3 border-t border-base-300/40 mt-auto">
       {book.url ? (
@@ -107,7 +107,7 @@ const coverSrc = book.cover
           <span data-only="en">Book page</span>
         </a>
       ) : (
-        <span class="text-xs text-base-content/40">{book.date}</span>
+        <span class="text-xs text-base-content/70">{book.date}</span>
       )}
     </div>
   </div>
