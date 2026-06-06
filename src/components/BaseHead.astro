@@ -26,7 +26,7 @@ const ogImage = `${SITE}/og-image.jpg`;
 
 // ─── JSON-LD: Person (structured data for Google → richer search presence) ───
 const c = site.contact as any;
-const sameAs = [c.scholarUrl, c.orcidUrl, c.researchGateUrl, c.linkedinUrl, c.githubUrl].filter(Boolean);
+const sameAs = [c.scholarUrl, c.orcidUrl, c.researchGateUrl, c.githubUrl].filter(Boolean);
 const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
