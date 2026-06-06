@@ -807,7 +807,8 @@ const confTypeLabels: Record<string, string> = {
             const el = children[i];
             const tag = el.tagName.toLowerCase();
             const cls = el.getAttribute('class') || '';
-            if (tag === 'h2' || cls.indexOf('type-eyebrow') !== -1) { i++; continue; }
+            // Header = leading eyebrow <p> + <h2> title(s), including a row <div> that wraps the title (e.g. Teaching's title + upwise badge).
+            if (tag === 'h2' || cls.indexOf('type-eyebrow') !== -1 || el.querySelector('h2')) { i++; continue; }
             break;
           }
           if (i === 0 || i >= children.length) return;
