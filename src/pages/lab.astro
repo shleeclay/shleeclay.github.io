@@ -20,8 +20,8 @@ const papers = [
       { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig3.webp", cap: "Error comparison of ALS-based vertical layer segmentation parameter combinations. (a) Mean Absolute Error (MAE) and Mean Squared Error (MSE) for the ten best-performing parameter sets in 5-m radius analytical units. (b) Summary of the corresponding parameter combinations (voxelization, ground point filtering height, and histogram bin size–Gaussian kernel). (c) MAE and MSE for the same parameter sets in 10-m radius analytical units." },
       { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig4.webp", cap: "PCA–HDBSCAN clustering results for 5-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Five clusters (A–E) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–E (b1–b5) with cross-sectional views with 3 m width (S1, S2)" },
       { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig5.webp", cap: "PCA–HDBSCAN clustering results for 10-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Four clusters (A–D) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–D (b1–b4) with cross-sectional views with 3 m width (S1, S2)" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS1.webp", cap: "[Supplementary] Results for 5-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS2.webp", cap: "[Supplementary] Results for 10-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
+      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS1.webp", cap: "Results for 5-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
+      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS2.webp", cap: "Results for 10-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
     ],
   },
   {
@@ -42,7 +42,7 @@ const papers = [
       { src: FIG + "2026_KOSERT_Comparing-LST/fig1.webp", cap: "Study site. (a) The location of Chuncheon, South Korea; (b) The location of the study site within Chuncheon; (c) The northern and southern parts of the study site are high-rise and low-rise residential areas. The yellow line and colorized points indicate the UAV flight path and shoot-point locations." },
       { src: FIG + "2026_KOSERT_Comparing-LST/fig2.webp", cap: "Boxplots of land surface temperature by data source at (a) low-rise residential area; (b) high-rise residential area." },
       { src: FIG + "2026_KOSERT_Comparing-LST/fig3.webp", cap: "Spatial distribution of land surface temperature from (a) Landsat 9 satellite imagery; (b) ENVI-met simulation; (c) thermal UAV." },
-      { src: FIG + "2026_KOSERT_Comparing-LST/figS1.webp", cap: "[Supplementary] Land surface temperature at original resolution." },
+      { src: FIG + "2026_KOSERT_Comparing-LST/figS1.webp", cap: "Land surface temperature at original resolution." },
     ],
   },
   {
@@ -50,7 +50,7 @@ const papers = [
     meta: "Remote Sensing · 2021 · first author",
     cover: "/papers/covers/web/2021_RemoteSens_Feasibility.webp",
     figs: [
-      { src: FIG + "2021_RemoteSens_Feasibility/ga.webp",   cap: "Graphical Abstract" },
+      { src: FIG + "2021_RemoteSens_Feasibility/ga.webp",   cap: "" },
       { src: FIG + "2021_RemoteSens_Feasibility/fig1.webp", cap: "Overview of the study site." },
       { src: FIG + "2021_RemoteSens_Feasibility/fig2.webp", cap: "Target shape categories: (a) isolated, (b) bordering, (c) overlapping, and (d) partial." },
       { src: FIG + "2021_RemoteSens_Feasibility/fig3.webp", cap: "Representative outputs from the thermal sensor. The small image at the bottom-left is the thermal image (640 × 512 px), and the larger image is the RGB image (4000 × 3000 px). The coverage area of the thermal image is marked by the white rectangle in the RGB image." },
@@ -203,10 +203,26 @@ const papers = [
       const nextB = cz.querySelector('.cz-nav.next');
       let figs = [], idx = 0;
 
+      // 파일명에서 figure 라벨 도출:  fig1→"Figure 1", figS1→"Figure S1", ga→"Graphical Abstract"
+      function labelFromSrc(src) {
+        const name = (src.split('/').pop() || '').replace(/\.webp$/i, '');
+        if (name === 'ga') return 'Graphical Abstract';
+        const m = name.match(/^fig(S?\d+)$/i);
+        return m ? 'Figure ' + m[1].toUpperCase() : '';
+      }
+
       function render() {
         const f = figs[idx];
         img.src = f.src; img.alt = f.cap || '';
-        cap.textContent = f.cap || '';
+        // "Figure N." (굵게) + 캡션. 캡션 없으면(ga 등) 라벨만 마침표 없이.
+        cap.innerHTML = '';
+        const label = labelFromSrc(f.src);
+        if (label) {
+          const b = document.createElement('b');
+          b.textContent = f.cap ? label + '. ' : label;
+          cap.appendChild(b);
+        }
+        if (f.cap) cap.appendChild(document.createTextNode(f.cap));
         count.textContent = (idx + 1) + ' / ' + figs.length;
         dots.innerHTML = '';
         figs.forEach((_, i) => {
