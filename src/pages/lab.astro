@@ -14,19 +14,19 @@ const papers = [
     title: "Real-time UAV wildlife detection",
     meta: "Remote Sensing · 2021 · first author",
     figs: [
-      { src: F + "ga.webp",   cap: "Graphical abstract — real-time UAV thermal/RGB wildlife detection" },
-      { src: F + "fig1.webp", cap: "Study site overview" },
-      { src: F + "fig2.webp", cap: "Detection target categories — isolated · bordering · overlapping · partial" },
-      { src: F + "fig3.webp", cap: "Paired capture — thermal (640×512) framed within RGB (4000×3000)" },
-      { src: F + "fig4.webp", cap: "Lens distortion correction (focal length)" },
-      { src: F + "fig5.webp", cap: "Thermal correction — fur-color artifact" },
-      { src: F + "fig6.webp", cap: "Thermal correction — unnatural-signal removal" },
-      { src: F + "fig7.webp", cap: "Sobel edge detection & contour extraction" },
-      { src: F + "fig8.webp", cap: "Max surface temperature vs. flight height (regression)" },
-      { src: F + "fig9.webp", cap: "Detection workflow for all image types" },
-      { src: F + "fig10.webp", cap: "Precision & recall computation" },
-      { src: F + "fig11.webp", cap: "Detection accuracy by flight height & image type" },
-      { src: F + "fig12.webp", cap: "Thermal pixel resolution across 25–275 m altitude" },
+      { src: F + "ga.webp",   cap: "Graphical Abstract" },
+      { src: F + "fig1.webp", cap: "Overview of the study site." },
+      { src: F + "fig2.webp", cap: "Target shape categories: (a) isolated, (b) bordering, (c) overlapping, and (d) partial." },
+      { src: F + "fig3.webp", cap: "Representative outputs from the thermal sensor. The small image at the bottom-left is the thermal image (640 × 512 px), and the larger image is the RGB image (4000 × 3000 px). The coverage area of the thermal image is marked by the white rectangle in the RGB image." },
+      { src: F + "fig4.webp", cap: "Example of focal length distortion and correction. (a) Original RGB image (distorted), (b) corrected RGB image, (c) clipped RGB image, and (d) original thermal image." },
+      { src: F + "fig5.webp", cap: "Example of thermal image correction (fur color). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
+      { src: F + "fig6.webp", cap: "Example of thermal image correction (unnatural). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
+      { src: F + "fig7.webp", cap: "Example of Sobel edge detection and contour drawing. (a) Sobel x-axis outcome, (b) Sobel y-axis outcome, (c) Sobel biaxial outcome, (d) thresholded image, and (e) contoured image." },
+      { src: F + "fig8.webp", cap: "Regression analysis of maximum temperature and shooting height." },
+      { src: F + "fig9.webp", cap: "Flowchart of the detection method for all image types." },
+      { src: F + "fig10.webp", cap: "Calculation of detection precision and recall rate." },
+      { src: F + "fig11.webp", cap: "Detection results by height and type of input image." },
+      { src: F + "fig12.webp", cap: "Thermal images taken at shooting heights of (a) 25 m, (b) 100 m, (c) 200 m, and (d) 275 m, and their pixel resolution." },
     ],
   },
 ];
@@ -85,7 +85,7 @@ const papers = [
     .cz-imgwrap { position:relative; width:100%; display:flex; align-items:center; justify-content:center; }
     #cz-img { max-width:100%; max-height:74vh; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.5);
       user-select:none; -webkit-user-drag:none; }
-    .cz-cap { color:#e6ece7; font-size:14.5px; margin-top:16px; text-align:center; min-height:1.4em; }
+    .cz-cap { color:#e6ece7; font-size:14px; line-height:1.5; margin:16px auto 0; text-align:center; min-height:1.4em; max-width:760px; }
     .cz-count { color:#9fb0a6; font-size:12px; margin-top:6px; letter-spacing:.05em; }
     .cz-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.12);
       border:1px solid rgba(255,255,255,.25); color:#fff; width:46px; height:46px; border-radius:999px;
