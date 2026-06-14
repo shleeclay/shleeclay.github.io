@@ -13,6 +13,7 @@ const papers = [
   {
     title: "Real-time UAV wildlife detection",
     meta: "Remote Sensing · 2021 · first author",
+    cover: "/papers/covers/web/2021_RemoteSens_Feasibility.webp",
     figs: [
       { src: F + "ga.webp",   cap: "Graphical Abstract" },
       { src: F + "fig1.webp", cap: "Overview of the study site." },
@@ -87,13 +88,13 @@ const papers = [
       user-select:none; -webkit-user-drag:none; }
     .cz-cap { color:#e6ece7; font-size:14px; line-height:1.5; margin:16px auto 0; text-align:center; min-height:1.4em; max-width:760px; }
     .cz-count { color:#9fb0a6; font-size:12px; margin-top:6px; letter-spacing:.05em; }
-    .cz-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.25); color:#fff; width:46px; height:46px; border-radius:999px;
-      font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; }
-    .cz-nav:hover { background:rgba(255,255,255,.25); }
-    .cz-nav.prev { left:-4px; } .cz-nav.next { right:-4px; }
-    .cz-nav[disabled] { opacity:.25; cursor:default; }
-    @media(max-width:680px){ .cz-nav.prev{left:2px;} .cz-nav.next{right:2px;} }
+    .cz-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(20,30,24,.55);
+      border:1px solid rgba(255,255,255,.45); color:#fff; width:54px; height:54px; border-radius:999px;
+      font-size:28px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:.18s; z-index:5; backdrop-filter:blur(2px); box-shadow:0 2px 12px rgba(0,0,0,.4); }
+    .cz-nav:hover { background:rgba(255,255,255,.92); color:#142018; transform:translateY(-50%) scale(1.06); }
+    .cz-nav.prev { left:-66px; } .cz-nav.next { right:-66px; }
+    @media(max-width:1140px){ .cz-nav.prev{left:6px;} .cz-nav.next{right:6px;} }
     .cz-dots { display:flex; gap:7px; margin-top:14px; }
     .cz-dots i { width:7px; height:7px; border-radius:999px; background:rgba(255,255,255,.3); display:block; cursor:pointer; }
     .cz-dots i.on { background:#fff; }
@@ -114,7 +115,7 @@ const papers = [
       {papers.map((p) => (
         <div class="card">
           <div class="thumb js-open" data-figs={JSON.stringify(p.figs)} data-title={p.title} role="button" tabindex="0" aria-label={`${p.title} figures 보기`}>
-            <img src={p.figs[0].src} alt={p.title} loading="lazy" />
+            <img src={p.cover} alt={p.title} loading="lazy" />
             <span class="fig-badge">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.6-3.6a2 2 0 0 0-2.8 0L6 21"/></svg>
               {p.figs.length} figures
@@ -169,8 +170,6 @@ const papers = [
         img.src = f.src; img.alt = f.cap || '';
         cap.textContent = f.cap || '';
         count.textContent = (idx + 1) + ' / ' + figs.length;
-        prevB.disabled = idx === 0;
-        nextB.disabled = idx === figs.length - 1;
         dots.innerHTML = '';
         figs.forEach((_, i) => {
           const d = document.createElement('i');
@@ -184,7 +183,8 @@ const papers = [
         cz.classList.add('on'); render();
       }
       function close() { cz.classList.remove('on'); img.src = ''; }
-      function go(n) { idx = Math.min(figs.length - 1, Math.max(0, idx + n)); render(); }
+      // 끝에서 반대편으로 순환 → 좌우 버튼이 항상 동작
+      function go(n) { idx = (idx + n + figs.length) % figs.length; render(); }
 
       document.querySelectorAll('.js-open').forEach((el) => {
         const data = JSON.parse(el.getAttribute('data-figs'));
@@ -202,6 +202,19 @@ const papers = [
         else if (e.key === 'ArrowLeft') go(-1);
         else if (e.key === 'ArrowRight') go(1);
       });
+      // 마우스 휠 (PC) — 한 번 굴릴 때 한 장씩 (throttle)
+      let wheelLock = false;
+      cz.addEventListener('wheel', (e) => {
+        if (!cz.classList.contains('on')) return;
+        e.preventDefault();
+        if (wheelLock) return;
+        const d = e.deltaY || e.deltaX;
+        if (Math.abs(d) < 8) return;
+        go(d > 0 ? 1 : -1);
+        wheelLock = true;
+        setTimeout(() => { wheelLock = false; }, 260);
+      }, { passive: false });
+
       // 터치 스와이프
       let x0 = null;
       img.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
