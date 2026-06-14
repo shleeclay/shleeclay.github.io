@@ -1,0 +1,231 @@
+---
+// ───────────────────────────────────────────────────────────────────────────
+// PRIVATE PROTOTYPE PAGE — publication 핵심 figure 표시 방식 비교용.
+//   • 라이브 페이지에 영향 없음 (nav·sitemap·robots 미포함, 어디에도 링크 안 됨)
+//   • noindex,nofollow → 검색엔진 색인 안 됨
+//   • URL(/lab)을 아는 사람만 접근 (저장소가 public이라 "진짜 비공개"는 아님)
+// 샘플 figure = 기존 논문 표지(webp). 실제로는 각 논문의 핵심 그림으로 교체.
+// ───────────────────────────────────────────────────────────────────────────
+import "../styles/global.css";
+
+const figs = [
+  { src: "/papers/covers/2026_EcolIndic_Multi-scale-typologies.webp", title: "Multi-scale forest typologies", meta: "Ecological Indicators · 2026 · first author", take: "수직 층위 지표로 산림 유형을 다중 스케일에서 분류" },
+  { src: "/papers/covers/2026_RSE_Three-stage-framework.webp",       title: "Three-stage stand-level framework",  meta: "Remote Sensing of Environment · 2026",       take: "임분 단위 구조 추정을 위한 3단계 프레임워크" },
+  { src: "/papers/covers/2026_KOSERT_Forest-Type-Seasonal.webp",     title: "GEDI–ALS canopy height agreement",   meta: "KOSERT · 2026 · first author",               take: "산림 유형·계절별 GEDI–ALS 수관고 일치도 분석" },
+  { src: "/papers/covers/2026_AEE_Ecological-structures.webp",       title: "Insect diversity & structure",       meta: "Agric., Ecosyst. & Environ. · 2026",         take: "천이 단계별 생태 구조와 곤충 다양성" },
+  { src: "/papers/covers/2025_GEC_Assessing-Corvus.webp",           title: "Rook habitat preferences",           meta: "Global Ecology & Conservation · 2025",       take: "떼까마귀 군집 크기별 서식지 선호" },
+  { src: "/papers/covers/2021_RemoteSens_Feasibility.webp",         title: "Real-time UAV wildlife detection",   meta: "Remote Sensing · 2021 · first author",       take: "열·RGB UAV 기반 실시간 야생동물 탐지" },
+];
+
+const fig = figs[0];
+---
+
+<!DOCTYPE html>
+<html lang="ko" data-theme="shlee-light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>[비공개] Figure 표시 방식 프로토타입 — Seunghyeon Lee</title>
+  <style>
+    :root { --ink:#0f2218; --muted:#5b6b62; --line:#e3e8e3; --accent:#1f4e3d; --gold:#9a7a18; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:#f7f8f6; color:var(--ink);
+      font-family:"Pretendard Variable",-apple-system,system-ui,sans-serif; line-height:1.55; }
+    .wrap { max-width:1080px; margin:0 auto; padding:48px 24px 120px; }
+    .page-h { font-size:30px; font-weight:800; letter-spacing:-.02em; margin:0 0 6px; }
+    .page-sub { color:var(--muted); margin:0 0 8px; }
+    .warn { background:#fff7e6; border:1px solid #f0d68a; color:#6b5300; font-size:13px;
+      padding:10px 14px; border-radius:10px; margin:14px 0 40px; }
+    .proto { margin:0 0 72px; }
+    .proto > h2 { font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--accent); margin:0 0 4px; }
+    .proto > .t { font-size:22px; font-weight:700; margin:0 0 6px; letter-spacing:-.01em; }
+    .proto > .note { font-size:13.5px; color:var(--muted); margin:0 0 22px; max-width:680px; }
+    .proto > .note b { color:var(--ink); }
+    .tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+    .tag.good { background:#e6f4ec; color:#1f6b46; }
+    .tag.risk { background:#fdecec; color:#a23b3b; }
+    .card-base { background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+    .meta-j { font-style:italic; color:var(--muted); font-size:13px; }
+    .pill { font-size:11px; color:var(--accent); font-weight:700; }
+
+    /* ── A. Featured band ── */
+    .feat { display:flex; flex-direction:column; gap:18px; }
+    .feat-row { display:grid; grid-template-columns: 320px 1fr; gap:24px; align-items:center; padding:18px; }
+    .feat-row img { width:100%; height:200px; object-fit:cover; border-radius:12px; background:#eef1ee; }
+    .feat-row .h { font-size:20px; font-weight:750; margin:0 0 8px; letter-spacing:-.01em; }
+    .feat-row .take { color:var(--muted); margin:0 0 14px; }
+    .btn { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:650;
+      padding:7px 14px; border-radius:9px; border:1px solid var(--accent); color:var(--accent);
+      text-decoration:none; transition:.2s; }
+    .btn:hover { background:var(--accent); color:#fff; }
+    @media(max-width:680px){ .feat-row { grid-template-columns:1fr; } .feat-row img{height:180px;} }
+
+    /* ── B. Always-on thumbnail grid ── */
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .gcard { overflow:hidden; }
+    .gcard img { width:100%; height:150px; object-fit:cover; display:block; background:#eef1ee; }
+    .gcard .body { padding:14px; }
+    .gcard .body h4 { margin:0 0 4px; font-size:15px; font-weight:700; }
+    @media(max-width:680px){ .grid { grid-template-columns:1fr; } }
+
+    /* ── C. Hover filmstrip slide-in (premium) ── */
+    .strip-list { display:flex; flex-direction:column; gap:10px; }
+    .srow { position:relative; overflow:hidden; padding:16px 18px; cursor:pointer; }
+    .srow .head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+    .srow h4 { margin:0; font-size:16px; font-weight:700; }
+    .srow .hint { font-size:11px; color:var(--muted); white-space:nowrap; }
+    .film { display:flex; gap:10px; margin-top:0; max-height:0; opacity:0;
+      transform:translateX(40px);
+      transition:max-height .45s ease, opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), margin-top .45s ease;
+      overflow-x:auto; padding-bottom:2px; }
+    .srow:hover .film, .srow.open .film { max-height:180px; opacity:1; transform:translateX(0); margin-top:14px; }
+    .film img { height:140px; width:auto; border-radius:10px; object-fit:cover; flex:0 0 auto; background:#eef1ee; }
+
+    /* ── D. Hover auto-scroll (marquee — gimmick 비교용) ── */
+    .marquee { overflow:hidden; border-radius:12px; }
+    .marquee .track { display:flex; gap:12px; padding:12px; animation:none; }
+    .marquee:hover .track { animation:scrollx 9s linear infinite; }
+    @keyframes scrollx { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .marquee img { height:130px; border-radius:8px; flex:0 0 auto; }
+
+    /* ── E. Click → modal lightbox ── */
+    .lb-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .lb-card { padding:14px; text-align:left; cursor:pointer; border:1px solid var(--line); background:#fff; border-radius:14px; }
+    .lb-card img { width:100%; height:120px; object-fit:cover; border-radius:9px; margin-bottom:10px; background:#eef1ee; }
+    .lb-card h4 { margin:0; font-size:14px; font-weight:700; }
+    @media(max-width:680px){ .lb-grid { grid-template-columns:1fr; } }
+    #lb { position:fixed; inset:0; background:rgba(8,16,12,.82); display:none; align-items:center;
+      justify-content:center; padding:24px; z-index:50; }
+    #lb.on { display:flex; }
+    #lb figure { margin:0; max-width:900px; }
+    #lb img { max-width:100%; max-height:78vh; border-radius:12px; display:block; }
+    #lb figcaption { color:#dfe6e0; font-size:14px; margin-top:12px; text-align:center; }
+    #lb .x { position:absolute; top:18px; right:22px; color:#fff; font-size:30px; cursor:pointer; line-height:1; background:none; border:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="page-h">게재 논문 — 핵심 figure 표시 방식 프로토타입</h1>
+    <p class="page-sub">아래 5가지 방식을 같은 샘플 이미지로 비교해보세요. 마음에 드는 방향을 고르면 실제 figure로 본 페이지에 구현합니다.</p>
+    <div class="warn">⚠️ 비공개 작업 페이지입니다 (검색 미노출 · 라이브 미반영). 샘플 이미지는 임시 논문 표지이며, 실제로는 각 논문의 핵심 그림(가로형 figure)으로 교체됩니다.</div>
+
+    <!-- A -->
+    <section class="proto">
+      <h2>방식 A</h2>
+      <div class="t">대표 연구 Featured 밴드 <span class="tag good">고급감 ↑</span></div>
+      <p class="note">대표작 2~3편만 <b>큰 가로 figure + 한 줄 takeaway</b>로. 첫인상 임팩트가 가장 큼. 정적이라 모바일·접근성 문제 없음. 단점: 큐레이션 필요(많이 못 보여줌).</p>
+      <div class="feat">
+        {figs.slice(0,2).map((f) => (
+          <div class="feat-row card-base">
+            <img src={f.src} alt="" loading="lazy" />
+            <div>
+              <p class="pill">{f.meta}</p>
+              <h3 class="h">{f.title}</h3>
+              <p class="take">{f.take}</p>
+              <a class="btn" href="#">Paper ↗</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- B -->
+    <section class="proto">
+      <h2>방식 B</h2>
+      <div class="t">카드마다 썸네일 상시 노출 <span class="tag risk">일관성 의존</span></div>
+      <p class="note">모든 논문 카드 상단에 figure를 상시 표시. 한눈에 화려하지만, figure 화질·비율이 <b>들쭉날쭉하면 오히려 싸 보임</b>. 목록이 길고 무거워짐.</p>
+      <div class="grid">
+        {figs.slice(0,6).map((f) => (
+          <div class="gcard card-base">
+            <img src={f.src} alt="" loading="lazy" />
+            <div class="body">
+              <h4>{f.title}</h4>
+              <p class="meta-j">{f.meta}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- C -->
+    <section class="proto">
+      <h2>방식 C</h2>
+      <div class="t">Hover 시 figure 필름스트립 슉 슬라이드-인 <span class="tag good">추천</span></div>
+      <p class="note">카드에 <b>마우스를 올리면</b> 오른쪽에서 figure들이 부드럽게 들어와 멈춤 → 가로로 훑어봄. 목록은 평소 깔끔, 인터랙션은 화려. <b>터치 기기는 탭하면 펼쳐짐</b>(폴백 구현됨).</p>
+      <div class="strip-list">
+        {figs.slice(0,3).map((f) => (
+          <div class="srow card-base js-srow">
+            <div class="head">
+              <h4>{f.title}</h4>
+              <span class="hint">{f.meta} · ⤷ hover / tap</span>
+            </div>
+            <div class="film">
+              <img src={f.src} alt="" loading="lazy" />
+              <img src={figs[3].src} alt="" loading="lazy" />
+              <img src={figs[4].src} alt="" loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- D -->
+    <section class="proto">
+      <h2>방식 D</h2>
+      <div class="t">Hover 시 자동 가로 스크롤 (marquee) <span class="tag risk">gimmick 위험</span></div>
+      <p class="note">hover하면 figure들이 <b>알아서 계속 흐름</b>. 움직임은 화려하지만 눈으로 좇기 어렵고 장난스러워 보일 수 있음 — 비교용으로 넣었습니다.</p>
+      <div class="marquee card-base">
+        <div class="track">
+          {[...figs, ...figs].map((f) => (<img src={f.src} alt="" loading="lazy" />))}
+        </div>
+      </div>
+    </section>
+
+    <!-- E -->
+    <section class="proto">
+      <h2>방식 E</h2>
+      <div class="t">카드 클릭 → 모달 라이트박스 <span class="tag good">정보량 ↑</span></div>
+      <p class="note">목록은 작게, <b>클릭하면 큰 figure + 캡션</b>을 모달로. 기존 Cite 모달 인프라 재사용 가능. 관심 있는 사람만 크게 봄. 모바일에서도 풀스크린으로 잘 보임.</p>
+      <div class="lb-grid">
+        {figs.slice(0,6).map((f) => (
+          <button class="lb-card js-lb" data-src={f.src} data-cap={`${f.title} — ${f.meta}`}>
+            <img src={f.src} alt="" loading="lazy" />
+            <h4>{f.title}</h4>
+          </button>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lb">
+    <button class="x" aria-label="닫기">&times;</button>
+    <figure>
+      <img id="lb-img" src="" alt="" />
+      <figcaption id="lb-cap"></figcaption>
+    </figure>
+  </div>
+
+  <script is:inline>
+    // C: 터치 폴백 — 탭하면 펼침 토글
+    document.querySelectorAll('.js-srow').forEach((row) => {
+      row.addEventListener('click', () => {
+        if (window.matchMedia('(hover: none)').matches) row.classList.toggle('open');
+      });
+    });
+    // E: 모달
+    const lb = document.getElementById('lb');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-cap');
+    function openLb(src, cap) { lbImg.src = src; lbCap.textContent = cap; lb.classList.add('on'); }
+    function closeLb() { lb.classList.remove('on'); lbImg.src = ''; }
+    document.querySelectorAll('.js-lb').forEach((b) => {
+      b.addEventListener('click', () => openLb(b.dataset.src, b.dataset.cap));
+    });
+    lb.addEventListener('click', (e) => { if (e.target === lb || e.target.classList.contains('x')) closeLb(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+  </script>
+</body>
+</html>
