@@ -4,7 +4,7 @@ import SideBarMenu from "./SideBarMenu.astro";
 import LangToggle from "./LangToggle.astro";
 import L from "./L.astro";
 const { lang = "ko", sideBarActiveItemID } = Astro.props;
-const homeHref = lang === "en" ? "/en" : "/";
+const homeHref = lang === "en" ? "/en/" : "/";
 ---
 
 <div class="drawer-side z-40">
