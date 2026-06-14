@@ -7,41 +7,26 @@
 // 샘플 figure = 기존 논문 표지(webp). 실제로는 각 논문의 핵심 그림으로 교체.
 // ───────────────────────────────────────────────────────────────────────────
 
-// 각 논문이 figure 여러 장 + 캡션을 갖는 구조 (실제 구현 시 site.json에 추가될 형태).
-const C = "/papers/covers/";
+// 실제 데이터 — 2021 Remote Sensing 논문(13 figures). short 캡션(en)은 원본 캡션 변환본.
+const F = "/papers/figures/2021_RemoteSens_Feasibility/";
 const papers = [
-  {
-    title: "Multi-scale forest typologies",
-    meta: "Ecological Indicators · 2026 · first author",
-    figs: [
-      { src: C + "2026_EcolIndic_Multi-scale-typologies.webp", cap: "Fig 1. 다중 스케일 수직 층위 지표 개념도" },
-      { src: C + "2026_RSE_Three-stage-framework.webp",        cap: "Fig 2. ALS 포인트클라우드 기반 층위 추출 결과" },
-      { src: C + "2026_KOSERT_Forest-Type-Seasonal.webp",      cap: "Fig 3. 산림 유형별 분류 정확도 비교" },
-    ],
-  },
-  {
-    title: "GEDI–ALS canopy height agreement",
-    meta: "KOSERT · 2026 · first author",
-    figs: [
-      { src: C + "2026_KOSERT_Forest-Type-Seasonal.webp", cap: "Fig 1. GEDI–ALS 수관고 산점도 (leaf-on/off)" },
-      { src: C + "2026_EcolIndic_Multi-scale-typologies.webp", cap: "Fig 2. 산림 유형·계절별 일치도 매트릭스" },
-    ],
-  },
   {
     title: "Real-time UAV wildlife detection",
     meta: "Remote Sensing · 2021 · first author",
     figs: [
-      { src: C + "2021_RemoteSens_Feasibility.webp",   cap: "Fig 1. 열·RGB 융합 탐지 파이프라인" },
-      { src: C + "2025_GEC_Assessing-Corvus.webp",     cap: "Fig 2. 야생동물 탐지 결과 예시" },
-      { src: C + "2024_KOSERT_Diel-Activity.webp",     cap: "Fig 3. 시간대별 탐지 정확도" },
-    ],
-  },
-  {
-    title: "Insect diversity & ecological structure",
-    meta: "Agric., Ecosyst. & Environ. · 2026",
-    figs: [
-      { src: C + "2026_AEE_Ecological-structures.webp", cap: "Fig 1. 천이 단계별 생태 구조" },
-      { src: C + "2026_KOSERT_Non-destructive-Carbon.webp", cap: "Fig 2. 곤충 다양성 지수 분포" },
+      { src: F + "ga.webp",   cap: "Graphical abstract — real-time UAV thermal/RGB wildlife detection" },
+      { src: F + "fig1.webp", cap: "Study site overview" },
+      { src: F + "fig2.webp", cap: "Detection target categories — isolated · bordering · overlapping · partial" },
+      { src: F + "fig3.webp", cap: "Paired capture — thermal (640×512) framed within RGB (4000×3000)" },
+      { src: F + "fig4.webp", cap: "Lens distortion correction (focal length)" },
+      { src: F + "fig5.webp", cap: "Thermal correction — fur-color artifact" },
+      { src: F + "fig6.webp", cap: "Thermal correction — unnatural-signal removal" },
+      { src: F + "fig7.webp", cap: "Sobel edge detection & contour extraction" },
+      { src: F + "fig8.webp", cap: "Max surface temperature vs. flight height (regression)" },
+      { src: F + "fig9.webp", cap: "Detection workflow for all image types" },
+      { src: F + "fig10.webp", cap: "Precision & recall computation" },
+      { src: F + "fig11.webp", cap: "Detection accuracy by flight height & image type" },
+      { src: F + "fig12.webp", cap: "Thermal pixel resolution across 25–275 m altitude" },
     ],
   },
 ];
