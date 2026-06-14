@@ -47,6 +47,7 @@ export type Publication = {
   pdf?: string;
   authors: string[];
   title: Bi;
+  figures?: { src: string; caption: string }[];  // 핵심 figure 캐러셀 (있을 때만 표시)
 };
 
 export type UnderReviewItem = {
