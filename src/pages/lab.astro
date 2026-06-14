@@ -89,9 +89,10 @@ const papers = [
     .cz-cap { color:#e6ece7; font-size:14px; line-height:1.5; margin:16px auto 0; text-align:center; min-height:1.4em; max-width:760px; }
     .cz-count { color:#9fb0a6; font-size:12px; margin-top:6px; letter-spacing:.05em; }
     .cz-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(20,30,24,.55);
-      border:1px solid rgba(255,255,255,.45); color:#fff; width:54px; height:54px; border-radius:999px;
-      font-size:28px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      border:1px solid rgba(255,255,255,.45); color:#fff; width:52px; height:52px; border-radius:999px;
+      padding:0; cursor:pointer; display:flex; align-items:center; justify-content:center;
       transition:.18s; z-index:5; backdrop-filter:blur(2px); box-shadow:0 2px 12px rgba(0,0,0,.4); }
+    .cz-nav svg { width:24px; height:24px; display:block; }
     .cz-nav:hover { background:rgba(255,255,255,.92); color:#142018; transform:translateY(-50%) scale(1.06); }
     .cz-nav.prev { left:-66px; } .cz-nav.next { right:-66px; }
     @media(max-width:1140px){ .cz-nav.prev{left:6px;} .cz-nav.next{right:6px;} }
@@ -143,9 +144,9 @@ const papers = [
     <span class="cz-title" id="cz-title"></span>
     <div class="cz-stage">
       <div class="cz-imgwrap">
-        <button class="cz-nav prev" aria-label="이전">&#8249;</button>
+        <button class="cz-nav prev" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
         <img id="cz-img" src="" alt="" />
-        <button class="cz-nav next" aria-label="다음">&#8250;</button>
+        <button class="cz-nav next" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
       <p class="cz-cap" id="cz-cap"></p>
       <p class="cz-count" id="cz-count"></p>
