@@ -1,71 +1,67 @@
 ---
 // ───────────────────────────────────────────────────────────────────────────
-// PRIVATE PROTOTYPE PAGE — publication 핵심 figure 표시 방식 프로토타입.
-//   • 라이브 페이지에 영향 없음 (nav·sitemap·robots 미포함, 어디에도 링크 안 됨)
-//   • noindex,nofollow → 검색엔진 색인 안 됨
-//   • URL(/lab)을 아는 사람만 접근 (저장소가 public이라 "진짜 비공개"는 아님)
-// 샘플 figure = 기존 논문 표지(webp). 실제로는 각 논문의 핵심 그림으로 교체.
+// PRIVATE PREVIEW — 실제 웹페이지(Publications)에 보이게 될 결과와 동일하게 렌더.
+//   • 진짜 CardPaper 컴포넌트 + 실제 global.css + 실제 데이터 사용
+//   • figures가 붙은 논문만 우상단 'N Figs' 배지 + 표지 클릭 → 캐러셀
+//   • 라이브 페이지에 영향 없음 (nav·sitemap·robots 미포함, noindex, 어디에도 링크 안 됨)
+//   • site.json엔 아직 figures 미반영 → 라이브 Publications는 그대로. 여기서만 데이터 주입.
 // ───────────────────────────────────────────────────────────────────────────
+import "../styles/global.css";
+import CardPaper from "../components/CardPaper.astro";
+import FigureCarousel from "../components/FigureCarousel.astro";
+import { publications } from "../data";
 
-// 실제 데이터 — 2021 Remote Sensing 논문(13 figures). short 캡션(en)은 원본 캡션 변환본.
 const FIG = "/papers/figures/";
-const papers = [
-  {
-    title: "Multi-scale forest typologies",
-    meta: "Ecological Indicators · 2026 · first author",
-    cover: "/papers/covers/web/2026_EcolIndic_Multi-scale-typologies.webp",
-    figs: [
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig1.webp", cap: "Location of the study site and expert investigation routes. (a) Map of the Republic of Korea highlighting Gyeonggi-do and the study site; (b) Topographical map with 5 and 25 meters contour lines; (c) Distribution of main eight tree species and others; (c-1) Northern investigation route. The enlarged black box shows the layout of 5- and 10-meters radii circular analytical units; (c-2) Southern investigation route" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig2.webp", cap: "ALS point cloud based canopy cross-sections showing ten vertical layer indices variation, arranged from low to high values. (a) MIN; (b) MAX; (c) CLR; (d) TR; (e) AG; (f) LDI; (g) RV; (h) LRVI; (i) HVI; (j) VLD" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig3.webp", cap: "Error comparison of ALS-based vertical layer segmentation parameter combinations. (a) Mean Absolute Error (MAE) and Mean Squared Error (MSE) for the ten best-performing parameter sets in 5-m radius analytical units. (b) Summary of the corresponding parameter combinations (voxelization, ground point filtering height, and histogram bin size–Gaussian kernel). (c) MAE and MSE for the same parameter sets in 10-m radius analytical units." },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig4.webp", cap: "PCA–HDBSCAN clustering results for 5-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Five clusters (A–E) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–E (b1–b5) with cross-sectional views with 3 m width (S1, S2)" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig5.webp", cap: "PCA–HDBSCAN clustering results for 10-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Four clusters (A–D) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–D (b1–b4) with cross-sectional views with 3 m width (S1, S2)" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS1.webp", cap: "Results for 5-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
-      { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS2.webp", cap: "Results for 10-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
-    ],
-  },
-  {
-    title: "GEDI–ALS canopy height agreement",
-    meta: "KOSERT · 2026 · first author",
-    cover: "/papers/covers/web/2026_KOSERT_Forest-Type-Seasonal.webp",
-    figs: [
-      { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig1.webp", cap: "The location of study site and distribution of GEDI footprints. (a) The location of study site (Gwacheon and Uiwang); (b) The distribution of GEDI footprints by month and the forest type distribution; (c) GEDI footprints distribution at the western part of Gwacheon; (d) GEDI footprints distribution at the western part of Uiwang" },
-      { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig2.webp", cap: "Relationship between GEDI (x-axis) and ALS (y-axis) canopy relative height 95 across forest types and periods. The hexagons represent scatter density, and marginal histograms show data distributions. Red line indicates the ordinary least squares regression fit, and the dashed vertical/horizontal lines mark the mean values of GEDI and ALS respectively. The gray dotted line indicates the y=x line. (a–c) deciduous forest; (d–f) evergreen forest; and (g–i) mixed forest. The left, middle, and right columns respectively represent combined, leaf-on, and leaf-off period results. (j) R² and RMSE of subfigures (a)–(i)." },
-      { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig3.webp", cap: "Comparison of FHD and PAI by species and periods (leaf-on and –off). Species are Larix kaempferi (LK), Robinia pseudoacacia (RP), other deciduous species (DE), Quercus acutissima (QA), Quercus variabilis (QV), other Quercus species (QU), Pinus koraiensis (PK), Pinus rigida (PR), Pinus densiflora (PD), and mixed species (MX). (a, d), (b, e) and (c, f) respectively represent FHD and PAI of deciduous, evergreen, and mixed forests." },
-    ],
-  },
-  {
-    title: "LST estimation — satellite / simulation / UAV",
-    meta: "KOSERT · 2026 · first author",
-    cover: "/papers/covers/web/2026_KOSERT_Comparing-LST.webp",
-    figs: [
-      { src: FIG + "2026_KOSERT_Comparing-LST/fig1.webp", cap: "Study site. (a) The location of Chuncheon, South Korea; (b) The location of the study site within Chuncheon; (c) The northern and southern parts of the study site are high-rise and low-rise residential areas. The yellow line and colorized points indicate the UAV flight path and shoot-point locations." },
-      { src: FIG + "2026_KOSERT_Comparing-LST/fig2.webp", cap: "Boxplots of land surface temperature by data source at (a) low-rise residential area; (b) high-rise residential area." },
-      { src: FIG + "2026_KOSERT_Comparing-LST/fig3.webp", cap: "Spatial distribution of land surface temperature from (a) Landsat 9 satellite imagery; (b) ENVI-met simulation; (c) thermal UAV." },
-      { src: FIG + "2026_KOSERT_Comparing-LST/figS1.webp", cap: "Land surface temperature at original resolution." },
-    ],
-  },
-  {
-    title: "Real-time UAV wildlife detection",
-    meta: "Remote Sensing · 2021 · first author",
-    cover: "/papers/covers/web/2021_RemoteSens_Feasibility.webp",
-    figs: [
-      { src: FIG + "2021_RemoteSens_Feasibility/ga.webp",   cap: "" },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig1.webp", cap: "Overview of the study site." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig2.webp", cap: "Target shape categories: (a) isolated, (b) bordering, (c) overlapping, and (d) partial." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig3.webp", cap: "Representative outputs from the thermal sensor. The small image at the bottom-left is the thermal image (640 × 512 px), and the larger image is the RGB image (4000 × 3000 px). The coverage area of the thermal image is marked by the white rectangle in the RGB image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig4.webp", cap: "Example of focal length distortion and correction. (a) Original RGB image (distorted), (b) corrected RGB image, (c) clipped RGB image, and (d) original thermal image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig5.webp", cap: "Example of thermal image correction (fur color). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig6.webp", cap: "Example of thermal image correction (unnatural). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig7.webp", cap: "Example of Sobel edge detection and contour drawing. (a) Sobel x-axis outcome, (b) Sobel y-axis outcome, (c) Sobel biaxial outcome, (d) thresholded image, and (e) contoured image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig8.webp", cap: "Regression analysis of maximum temperature and shooting height." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig9.webp", cap: "Flowchart of the detection method for all image types." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig10.webp", cap: "Calculation of detection precision and recall rate." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig11.webp", cap: "Detection results by height and type of input image." },
-      { src: FIG + "2021_RemoteSens_Feasibility/fig12.webp", cap: "Thermal images taken at shooting heights of (a) 25 m, (b) 100 m, (c) 200 m, and (d) 275 m, and their pixel resolution." },
-    ],
-  },
-];
+const figData = {
+  // id 7 — Ecological Indicators (Multi-scale typologies)
+  7: [
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig1.webp", caption: "Location of the study site and expert investigation routes. (a) Map of the Republic of Korea highlighting Gyeonggi-do and the study site; (b) Topographical map with 5 and 25 meters contour lines; (c) Distribution of main eight tree species and others; (c-1) Northern investigation route. The enlarged black box shows the layout of 5- and 10-meters radii circular analytical units; (c-2) Southern investigation route" },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig2.webp", caption: "ALS point cloud based canopy cross-sections showing ten vertical layer indices variation, arranged from low to high values. (a) MIN; (b) MAX; (c) CLR; (d) TR; (e) AG; (f) LDI; (g) RV; (h) LRVI; (i) HVI; (j) VLD" },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig3.webp", caption: "Error comparison of ALS-based vertical layer segmentation parameter combinations. (a) Mean Absolute Error (MAE) and Mean Squared Error (MSE) for the ten best-performing parameter sets in 5-m radius analytical units. (b) Summary of the corresponding parameter combinations (voxelization, ground point filtering height, and histogram bin size–Gaussian kernel). (c) MAE and MSE for the same parameter sets in 10-m radius analytical units." },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig4.webp", caption: "PCA–HDBSCAN clustering results for 5-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Five clusters (A–E) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–E (b1–b5) with cross-sectional views with 3 m width (S1, S2)" },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/fig5.webp", caption: "PCA–HDBSCAN clustering results for 10-m radius analytical units. (a) PCA visualization of ten indices with explained variance on PC1 and PC2. Four clusters (A–D) and noise points (gray) are shown, with loading vectors displayed as a heatmap; (b) Point cloud examples for clusters A–D (b1–b4) with cross-sectional views with 3 m width (S1, S2)" },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS1.webp", caption: "Results for 5-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
+    { src: FIG + "2026_EcolIndic_Multi-scale-typologies/figS2.webp", caption: "Results for 10-m radius units. (a) the number of layers; (b) MIN; (c) MAX; (d) CLR; (e) TR; (f) AG; (g) LDI; (h) RV; (i) LRVI; (j) HVI; (k) VLD; (l) PCA-HDBSCAN clusters" },
+  ],
+  // id 1 — Remote Sensing (Real-time UAV wildlife detection)
+  1: [
+    { src: FIG + "2021_RemoteSens_Feasibility/ga.webp",   caption: "" },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig1.webp", caption: "Overview of the study site." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig2.webp", caption: "Target shape categories: (a) isolated, (b) bordering, (c) overlapping, and (d) partial." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig3.webp", caption: "Representative outputs from the thermal sensor. The small image at the bottom-left is the thermal image (640 × 512 px), and the larger image is the RGB image (4000 × 3000 px). The coverage area of the thermal image is marked by the white rectangle in the RGB image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig4.webp", caption: "Example of focal length distortion and correction. (a) Original RGB image (distorted), (b) corrected RGB image, (c) clipped RGB image, and (d) original thermal image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig5.webp", caption: "Example of thermal image correction (fur color). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig6.webp", caption: "Example of thermal image correction (unnatural). (a) Original RGB image, (b) original thermal image, and (c) corrected thermal image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig7.webp", caption: "Example of Sobel edge detection and contour drawing. (a) Sobel x-axis outcome, (b) Sobel y-axis outcome, (c) Sobel biaxial outcome, (d) thresholded image, and (e) contoured image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig8.webp", caption: "Regression analysis of maximum temperature and shooting height." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig9.webp", caption: "Flowchart of the detection method for all image types." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig10.webp", caption: "Calculation of detection precision and recall rate." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig11.webp", caption: "Detection results by height and type of input image." },
+    { src: FIG + "2021_RemoteSens_Feasibility/fig12.webp", caption: "Thermal images taken at shooting heights of (a) 25 m, (b) 100 m, (c) 200 m, and (d) 275 m, and their pixel resolution." },
+  ],
+  // id 8 — KOSERT (GEDI–ALS canopy height agreement)
+  8: [
+    { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig1.webp", caption: "The location of study site and distribution of GEDI footprints. (a) The location of study site (Gwacheon and Uiwang); (b) The distribution of GEDI footprints by month and the forest type distribution; (c) GEDI footprints distribution at the western part of Gwacheon; (d) GEDI footprints distribution at the western part of Uiwang" },
+    { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig2.webp", caption: "Relationship between GEDI (x-axis) and ALS (y-axis) canopy relative height 95 across forest types and periods. The hexagons represent scatter density, and marginal histograms show data distributions. Red line indicates the ordinary least squares regression fit, and the dashed vertical/horizontal lines mark the mean values of GEDI and ALS respectively. The gray dotted line indicates the y=x line. (a–c) deciduous forest; (d–f) evergreen forest; and (g–i) mixed forest. The left, middle, and right columns respectively represent combined, leaf-on, and leaf-off period results. (j) R² and RMSE of subfigures (a)–(i)." },
+    { src: FIG + "2026_KOSERT_Forest-Type-Seasonal/fig3.webp", caption: "Comparison of FHD and PAI by species and periods (leaf-on and –off). Species are Larix kaempferi (LK), Robinia pseudoacacia (RP), other deciduous species (DE), Quercus acutissima (QA), Quercus variabilis (QV), other Quercus species (QU), Pinus koraiensis (PK), Pinus rigida (PR), Pinus densiflora (PD), and mixed species (MX). (a, d), (b, e) and (c, f) respectively represent FHD and PAI of deciduous, evergreen, and mixed forests." },
+  ],
+  // id 9 — KOSERT (LST estimation)
+  9: [
+    { src: FIG + "2026_KOSERT_Comparing-LST/fig1.webp", caption: "Study site. (a) The location of Chuncheon, South Korea; (b) The location of the study site within Chuncheon; (c) The northern and southern parts of the study site are high-rise and low-rise residential areas. The yellow line and colorized points indicate the UAV flight path and shoot-point locations." },
+    { src: FIG + "2026_KOSERT_Comparing-LST/fig2.webp", caption: "Boxplots of land surface temperature by data source at (a) low-rise residential area; (b) high-rise residential area." },
+    { src: FIG + "2026_KOSERT_Comparing-LST/fig3.webp", caption: "Spatial distribution of land surface temperature from (a) Landsat 9 satellite imagery; (b) ENVI-met simulation; (c) thermal UAV." },
+    { src: FIG + "2026_KOSERT_Comparing-LST/figS1.webp", caption: "Land surface temperature at original resolution." },
+  ],
+};
+
+// 실제 publication 객체에 figures 주입 (SCI→KCI, 최신순 비슷하게 4편)
+const ids = [7, 1, 8, 9];
+const cards = ids
+  .map((id) => {
+    const p = publications.find((x) => x.id === id);
+    return p ? { ...p, figures: figData[id] } : null;
+  })
+  .filter(Boolean);
 ---
 
 <!DOCTYPE html>
@@ -74,211 +70,28 @@ const papers = [
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>[비공개] Figure 캐러셀 프로토타입 — Seunghyeon Lee</title>
+  <title>[비공개] Figure 미리보기 — Seunghyeon Lee</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
   <style>
-    :root { --ink:#0f2218; --muted:#5b6b62; --line:#e3e8e3; --accent:#1f4e3d; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:#f7f8f6; color:var(--ink);
-      font-family:"Pretendard Variable",-apple-system,system-ui,sans-serif; line-height:1.55; }
-    .wrap { max-width:1000px; margin:0 auto; padding:48px 24px 120px; }
-    h1 { font-size:28px; font-weight:800; letter-spacing:-.02em; margin:0 0 6px; }
-    .sub { color:var(--muted); margin:0 0 8px; }
-    .warn { background:#fff7e6; border:1px solid #f0d68a; color:#6b5300; font-size:13px;
-      padding:10px 14px; border-radius:10px; margin:14px 0 36px; }
-    h2 { font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0 0 4px; }
-    .lead { font-size:14px; color:var(--muted); margin:0 0 22px; max-width:680px; }
-    .lead b { color:var(--ink); }
-
-    /* Publication 카드 그리드 (실제 사이트와 유사) */
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-    @media(max-width:760px){ .grid { grid-template-columns:repeat(2,1fr); } }
-    @media(max-width:480px){ .grid { grid-template-columns:1fr; } }
-    .card { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
-      box-shadow:0 1px 2px rgba(0,0,0,.04); display:flex; flex-direction:column;
-      transition:transform .25s, box-shadow .25s, border-color .25s; }
-    .card:hover { transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,35,.14); border-color:#b9cabf; }
-    .thumb { position:relative; aspect-ratio:210/297; overflow:hidden; cursor:pointer; background:#eef1ee; }
-    .thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
-    .thumb:hover img { transform:scale(1.04); }
-    .fig-badge { position:absolute; top:10px; right:10px; background:rgba(15,34,24,.78); color:#fff;
-      font-size:11px; font-weight:700; padding:3px 9px; border-radius:999px; display:flex; align-items:center; gap:5px; }
-    .thumb .magnify { position:absolute; inset:0; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center;
-      background:rgba(15,34,24,.42); color:#fff; opacity:0; transition:opacity .25s; }
-    .thumb .magnify-text { font-size:13px; font-weight:700; letter-spacing:.01em; }
-    .thumb:hover .magnify { opacity:1; }
-    .body { padding:14px; }
-    .body h4 { margin:0 0 4px; font-size:15px; font-weight:700; }
-    .body .meta { font-size:12px; color:var(--muted); font-style:italic; }
-    .body .row { display:flex; gap:8px; margin-top:12px; }
-    .btn-mini { font-size:12px; font-weight:650; padding:5px 11px; border-radius:8px; border:1px solid var(--accent);
-      color:var(--accent); background:none; text-decoration:none; display:inline-flex; align-items:center; gap:5px; }
-    .btn-mini:hover { background:var(--accent); color:#fff; }
-
-    /* ── Carousel lightbox ── */
-    #cz { position:fixed; inset:0; background:rgba(7,14,10,.9); display:none; z-index:60;
-      align-items:center; justify-content:center; padding:24px; }
-    #cz.on { display:flex; }
-    .cz-stage { max-width:1000px; width:100%; display:flex; flex-direction:column; align-items:center; }
-    .cz-imgwrap { position:relative; width:100%; display:flex; align-items:center; justify-content:center; }
-    #cz-img { max-width:100%; max-height:74vh; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.5);
-      user-select:none; -webkit-user-drag:none; }
-    .cz-cap { color:#e6ece7; font-size:14px; line-height:1.5; margin:16px auto 0; text-align:center; min-height:1.4em; max-width:760px; }
-    .cz-count { color:#9fb0a6; font-size:12px; margin-top:6px; letter-spacing:.05em; }
-    .cz-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(20,30,24,.55);
-      border:1px solid rgba(255,255,255,.45); color:#fff; width:52px; height:52px; border-radius:999px;
-      padding:0; cursor:pointer; display:flex; align-items:center; justify-content:center;
-      transition:.18s; z-index:5; backdrop-filter:blur(2px); box-shadow:0 2px 12px rgba(0,0,0,.4); }
-    .cz-nav svg { width:24px; height:24px; display:block; }
-    .cz-nav:hover { background:rgba(255,255,255,.92); color:#142018; transform:translateY(-50%) scale(1.06); }
-    .cz-nav.prev { left:-66px; } .cz-nav.next { right:-66px; }
-    @media(max-width:1140px){ .cz-nav.prev{left:6px;} .cz-nav.next{right:6px;} }
-    .cz-dots { display:flex; gap:7px; margin-top:14px; }
-    .cz-dots i { width:7px; height:7px; border-radius:999px; background:rgba(255,255,255,.3); display:block; cursor:pointer; }
-    .cz-dots i.on { background:#fff; }
-    .cz-x { position:absolute; top:18px; right:22px; background:none; border:none; color:#fff; font-size:30px; cursor:pointer; line-height:1; }
-    .cz-title { position:absolute; top:18px; left:24px; color:#cdd8d0; font-size:13px; max-width:60vw; }
+    body { margin: 0; }
+    .lab-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 20px 120px; }
+    .lab-warn { background:#fff7e6; border:1px solid #f0d68a; color:#6b5300; font-size:13px;
+      padding:10px 14px; border-radius:10px; margin: 0 0 28px; }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <h1>게재 논문 — Figure 캐러셀 프로토타입</h1>
-    <p class="sub">결정하신 방식입니다: 표지(또는 figure)를 <b>클릭하면 크게 열리고</b>, 좌우로 넘기며 figure들과 캡션을 봅니다.</p>
-    <div class="warn">⚠️ 비공개 작업 페이지 (검색 미노출 · 라이브 미반영). 샘플 figure는 임시 논문 표지(세로형)이며, 실제로는 각 논문의 핵심 그림(가로형)으로 교체됩니다.</div>
+<body class="bg-base-100 text-base-content">
+  <div class="lab-wrap">
+    <div class="lab-warn">⚠️ 비공개 미리보기 — 실제 Publications에 보이게 될 결과와 동일하게 렌더됩니다. (라이브 미반영 · 검색 미노출) · figures가 있는 4편만 표시</div>
 
-    <h2>최종 방식</h2>
-    <p class="lead">카드 표지를 클릭 → <b>큰 이미지 + 캡션</b> 모달이 열리고 <b>← → 화살표 / 스와이프 / 키보드</b>로 figure를 넘깁니다. 논문 링크는 <b>Web·PDF 버튼</b>에 그대로 유지(표지 클릭의 DOI 이동만 캐러셀로 대체).</p>
+    <p class="type-eyebrow text-primary mb-3">PREVIEW — PUBLICATIONS</p>
+    <h2 class="type-display-lg mb-8">게재 논문 (figure 미리보기)</h2>
 
-    <div class="grid">
-      {papers.map((p) => (
-        <div class="card">
-          <div class="thumb js-open" data-figs={JSON.stringify(p.figs)} data-title={p.title} role="button" tabindex="0" aria-label={`${p.title} figures 보기`}>
-            <img src={p.cover} alt={p.title} loading="lazy" />
-            <span class="fig-badge">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.6-3.6a2 2 0 0 0-2.8 0L6 21"/></svg>
-              {p.figs.length} Figs
-            </span>
-            <span class="magnify">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
-              <span class="magnify-text">전체 그림 보기</span>
-            </span>
-          </div>
-          <div class="body">
-            <h4>{p.title}</h4>
-            <p class="meta">{p.meta}</p>
-            <div class="row">
-              <a class="btn-mini" href="#" onclick="return false">PDF</a>
-              <a class="btn-mini" href="#" onclick="return false">Web ↗</a>
-            </div>
-          </div>
-        </div>
-      ))}
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+      {cards.map((p) => <CardPaper paper={p} />)}
     </div>
   </div>
 
-  <!-- Carousel lightbox -->
-  <div id="cz" aria-modal="true" role="dialog">
-    <button class="cz-x" aria-label="닫기">&times;</button>
-    <span class="cz-title" id="cz-title"></span>
-    <div class="cz-stage">
-      <div class="cz-imgwrap">
-        <button class="cz-nav prev" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <img id="cz-img" src="" alt="" />
-        <button class="cz-nav next" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-      </div>
-      <p class="cz-cap" id="cz-cap"></p>
-      <p class="cz-count" id="cz-count"></p>
-      <div class="cz-dots" id="cz-dots"></div>
-    </div>
-  </div>
-
-  <script is:inline>
-    (function () {
-      const cz = document.getElementById('cz');
-      const img = document.getElementById('cz-img');
-      const cap = document.getElementById('cz-cap');
-      const count = document.getElementById('cz-count');
-      const dots = document.getElementById('cz-dots');
-      const titleEl = document.getElementById('cz-title');
-      const prevB = cz.querySelector('.cz-nav.prev');
-      const nextB = cz.querySelector('.cz-nav.next');
-      let figs = [], idx = 0;
-
-      // 파일명에서 figure 라벨 도출:  fig1→"Figure 1", figS1→"Figure S1", ga→"Graphical Abstract"
-      function labelFromSrc(src) {
-        const name = (src.split('/').pop() || '').replace(/\.webp$/i, '');
-        if (name === 'ga') return 'Graphical Abstract';
-        const m = name.match(/^fig(S?\d+)$/i);
-        return m ? 'Figure ' + m[1].toUpperCase() : '';
-      }
-
-      function render() {
-        const f = figs[idx];
-        img.src = f.src; img.alt = f.cap || '';
-        // "Figure N." (굵게) + 캡션. 캡션 없으면(ga 등) 라벨만 마침표 없이.
-        cap.innerHTML = '';
-        const label = labelFromSrc(f.src);
-        if (label) {
-          const b = document.createElement('b');
-          b.textContent = f.cap ? label + '. ' : label;
-          cap.appendChild(b);
-        }
-        if (f.cap) cap.appendChild(document.createTextNode(f.cap));
-        count.textContent = (idx + 1) + ' / ' + figs.length;
-        dots.innerHTML = '';
-        figs.forEach((_, i) => {
-          const d = document.createElement('i');
-          if (i === idx) d.className = 'on';
-          d.addEventListener('click', () => { idx = i; render(); });
-          dots.appendChild(d);
-        });
-      }
-      function open(data, title) {
-        figs = data; idx = 0; titleEl.textContent = title || '';
-        cz.classList.add('on'); render();
-      }
-      function close() { cz.classList.remove('on'); img.src = ''; }
-      // 끝에서 반대편으로 순환 → 좌우 버튼이 항상 동작
-      function go(n) { idx = (idx + n + figs.length) % figs.length; render(); }
-
-      document.querySelectorAll('.js-open').forEach((el) => {
-        const data = JSON.parse(el.getAttribute('data-figs'));
-        const title = el.getAttribute('data-title');
-        el.addEventListener('click', () => open(data, title));
-        el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(data, title); } });
-      });
-      prevB.addEventListener('click', () => go(-1));
-      nextB.addEventListener('click', () => go(1));
-      cz.querySelector('.cz-x').addEventListener('click', close);
-      cz.addEventListener('click', (e) => { if (e.target === cz) close(); });
-      document.addEventListener('keydown', (e) => {
-        if (!cz.classList.contains('on')) return;
-        if (e.key === 'Escape') close();
-        else if (e.key === 'ArrowLeft') go(-1);
-        else if (e.key === 'ArrowRight') go(1);
-      });
-      // 마우스 휠 (PC) — 한 번 굴릴 때 한 장씩 (throttle)
-      let wheelLock = false;
-      cz.addEventListener('wheel', (e) => {
-        if (!cz.classList.contains('on')) return;
-        e.preventDefault();
-        if (wheelLock) return;
-        const d = e.deltaY || e.deltaX;
-        if (Math.abs(d) < 8) return;
-        go(d > 0 ? 1 : -1);
-        wheelLock = true;
-        setTimeout(() => { wheelLock = false; }, 260);
-      }, { passive: false });
-
-      // 터치 스와이프
-      let x0 = null;
-      img.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-      img.addEventListener('touchend', (e) => {
-        if (x0 === null) return;
-        const dx = e.changedTouches[0].clientX - x0;
-        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-        x0 = null;
-      }, { passive: true });
-    })();
-  </script>
+  <FigureCarousel />
 </body>
 </html>
