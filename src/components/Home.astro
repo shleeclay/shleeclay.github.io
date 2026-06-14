@@ -18,6 +18,13 @@ const hero    = site.hero;
 const about   = site.about;
 const contact = site.contact;
 
+// Phone — bot 보호 + hover 시에만 표시. 실제 번호는 char-code 배열로만 내려보내고
+// HTML 소스엔 placeholder만 노출. JS가 mouseenter/focus/touch 시 복원.
+const phoneShown       = lang === "en" ? contact.phone.en : contact.phone.ko;
+const phoneChars       = [...phoneShown].map((c) => c.charCodeAt(0));
+const telChars         = [...contact.phoneTelLink].map((c) => c.charCodeAt(0));
+const phonePlaceholder = lang === "en" ? "Hover to reveal" : "마우스를 올리면 표시";
+
 // Publications order: SCI (newest first) → KCI (newest first).
 // SCI is detected by presence of quartile/IF (국제 저널 지표); KCI(KOSERT 등)은 없음.
 const isSCI = (p: typeof publications[number]) => !!(p.quartile || p.if);
@@ -607,8 +614,8 @@ const confTypeLabels: Record<string, string> = {
           </div>
         </a>
 
-        <!-- Phone -->
-        <a href={`tel:${contact.phoneTelLink}`} class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
+        <!-- Phone — bot 보호 + hover 시에만 표시 (실제 번호는 JS로 복원) -->
+        <a id="phone-card" href="#" aria-label="Phone (hover to reveal)" class="group flex items-center gap-3 p-4 rounded-2xl bg-white/8 hover:bg-white/14 border border-white/15 hover:border-white/35 hover:-translate-y-px transition-all duration-300">
           <div class="contact-icon-wrap shrink-0 w-10 h-10 rounded-xl bg-white/12 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -616,10 +623,7 @@ const confTypeLabels: Record<string, string> = {
           </div>
           <div class="min-w-0 flex-1">
             <p class="type-caption mb-0.5">PHONE</p>
-            <p class="type-body contact-text-primary" style="font-weight:550;">
-              <span data-only="ko">{contact.phone.ko}</span>
-              <span data-only="en">{contact.phone.en}</span>
-            </p>
+            <p id="phone-display" class="type-body contact-text-primary opacity-60 group-hover:opacity-100 transition-opacity" style="font-weight:550;">{phonePlaceholder}</p>
           </div>
         </a>
 
@@ -692,6 +696,40 @@ const confTypeLabels: Record<string, string> = {
       </div>
     </div>
   </section>
+
+  <!-- ───────── Phone reveal — bot 보호 + hover/focus/touch 시 표시 ───────── -->
+  <script is:inline define:vars={{ phoneChars, telChars, phonePlaceholder }}>
+    (function () {
+      const card = document.getElementById('phone-card');
+      const disp = document.getElementById('phone-display');
+      if (!card || !disp) return;
+      let hideTimer = null;
+
+      function show() {
+        disp.textContent = String.fromCharCode.apply(null, phoneChars);
+        card.setAttribute('href', 'tel:' + String.fromCharCode.apply(null, telChars));
+      }
+      function hide() {
+        disp.textContent = phonePlaceholder;
+        card.setAttribute('href', '#');
+      }
+
+      card.addEventListener('mouseenter', show);
+      card.addEventListener('mouseleave', hide);
+      card.addEventListener('focus', show);
+      card.addEventListener('blur', hide);
+      card.addEventListener('touchstart', function () {
+        show(); clearTimeout(hideTimer); hideTimer = setTimeout(hide, 5000);
+      }, { passive: true });
+      card.addEventListener('click', function (e) {
+        // 아직 placeholder 상태면 첫 탭/클릭은 번호만 표시 (전화 연결 X)
+        if (disp.textContent === phonePlaceholder) {
+          e.preventDefault(); show();
+          clearTimeout(hideTimer); hideTimer = setTimeout(hide, 5000);
+        }
+      });
+    })();
+  </script>
 
   <!-- ───────── Cite modal (shared; populated by .cite-toggle buttons) ───────── -->
   <div id="cite-modal" class="cite-modal" hidden>
