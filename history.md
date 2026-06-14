@@ -102,3 +102,67 @@
 
 참고로 해당 폴더가 보이지 않습니다. 경로를 확인하거나 전체 경로를 알려주시겠어요?
 
+## 2026-06-02
+
+- site.json 학회 발표 16건의 저자 순서를 이승현 1순위로 재정렬 (특허 inventors 목록은 보존)
+- build_cv.py CV 학회 섹션을 국제 발표만 포함하도록 변경 (개인 11건 + 단체 2건 team 표기, 국내 10건은 요청 시 제공으로 요약)
+- citations 폴더 구조 생성 및 게재 9편을 출판 오름차순으로 정리한 마스터 `publications.bib` 작성 (Crossref 자동 취득 + KOSERT 수기 작성)
+- merge_bib.py 추가하여 individual/*.bib를 DOI 중복제거·오름차순 정렬로 합본 생성
+- bib_to_xlsx.py 추가하여 DOI 클릭 링크·1저자 표시 포함한 `publications.xlsx` 생성
+- 깨진 KOSERT bib 4편 수리(콤마·저자명 분리·doi 필드 추가), 본인/지도교수 이름 통일, site.json 기준 month 보강으로 정렬 정확화
+- normalize_bib.py 추가 및 original/individual 폴더 구조로 원본 보호 워크플로우 정립, site.json Salix 논문 연도(2026→2025)·저자 순서를 공식본 기준으로 수정
+- build_cv.py publication 섹션을 publications.bib 기반 APA 7th·오름차순·IF/Quartile 표시로 재작성
+
+## 2026-06-03
+
+- Word COM으로 풀버전 CV(`Lee_Seunghyeon_CV_v3.docx`)를 PDF 변환하고 하이퍼링크 14개(헤더 5 + DOI 9) 보존을 검증
+- `build_cv_short.py` 작성하여 2페이지 간소화 CV(`Lee_Seunghyeon_CV_short.docx`/`.pdf`)를 생성하고 링크·페이지 수 검증
+- `Home.astro`의 upwise 배지 링크를 페이지 언어(ko/en)에 맞게 분기
+- `BaseHead.astro`(upwise)와 `Home.astro`를 수정해 `?theme=` URL 파라미터로 두 사이트 간 라이트/다크 테마 연동
+- `LangToggle.astro`(KO|EN 분절 토글) 생성 후 `Header.astro`·`SideBar.astro`·`SideBarFooter.astro`에 배치하고 푸터 언어 버튼 정리
+- education·scholarship 로고를 work와 동일한 72×72 스타일·좌측 정렬로 통일하고 다크모드 upwise 배지 톤다운(`global.css`)
+- 소셜 아이콘(LinkedIn·Google Scholar·ORCID)을 공식 브랜드 컬러 SVG로 교체(Contact 카드 + 푸터)
+- 영어판에 남은 한글(국내 학회명·발명자명)을 이중언어화 — `site.json`·`index.ts`·`CardPatent.astro` 수정
+
+## 2026-06-04
+
+- `build_cv.py`를 v4로 수정 — 한글·중국어 제거, 상단 이름/Curriculum Vitae 헤더·페이지번호 추가, Funding 섹션을 publications 뒤로 이동, 추천인 이메일·서명란 추가 등 요청 11개 항목 반영 후 PDF 빌드·검증
+- 참고 CV(Hardiman·Sohn·Ha·Hahm)의 펀딩·연구경험 표기법을 추출·분석하여 적용 기준 도출
+- `site.json`에서 Virginia Tech·Purdue 직무를 Internship → Visiting Scholar로 변경
+- `Header.astro`에 모바일 우상단 다크/라이트 테마 토글 버튼 추가, `Home.astro`에서 모바일 특허권자 줄바꿈 처리
+- GEDI 산불 특허(id 11) 특허권자 순서를 서울대 → 단국대로 변경
+- 펀딩 금액 USD 환산(1USD=1,400원, 정수 절삭) 후 `index.ts`·`site.json`·`Home.astro`에 영문 전용 `fundingUsd` 필드로 표기, 경북대 장학금 추가
+- 주요 섹션 제목 옆에 항목 개수 배지(예: `Publications (9)`) 추가
+- 연구과제 12건에 PI·예산(USD) 추가 및 제목을 "Participated Research Projects & Roles"로 변경, 핵심 5개 과제에 기여 내용(What I did)·성과물(Outputs) 영문 정리
+
+## 2026-06-05
+
+- CV 헤더의 GitHub 링크를 제거하고 포트폴리오 주소를 `drseunghyeonlee.com`(영문 `/en` 하이퍼링크)으로 교체, `build_cv.py`/`build_cv_short.py` 수정 후 DOCX·PDF 재생성
+- Carlos Silva 교수에게 보낼 포스트닥 지원 영문 이메일을 문법·메일 작성 베스트프랙티스 반영해 작성하고 제목안 추천
+- `site.json`의 연구과제를 PDF acknowledgement 기준으로 grant↔논문↔과제 출처 정정
+- under-review 논문 5편을 사사 기준으로 과제별 배치하고 id 7(과천)·id 8(묵논) 과제 상세화(기여·성과)
+- RSE 2026 논문을 퍼듀 방문연구 경력 성과로 추가하고 GEDI-ALS 논문을 id 10→id 7(과천)으로 이동
+- 과제·경력의 성과 표기를 `Paper(s)`/`Patent(s)`로 분리(둘 다 있으면 줄바꿈)하도록 `index.ts`/`site.json`/`Home.astro` 수정
+- 섹션 순서를 About→…→Career→Funding→Projects→Patents로 재배치하고 honors 분해(저서→Publications, 자격증→Career 내 포함, 장학금→Funding), nav·eyebrow 번호 재정렬
+- TREE:ID에 "A web platform for individual-tree detection & mapping" 설명 추가 및 경북대 펀딩액 600만원 증액(영문 버전만)
+
+## 2026-06-06
+
+- v6 직접 편집본 내용을 `build_cv.py`에 반영해 스크립트를 source of truth로 통일하고 v7 생성 (헤더 "Ph.D., expected Aug 2026", 서명 날짜 자동화, Skills·References 섹션 제거)
+- PDF 자간 깨짐 문제를 글자별 폰트·advance 측정과 렌더링 비교로 진단해 Calibri 폰트 서브셋 분할 및 Word COM 변환 오류가 원인임을 규명
+- 본문 폰트를 Calibri→Arial을 거쳐 최종 Cambria로 변경하고 OpenType 커닝 비활성화
+- PDF 변환 방식을 Word COM에서 LibreOffice headless로 전환하고 `make_pdf.ps1` 변환 헬퍼 작성
+- 인프런 온라인 강의 4개와 논문 DOI 등 하이퍼링크를 연결해 총 17개 클릭 링크 적용
+- 연락처 줄의 구분자 간격을 조정해 drseunghyeonlee.com(/en)이 이메일 등과 한 줄에 들어가도록 정리
+
+## 2026-06-07
+
+- 자신의 CV와 레퍼런스 CV들을 렌더링·수치화하여 가독성 저하 원인(높은 밀도·작은 본문·약한 위계·색상 과다)을 비교 분석
+- 현재 `build_cv.py`의 항목별 폰트·색상·여백 수치를 정리한 뒤 위계 강화·본문 확대 방향의 개선 수치안을 제안
+- `build_cv.py`에 색상(회색 진하게)·여백·본문 크기·줄간격·섹션 간격 및 사이즈 매핑 테이블을 반영하고 v8 docx/PDF로 빌드(밀도 9.06→5.37)
+- v3~v7 docx/pdf를 `old/`로 이동하고 분석용 임시 png 파일들을 삭제
+- conference·invited talks·patents·teaching 등 불릿 목록 섹션의 항목 간격을 `Pt(2)`→`Pt(4)`로 확대
+- 전체 간격 설정을 점검·자동 스캔하여 누락된 Professional Memberships 행 간격을 `Pt(1)`→`Pt(3)`로 수정
+- 좌우 여백을 0.85"→0.7"로 넓혀 단어 단위 줄바꿈(orphan) 현상을 거의 제거
+- Research Experience(Visiting Scholar) 순서를 최근순(VT→Purdue)으로 재정렬
+
