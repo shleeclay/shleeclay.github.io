@@ -10,7 +10,7 @@ const { lang = "ko" } = Astro.props as { lang?: "ko" | "en" };
     aria-current={lang === "ko" ? "page" : undefined}
   >KO</a>
   <a
-    href="/en"
+    href="/en/"
     class={`px-2.5 py-1 transition-colors ${lang === "en" ? "bg-primary text-white font-semibold" : "text-base-content/70 hover:text-primary"}`}
     aria-current={lang === "en" ? "page" : undefined}
   >EN</a>

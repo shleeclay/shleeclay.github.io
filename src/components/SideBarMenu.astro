@@ -2,7 +2,7 @@
 import { nav } from "../data";
 const { lang = "ko", sideBarActiveItemID } = Astro.props;
 const activeClass = "active-nav-item";
-const base = lang === "en" ? "/en" : "/";
+const base = lang === "en" ? "/en/" : "/";
 ---
 
 <ul class="menu grow shrink menu-md overflow-y-auto gap-0.5 px-0">

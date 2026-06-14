@@ -4,18 +4,18 @@
   <url>
     <loc>https://drseunghyeonlee.com/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://drseunghyeonlee.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://drseunghyeonlee.com/en"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drseunghyeonlee.com/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://drseunghyeonlee.com/"/>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://drseunghyeonlee.com/en</loc>
+    <loc>https://drseunghyeonlee.com/en/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://drseunghyeonlee.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://drseunghyeonlee.com/en"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://drseunghyeonlee.com/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://drseunghyeonlee.com/"/>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
