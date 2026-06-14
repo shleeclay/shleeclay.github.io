@@ -70,7 +70,7 @@
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
       { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "2/20+", "unit": { "ko": "건", "en": "lectures" } },
-      { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "1000+", "unit": { "ko": "수강생 · 4강", "en": "students · 4 courses" } }
+      { "label": { "ko": "온라인 강의", "en": "Online courses" },        "value": "1000+", "unit": { "ko": "수강생 · 4개 과정", "en": "students · 4 courses" } }
     ]
   },
 
