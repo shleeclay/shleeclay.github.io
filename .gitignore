@@ -35,3 +35,6 @@ public/**/*.tmp
 
 # CV scratch screenshots (underscore-prefixed)
 cv/_*.png
+
+# Publication figure inbox — 원본 고해상도(로컬 전용). 최적화본만 public/papers/figures/ 에 커밋.
+_figures_inbox/
