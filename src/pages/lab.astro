@@ -10,6 +10,7 @@ import "../styles/global.css";
 import CardPaper from "../components/CardPaper.astro";
 import FigureCarousel from "../components/FigureCarousel.astro";
 import { publications } from "../data";
+import extracted from "../data/lab_figures_extracted.json";  // PDF 추출 공저자 5편
 
 const FIG = "/papers/figures/";
 const figData = {
@@ -54,14 +55,18 @@ const figData = {
   ],
 };
 
-// 실제 publication 객체에 figures 주입 (SCI→KCI, 최신순 비슷하게 4편)
-const ids = [7, 1, 8, 9];
-const cards = ids
-  .map((id) => {
-    const p = publications.find((x) => x.id === id);
-    return p ? { ...p, figures: figData[id] } : null;
+// 직접 제공(1저자 4편) + PDF 추출(공저자 5편) figures 병합
+const allFigs = { ...figData, ...extracted };
+// 실제 사이트와 동일 정렬: SCI(quartile/IF 보유) 먼저, 그룹 내 최신순
+const isSCI = (p) => !!(p.quartile || p.if);
+const cards = [...publications]
+  .filter((p) => allFigs[p.id] && allFigs[p.id].length)
+  .sort((a, b) => {
+    const sa = isSCI(a), sb = isSCI(b);
+    if (sa !== sb) return sa ? -1 : 1;
+    return (b.date || "").localeCompare(a.date || "");
   })
-  .filter(Boolean);
+  .map((p) => ({ ...p, figures: allFigs[p.id] }));
 ---
 
 <!DOCTYPE html>
@@ -82,7 +87,7 @@ const cards = ids
 </head>
 <body class="bg-base-100 text-base-content">
   <div class="lab-wrap">
-    <div class="lab-warn">⚠️ 비공개 미리보기 — 실제 Publications에 보이게 될 결과와 동일하게 렌더됩니다. (라이브 미반영 · 검색 미노출) · figures가 있는 4편만 표시</div>
+    <div class="lab-warn">⚠️ 비공개 미리보기 — 실제 Publications에 보이게 될 결과와 동일하게 렌더됩니다. (라이브 미반영 · 검색 미노출) · figures 9편 전체 (직접 제공 4편 + PDF 추출 공저자 5편)</div>
 
     <p class="type-eyebrow text-primary mb-3">PREVIEW — PUBLICATIONS</p>
     <h2 class="type-display-lg mb-8">게재 논문 (figure 미리보기)</h2>
