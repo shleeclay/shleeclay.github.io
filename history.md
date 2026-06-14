@@ -54,3 +54,37 @@
 *   논문 카드에 SCI/KCI 등재 구분 배지 추가
 *   모바일 환경에서 섹션 접기/펼치기 기능 구현
 
+## 2026-05-31
+
+* 두 워크시트를 하나로 合병하여 `CV_worksheet.docx` 파일 생성
+* `build_cv_worksheet.py` 스크립트 생성하여 워크시트 생성
+* `CV_worksheet.docx` 파일을 검증하여 6개 파트가 정상적으로 합쳐졌는지 확인
+* `treeid.svg` 로고 파일명 변경
+* 경력 항목에 TREE:ID (2023.09–2025.03) 추가
+* CV 영역에 "이력서 준비 중 / CV — coming soon" placeholder 표시
+* 폰트를 통일하기 위해 `font-mono`를 `Pretendard`로 변경
+* TREE:ID의 직무를 CEO로 수정하여 커밋 및 푸시 진행
+
+## 2026-06-01
+
+* `CV_worksheet.docx`에 6개 과제의 총연구비를 '① 연구비' 칸에 채움
+* `build_cv.py`를 수정하여 CV를 v2로 업데이트함 (과제 섹션 제외)
+* 워크시트의 예산 정보를 CV에 반영
+* 컨퍼런스 발표에서 Seunghyeon Lee를 1저자로 정렬
+* 특허를 Registered 7건 전부 + Pending 4건까지 모두 수록
+* 온라인 강의를 "an online learning platform"으로 수정
+* TREE:ID 직무를 "스타트업 대표 / Startup CEO"로 변경
+* `02.projects/04.Bi-temporal_ALS_Vertical-Horizontal`와 `01.topics/04.fst_revision` 폴더를 합침
+
+## 2026-05-30
+
+* CV 예시 파일들을 확인하고, 두 CV의 공통 성공 패턴 및 보완점을 분석하여 제공했습니다.
+* 연구과제(Research Projects) 항목에 대한 구체적인 보완 사항을 상세히 안내하고, 채워넣을 템플릿을 제공했습니다.
+* `cv/CV_projects_worksheet.docx` 파일을 생성하여 연구과제 정보 작성을 위한 워크시트를 제공했습니다.
+* `cv/CV_worksheet_other_parts.docx` 파일을 생성하여 학위·논문, 출판 파이프라인, 수상·명예 등 기타 CV 항목 작성을 위한 워크시트를 제공했습니다.
+* Google Scholar, ORCID, LinkedIn 프로필 링크를 `site.json`에 추가하고 웹사이트에 반영했습니다.
+* GitHub 자리를 CV 다운로드 버튼으로 교체하고, 필요한 폴더 및 README를 생성했습니다.
+* 다크모드에서 "Get in Touch" 버튼의 가시성 문제를 해결하여 라이트모드와 동일한 위계로 보이도록 수정했습니다.
+* 라이트모드 Contact 섹션의 색상 블록이 다크모드 컬러 위계로 보이는 문제를 수정하여 라이트모드에 맞는 밝은 디자인으로 변경했습니다.
+* `99.refs` 폴더의 역할과 기능 설명을 포함하여 claude.md와 history.md 파일의 부재에 대한 설명을 제공했습니다.
+
