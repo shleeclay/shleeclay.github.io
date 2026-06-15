@@ -166,3 +166,14 @@
 - 좌우 여백을 0.85"→0.7"로 넓혀 단어 단위 줄바꿈(orphan) 현상을 거의 제거
 - Research Experience(Visiting Scholar) 순서를 최근순(VT→Purdue)으로 재정렬
 
+## 2026-06-14
+
+*   `BaseHead.astro`, `public/sitemap.xml`, `Header.astro`, `SideBar.astro`, `SideBarMenu.astro`, `LangToggle.astro`, `site.json` 파일을 수정하여 `/en` 대신 `/en/`으로 통일하는 SEO 관련 문제를 해결했습니다.
+*   `Home.astro`에서 전화번호를 마우스 오버 시에만 표시되도록 수정하여 봇 수집을 방지하는 기능을 구현했습니다.
+*   `site.json`의 한글 about 통계에서 "4강"을 "4개 과정"으로 변경했습니다.
+*   "있어보이는" 웹사이트를 위해 대표 논문 1~2편을 큰 figure와 함께 Featured 섹션에 전시하는 방식을 제안했습니다.
+*   논문의 핵심 figure를 보여주기 위한 프로토타입 페이지 `/lab`을 생성하고, 클릭 시 캐러셀 모달이 뜨도록 업데이트했습니다.
+*   `_figures_inbox/` 폴더와 `.gitignore`를 설정하여 논문 figure 원본을 로컬에 보관하고, 최적화된 결과만 Git에 반영하도록 했습니다.
+*   2021년 Remote Sensing 논문의 figure 13장과 원본 캡션을 업로드하여 캐러셀 모달 데모를 구현했습니다.
+*   캐러셀 figure의 최적화 설정을 2000px, webp q90으로 확정했습니다.
+
