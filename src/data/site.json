@@ -3,12 +3,12 @@
 
   "site": {
     "ko": {
-      "title": "이승현 (Clay Lee) — 연구 포트폴리오",
-      "description": "이승현 (Clay Lee). 서울대학교 생태계획연구실 박사 연구자. 산림 구조 · 원격탐사 (LiDAR / GEDI) · 도시생태 연구."
+      "title": "이승현 (Seunghyeon Lee) — 산림·도시생태 박사 연구자 · 서울대학교",
+      "description": "이승현(Seunghyeon Lee, Clay Lee) — 서울대학교(SNU) 조경학 박사, 생태계획연구실 연구자. 산림 구조·도시생태·LiDAR/GEDI 원격탐사 연구. 경북대학교(KNU) 조경학 학사."
     },
     "en": {
-      "title": "Seunghyeon Lee (Clay Lee) — Research Portfolio",
-      "description": "Seunghyeon Lee (Clay Lee). Ph.D. researcher at Seoul National University, Landscape & Ecological Planning Lab. Forest structure, remote sensing (LiDAR / GEDI), and urban ecology."
+      "title": "Seunghyeon Lee (이승현) — Forest & Urban Ecology Ph.D. · Seoul National University",
+      "description": "Seunghyeon Lee (이승현, Clay Lee) — Ph.D. in Landscape Architecture, Seoul National University (SNU). Forest & urban ecology, LiDAR/GEDI remote sensing. B.S., Kyungpook National University (KNU)."
     }
   },
 
