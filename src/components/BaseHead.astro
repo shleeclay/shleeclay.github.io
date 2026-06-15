@@ -31,20 +31,34 @@ const personLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: lang === 'en' ? "Seunghyeon Lee" : "이승현",
-  alternateName: lang === 'en' ? ["이승현", "Clay Lee"] : ["Seunghyeon Lee", "Clay Lee"],
+  alternateName: lang === 'en'
+    ? ["이승현", "Clay Lee", "Seunghyeonlee", "Lee Seunghyeon", "S. Lee"]
+    : ["Seunghyeon Lee", "Clay Lee", "Seunghyeonlee", "Lee Seunghyeon"],
   url: SITE,
   image: ogImage,
-  jobTitle: lang === 'en' ? "Ph.D. Researcher" : "박사 연구자",
+  jobTitle: lang === 'en' ? "Ph.D. Researcher (Forest & Urban Ecology)" : "박사 연구자 (산림·도시 생태)",
+  description: lang === 'en'
+    ? "Seunghyeon Lee (이승현) — Ph.D. in Landscape Architecture at Seoul National University (SNU); forest and urban ecology, LiDAR/GEDI remote sensing. B.S. from Kyungpook National University (KNU)."
+    : "이승현 (Seunghyeon Lee) — 서울대학교(SNU) 조경학 박사, 산림·도시 생태와 LiDAR/GEDI 원격탐사 연구. 경북대학교(KNU) 조경학 학사.",
   affiliation: {
-    "@type": "Organization",
+    "@type": "CollegeOrUniversity",
     name: lang === 'en' ? "Seoul National University" : "서울대학교",
+    url: "https://www.snu.ac.kr",
   },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: lang === 'en' ? "Seoul National University" : "서울대학교", url: "https://www.snu.ac.kr" },
+    { "@type": "CollegeOrUniversity", name: lang === 'en' ? "Kyungpook National University" : "경북대학교", url: "https://www.knu.ac.kr" },
+  ],
   knowsAbout: [
-    "Forest vertical structure", "LiDAR", "GEDI", "Airborne laser scanning",
-    "Remote sensing", "Urban ecology", "Carbon", "Green infrastructure",
+    "Forest vertical structure", "Landscape architecture", "Forest ecology", "Urban ecology",
+    "LiDAR", "GEDI", "Airborne laser scanning", "Remote sensing", "GIS",
+    "Carbon", "Biomass", "Green infrastructure",
   ],
   ...(sameAs.length ? { sameAs } : {}),
 };
+
+// 검색용 키워드(특히 네이버) — 이름 변형 + 핵심 조합
+const seoKeywords = "이승현, Seunghyeon Lee, Seunghyeonlee, Clay Lee, 박사, PhD, doctor, 생태, ecology, 조경, landscape architecture, 산림, forest, 서울대학교, Seoul National University, SNU, 경북대학교, Kyungpook National University, KNU, LiDAR, GEDI, 원격탐사, remote sensing, GIS";
 ---
 
 <!-- Global Metadata -->
@@ -86,6 +100,8 @@ const personLd = {
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="keywords" content={seoKeywords} />
+<meta name="author" content="Seunghyeon Lee (이승현)" />
 
 <!-- Canonical + hreflang language alternates (per-route, SEO) -->
 <link rel="canonical" href={canonical} />
