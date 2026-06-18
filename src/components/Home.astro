@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import L from "./L.astro";
 import CardPaper from "./CardPaper.astro";
+import FigureCarousel from "./FigureCarousel.astro";
 import CardPatent from "./CardPatent.astro";
 import CardBook from "./CardBook.astro";
 import site, {
@@ -730,6 +731,9 @@ const confTypeLabels: Record<string, string> = {
       });
     })();
   </script>
+
+  <!-- ───────── Figure carousel (shared; opened by paper covers with figures) ───────── -->
+  <FigureCarousel />
 
   <!-- ───────── Cite modal (shared; populated by .cite-toggle buttons) ───────── -->
   <div id="cite-modal" class="cite-modal" hidden>
