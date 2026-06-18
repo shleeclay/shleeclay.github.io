@@ -98,5 +98,59 @@
    "src": "/papers/figures/2026_AEE_Ecological-structures/fig6.webp",
    "caption": "Boxplots showing the distribution of species diversity(Shannon index) and species dominance (Dominance index) across the three clusters grouped by successional stage. The y-axis in each panel represents the observed index value, while the x-axis indicates cluster membership based on K-means clustering of abandoned paddy fields according to succession stages. The boxes represent the interquartile range (IQR), with the central line indicating the median. Letters above boxes (a, ab, b) denote Tukey HSD groupings; identical letters indicate no significant difference at α = 0.05."
   }
+ ],
+ "5": [
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig1.webp",
+   "caption": "Four datasets used in this study. Understory points are colored by transparent gray to easy show forest structures, and tree points are colored by height."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig2.webp",
+   "caption": "Model architecture for understory removal. The input point cloud is processing by volixzation and a stem layer to obtain an embedding vectors. Then the data passes through the encoder with residual blocks for feature extraction with gradually reducing spatial dimensions and increasing feature channels. In the decoder, it is processed through upsampling and convolutional blocks to gradually recover the original spatial dimension. Meanwhile, skip connections are used to merge features from encoder into decoder. Finally, point-wise classification results are obtained from devoxelization and classification head."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig3.webp",
+   "caption": "Illustration of stem detection (top) and stem segmentation (bottom). Stem detection: we first take a base slice at the breast height and remove the understory points. Then Euclidean clustering is used to obtain individual clusters. Finally, LeSSO is used for each cluster to determine stems. Stem segmentation: for each detected stem cross section, we gradually add bounding boxes to both up and down and use LeSSO to determine cross sections. For upside growing, it stops at the first branching point."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig4.webp",
+   "caption": "Three different scenarios for stem growing. For single-stem scenario, we apply LeSSO for both upward and downward growing due to BSG not stopping until the lowest point. For multi-stem scenario I, cross sections of a multi-stem tree can be determined on base slice, but BSG stops during the downward growing, so we set 𝜆 to 0 and LeSSO can determine incomplete cross sections. For multi-stem scenario II, LeSSO may miss the stem on the base slice as the bifurcation occurs at breast height with irregular shape, so we lift the base slice twice to find complete cross sections. Once stems are detected on next two slice, we process it as multi-stem scenario I."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig5.webp",
+   "caption": "The workflow of base slice lifting. We first perform stem segmentation based on a base slice of 1.3–1.5 m. Then we remove all the segmented stem points and lift the base slice to 1.5–1.7 m to conduct stem segmentation again. If LeSSO can determine new cross sections on this base slice, new stems are segmented following multi-stem scenario II. This process of base slice lifting is performed twice in total until 1.9 m and the whole process is automated."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig6.webp",
+   "caption": "Sector Median Points (SMP) for stem reconstruction. A stem point cloud is first split into multiple horizontal slices. For each slice, median points from 36 sectors are obtained as vertices for mesh model reconstruction. Then, triangles are constructed on vertices with lateral order. Finally, bottom and top caps are constructed to make the model watertight to be calculated volume."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig7.webp",
+   "caption": "Understory removal visualization of reference, CANUPO, and our 3D U-Net. 3D U-Net successfully distinguish understory and overstory points, while CANUPO hardly deal with complex forest structures."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig8.webp",
+   "caption": "Stem segmentation visualization of reference, ForestSPG, and BSG. BSG is able to segment more complete stems than ForestSPG."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig9.webp",
+   "caption": "Leaning stem segmentation with different methods. From left to right: reference, ForestSPG, and BSG (ours). The proposed BSG can successfully segment the leaning stem while ForestSPG cannot."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig10.webp",
+   "caption": "Visual comparison of stem reconstruction between different methods. Poission reconstruction, TreeQSM.Triangulation, and SMP produce continuous mesh surfaces. TreeQSM.Triangulation introduces surface artifacts on the side with noise points, whereas occasionally there are gaps between cylinders that make up TreeQSM models."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig11.webp",
+   "caption": "Section-wise comparison between estimated diameters and manual measurements. Each panel shows diameter versus height from stump for a single stem. MAE is reported to show the difference, paired-t and p-value are reported to show the statistical difference. SMP shows closest agreement with manual measurements. Among the six samples showed with five different methods, 11 out of 30 show statistically significant differences (p < 0.05)."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig12.webp",
+   "caption": "Scatter plots of section-wise diameter measurements for all 42 trees. From left to right: original stem points, poisson reconstruction, TreeQSM, TreeQSM.Triangulation, and our SMP. The black dashed line is the 1:1 reference line. SMP achieves highest R 2 and best bias."
+  },
+  {
+   "src": "/papers/figures/2026_RSE_Three-stage-framework/fig13.webp",
+   "caption": "Scatter plots of volume estimation for all 42 reference trees. From left to right: point cloud, poission reconstruction, TreeQSM, TreeQSM.Triangulation, and our SMP. The black dashed line is the 1:1 reference line. SMP achieves highest R 2 and best bias."
+  }
  ]
 }
