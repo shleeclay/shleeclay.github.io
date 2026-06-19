@@ -177,3 +177,13 @@
 *   2021년 Remote Sensing 논문의 figure 13장과 원본 캡션을 업로드하여 캐러셀 모달 데모를 구현했습니다.
 *   캐러셀 figure의 최적화 설정을 2000px, webp q90으로 확정했습니다.
 
+## 2026-06-19
+
+* Three-stage(RSE) 논문에 사용자 제공 이미지 13장(fig1~13) 추가 및 최적화
+* 운곡 Salix 논문에 fig5 이미지 교체
+* Three-stage fig2와 Salix fig5 이미지 정상 확인
+* 게재 논문 9편 전체 figure 캐러셀 기능 라이브 적용
+* Figure 캐러셀에서 인접 이미지를 미리 받아오는 prefetch 기능 적용
+* /lab 페이지 삭제 및 Diel Fig3 캡션 누락분 보완
+* 데스크톱 환경에서 Figure 캐러셀 제목이 좌측 메뉴와 겹치는 문제 수정
+
