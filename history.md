@@ -187,3 +187,10 @@
 * /lab 페이지 삭제 및 Diel Fig3 캡션 누락분 보완
 * 데스크톱 환경에서 Figure 캐러셀 제목이 좌측 메뉴와 겹치는 문제 수정
 
+## 2026-06-16
+
+* `site.json` 파일을 수정하여 타이틀 및 설명에 이름 변형과 핵심 키워드를 강화함.
+* `BaseHead.astro` 파일에 JSON-LD Person 정보를 확장하고 키워드 메타를 추가함.
+* Astro 웹사이트의 스택(GitHub Pages, Astro, TailwindCSS, DaisyUI) 정보를 확인하고 정리함.
+* Zack의 이메일에 대한 답장 초안을 검토하고, 반복 표현 및 문장 시작 패턴을 다듬어 자연스러움을 더함.
+
