@@ -23,8 +23,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # ---------------------------------------------------------------- palette
 INK    = RGBColor(0x1a, 0x1a, 0x1a)
 ACCENT = RGBColor(0x1f, 0x4e, 0x3d)   # deep forest green
-GREY   = RGBColor(0x44, 0x44, 0x44)
-LIGHT  = RGBColor(0x6f, 0x6f, 0x6f)
+GREY   = RGBColor(0x55, 0x55, 0x55)
+LIGHT  = RGBColor(0x88, 0x88, 0x88)
 BODYFONT = "Cambria"   # academic serif, high legibility at small sizes; clean via LibreOffice
 HEADFONT = "Cambria"
 
@@ -32,10 +32,10 @@ doc = Document()
 
 # page margins
 for s in doc.sections:
-    s.top_margin = Inches(0.75); s.bottom_margin = Inches(0.75)
-    s.left_margin = Inches(0.7); s.right_margin = Inches(0.7)
+    s.top_margin = Inches(0.6); s.bottom_margin = Inches(0.6)
+    s.left_margin = Inches(0.8); s.right_margin = Inches(0.8)
 
-RIGHT_TAB = Inches(7.1)  # within 7.1" text width
+RIGHT_TAB = Inches(6.9)  # within 7.0" text width
 
 # Disable OpenType kerning/ligatures — Word applies them unevenly when exporting to PDF,
 # producing the "some letters too tight, some too loose" spacing. Turning the feature off
@@ -47,16 +47,10 @@ for _cs in doc.settings.element.iter(qn('w:compatSetting')):
 # base style
 st = doc.styles["Normal"]
 st.font.name = BODYFONT
-st.font.size = Pt(10)
+st.font.size = Pt(9.5)
 st.font.color.rgb = INK
 st.paragraph_format.space_after = Pt(0)
-st.paragraph_format.line_spacing = 1.13
-
-# ---- font-size scale (single source of truth for the v8 readability pass) ----
-# Maps every legacy point size used in the call sites below to its new value, so the
-# whole document rescales consistently without touching ~100 individual calls.
-#   8/8.5 = notes/meta · 9/9.5/10 = body & titles · 10.5 = "CV" tag · 11 = section head · 22 = name
-_SZ = {8: 8, 8.5: 9, 9: 10, 9.5: 10.5, 10: 10.5, 10.5: 11, 11: 13.5, 12: 12, 22: 24}
+st.paragraph_format.line_spacing = 1.04
 
 def _force_font(rPr, font):
     """Set the font for ALL script categories (ascii/hAnsi/cs/eastAsia) so Word never
@@ -69,7 +63,7 @@ def _force_font(rPr, font):
         rf.set(qn(_a), font)
 
 def _set_run(r, size=9.5, bold=False, italic=False, color=INK, font=BODYFONT, caps=False, spacing=None):
-    r.font.size = Pt(_SZ.get(size, size)); r.bold = bold; r.italic = italic
+    r.font.size = Pt(size); r.bold = bold; r.italic = italic
     r.font.color.rgb = color
     if caps: r.font.all_caps = True
     rPr = r._element.get_or_add_rPr()
@@ -77,7 +71,7 @@ def _set_run(r, size=9.5, bold=False, italic=False, color=INK, font=BODYFONT, ca
     if spacing is not None:
         sp = OxmlElement('w:spacing'); sp.set(qn('w:val'), str(spacing)); rPr.append(sp)
 
-def add_hyperlink(paragraph, url, text, color="444444", size=9,
+def add_hyperlink(paragraph, url, text, color="555555", size=9,
                   underline=False, italic=False, bold=False, font=BODYFONT):
     """Append a real, clickable hyperlink run to a paragraph (works in Word and exported PDF)."""
     r_id = paragraph.part.relate_to(
@@ -89,7 +83,7 @@ def add_hyperlink(paragraph, url, text, color="444444", size=9,
     for a in ('w:ascii', 'w:hAnsi', 'w:cs', 'w:eastAsia'):
         rf.set(qn(a), font)
     rPr.append(rf)
-    sz = OxmlElement('w:sz'); sz.set(qn('w:val'), str(int(_SZ.get(size, size) * 2))); rPr.append(sz)
+    sz = OxmlElement('w:sz'); sz.set(qn('w:val'), str(int(size * 2))); rPr.append(sz)
     col = OxmlElement('w:color'); col.set(qn('w:val'), color); rPr.append(col)
     if underline:
         u = OxmlElement('w:u'); u.set(qn('w:val'), 'single'); rPr.append(u)
@@ -156,7 +150,7 @@ for i, (disp, url) in enumerate(contact):
     if i:
         sep = p.add_run("  |  "); _set_run(sep, 9, color=LIGHT)
     if url:
-        add_hyperlink(p, url, disp, color="444444", size=9)
+        add_hyperlink(p, url, disp, color="555555", size=9)
     else:
         _set_run(p.add_run(disp), 9, color=GREY)
 bottom_border(p); p.paragraph_format.space_after = Pt(6)
@@ -166,7 +160,7 @@ def section(title):
     p = doc.add_paragraph()
     r = p.add_run(title); _set_run(r, 11, bold=True, color=ACCENT, caps=True, spacing=30)
     bottom_border(p)
-    p.paragraph_format.space_before = Pt(14); p.paragraph_format.space_after = Pt(6)
+    p.paragraph_format.space_before = Pt(8); p.paragraph_format.space_after = Pt(4)
 
 def entry(left_bold, right="", sub="", bullets=None, left_rest=""):
     """One CV entry: bold lead + optional right-aligned date, italic subline, bullets."""
@@ -176,7 +170,7 @@ def entry(left_bold, right="", sub="", bullets=None, left_rest=""):
         r = p.add_run(left_rest); _set_run(r, 9.5)
     if right:
         r = p.add_run("\t" + right); _set_run(r, 9, color=GREY)
-    p.paragraph_format.space_before = Pt(5)
+    p.paragraph_format.space_before = Pt(3)
     if sub:
         ps = doc.add_paragraph(); r = ps.add_run(sub); _set_run(r, 9, italic=True, color=GREY)
     if bullets:
@@ -230,10 +224,10 @@ for lead, date, sub, bl in edu:
 # ---------------------------------------------------------------- Research Experience
 section("Research Experience")
 exp = [
-    ("Visiting Research Intern", " — Virginia Tech (PI: Prof. Jaeyoung Ha)",
-     "2024.07 — 2024.08", "Blacksburg, VA, United States · Landscape architecture"),
     ("Visiting Research Intern", " — Purdue University, FNR FUSE Lab (PI: Prof. Brady Hardiman)",
      "2023.12 — 2024.02", "West Lafayette, IN, United States · Forest structure & LiDAR"),
+    ("Visiting Research Intern", " — Virginia Tech (PI: Prof. Jaeyoung Ha)",
+     "2024.07 — 2024.08", "Blacksburg, VA, United States · Landscape architecture"),
     ("Graduate Researcher", " — Landscape & Ecological Planning Lab, Seoul National University",
      "2020.03 — Present", "National R&D and municipal projects on LiDAR forest structure, carbon, and urban ecology"),
     ("Research Assistant", " — Architecture & Urban Research Institute (AURI)",
@@ -311,7 +305,7 @@ _pubs.sort(key=lambda d: d["sortk"])
 for n, d in enumerate(_pubs, 1):
     apa, year, title, journal = d["apa"], d["year"], d["title"], d["journal"]
     vol, num, pages, doi, iff, q = d["vol"], d["num"], d["pages"], d["doi"], d["iff"], d["q"]
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(5)
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     _set_run(p.add_run(f"{n}. "), 9, color=GREY)
     nA = len(apa)
@@ -335,7 +329,7 @@ for n, d in enumerate(_pubs, 1):
             _set_run(p.add_run(f", {pages}"), 9)
     _set_run(p.add_run(". "), 9)
     if doi:
-        add_hyperlink(p, f"https://doi.org/{doi}", f"https://doi.org/{doi}", color="444444", size=9)
+        add_hyperlink(p, f"https://doi.org/{doi}", f"https://doi.org/{doi}", color="555555", size=9)
     if iff or q:
         iv = iff.split("(")[0].strip()
         tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", q] if x)
@@ -372,7 +366,7 @@ for n, (auth, title, jour, status) in enumerate(under_review, 1):
     apa = [_apa_author(a) for a in auth]
     stage, _, dt = status.partition("|")
     yr = dt[:4] if dt[:4].isdigit() else "2026"
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(5)
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(3)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     _set_run(p.add_run(f"{n}. "), 9, color=GREY)
     nA = len(apa)
@@ -393,7 +387,7 @@ for n, (auth, title, jour, status) in enumerate(under_review, 1):
 
 # ---------------------------------------------------------------- Books
 section("Books")
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
 p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
 _set_run(p.add_run("1. "), 9, color=GREY)
 _set_run(p.add_run("YOZMDOSI collective ("), 9)
@@ -415,7 +409,7 @@ funding = [
     ("Challenge Scholarship, Kyungpook National University (full)", "2011 — 2013", "$18,571"),
 ]
 for name, period, amount in funding:
-    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
     _set_run(p.add_run(name), 9)
     _set_run(p.add_run(f"  ({amount})"), 9, color=ACCENT)
     _set_run(p.add_run("\t" + period), 9, color=GREY)
@@ -433,7 +427,7 @@ invited = [
      "Asia Week, Fukuoka, Japan", "2024"),
 ]
 for title, venue, yr in invited:
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     b = p.add_run("• "); _set_run(b, 9, color=ACCENT)
     r = p.add_run("Seunghyeon Lee"); _set_run(r, 9, bold=True)
@@ -487,7 +481,7 @@ confs = [
      "AGU Fall Meeting, New Orleans, US / Online"),
 ]
 for auth, yr, kind, title, venue in confs:
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.left_indent = Inches(0.28)
     p.paragraph_format.first_line_indent = Inches(-0.28)
     bullet = p.add_run("• "); _set_run(bullet, 9, color=ACCENT)
@@ -607,7 +601,7 @@ def _patent_sub(text):
 
 def _patent_list(items):
     for title, meta in items:
-        p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+        p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
         p.paragraph_format.left_indent = Inches(0.28)
         p.paragraph_format.first_line_indent = Inches(-0.28)
         bullet = p.add_run("• "); _set_run(bullet, 9, color=ACCENT)
@@ -616,10 +610,10 @@ def _patent_list(items):
 
 _patent_sub("Registered")
 _patent_list([
-    ("System and method for providing a tree-management platform.", "Registered 2025.09 · Seunghyeon Lee"),
+    ("System and method for providing a tree-management platform.", "Registered 2025.09 · Sole inventor"),
     ("Method and system for determining wetland vegetation structure using drone LiDAR.",
      "Registered 2025.04 · Seoul National University"),
-    ("Image-based roadside-tree information management system and method.", "Registered 2024.11 · Seunghyeon Lee"),
+    ("Image-based roadside-tree information management system and method.", "Registered 2024.11 · Sole inventor"),
     ("Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological "
      "information.", "Registered 2023.07 · Seoul National University"),
     ("Self-heating target module for thermal-camera performance testing and precision data acquisition.",
@@ -650,7 +644,7 @@ def _subhead(text):
 
 def _tabbed(rows):
     for h, d in rows:
-        p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+        p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
         r = p.add_run(h); _set_run(r, 9)
         r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
 
@@ -664,7 +658,7 @@ _tabbed([
 
 # ---------------------------------------------------------------- Service & Membership
 section("Professional Service & Membership")
-p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
 _set_run(p.add_run("Peer reviewer, "), 9, bold=True, color=ACCENT)
 _set_run(p.add_run("International Journal of Applied Earth Observation and Geoinformation"), 9)
 _set_run(p.add_run("\t2026 – present"), 9, color=GREY)
@@ -678,7 +672,7 @@ members = [
     ("Ecological Society of Korea (ESK)", "2023 – present"),
 ]
 for name, period in members:
-    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(3)
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(1)
     _set_run(p.add_run("Member, " + name), 9)
     _set_run(p.add_run("\t" + period), 9, color=GREY)
 
@@ -693,7 +687,7 @@ def _t_sub(text):
     r = p.add_run(text); _set_run(r, 9.5, bold=True, color=ACCENT)
 
 def _t_item(text, date, url=None):
-    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(2)
     p.paragraph_format.left_indent = Inches(0.28)
     p.paragraph_format.first_line_indent = Inches(-0.28)
     b = p.add_run("• "); _set_run(b, 9, color=ACCENT)
@@ -704,7 +698,7 @@ def _t_item(text, date, url=None):
     r = p.add_run("\t" + date); _set_run(r, 9, color=GREY)
 
 _t_sub("University Courses")
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(2)
 p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
 _set_run(p.add_run("• "), 9, color=ACCENT)
 _set_run(p.add_run("Instructor — “Understanding and Application of Spatial Information” "
@@ -727,7 +721,7 @@ _t_item("QGIS Beginner All-in-One Starter Pack (theory & practice)", "2024", "ht
 _t_item("QGIS Mapping Visualization A to Z (Vector / Basic)", "2023", "https://inf.run/JcRA")
 _t_item("QGIS Python Automation", "2022", "https://inf.run/RNcr")
 
-_t_sub("Invited Lectures & Workshops  (20+ sessions, 2022 — 2025)")
+_t_sub("Invited Lectures & Workshops  (20+ sessions, 2020 — 2025)")
 _t_item("Hyundai NGV — Understanding GIS & spatial analysis/visualization via DBMS (basic & advanced)", "2025")
 _t_item("Korea Water Resources Corp. (K-water) — Q-GIS practice for water-sector professionals", "2023 — 2025")
 _t_item("Korea Environment Corporation (K-eco) — Data-analysis expert training program", "2024 — 2025")
@@ -753,9 +747,24 @@ for lead, rest, date, sub in prof:
 
 # ---------------------------------------------------------------- References
 section("References")
-# 공개 CV에는 추천인 연락처를 노출하지 않음(사생활). 실제 3인 연락처는 비공개 레퍼런스 시트로 제출.
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
-_set_run(p.add_run("Available upon request."), 9, italic=True, color=GREY)
+references = [
+    ("Prof. Youngkeun Song",
+     "Doctoral advisor (Ph.D. & M.A.)",
+     "Landscape & Ecological Planning Lab, Department of Landscape Architecture,\n"
+     "Graduate School of Environmental Studies, Seoul National University",
+     "songkoon@gmail.com"),
+]
+for name, role, affil, email in references:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+    _set_run(p.add_run(name), 9.5, bold=True)
+    _set_run(p.add_run("\t" + role), 9, italic=True, color=ACCENT)
+    for line in affil.split("\n"):
+        pa = doc.add_paragraph(); pa.paragraph_format.left_indent = Inches(0.0)
+        pa.paragraph_format.space_after = Pt(0)
+        _set_run(pa.add_run(line), 9, color=GREY)
+    pe = doc.add_paragraph(); pe.paragraph_format.space_before = Pt(0)
+    _set_run(pe.add_run("Email: "), 9, color=GREY)
+    add_hyperlink(pe, "mailto:" + email, email, color="555555", size=9)
 
 # (Technical Skills section intentionally omitted)
 
@@ -776,6 +785,6 @@ else:
     _set_run(p.add_run("\tSignature: ____________________     Date: " + _today), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v9.docx"
+out = "Lee_Seunghyeon_CV_v7.docx"
 doc.save(out)
 print("saved:", out)

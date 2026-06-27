@@ -753,9 +753,24 @@ for lead, rest, date, sub in prof:
 
 # ---------------------------------------------------------------- References
 section("References")
-# 공개 CV에는 추천인 연락처를 노출하지 않음(사생활). 실제 3인 연락처는 비공개 레퍼런스 시트로 제출.
-p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
-_set_run(p.add_run("Available upon request."), 9, italic=True, color=GREY)
+references = [
+    ("Prof. Youngkeun Song",
+     "Doctoral advisor (Ph.D. & M.A.)",
+     "Landscape & Ecological Planning Lab, Department of Landscape Architecture,\n"
+     "Graduate School of Environmental Studies, Seoul National University",
+     "songkoon@gmail.com"),
+]
+for name, role, affil, email in references:
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+    _set_run(p.add_run(name), 9.5, bold=True)
+    _set_run(p.add_run("\t" + role), 9, italic=True, color=ACCENT)
+    for line in affil.split("\n"):
+        pa = doc.add_paragraph(); pa.paragraph_format.left_indent = Inches(0.0)
+        pa.paragraph_format.space_after = Pt(0)
+        _set_run(pa.add_run(line), 9, color=GREY)
+    pe = doc.add_paragraph(); pe.paragraph_format.space_before = Pt(0)
+    _set_run(pe.add_run("Email: "), 9, color=GREY)
+    add_hyperlink(pe, "mailto:" + email, email, color="444444", size=9)
 
 # (Technical Skills section intentionally omitted)
 
@@ -776,6 +791,6 @@ else:
     _set_run(p.add_run("\tSignature: ____________________     Date: " + _today), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v9.docx"
+out = "Lee_Seunghyeon_CV_v8.docx"
 doc.save(out)
 print("saved:", out)
