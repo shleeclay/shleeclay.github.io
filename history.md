@@ -194,3 +194,10 @@
 * Astro 웹사이트의 스택(GitHub Pages, Astro, TailwindCSS, DaisyUI) 정보를 확인하고 정리함.
 * Zack의 이메일에 대한 답장 초안을 검토하고, 반복 표현 및 문장 시작 패턴을 다듬어 자연스러움을 더함.
 
+## 2026-06-27
+
+* CV PDF에서 지도교수 연락처 정보 제거
+* build_cv.py를 백업하고 CV v9 생성
+* CV v9 docx 파일을 PDF로 변환
+* 이전 버전 CV 파일들을 정리하고 새 버전 CV를 공개용으로 이동
+
