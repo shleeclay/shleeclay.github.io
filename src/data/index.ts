@@ -48,6 +48,8 @@ export type Publication = {
   cover?: string;
   pdf?: string;
   authors: string[];
+  journalKo?: string;    // KCI 등 국문 원본 저널명 (한글 페이지용)
+  authorsKo?: string[];  // 국문 원본 저자명 (한글 페이지용)
   title: Bi;
   figures?: { src: string; caption: string }[];  // 핵심 figure 캐러셀 (있을 때만 표시)
 };

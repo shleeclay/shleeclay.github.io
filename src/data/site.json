@@ -126,6 +126,8 @@
         "cover": "/papers/covers/2026_KOSERT_Comparing-LST.jpg",
         "pdf":   "/papers/pdfs/2026_KOSERT_Comparing-LST.pdf",
         "authors": ["Seunghyeon Lee", "Gukhwa Jang", "Sung-Ho Kil", "Youngkeun Song"],
+        "journalKo": "한국환경복원기술학회지",
+        "authorsKo": ["이승현", "장국화", "송영근", "길승호"],
         "title": {
           "ko": "동일 시공간 조건에서의 저층·고층 주거지 LST 산출방법 비교 — 위성영상, 시뮬레이션, UAV를 중심으로",
           "en": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches"
@@ -143,6 +145,8 @@
         "cover": "/papers/covers/2026_KOSERT_Forest-Type-Seasonal.jpg",
         "pdf":   "/papers/pdfs/2026_KOSERT_Forest-Type-Seasonal.pdf",
         "authors": ["Seunghyeon Lee", "Youngkeun Song"],
+        "journalKo": "한국환경복원기술학회지",
+        "authorsKo": ["이승현", "송영근"],
         "title": {
           "ko": "산림유형과 시기에 따른 GEDI–ALS 수고 일치성 및 GEDI 구조지표(FHD, PAI) 특성 분석 — 과천시와 의왕시 산림을 대상으로",
           "en": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si"
@@ -177,6 +181,8 @@
         "cover": "/papers/covers/2026_KOSERT_Non-destructive-Carbon.jpg",
         "pdf":   "/papers/pdfs/2026_KOSERT_Non-destructive-Carbon.pdf",
         "authors": ["Gapseong Jekal", "Youngeun Yang", "Seunghyeon Lee", "Youngkeun Song"],
+        "journalKo": "한국환경복원기술학회지",
+        "authorsKo": ["제갈갑성", "양영은", "이승현", "송영근"],
         "title": {
           "ko": "라이다 기반 습지 버드나무림의 비파괴적 탄소저장량 추정 — 운곡습지 사례",
           "en": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland"
@@ -245,6 +251,8 @@
         "cover": "/papers/covers/2024_KOSERT_Diel-Activity.jpg",
         "pdf":   "/papers/pdfs/2024_KOSERT_Diel-Activity.pdf",
         "authors": ["Younha Han", "Wonhyeop Shin", "Jihwan Kim", "Dohee Kim", "Jiweon Yun", "Sokyoung Yi", "Yonghwan Kim", "Seunghyeon Lee", "Youngkeun Song"],
+        "journalKo": "한국환경복원기술학회지",
+        "authorsKo": ["한윤하", "신원협", "김지환", "김도희", "윤지원", "이석영", "김용환", "이승현", "송영근"],
         "title": {
           "ko": "장기 카메라트래핑 모니터링 자료를 활용한 도시근교의 고라니 및 멧돼지 일주기성 연구",
           "en": "Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping"

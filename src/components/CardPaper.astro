@@ -145,16 +145,32 @@ const coverSrc = paper.cover
       <span data-only="en">{paper.title.en}</span>
     </h3>
 
-    <!-- Journal (wraps if long; IF/year omitted — shown as cover badge) -->
+    <!-- Journal (KCI 등은 한글 페이지에서 국문 저널명; IF/year는 cover 배지) -->
     <p class="type-body-sm text-base-content/65 mb-1 line-clamp-2 italic">
-      {paper.journal}
+      {paper.journalKo ? (
+        <>
+          <span data-only="ko">{paper.journalKo}</span>
+          <span data-only="en">{paper.journal}</span>
+        </>
+      ) : paper.journal}
     </p>
 
-    <!-- Authors (own name emphasized) -->
+    <!-- Authors (own name emphasized; KCI 등은 한글 페이지에서 국문 저자명) -->
     <p class="type-body-sm text-base-content/70 mb-3 line-clamp-2 flex-1">
-      {paper.authors.map((a, i) => (
-        <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
-      ))}
+      {paper.authorsKo ? (
+        <>
+          <span data-only="ko">{paper.authorsKo.map((a, i) => (
+            <>{i > 0 ? ", " : ""}{a === "이승현" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+          ))}</span>
+          <span data-only="en">{paper.authors.map((a, i) => (
+            <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+          ))}</span>
+        </>
+      ) : (
+        paper.authors.map((a, i) => (
+          <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+        ))
+      )}
     </p>
 
     <!-- Action buttons: PDF + Web -->
