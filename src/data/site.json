@@ -127,7 +127,7 @@
         "pdf":   "/papers/pdfs/2026_KOSERT_Comparing-LST.pdf",
         "authors": ["Seunghyeon Lee", "Gukhwa Jang", "Sung-Ho Kil", "Youngkeun Song"],
         "title": {
-          "ko": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches",
+          "ko": "동일 시공간 조건에서의 저층·고층 주거지 LST 산출방법 비교 — 위성영상, 시뮬레이션, UAV를 중심으로",
           "en": "Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches"
         }
       },
@@ -144,7 +144,7 @@
         "pdf":   "/papers/pdfs/2026_KOSERT_Forest-Type-Seasonal.pdf",
         "authors": ["Seunghyeon Lee", "Youngkeun Song"],
         "title": {
-          "ko": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si",
+          "ko": "산림유형과 시기에 따른 GEDI–ALS 수고 일치성 및 GEDI 구조지표(FHD, PAI) 특성 분석 — 과천시와 의왕시 산림을 대상으로",
           "en": "Forest-Type and Seasonal Analysis of GEDI–ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI) — A Case Study of Forests in Gwacheon-si and Uiwang-si"
         }
       },
@@ -178,7 +178,7 @@
         "pdf":   "/papers/pdfs/2026_KOSERT_Non-destructive-Carbon.pdf",
         "authors": ["Gapseong Jekal", "Youngeun Yang", "Seunghyeon Lee", "Youngkeun Song"],
         "title": {
-          "ko": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland",
+          "ko": "라이다 기반 습지 버드나무림의 비파괴적 탄소저장량 추정 — 운곡습지 사례",
           "en": "Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR — A Case Study of Ungok Wetland"
         }
       },
