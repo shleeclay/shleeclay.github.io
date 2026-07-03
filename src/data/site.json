@@ -36,8 +36,15 @@
   "hero": {
     "name":        { "ko": "이승현",                                                 "en": "Seunghyeon Lee" },
     "nameSub":     { "ko": "Clay Lee",                                              "en": "(Clay Lee)" },
-    "tagline":     { "ko": "LiDAR와 원격탐사로 산림·도시 생태계의 구조를 측정합니다.",                      "en": "Measuring the structure of forest and urban ecosystems with LiDAR and remote sensing." },
-    "description": { "ko": "항공·위성 데이터를 현장과 잇고, 재현 가능한 분석으로 생태계의 변화를 설명합니다.",   "en": "Connecting airborne and satellite data with field observations, and explaining ecosystem change through reproducible analysis." },
+    "tagline":     { "ko": "항공·위성 LiDAR를 현장 관측과 연결해 산림·도시 생태계의 구조와 변화를 정량화합니다.", "en": "I quantify the structure and change of forest and urban ecosystems by linking airborne and spaceborne LiDAR with field observations." },
+    "focusLabel":  { "ko": "연구 분야", "en": "Research focus" },
+    "focus": [
+      { "ko": "산림 수직구조·유형화",       "en": "Forest vertical structure & typology" },
+      { "ko": "항공·위성 LiDAR · GEDI",     "en": "Airborne & spaceborne LiDAR (GEDI)" },
+      { "ko": "도시생태·그린인프라",         "en": "Urban ecology & green infrastructure" },
+      { "ko": "탄소·바이오매스 추정",         "en": "Carbon & biomass estimation" },
+      { "ko": "재현 가능한 공간분석",         "en": "Reproducible geospatial analysis" }
+    ],
     "affiliation": {
       "ko": "서울대학교 협동과정 조경학 박사 · 생태계획연구실",
       "en": "Ph.D. · Seoul National University · Landscape & Ecological Planning Lab"
