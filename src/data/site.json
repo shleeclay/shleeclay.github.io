@@ -42,6 +42,7 @@
       { "ko": "산림 수직구조·유형화",       "en": "Forest vertical structure & typology" },
       { "ko": "항공·위성 LiDAR · GEDI",     "en": "Airborne & spaceborne LiDAR (GEDI)" },
       { "ko": "도시생태·그린인프라",         "en": "Urban ecology & green infrastructure" },
+      { "ko": "도시 미기후·열 원격탐사",      "en": "Urban microclimate & thermal sensing" },
       { "ko": "탄소·바이오매스 추정",         "en": "Carbon & biomass estimation" },
       { "ko": "재현 가능한 공간분석",         "en": "Reproducible geospatial analysis" }
     ],
