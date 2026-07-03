@@ -76,8 +76,19 @@ const confTypeLabels: Record<string, string> = {
           </span>
         </h1>
 
-        <L tag="p" class="type-headline text-base-content/85 mb-4 max-w-2xl" ko={hero.tagline.ko} en={hero.tagline.en} />
-        <L tag="p" class="type-body text-base-content/65 max-w-2xl mb-5" ko={hero.description.ko} en={hero.description.en} />
+        <L tag="p" class="type-headline text-base-content/85 mb-5 max-w-2xl" ko={hero.tagline.ko} en={hero.tagline.en} />
+
+        <!-- Research focus — 정체성·연구를 목록(칩)으로 노출 -->
+        <p class="type-caption text-primary mb-2">
+          <span data-only="ko">{hero.focusLabel.ko}</span><span data-only="en">{hero.focusLabel.en}</span>
+        </p>
+        <ul class="flex flex-wrap gap-2 mb-6 max-w-2xl" aria-label="Research focus">
+          {hero.focus.map((f) => (
+            <li class="inline-flex items-center rounded-full bg-base-200/70 border border-base-300 px-3 py-1 type-body-sm text-base-content/75">
+              <span data-only="ko">{f.ko}</span><span data-only="en">{f.en}</span>
+            </li>
+          ))}
+        </ul>
 
         <L
           tag="p"
