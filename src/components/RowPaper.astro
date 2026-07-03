@@ -18,59 +18,32 @@ const hasFigs = figures.length > 0;
 const figuresJson = JSON.stringify(figures);
 ---
 
-<div class="paper-row group flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-4 py-3.5 border-b border-base-300/40 hover:bg-base-200/40 -mx-2 px-2 rounded-md transition-colors">
+<div class="paper-row group flex gap-3 sm:gap-4 py-3 border-b border-base-300/40 hover:bg-base-200/40 -mx-2 px-2 rounded-md transition-colors">
   <!-- Year -->
-  <div class="shrink-0 sm:w-12 sm:pt-0.5">
+  <div class="shrink-0 sm:w-12 sm:pt-1">
     <span class="type-body-sm font-semibold text-base-content/55">{yearText}</span>
   </div>
 
-  <!-- Main: badges → title → journal · authors -->
+  <!-- Content: (badges ↔ buttons in one row) → title → journal · authors -->
   <div class="flex-1 min-w-0">
-    <div class="flex flex-wrap items-center gap-1.5 mb-1">
-      <span class={`pill ${isFirst ? "pill-first" : "pill-co"}`}>{isFirst ? "First author" : "Co-author"}</span>
-      {isSCI ? (
-        <>
-          <span class="pill pill-co">SCI</span>
-          {paper.quartile && <span class="pill pill-q1">{paper.quartile.split(' ')[0]}</span>}
-          {paper.if && <span class="pill pill-co">IF {paper.if.split(' ')[0]}</span>}
-        </>
-      ) : (
-        <span class="pill pill-co">KCI</span>
-      )}
-    </div>
+    <!-- Top row: badges (left) + action buttons (right) -->
+    <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-1">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <span class={`pill ${isFirst ? "pill-first" : "pill-co"}`}>{isFirst ? "First author" : "Co-author"}</span>
+        {isSCI ? (
+          <>
+            <span class="pill pill-co">SCI</span>
+            {paper.quartile && <span class="pill pill-q1">{paper.quartile.split(' ')[0]}</span>}
+            {paper.if && <span class="pill pill-co">IF {paper.if.split(' ')[0]}</span>}
+          </>
+        ) : (
+          <span class="pill pill-co">KCI</span>
+        )}
+      </div>
 
-    <h3 class="type-body leading-snug text-base-content group-hover:text-primary transition-colors" style="font-weight:560;">
-      <span data-only="ko">{paper.title.ko}</span>
-      <span data-only="en">{paper.title.en}</span>
-    </h3>
-
-    <p class="type-body-sm text-base-content/65 mt-0.5 leading-snug">
-      <span class="italic">
-        {paper.journalKo
-          ? (<><span data-only="ko">{paper.journalKo}</span><span data-only="en">{paper.journal}</span></>)
-          : paper.journal}
-      </span>
-      <span class="mx-1.5 text-base-content/30">·</span>
-      {paper.authorsKo ? (
-        <>
-          <span data-only="ko">{paper.authorsKo.map((a, i) => (
-            <>{i > 0 ? ", " : ""}{a === "이승현" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
-          ))}</span>
-          <span data-only="en">{paper.authors.map((a, i) => (
-            <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
-          ))}</span>
-        </>
-      ) : (
-        paper.authors.map((a, i) => (
-          <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
-        ))
-      )}
-    </p>
-  </div>
-
-  <!-- Buttons: PDF · Web · Figs · Cite -->
-  <div class="shrink-0 flex items-center gap-1.5 mt-1 sm:mt-0 sm:pt-0.5">
-    {hasPdf && (
+      <!-- Buttons: PDF · Web · Figs · Cite -->
+      <div class="shrink-0 flex items-center gap-1.5">
+        {hasPdf && (
       <a href={paper.pdf} download class="btn-mini active" aria-label="Download PDF" title="Download PDF">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         PDF
@@ -94,5 +67,37 @@ const figuresJson = JSON.stringify(figures);
         Cite
       </button>
     )}
+      </div>
+    </div>
+
+    <!-- Title (full width) -->
+    <h3 class="type-body leading-snug text-base-content group-hover:text-primary transition-colors mb-0.5" style="font-weight:560;">
+      <span data-only="ko">{paper.title.ko}</span>
+      <span data-only="en">{paper.title.en}</span>
+    </h3>
+
+    <!-- Journal · authors (full width) -->
+    <p class="type-body-sm text-base-content/65 leading-snug">
+      <span class="italic">
+        {paper.journalKo
+          ? (<><span data-only="ko">{paper.journalKo}</span><span data-only="en">{paper.journal}</span></>)
+          : paper.journal}
+      </span>
+      <span class="mx-1.5 text-base-content/30">·</span>
+      {paper.authorsKo ? (
+        <>
+          <span data-only="ko">{paper.authorsKo.map((a, i) => (
+            <>{i > 0 ? ", " : ""}{a === "이승현" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+          ))}</span>
+          <span data-only="en">{paper.authors.map((a, i) => (
+            <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+          ))}</span>
+        </>
+      ) : (
+        paper.authors.map((a, i) => (
+          <>{i > 0 ? ", " : ""}{a === "Seunghyeon Lee" ? <strong class="font-bold text-primary">{a}</strong> : a}</>
+        ))
+      )}
+    </p>
   </div>
 </div>
