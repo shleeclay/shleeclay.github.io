@@ -777,7 +777,10 @@ const confTypeLabels: Record<string, string> = {
         });
         try { localStorage.setItem('pub-view', v); } catch (e) {}
       }
-      btns.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+      // 모바일: 토글이 접기 헤더(section-toggle) 안에 들어가므로, 클릭이 접기로 전파되지 않게 차단
+      const toggleEl = document.querySelector('.pub-view-toggle');
+      if (toggleEl) toggleEl.addEventListener('click', (e) => e.stopPropagation());
+      btns.forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); setView(b.dataset.view); }));
       try { const s = localStorage.getItem('pub-view'); if (s === 'list' || s === 'grid') setView(s); } catch (e) {}
     })();
   </script>
