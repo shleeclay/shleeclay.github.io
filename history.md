@@ -227,3 +227,11 @@
 - GitHub Pages 배포 실패 (`syncing_files` 오류) 발생 후, 이전 커밋의 배포를 재실행하여 사이트 정상화
 - GitHub Pages 배포 실패 (`syncing_files` 오류) 발생 후, 최신 커밋의 배포를 재실행하여 모바일 토글 수정본 반영
 
+## 2026-07-07
+
+- `build_cv.py` 수정하여 긴 프로젝트 제목으로 인한 기간 잘림 문제 해결
+- `build_cv.py`에 도시 미기후·열 원격탐사 관련 내용을 추가하여 Research Interests 최신화
+- `build_cv.py`를 사용하여 `Lee_Seunghyeon_CV_v9.docx` 및 `Lee_Seunghyeon_CV_v9.pdf` 재생성
+- `public/cv/Lee_Seunghyeon_Clay_CV.pdf`를 최신 버전으로 업데이트 및 커밋
+- `build_cv.py` 원본 파일 백업 (`cv/pys_old/260704_build_cv.py`)
+
