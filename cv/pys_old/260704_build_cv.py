@@ -199,8 +199,8 @@ def authors_run(p, authors, me="Seunghyeon Lee", mark_first=False):
 section("Research Interests")
 p = doc.add_paragraph()
 r = p.add_run("Airborne & spaceborne LiDAR (GEDI) for vertical forest structure · forest typology and "
-              "stratification · biomass and carbon estimation · urban ecology, green infrastructure, and "
-              "microclimate · thermal remote sensing · reproducible, code-driven geospatial science.")
+              "stratification · biomass and carbon estimation · urban ecosystems and green infrastructure · "
+              "reproducible, code-driven remote-sensing science.")
 _set_run(r, 9.5)
 p.paragraph_format.space_after = Pt(2)
 
@@ -576,12 +576,10 @@ projects = [
      None),
 ]
 for title, funder, period, role, pi, budget, bullets, outputs in projects:
-    # 제목이 매우 길어 우측탭 기간이 잘리던 문제 → 제목은 전체 폭, 기간은 상세줄 맨 앞으로 이동
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
     _set_run(p.add_run(title), 9.5, bold=True)
+    _set_run(p.add_run("\t" + period), 9, color=GREY)
     ps = doc.add_paragraph()
-    _set_run(ps.add_run(f"{period}"), 9, bold=True, color=GREY)
-    _set_run(ps.add_run(" · "), 9, color=GREY)
     _set_run(ps.add_run(f"{funder} · "), 9, italic=True, color=GREY)
     _set_run(ps.add_run(f"Role: {role}"), 9, italic=True, bold=True, color=ACCENT)
     _set_run(ps.add_run(f" · PI: {pi}"), 9, italic=True, color=GREY)
