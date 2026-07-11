@@ -941,3 +941,13 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 [data-theme="shlee-dark"] .view-toggle button + button { border-left-color: rgba(255,255,255,0.18); }
 [data-theme="shlee-dark"] .view-toggle button:hover { color: #fff; }
 [data-theme="shlee-dark"] .view-toggle button.active { background: #6f9e86; color: #0e1a14; }
+
+/* ── 특허권자 '본인' 하이라이트 (gold) ── */
+.pill-self { background: rgba(224,185,65,0.18); color: #8a6f1a; border: 1px solid rgba(224,185,65,0.5); }
+.owner-self { color: #8a6f1a; font-weight: 700; }
+.patent-card.patent-self { border-color: rgba(224,185,65,0.55); box-shadow: 0 2px 10px rgba(224,185,65,0.14); }
+.patent-row.patent-self { background: rgba(224,185,65,0.07); border-left: 3px solid #e0b941; padding-left: 11px; }
+[data-theme="shlee-dark"] .pill-self { color: #e6c765; background: rgba(224,185,65,0.15); border-color: rgba(224,185,65,0.42); }
+[data-theme="shlee-dark"] .owner-self { color: #e6c765; }
+[data-theme="shlee-dark"] .patent-card.patent-self { border-color: rgba(224,185,65,0.5); }
+[data-theme="shlee-dark"] .patent-row.patent-self { background: rgba(224,185,65,0.09); }

@@ -7,12 +7,13 @@ interface Props { patent: Patent; }
 const { patent } = Astro.props as Props;
 
 const yearText = (patent.registrationDate || patent.applicationDate || "").slice(0, 4) || "—";
+const isOwnerSelf = patent.owner.en === "Seunghyeon Lee";  // 특허권자 본인 → 하이라이트
 const certSrc = patent.certificate
   ? patent.certificate.replace(/\/([^/]+)\.(jpe?g|png|webp)$/i, "/web/$1.webp")
   : "";
 ---
 
-<div class="patent-row group flex gap-3 sm:gap-4 py-3 border-b border-base-300/40 hover:bg-base-200/40 -mx-2 px-2 rounded-md transition-colors">
+<div class={`patent-row group flex gap-3 sm:gap-4 py-3 border-b border-base-300/40 hover:bg-base-200/40 -mx-2 px-2 rounded-md transition-colors ${isOwnerSelf ? "patent-self" : ""}`}>
   <!-- Year -->
   <div class="shrink-0 sm:w-12 sm:pt-1">
     <span class="type-body-sm font-semibold text-base-content/55">{yearText}</span>
@@ -25,6 +26,11 @@ const certSrc = patent.certificate
         <span class="pill pill-reg">Registered</span>
         {patent.registrationDate && (
           <span class="pill pill-co">Reg {fmtDate(patent.registrationDate)}</span>
+        )}
+        {isOwnerSelf && (
+          <span class="pill pill-self">
+            <span data-only="ko">특허권자 본인</span><span data-only="en">Self-owned</span>
+          </span>
         )}
       </div>
       {certSrc && (
@@ -50,8 +56,10 @@ const certSrc = patent.certificate
       <span class="font-medium text-base-content/55">
         <span data-only="ko">특허권자: </span><span data-only="en">Owner: </span>
       </span>
-      <span data-only="ko">{patent.owner.ko}</span>
-      <span data-only="en">{patent.owner.en}</span>
+      <span class={isOwnerSelf ? "owner-self" : ""}>
+        <span data-only="ko">{patent.owner.ko}</span>
+        <span data-only="en">{patent.owner.en}</span>
+      </span>
     </p>
   </div>
 </div>
