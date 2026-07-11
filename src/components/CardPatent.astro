@@ -6,6 +6,7 @@ interface Props { patent: Patent; }
 const { patent } = Astro.props as Props;
 
 const isRegistered = patent.status === "registered";
+const isOwnerSelf = patent.owner.en === "Seunghyeon Lee";  // 특허권자 본인 → 하이라이트
 const yearText = (patent.registrationDate || patent.applicationDate || "").slice(0, 4) || "—";
 
 // Deterministic hue per patent — drives the card's color identity
@@ -21,7 +22,7 @@ const certSrc = patent.certificate
 ---
 
 <article
-  class="patent-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:-translate-y-1 transition-all duration-300"
+  class={`patent-card group relative flex flex-col rounded-xl overflow-hidden bg-base-200/50 border border-base-300/60 hover:-translate-y-1 transition-all duration-300 ${isOwnerSelf ? "patent-self" : ""}`}
   style={`--patent-hue-a: ${hueA}; --patent-hue-b: ${hueB};`}
 >
   <!-- Signature color stripe at top of card -->
@@ -65,9 +66,14 @@ const certSrc = patent.certificate
   <!-- Content -->
   <div class="flex flex-col flex-1 p-4">
 
-    <!-- Tag row — year only (dates shown in meta row below) -->
+    <!-- Tag row — year (+ self-owner highlight) -->
     <div class="flex flex-wrap items-center gap-1.5 mb-3">
       <span class="pill pill-co">{yearText}</span>
+      {isOwnerSelf && (
+        <span class="pill pill-self">
+          <span data-only="ko">특허권자 본인</span><span data-only="en">Self-owned</span>
+        </span>
+      )}
     </div>
 
     <!-- Title -->
@@ -92,8 +98,10 @@ const certSrc = patent.certificate
         <span data-only="ko">특허권자: </span>
         <span data-only="en">Owner: </span>
       </span>
-      <span data-only="ko">{patent.owner.ko}</span>
-      <span data-only="en">{patent.owner.en}</span>
+      <span class={isOwnerSelf ? "owner-self" : ""}>
+        <span data-only="ko">{patent.owner.ko}</span>
+        <span data-only="en">{patent.owner.en}</span>
+      </span>
     </p>
 
     <!-- Meta row — application / registration dates -->
