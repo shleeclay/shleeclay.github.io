@@ -927,17 +927,17 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 }
 
 /* ── Publications 카드 ⇄ 목록 보기 전환 ── */
-#pub-views[data-view="grid"] .pub-list { display: none; }
-#pub-views[data-view="list"] .pub-grid { display: none; }
+.js-viewgroup[data-view="grid"] .view-list { display: none; }
+.js-viewgroup[data-view="list"] .view-grid { display: none; }
 
-.pub-view-toggle { display: inline-flex; border: 1px solid rgba(15,34,24,0.15); border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-.pub-view-toggle button { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; font-size: 12.5px; font-weight: 600; color: rgba(15,34,24,0.55); background: transparent; border: 0; cursor: pointer; transition: background .18s, color .18s; }
-.pub-view-toggle button + button { border-left: 1px solid rgba(15,34,24,0.15); }
-.pub-view-toggle button:hover { color: #1f4e3d; }
-.pub-view-toggle button.active { background: #1f4e3d; color: #fff; }
+.view-toggle { display: inline-flex; border: 1px solid rgba(15,34,24,0.15); border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.view-toggle button { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; font-size: 12.5px; font-weight: 600; color: rgba(15,34,24,0.55); background: transparent; border: 0; cursor: pointer; transition: background .18s, color .18s; }
+.view-toggle button + button { border-left: 1px solid rgba(15,34,24,0.15); }
+.view-toggle button:hover { color: #1f4e3d; }
+.view-toggle button.active { background: #1f4e3d; color: #fff; }
 
-[data-theme="shlee-dark"] .pub-view-toggle { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); box-shadow: none; }
-[data-theme="shlee-dark"] .pub-view-toggle button { color: rgba(255,255,255,0.62); }
-[data-theme="shlee-dark"] .pub-view-toggle button + button { border-left-color: rgba(255,255,255,0.18); }
-[data-theme="shlee-dark"] .pub-view-toggle button:hover { color: #fff; }
-[data-theme="shlee-dark"] .pub-view-toggle button.active { background: #6f9e86; color: #0e1a14; }
+[data-theme="shlee-dark"] .view-toggle { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); box-shadow: none; }
+[data-theme="shlee-dark"] .view-toggle button { color: rgba(255,255,255,0.62); }
+[data-theme="shlee-dark"] .view-toggle button + button { border-left-color: rgba(255,255,255,0.18); }
+[data-theme="shlee-dark"] .view-toggle button:hover { color: #fff; }
+[data-theme="shlee-dark"] .view-toggle button.active { background: #6f9e86; color: #0e1a14; }

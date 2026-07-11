@@ -3,8 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import L from "./L.astro";
 import CardPaper from "./CardPaper.astro";
 import RowPaper from "./RowPaper.astro";
+import ViewToggle from "./ViewToggle.astro";
 import FigureCarousel from "./FigureCarousel.astro";
 import CardPatent from "./CardPatent.astro";
+import RowPatent from "./RowPatent.astro";
 import CardBook from "./CardBook.astro";
 import site, {
   publications, underReview, conferences, projects, patents,
@@ -212,24 +214,12 @@ const confTypeLabels: Record<string, string> = {
     <L tag="h2" class="type-display-lg mb-3" ko={`${site.publications.title.ko} (${publications.length})`} en={`${site.publications.title.en} (${publications.length})`} />
     <L tag="p" class="type-body text-base-content/70 mb-6" ko={site.publications.intro.ko} en={site.publications.intro.en} />
 
-    <div id="pub-views" data-view="grid">
-      <!-- 카드 ⇄ 목록 보기 전환 — 본문 상단(접기 헤더 밖)에 두어 접기와 충돌하지 않음 -->
-      <div class="flex justify-end mb-4">
-        <div class="pub-view-toggle" role="group" aria-label="보기 전환 / View mode">
-          <button type="button" data-view="grid" class="active" aria-pressed="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            <span data-only="ko">카드</span><span data-only="en">Grid</span>
-          </button>
-          <button type="button" data-view="list" aria-pressed="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            <span data-only="ko">목록</span><span data-only="en">List</span>
-          </button>
-        </div>
-      </div>
-      <div class="pub-grid grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+    <div class="js-viewgroup" data-view="grid" data-viewkey="pub">
+      <ViewToggle />
+      <div class="view-grid grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
         {sortedPublications.map((p) => <CardPaper paper={p} />)}
       </div>
-      <div class="pub-list">
+      <div class="view-list">
         {sortedPublications.map((p) => <RowPaper paper={p} />)}
       </div>
     </div>
@@ -572,8 +562,14 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="en">{registeredPatents.length} registered</span>
           </p>
         </div>
-        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-          {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
+        <div class="js-viewgroup" data-view="grid" data-viewkey="patents">
+          <ViewToggle />
+          <div class="view-grid grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+            {registeredPatents.map((pt) => <CardPatent patent={pt} />)}
+          </div>
+          <div class="view-list">
+            {registeredPatents.map((pt) => <RowPatent patent={pt} />)}
+          </div>
         </div>
       </div>
     )}
@@ -762,26 +758,28 @@ const confTypeLabels: Record<string, string> = {
     })();
   </script>
 
-  <!-- ───────── Publications 카드 ⇄ 목록 보기 전환 ───────── -->
+  <!-- ───────── 카드 ⇄ 목록 보기 전환 (범용: .js-viewgroup) ───────── -->
   <script is:inline>
     (function () {
-      const wrap = document.getElementById('pub-views');
-      if (!wrap) return;
-      const btns = document.querySelectorAll('.pub-view-toggle button');
-      function setView(v) {
-        wrap.dataset.view = v;
-        btns.forEach((b) => {
-          const on = b.dataset.view === v;
-          b.classList.toggle('active', on);
-          b.setAttribute('aria-pressed', String(on));
-        });
-        try { localStorage.setItem('pub-view', v); } catch (e) {}
-      }
-      // 모바일: 토글이 접기 헤더(section-toggle) 안에 들어가므로, 클릭이 접기로 전파되지 않게 차단
-      const toggleEl = document.querySelector('.pub-view-toggle');
-      if (toggleEl) toggleEl.addEventListener('click', (e) => e.stopPropagation());
-      btns.forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); setView(b.dataset.view); }));
-      try { const s = localStorage.getItem('pub-view'); if (s === 'list' || s === 'grid') setView(s); } catch (e) {}
+      document.querySelectorAll('.js-viewgroup').forEach((grp) => {
+        const key = 'view-' + (grp.dataset.viewkey || 'x');
+        const toggleEl = grp.querySelector('.view-toggle');
+        const btns = grp.querySelectorAll('.view-toggle button');
+        if (!toggleEl || !btns.length) return;
+        function setView(v) {
+          grp.dataset.view = v;
+          btns.forEach((b) => {
+            const on = b.dataset.view === v;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', String(on));
+          });
+          try { localStorage.setItem(key, v); } catch (e) {}
+        }
+        // 모바일: 토글이 접기 헤더 안에 있어도 클릭이 접기로 전파되지 않게 차단
+        toggleEl.addEventListener('click', (e) => e.stopPropagation());
+        btns.forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); setView(b.dataset.view); }));
+        try { const s = localStorage.getItem(key); if (s === 'list' || s === 'grid') setView(s); } catch (e) {}
+      });
     })();
   </script>
 
