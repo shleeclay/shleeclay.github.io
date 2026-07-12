@@ -235,3 +235,14 @@
 - `public/cv/Lee_Seunghyeon_Clay_CV.pdf`를 최신 버전으로 업데이트 및 커밋
 - `build_cv.py` 원본 파일 백업 (`cv/pys_old/260704_build_cv.py`)
 
+## 2026-07-11
+
+*   특허 섹션에 등록 특허를 위한 카드/목록 토글 기능 추가
+*   `ViewToggle.astro` 컴포넌트 생성하여 토글 로직 범용화
+*   `RowPatent.astro` 컴포넌트 생성하여 특허 목록 행 UI 구현
+*   특허 목록 보기의 라벨 "인증서"를 "특허증"으로 변경
+*   about 통계 영문 라벨 "Online courses"를 "Online lectures"로 변경
+*   본인 소유 등록 특허에 "특허권자 본인 / Self-owned" 골드 배지 추가
+*   목록 행의 골드 배경색 제거
+*   카드 보기의 골드 테두리 제거
+
