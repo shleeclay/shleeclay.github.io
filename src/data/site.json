@@ -93,7 +93,8 @@
         "program":     { "ko": "협동과정 조경학 · 융합전공 스마트시티 글로벌 융합",                              "en": "Interdisciplinary Program in Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
         "institution": { "ko": "서울대학교",                                                                "en": "Seoul National University, Seoul, Republic of Korea" },
         "lab":         { "ko": "생태계획연구실",                                                            "en": "Landscape & Ecological Planning Lab" },
-        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" }
+        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" },
+        "thesis": "LiDAR-Based Characterization of Vertical Structure and Disturbance in Temperate Forests"
       },
       {
         "period": "2020.03 — 2022.02",
@@ -102,7 +103,8 @@
         "program":     { "ko": "환경조경학과 · 융합전공 스마트시티 글로벌 융합 (석사 학위 수여)",                  "en": "Landscape Architecture · Integrated Major in SmartCity Global Convergence" },
         "institution": { "ko": "서울대학교 환경대학원",                                                       "en": "Graduate School of Environmental Studies, Seoul National University" },
         "lab":         { "ko": "생태계획연구실",                                                            "en": "Landscape & Ecological Planning Lab" },
-        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" }
+        "advisor":     { "ko": "지도교수: 송영근 교수",                                                       "en": "Advisor: Prof. Youngkeun Song" },
+        "thesis": "Feasibility of Wildlife Detection Using UAV-derived Thermal and True-color Imagery"
       },
       {
         "period": "2011.03 — 2017.02",
