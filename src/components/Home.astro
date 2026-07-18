@@ -202,6 +202,17 @@ const confTypeLabels: Record<string, string> = {
                 <span data-only="en">{e.lab.en}{e.advisor ? ` · ${e.advisor.en}` : ''}</span>
               </p>
             )}
+            {e.thesis && (
+              <p class="type-body-sm text-base-content/55 mt-1.5 leading-snug">
+                <span class="font-semibold text-primary">
+                  {e.degree.en.startsWith("Ph.D") ? (
+                    <><span data-only="ko">박사학위논문</span><span data-only="en">Dissertation</span></>
+                  ) : (
+                    <><span data-only="ko">석사학위논문</span><span data-only="en">Thesis</span></>
+                  )}: </span>
+                <span class="italic">“{e.thesis}”</span>
+              </p>
+            )}
           </div>
         </div>
       ))}

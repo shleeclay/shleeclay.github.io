@@ -34,6 +34,7 @@ export type Education = {
   institution: Bi;
   lab: Bi | null;
   advisor: Bi | null;
+  thesis?: string;   // 학위논문 제목 (영문, 양쪽 페이지 공통)
 };
 
 export type Publication = {
