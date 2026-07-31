@@ -276,3 +276,10 @@
 * CV 5페이지 분량에 맞도록 내용 압축 및 재구성 제안
 * Bi-temporal ALS Assessment 연구 논문의 accepted 상태 반영
 
+## 2026-07-31
+
+- feedback_deliverable_scope.md 파일 생성
+- MEMORY.md 파일 업데이트
+- CV 파일 분석 (v9 CV 콘텐츠, 출판물, 초청 강연 및 학회 발표)
+- Fulbright 지원용 CV 페이지 및 단어 수 확인
+
