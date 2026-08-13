@@ -97,50 +97,62 @@ def col(sheet, name):
 # ── A. 항목 수 대조 ───────────────────────────────────────────────────
 # (xlsx시트, site.json경로, CV값, 의도된 차이 설명 or None)
 SPEC = [
-    ("Research Interests", "hero.focus", 6, None),
-    ("Education", "education.items", len(cv_list("edu") or []),
-     "xlsx만 고등학교 행 포함 (국내 서식용)"),
-    ("Publications", "publications.items", len(bib_dois()), None),
-    ("Under Review", "publications.underReview.items", len(cv_list("under_review") or []), None),
-    ("Books", "honors.books.items", 1, None),
-    ("Conferences", "conferences.items", len(cv_list("confs") or []),
-     "CV는 국제학회만 게재"),
-    ("Invited Talks", None, len(cv_list("invited") or []), None),
-    ("Teaching", "teaching.items", None, "CV는 서술형 요약이라 건수 비교 불가"),
-    ("Funding", "honors.scholarships.items", len(cv_list("funding") or []), None),
-    ("Projects", "projects.items", len(cv_list("projects") or []), None),
-    ("Patents", "patents.items",
-     len(cv_inline("_patent_list", 0) or []) + len(cv_inline("_patent_list", 1) or []), None),
-    ("Awards", None, len(cv_inline("_tabbed", 0) or []), None),
-    ("Service & Membership", None, len(cv_list("members") or []) + 1, "심사위원 1건은 인라인"),
-    ("Certifications", "honors.certifications.items", None,
-     "영문 CV에 자격증 섹션 없음 — short CV의 Technical Skills 에 문자열로 포함"),
-    ("Language Tests", None, None, None),
-    ("Technical Skills", None, None, "build_cv_short.py 에만 존재"),
-    ("Work & Internships", None,
-     len(cv_list("exp") or []) + len(cv_list("prof") or []), None),
-    ("Personal", None, None, "인적사항은 CV/웹 대상 아님"),
+    ("Research Interests", "hero.focus", None),
+    ("Education", "education.items", "xlsx만 고등학교 행 포함 (CV 표시=N)"),
+    ("Publications", "publications.items", None),
+    ("Under Review", "publications.underReview.items", None),
+    ("Books", "honors.books.items", None),
+    ("Conferences", "conferences.items", None),
+    ("Invited Talks", None, "학회 시트의 CV분류=invited 와 합산해 CV 4건"),
+    ("Teaching", "teaching.items", None),
+    ("Funding", "honors.scholarships.items", None),
+    ("Projects", "projects.items", None),
+    ("Patents", "patents.items", None),
+    ("Awards", None, "웹에 미게재"),
+    ("Service & Membership", None, "웹에 미게재"),
+    ("Certifications", "honors.certifications.items", None),
+    ("Language Tests", None, None),
+    ("Technical Skills", None, "build_cv_short.py 에만 존재"),
+    ("Work & Internships", None, "웹 노출은 아래 플래그 대조 참조"),
+    ("Personal", None, "인적사항은 CV/웹 대상 아님"),
 ]
 
 print("=" * 78)
 print("A. 항목 수 대조")
 print("=" * 78)
-print(f"  {'항목':24s} {'xlsx':>5s} {'CV':>5s} {'web':>5s}   비고")
-for sheet, jpath, cvn, note in SPEC:
-    x = rows(sheet)
+print(f"  {'항목':24s} {'xlsx':>5s} {'web':>5s}   비고")
+for sh, jpath, note in SPEC:
+    x = rows(sh)
     w = len(sj(jpath)) if jpath else None
     f = lambda v: "-" if v is None else str(v)
     if x is None:
-        warn(f"{sheet}: xlsx 에 시트가 없음 (삭제되었거나 이름이 바뀜)")
-        print(f"  {sheet:24s} {'없음':>5s} {f(cvn):>5s} {f(w):>5s}   <!>")
+        warn(f"{sh}: xlsx 에 시트가 없음 (삭제되었거나 이름이 바뀜)")
+        print(f"  {sh:24s} {'없음':>5s} {f(w):>5s}   <!>")
         continue
-    vals = [v for v in (x, cvn, w) if v is not None]
     flag = ""
-    if len(set(vals)) > 1:
-        flag = f"  <{note}>" if note else warn(f"{sheet}: xlsx={x} CV={f(cvn)} web={f(w)}")
-    print(f"  {sheet:24s} {x:>5d} {f(cvn):>5s} {f(w):>5s} {flag}")
+    if w is not None and w != x:
+        flag = f"  <{note}>" if note else warn(f"{sh}: xlsx={x} web={w}")
+    elif note:
+        flag = f"  <{note}>"
+    print(f"  {sh:24s} {x:>5d} {f(w):>5s} {flag}")
 
-# ── A-2. 경력 — 웹 표시 플래그 기준 대조 ──────────────────────────────
+# ── A-2. build_cv.py 가 xlsx 를 읽는지 (리팩터 회귀 방지) ────────────
+print()
+print("  build_cv.py 데이터 출처")
+_reads = sorted({ast.literal_eval(n.args[0])
+                 for n in ast.walk(cv_ast)
+                 if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
+                 and n.func.id == "sheet" and n.args})
+_lits = [getattr(n.targets[0], "id", "?") for n in cv_ast.body
+         if isinstance(n, ast.Assign) and isinstance(n.value, (ast.List, ast.Tuple))
+         and not getattr(n.targets[0], "id", "").startswith("_KEEP")]
+print(f"    xlsx 를 읽는 시트: {', '.join(_reads)}")
+print(f"    남은 리터럴: {', '.join(_lits) if _lits else '없음'}"
+      "   (contact/_pubs 는 정상 — 연락처와 bib 누적용)")
+_HARDCODED = ["Research Interests", "Books", "Teaching Experience", "References"]
+print(f"    아직 코드에 서술된 섹션: {', '.join(_HARDCODED)}")
+
+# ── A-3. 경력 — 웹 표시 플래그 기준 대조 ──────────────────────────────
 print()
 print("  경력 웹 노출: xlsx 의 '웹 표시'=Y 인 행이 site.json career 와 맞는지")
 flags = col("Work & Internships", "웹 표시")
