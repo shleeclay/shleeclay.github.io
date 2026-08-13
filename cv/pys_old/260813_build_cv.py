@@ -20,108 +20,6 @@ from datetime import date as _dtdate
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# ---------------------------------------------------------------- data source
-# 사실 데이터의 정본은 application_info.xlsx 다. 이 파일에 값을 직접 적지 않는다.
-#   - 원자 필드로 CV 표기가 재현되면 규칙으로 조합한다
-#   - 재현되지 않는 curated 표기는 xlsx 의 'CV 표기(EN)' / 'CV 서술(EN)' 컬럼을 그대로 쓴다
-#   - 수록 대상은 xlsx 의 'CV 표시' / 'CV 구분' / 'CV 분류' 플래그로 고른다
-import openpyxl as _oxl
-
-_WB = _oxl.load_workbook(os.path.join(HERE, "application_info.xlsx"), data_only=True)
-
-
-def sheet(name, where=None, order=None):
-    """xlsx 시트를 dict 리스트로. where 로 거르고 order 로 정렬한다.
-    엑셀의 행 순서에 의존하지 않도록 정렬 키를 명시하는 것을 원칙으로 한다."""
-    ws = _WB[name]
-    hdr = [str(c.value) for c in ws[1]]
-    out = [dict(zip(hdr, r)) for r in ws.iter_rows(min_row=2, values_only=True)]
-    out = [r for r in out if any(v is not None for v in r.values())]
-    if where:
-        out = [r for r in out if where(r)]
-    if order:
-        out.sort(key=order)
-    return out
-
-
-def years_only(period):
-    """'2022/09 — 2025' -> '2022 — 2025' (CV 는 장학 기간을 연도로만 표기)"""
-    return re.sub(r"(\d{4})/\d{2}", r"\1", str(period or "")).strip()
-
-
-def _dot(s):
-    """제목 끝의 마침표는 표기 규칙이므로 렌더러가 붙인다 (xlsx 에는 넣지 않는다)."""
-    return str(s or "").rstrip(". ") + "."
-
-
-def _ym(v):
-    """'2024/07/22' -> '2024.07'  (CV 는 경력 기간을 연.월로 표기)"""
-    m = re.match(r"(\d{4})/(\d{2})", str(v or ""))
-    return f"{m.group(1)}.{m.group(2)}" if m else ""
-
-
-def _work(kind):
-    """Work & Internships 에서 CV 구분으로 골라 (직위, 소속, 기간, 서술) 튜플로."""
-    out = []
-    for r in sheet("Work & Internships", where=lambda r: r["CV 구분"] == kind,
-                   order=lambda r: _desc(r["Start Date"])):
-        end = _ym(r["End Date"]) or "Present"
-        out.append((r["CV 직위(EN)"], r["CV 소속(EN)"],
-                    f'{_ym(r["Start Date"])} — {end}', r["CV 서술(EN)"]))
-    return out
-
-
-# 문장형 표기에서 소문자로 내리면 안 되는 것: 약어 · 고유명사 · 상표
-_KEEP_WORDS = ["LiDAR", "GEDI", "XGBoost", "UAV", "ALS", "MLS", "RGB", "DEM", "DTM", "CHM",
-               "Sentinel-2", "Landsat", "PlanetScope", "Gyeonggi-do", "Korea", "Korean",
-               "Japan", "China", "Seoul", "AGU", "ESA", "ICLEE", "JCK", "CES", "KOSERT"]
-_KEEP = {re.sub(r"[^a-z0-9]", "", w.lower()): w for w in _KEEP_WORDS}
-
-# 여러 단어로 된 고유명사 — 단어 단위 보호로는 잡히지 않아 변환 후 되돌린다
-_KEEP_PHRASES = ["Gyeonggi-do Province", "Republic of Korea", "World Forestry Congress",
-                 "Consumer Electronics Show", "Seoul National University"]
-
-
-def sentence_case(title):
-    """제목형 -> 문장형 (APA 7th). 첫 단어와 보호 목록만 대문자를 유지한다.
-    토큰 전체를 먼저 보호 목록과 대조하므로 Gyeonggi-do / Sentinel-2 처럼
-    하이픈이 든 고유명사가 쪼개지지 않는다."""
-    def one(tok, first):
-        m = re.match(r"^(\W*)(.*?)(\W*)$", tok, re.S)
-        pre, mid, post = m.group(1), m.group(2), m.group(3)
-        if not mid:
-            return tok
-        bare = re.sub(r"[^a-z0-9]", "", mid.lower())
-        if bare in _KEEP:
-            return pre + _KEEP[bare] + post
-        out = []
-        for i, part in enumerate(mid.split("-")):
-            pb = re.sub(r"[^a-z0-9]", "", part.lower())
-            if pb in _KEEP:
-                out.append(_KEEP[pb])
-            elif first and i == 0:
-                out.append(part[:1].upper() + part[1:].lower())
-            else:
-                out.append(part.lower())
-        return pre + "-".join(out) + post
-
-    out = " ".join(one(t, i == 0) for i, t in enumerate(str(title or "").split(" ")))
-    for ph in _KEEP_PHRASES:
-        out = re.sub(re.escape(ph), ph, out, flags=re.I)
-    return out
-
-
-def _lower_first(s):
-    """괄호 안 설명은 소문자로 시작한다. 단 약어·고유명사(GEDI 등)는 그대로 둔다."""
-    s = str(s or "")
-    head = re.sub(r"[^a-z0-9]", "", s.split(" ")[0].lower())
-    return s if head in _KEEP else s[:1].lower() + s[1:]
-
-
-def _desc(v):
-    """문자열 날짜를 내림차순 정렬 키로. CV 는 모든 섹션이 최신순이다."""
-    return tuple(-ord(c) for c in str(v or ""))
-
 # ---------------------------------------------------------------- palette
 INK    = RGBColor(0x1a, 0x1a, 0x1a)
 ACCENT = RGBColor(0x1f, 0x4e, 0x3d)   # deep forest green
@@ -299,49 +197,48 @@ def authors_run(p, authors, me="Seunghyeon Lee", mark_first=False):
 
 # ---------------------------------------------------------------- Research Interests
 section("Research Interests")
-# 첫 항목만 대문자로 시작하고 나머지는 이어쓰기 (한 문장으로 읽히게)
-_ri = [r["Interest(EN)"] for r in sheet("Research Interests", order=lambda r: r["No."])]
 p = doc.add_paragraph()
-r = p.add_run(" · ".join([_ri[0]] + [_lower_first(x) for x in _ri[1:]]) + ".")
+r = p.add_run("Airborne & spaceborne LiDAR (GEDI) for vertical forest structure · forest typology and "
+              "stratification · biomass and carbon estimation · urban ecology, green infrastructure, and "
+              "microclimate · thermal remote sensing · reproducible, code-driven geospatial science.")
 _set_run(r, 9.5)
 p.paragraph_format.space_after = Pt(2)
 
 # ---------------------------------------------------------------- Education
 section("Education")
-def _edu_period(r):
-    """수여 예정이면 CV 는 'Aug 2026' 형식으로 쓴다. 확정 학위는 Start-End 를 그대로."""
-    se = str(r["Start–End"] or "")
-    if not str(r["Date Degree Received"] or "").startswith("Expected"):
-        return se
-    head, _, tail = se.partition(" — ")
-    y, _, m = tail.partition(".")
-    return f"{head} — {_MONTHS[int(m)]} {y}" if m.isdigit() else se
-
-
-def _edu_bullets(r):
-    """학위논문 + (있으면) 심사위원. 박사는 Dissertation, 그 외는 Thesis."""
-    out = []
-    if r["학위논문(EN)"]:
-        label = "Dissertation" if "Doctoral" in str(r["Level of Study"]) else "Thesis"
-        out.append(f'{label}: “{r["학위논문(EN)"]}”')
-    if r["심사위원(EN)"]:
-        out.append(f'Committee: {r["심사위원(EN)"]}')
-    return out or None
-
-
-_MONTHS = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun",
-           7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
-
-edu = [(f'{r["Degree(EN)"]}, {str(r["Program(EN)"]).split(" · ")[0]}',
-        _edu_period(r), r["CV 서술(EN)"], _edu_bullets(r))
-       for r in sheet("Education", where=lambda r: r["CV 표시"] == "Y",
-                      order=lambda r: r["No."])]
+edu = [
+    ("Ph.D., Interdisciplinary Program in Landscape Architecture",
+     "2022.03 — Aug 2026",
+     "Integrated Major in SmartCity Global Convergence · Seoul National University · "
+     "Landscape & Ecological Planning Lab · Advisor: Prof. Youngkeun Song",
+     ["Dissertation: “LiDAR-Based Characterization of Vertical Structure and Disturbance in "
+      "Temperate Forests”",
+      "Committee: Dongkun Lee, Youngryel Ryu (Seoul National Univ.); Hansoo Kim (Gyeonggi Research "
+      "Institute); Dennis Heejoon Choi (Dankook Univ.); Youngkeun Song (advisor, SNU)"]),
+    ("M.A., Landscape Architecture",
+     "2020.03 — 2022.02",
+     "Integrated Major in SmartCity Global Convergence · Graduate School of Environmental Studies, "
+     "Seoul National University · Advisor: Prof. Youngkeun Song",
+     ["Thesis: “Feasibility of Wildlife Detection Using UAV-derived Thermal and True-color Imagery”"]),
+    ("B.S., Landscape Architecture",
+     "2011.03 — 2017.02",
+     "College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea", None),
+]
 for lead, date, sub, bl in edu:
     entry(lead, right=date, sub=sub, bullets=bl)
 
 # ---------------------------------------------------------------- Research Experience
 section("Research Experience")
-exp = _work("research")
+exp = [
+    ("Visiting Research Intern", " — Virginia Tech (PI: Prof. Jaeyoung Ha)",
+     "2024.07 — 2024.08", "Blacksburg, VA, United States · Landscape architecture"),
+    ("Visiting Research Intern", " — Purdue University, FNR FUSE Lab (PI: Prof. Brady Hardiman)",
+     "2023.12 — 2024.02", "West Lafayette, IN, United States · Forest structure & LiDAR"),
+    ("Graduate Researcher", " — Landscape & Ecological Planning Lab, Seoul National University",
+     "2020.03 — Present", "National R&D and municipal projects on LiDAR forest structure, carbon, and urban ecology"),
+    ("Research Assistant", " — Architecture & Urban Research Institute (AURI)",
+     "2019.08 — 2019.11", "Republic of Korea"),
+]
 for lead, rest, date, sub in exp:
     entry(lead, right=date, sub=sub, left_rest=rest)
 
@@ -450,11 +347,27 @@ p = doc.add_paragraph()
 r = p.add_run("APA 7th.  Name in bold = author; † = first author.  (5 manuscripts; first-author listed first)")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 # status = "stage|date"  (stage shown in brackets, date in grey)
-# 심사중 원고: 저자는 쉼표 구분 문자열이므로 리스트로 되돌린다.
-under_review = [([a.strip() for a in str(r["Authors(EN)"]).split(",")],
-                 _dot(r["Title(EN)"]), r["Journal(EN)"],
-                 f'{r["Status"]}|{r["Status Date"]}')
-                for r in sheet("Under Review", order=lambda r: r["No."])]
+under_review = [
+    (["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song", "James H. Thorne"],
+     "Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer "
+     "plantation.", "Science of Remote Sensing", "Manuscript under review|2026.04"),
+    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"],
+     "Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic "
+     "conditions on discrepancies between ALS and field surveys.", "Geoscience Letters",
+     "Revise and resubmit, 1st round|2026.06"),
+    (["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],
+     "Bi-temporal ALS assessment of vertical–horizontal forest structures and their "
+     "association in a temperate urban forest.", "Forest Science and Technology",
+     "Revise and resubmit, 2nd round|2026.05"),
+    (["Yonghwan Kim", "Seunghyeon Lee", "Wonhyeop Shin", "Youngkeun Song"],
+     "Integrating UAV-derived habitat metrics with movement persistence and species distribution models "
+     "to characterize seasonal habitat use of invasive turtles in urban wetlands.",
+     "Global Ecology and Conservation", "Revise and resubmit, 1st round|2026.05"),
+    (["Gapseong Jekal", "Yong Hwan Kim", "Seunghyeon Lee", "Ji Weon Yun", "Dae Yeol Kim", "Youngkeun Song"],
+     "Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from "
+     "multi-season Sentinel-2 in a coastal wetland.", "Journal of Coastal Conservation",
+     "Revise and resubmit, 1st round|2026.02"),
+]
 for n, (auth, title, jour, status) in enumerate(under_review, 1):
     apa = [_apa_author(a) for a in auth]
     stage, _, dt = status.partition("|")
@@ -480,28 +393,27 @@ for n, (auth, title, jour, status) in enumerate(under_review, 1):
 
 # ---------------------------------------------------------------- Books
 section("Books")
-# 저자 문자열 안에서 본인 이름만 굵게 — 이름 위치로 잘라 세 조각으로 출력한다
-_ME = "Seunghyeon Lee"
-for _n, _b in enumerate(sheet("Books", order=lambda r: r["No."]), 1):
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
-    p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
-    _set_run(p.add_run(f"{_n}. "), 9, color=GREY)
-    _auth = str(_b["Authors(EN)"] or "")
-    _head, _sep, _tail = _auth.partition(_ME)
-    _set_run(p.add_run(_head), 9)
-    if _sep:
-        _set_run(p.add_run(_sep), 9, bold=True)
-    _set_run(p.add_run(f'{_tail} ({_b["Year"]}). '), 9)
-    _set_run(p.add_run(str(_b["Title(EN)"])), 9, italic=True)
-    _set_run(p.add_run(f'. {_b["Publisher(EN)"]}. ISBN {_b["ISBN"]}.'), 9)
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
+_set_run(p.add_run("1. "), 9, color=GREY)
+_set_run(p.add_run("YOZMDOSI collective ("), 9)
+_set_run(p.add_run("Seunghyeon Lee"), 9, bold=True)
+_set_run(p.add_run(", contributing author) (2021). "), 9)
+_set_run(p.add_run("New Normal City"), 9, italic=True)
+_set_run(p.add_run(". Urban Issue. ISBN 9791197343100."), 9)
 
 # ---------------------------------------------------------------- Fellowships & Funding
 section("Fellowships & Funding")
 p = doc.add_paragraph()
 r = p.add_run("Competitive fellowships / scholarships (amounts converted at ₩1,400 = $1).")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
-funding = [(r["CV 표기(EN)"], years_only(r["Period"]), r["Amount(USD)"])
-           for r in sheet("Funding", order=lambda r: r["No."])]
+funding = [
+    ("Chung Mong-Koo Foundation — OnDream Future Industry Talent Graduate Fellowship (full)",
+     "2022 — 2025", "$25,000"),
+    ("BK21 FOUR — Integrated Major in SmartCity Global Convergence (full)", "2020 — 2025", "$39,285"),
+    ("Ilju Foundation Undergraduate Scholarship, 23rd Scholar (full)", "2015 — 2017", "$10,714"),
+    ("Challenge Scholarship, Kyungpook National University (full)", "2011 — 2013", "$18,571"),
+]
 for name, period, amount in funding:
     p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
     _set_run(p.add_run(name), 9)
@@ -510,14 +422,16 @@ for name, period, amount in funding:
 
 # ---------------------------------------------------------------- Invited talks
 section("Invited Talks")
-# 초청강연은 두 시트에 나뉘어 있다: 전용 시트(대학 초청강의) + 학회 시트의 CV분류=invited
-invited = [(_dot(r["Title(EN)"]), r["Venue(EN)"], str(r["Year"]))
-           for r in sheet("Invited Talks", order=lambda r: r["No."])] + \
-          [(_dot(r["Title(EN)"]), f'{r["Conference(EN)"]}, {r["Venue(EN)"]}', str(r["Year"]))
-           for r in sheet("Conferences", where=lambda r: r["CV 분류"] == "invited",
-                          order=lambda r: _desc(r["Date"]))]
-# 전 섹션 공통으로 최신순. 대학 초청강의(전용 시트)는 날짜가 없어 No. 순이며 모두 2025년이라
-# 학회 시트에서 오는 2024년 건들보다 앞선다.
+invited = [
+    ("The understanding and applications of thermal sensors.",
+     "Guest lecture, SmartCity Industrial Technology Seminar (3 cr.), Seoul National University", "2025"),
+    ("Understanding spatial information and research cases.",
+     "Guest lecture, Environmental Conservation & Land Management (3 cr.), Seoul National University", "2025"),
+    ("Remotely sensed smart-city ecological value maps.",
+     "NEF (Neocity Empowerment Forum), Orlando, FL", "2024"),
+    ("Invasive species monitoring development and its application.",
+     "Asia Week, Fukuoka, Japan", "2024"),
+]
 for title, venue, yr in invited:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
@@ -534,16 +448,44 @@ r = p.add_run("First author / presenter unless marked “team”.  "
               "10 domestic presentations (KOSERT, KSEE, KILA) available on request.")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
-# 국제학회 발표만 CV 에 싣는다 (국내 10건은 요약 문구로 대체).
-# 제목은 실제 초록 제출 제목을 저장하고, 표기만 APA 문장형으로 변환한다.
-confs = [([a.strip() for a in str(r["Authors"]).split(",")], r["Year"],
-          str(r["Type"]).capitalize() + (", team" if r["팀 발표"] == "Y" else ""),
-          _dot(sentence_case(r["Title(EN)"])),
-          f'{r["CV 학회(EN)"]}, {r["Venue(EN)"]}')
-         for r in sheet("Conferences",
-                        where=lambda r: r["Scope"] == "international"
-                        and r["CV 분류"] == "conference",
-                        order=lambda r: _desc(r["Date"]))]
+confs = [
+    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2025, "Poster",
+     "Novel LiDAR indices reveal scale-dependent vertical structure and typologies in a temperate forest.",
+     "AGU Fall Meeting, New Orleans, US"),
+    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Poster",
+     "Quantifying the number of forest stratification layers of city-scale forest and characterizing by "
+     "forest types.", "AGU Fall Meeting, Washington D.C., US"),
+    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Oral",
+     "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR.",
+     "ICLEE, Kitakyushu, Japan"),
+    (["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], 2024, "Poster",
+     "Characterizing forest vegetation stratification by forest biotope types using airborne LiDAR.",
+     "ESA Annual Meeting, Long Beach, CA, US"),
+    (["BK21 SmartCity Team"], 2024, "Video, team",
+     "Smart city & green infrastructure.", "CES (Consumer Electronics Show), Las Vegas, NV"),
+    (["Landscape & Ecological Planning Lab"], 2023, "Oral, team",
+     "Property-information analysis of Gyeonggi-do Province biotopes.",
+     "JCK Symposium (18th), Kyoto, Japan"),
+    (["Seunghyeon Lee", "Youngkeun Song"], 2023, "Poster",
+     "Wildfire-driven forest vegetation height change comparison.", "JCK Symposium (18th), Kyoto, Japan"),
+    (["Seunghyeon Lee", "Youngkeun Song"], 2023, "Poster",
+     "The impacts of fire-induced disturbances on tree height and structure using GEDI-derived variables.",
+     "ESA Annual Meeting, Portland, OR, US"),
+    (["Seunghyeon Lee", "Youngkeun Song"], 2022, "Oral",
+     "Monitoring structural change of fire-induced forest vegetation using GEDI.", "ICLEE (12th), Online"),
+    (["Seunghyeon Lee", "Youngkeun Song"], 2022, "Oral",
+     "Comparison of GEDI and aerial laser scanning datasets according to leaf-on and leaf-off seasons.",
+     "AGU Fall Meeting, Chicago, IL, US / Online"),
+    (["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song"], 2022, "Video",
+     "Classification of tree species and forest floor using XGBoost with forest maps, "
+     "airborne LiDAR, and satellite imagery.", "World Forestry Congress (15th), Seoul, South Korea"),
+    (["Seunghyeon Lee", "Sung-Ho Kil", "Youngkeun Song"], 2022, "Poster",
+     "Feasibility analyses of real-time detection of wildlife using UAV-derived thermal and RGB images.",
+     "World Forestry Congress (15th), Seoul, South Korea"),
+    (["Seunghyeon Lee", "DaeYeol Kim", "Dennis Heejoon Choi", "Hansoo Kim", "Youngkeun Song"], 2021, "Poster",
+     "Detecting individual broad-leaved trees by a trunk-extraction method using leaf-off airborne LiDAR.",
+     "AGU Fall Meeting, New Orleans, US / Online"),
+]
 for auth, yr, kind, title, venue in confs:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
     p.paragraph_format.left_indent = Inches(0.28)
@@ -561,14 +503,78 @@ r = p.add_run("National R&D and municipal projects (newest first).  "
               "Budget = total project funding (national R&D).")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
-# 과제는 CV 표기(다듬은 과제명 · 기여 불릿 · 성과 요약)를 쓴다.
-# xlsx 의 Title(EN)/기여(EN)/논문(EN)/특허(EN) 은 지원서 서식용 원문이라 별도로 둔다.
-projects = [(r["CV 과제명(EN)"], r["Institute(EN)"],
-             str(r["기간"] or "").replace("/", "."), r["Role(EN)"], r["PI(EN)"],
-             r["예산(USD)"],
-             str(r["CV 기여(EN)"]).splitlines() if r["CV 기여(EN)"] else None,
-             r["CV 성과(EN)"])
-            for r in sheet("Projects", order=lambda r: r["No."])]
+projects = [
+    ("Janghang National Wetland Restoration — ecosystem monitoring",
+     "Korea Environmental Conservation Institute", "2025.07 — 2025.11", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Led UAV multispectral and LiDAR mapping of the restoration site",
+      "Estimated current carbon stock from UAV LiDAR and predicted future stock from the wetland-park vegetation master plan"],
+     "Coastal-wetland multi-season Sentinel-2 monitoring (manuscript under review)"),
+    ("Carbon storage/sink analysis and inventory for Gyeonggi-do by biotope type",
+     "Gyeonggi Research Institute", "2024.06 — 2025.05", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Analyzed province-wide vertical and horizontal forest structure from ALS",
+      "Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery"],
+     "Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Science of Remote Sensing, under review); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations"),
+    ("Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services",
+     "Korean Ministry of Environment", "2023.04 — 2027.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$1.13M",
+     ["Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR",
+      "Quantified carbon storage of abandoned paddies and adjacent vegetation"],
+     "Insect diversity & ecological structure (Agric., Ecosyst. & Environ. 2026); Rook habitat preferences (Global Ecology & Conservation 2025)"),
+    ("Gyeonggi-do biotope property-information analysis",
+     "Gyeonggi Research Institute", "2022.12 — 2023.11", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Developed and quantified a method to analyze vegetation layer structure by forest type"],
+     "Forest layer-typology metrics (Ecological Indicators 2026); JCK 2023 presentation"),
+    ("Creation, restoration & management technology of carbon-accumulated abandoned-paddy wetland",
+     "Korean Ministry of Environment", "2022.04 — 2026.12", "Researcher",
+     "Prof. Bonhak Koo (Sangmyung Univ.)", "$391K",
+     ["Mapped abandoned-paddy sites and built field drone multispectral / LiDAR datasets"],
+     "Non-destructive carbon storage of Salix spp. (KOSERT 2025); paddy-terrestrialization patent (pending)"),
+    ("Gwacheon-si urban ecological status mapping",
+     "Gyeonggi Research Institute", "2021.09 — 2022.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Classified forest types and tree species of Gwacheon-si forests and urban green spaces",
+      "Analyzed the vertical and horizontal forest structure of Gwacheon-si"],
+     "Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science & Technology, under review)"),
+    ("Real-time web-based positioning surveillance system for introduced exotic species",
+     "Korean Ministry of Environment", "2021.04 — 2023.12", "Project Manager",
+     "Prof. Youngkeun Song (SNU)", "$863K",
+     ["Led the project as managing researcher — scheduling, budget, and research-output management",
+      "Attached GPS trackers to four invasive species (red-eared slider, Formosan sika deer, nutria, raccoon) and built movement datasets",
+      "Built drone multispectral, LiDAR, and hyperspectral imagery of invasive-turtle habitats",
+      "Produced invasive-species control manuals and developed a real-time positioning-tracking platform"],
+     "Invasive-turtle habitat model (manuscript under review, GEC); wildlife-tracker missing-point patent (reg. 2023) and optimal-capture-range patent (pending)"),
+    ("IT·ET·BT convergence-based distribution and spread models for introduced exotic species",
+     "Korean Ministry of Environment", "2021.04 — 2023.12", "Researcher",
+     "Prof. Wanmo Kang (Kookmin Univ.)", "$464K",
+     ["Modeled habitat distribution and spread of invasive turtles from GPS-tracking data using MaxEnt"],
+     "Invasive-turtle MaxEnt distribution model (manuscript under review, GEC)"),
+    ("Redundancy-based green-infrastructure technology for urban ecosystem challenges",
+     "Korean Ministry of Environment", "2020.04 — 2022.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$662K",
+     ["Tracked wild-boar distribution / movement with camera traps and analyzed home range",
+      "Built drone multispectral / LiDAR imagery of wild-boar habitat and performed real-time thermal-UAV tracking"],
+     "Diel activity of water deer & wild boar via long-term camera-trapping (KOSERT 2024); "
+     "drone thermal/RGB & LiDAR wild-boar habitat datasets"),
+    ("Monitoring and simulation of climate conditions by spatial type",
+     "The Seoul Institute", "2020.01 — 2020.08", "Researcher",
+     "Prof. Youngkeun Song (SNU)", None,
+     ["Acquired and analyzed field measurements of particulate matter and temperature/humidity by urban spatial type",
+      "Ran ENVI-met microclimate simulations and designed green-space planting plans for PM reduction, predicting post-implementation outcomes"],
+     "LST estimation comparison — satellite / simulation / UAV (KOSERT 2026); outdoor thermal-comfort optimization patent (reg. 2022)"),
+    ("Customized habitat-management technique for urban species",
+     "Korean Ministry of Environment", "2019.04 — 2022.12", "Researcher",
+     "Prof. Chan Park (Univ. of Seoul)", "$525K",
+     ["Developed a wildlife-detection method using thermal UAV imagery"],
+     "Real-time UAV thermal/RGB wildlife detection (Remote Sensing 2021, first author); UAV thermal wildlife-detection patent (reg. 2022)"),
+    ("Assessment scheme and ecosystem-restoration model by degradation type",
+     "Korean Ministry of Environment", "2018.07 — 2020.12", "Researcher",
+     "Prof. Youngkeun Song (SNU)", "$257K",
+     ["Performed land-cover classification using satellite imagery"],
+     None),
+]
 for title, funder, period, role, pi, budget, bullets, outputs in projects:
     # 제목이 매우 길어 우측탭 기간이 잘리던 문제 → 제목은 전체 폭, 기간은 상세줄 맨 앞으로 이동
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
@@ -610,22 +616,32 @@ def _patent_list(items):
         t = p.add_run(title + " "); _set_run(t, 9)
         m = p.add_run(meta); _set_run(m, 8.5, italic=True, color=GREY)
 
-def _patents(status, datecol, fmt):
-    """등록/출원 목록. 상세줄은 상태 + 날짜 + 권리자 규칙으로 만든다.
-    제목은 공식 등록명이 아니라 CV 용으로 다듬은 표기를 쓴다."""
-    out = []
-    for r in sheet("Patents", where=lambda r: r["Status"] == status,
-                   order=lambda r: _desc(r[datecol])):
-        d = str(r[datecol] or "").replace("/", ".")
-        out.append((r["CV 특허명(EN)"], f'{fmt} {d[:7] if fmt == "Registered" else d[:4]}'
-                    f' · {r["CV 권리자(EN)"]}'))
-    return out
-
-
 _patent_sub("Registered")
-_patent_list(_patents("registered", "Reg Date", "Registered"))
+_patent_list([
+    ("System and method for providing a tree-management platform.", "Registered 2025.09 · Seunghyeon Lee"),
+    ("Method and system for determining wetland vegetation structure using drone LiDAR.",
+     "Registered 2025.04 · Seoul National University"),
+    ("Image-based roadside-tree information management system and method.", "Registered 2024.11 · Seunghyeon Lee"),
+    ("Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological "
+     "information.", "Registered 2023.07 · Seoul National University"),
+    ("Self-heating target module for thermal-camera performance testing and precision data acquisition.",
+     "Registered 2022.10 · Seoul National University"),
+    ("Automated wildlife detection method and device using drone-mounted thermal-camera imagery.",
+     "Registered 2022.05 · Seoul National University"),
+    ("A method to derive an optimal plan for outdoor thermal-comfort mitigation.",
+     "Registered 2022.04 · Seoul National University"),
+])
 _patent_sub("Pending")
-_patent_list(_patents("application", "App Date", "Pending"))
+_patent_list([
+    ("Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR.",
+     "Pending 2025 · Seoul National University & Dankook Univ."),
+    ("Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands.",
+     "Pending 2025 · Seoul National University"),
+    ("Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and "
+     "stratigraphic volume change.", "Pending 2023 · Seoul National University"),
+    ("Deriving optimal wildlife-capture range via machine learning by fusing GPS-tracking data and drone "
+     "footage.", "Pending 2023 · Seoul National University"),
+])
 
 # ---------------------------------------------------------------- Honors
 section("Awards & Honors")
@@ -641,24 +657,28 @@ def _tabbed(rows):
         r = p.add_run("\t" + d); _set_run(r, 9, color=GREY)
 
 _subhead("Awards")
-_tabbed([(f'{r["Award(EN)"]} — {r["Organization(EN)"]} '
-          f'({_lower_first(r["Details(EN)"])})', str(r["Year"]))
-         for r in sheet("Awards", order=lambda r: _desc(r["Year"]))])
+_tabbed([
+    ("Best Presentation Award — KOSERT Autumn Meeting "
+     "(GEDI vs. airborne LiDAR field agreement by vegetation type and season)", "2022"),
+    ("Best Presentation Award — KOSERT Spring Meeting "
+     "(forest layer-structure indices and their correlation with carbon storage)", "2025"),
+])
 
 # ---------------------------------------------------------------- Service & Membership
 section("Professional Service & Membership")
-for _s in sheet("Service & Membership", where=lambda r: r["Type"] == "service",
-                order=lambda r: r["No."]):
-    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
-    _set_run(p.add_run(_s["Role(EN)"] + ", "), 9, bold=True, color=ACCENT)
-    _set_run(p.add_run(_s["Organization(EN)"]), 9)
-    _set_run(p.add_run("\t" + _s["Period"]), 9, color=GREY)
+p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(4)
+_set_run(p.add_run("Peer reviewer, "), 9, bold=True, color=ACCENT)
+_set_run(p.add_run("International Journal of Applied Earth Observation and Geoinformation"), 9)
+_set_run(p.add_run("\t2026 – present"), 9, color=GREY)
 
 p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
 _set_run(p.add_run("Professional memberships"), 9, bold=True, color=ACCENT)
-members = [(r["Organization(EN)"], r["Period"])
-           for r in sheet("Service & Membership", where=lambda r: r["Type"] == "membership",
-                          order=lambda r: r["No."])]
+members = [
+    ("American Geophysical Union (AGU)", "2021 – present"),
+    ("Ecological Society of America (ESA)", "2021 – present"),
+    ("Korean Society of Environmental Restoration Technology (KOSERT)", "2020 – present"),
+    ("Ecological Society of Korea (ESK)", "2023 – present"),
+]
 for name, period in members:
     p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(3)
     _set_run(p.add_run("Member, " + name), 9)
@@ -685,38 +705,51 @@ def _t_item(text, date, url=None):
         r = p.add_run(text); _set_run(r, 9)
     r = p.add_run("\t" + date); _set_run(r, 9, color=GREY)
 
-# CV 표기(EN) 가 채워진 행만 싣는다. 여러 회차를 한 줄로 묶은 경우 대표 행에만 표기가 있다.
-def _teach(kind):
-    return sheet("Teaching", where=lambda r: r["Type"] == kind and r["CV 표기(EN)"],
-                 order=lambda r: _desc(r["Start"]))
-
-
 _t_sub("University Courses")
-for _u in _teach("univ"):
-    p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
-    p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
-    _set_run(p.add_run("• "), 9, color=ACCENT)
-    _set_run(p.add_run(_u["CV 표기(EN)"]), 9)
-    _lines = str(_u["CV 서술(EN)"] or "").splitlines()
-    for _i, _line in enumerate(_lines):
-        p = doc.add_paragraph(); p.paragraph_format.left_indent = Inches(0.28)
-        if _i == len(_lines) - 1:
-            add_right_tab(p)
-        _set_run(p.add_run(_line), 9, color=GREY)
-        if _i == len(_lines) - 1:
-            _set_run(p.add_run("	" + str(_u["CV 기간(EN)"])), 9, color=GREY)
+p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
+p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
+_set_run(p.add_run("• "), 9, color=ACCENT)
+_set_run(p.add_run("Instructor — “Understanding and Application of Spatial Information” "
+                   "(3 credits; 30 students)"), 9)
+p = doc.add_paragraph(); p.paragraph_format.left_indent = Inches(0.28)
+_set_run(p.add_run("Division of Architecture & Urban Design, Incheon National University."), 9, color=GREY)
+p = doc.add_paragraph(); p.paragraph_format.left_indent = Inches(0.28)
+_set_run(p.add_run("Designed and taught a semester-long undergraduate course (20% lecture / 80% hands-on lab): "
+    "GIS fundamentals (coordinate systems, vector/raster data models); QGIS labs (data acquisition, editing, "
+    "spatial analysis, cartographic visualization); and remote sensing — satellite-image preprocessing and "
+    "spectral-index (e.g., NDVI) analysis, plus UAV imagery."), 9, color=GREY)
+p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.left_indent = Inches(0.28)
+_set_run(p.add_run("Term project: public open-data GIS analysis projects and map outputs on urban, "
+                   "architectural, environmental, and ecological topics for the Incheon region."), 9, color=GREY)
+_set_run(p.add_run("\t2024 — 2025"), 9, color=GREY)
 
 _t_sub("Online Courses  (1,000+ students enrolled)")
-for _o in _teach("online"):
-    _t_item(_o["CV 표기(EN)"], str(_o["CV 기간(EN)"]), _o["URL"])
+_t_item("QGIS Trendy Visualization — Election-Result Mapping", "2025", "https://inf.run/Vo32x")
+_t_item("QGIS Beginner All-in-One Starter Pack (theory & practice)", "2024", "https://inf.run/cunhy")
+_t_item("QGIS Mapping Visualization A to Z (Vector / Basic)", "2023", "https://inf.run/JcRA")
+_t_item("QGIS Python Automation", "2022", "https://inf.run/RNcr")
 
 _t_sub("Invited Lectures & Workshops  (20+ sessions, 2022 — 2025)")
-for _v in _teach("special"):
-    _t_item(_v["CV 표기(EN)"], str(_v["CV 기간(EN)"]))
+_t_item("Hyundai NGV — Understanding GIS & spatial analysis/visualization via DBMS (basic & advanced)", "2025")
+_t_item("Korea Water Resources Corp. (K-water) — Q-GIS practice for water-sector professionals", "2023 — 2025")
+_t_item("Korea Environment Corporation (K-eco) — Data-analysis expert training program", "2024 — 2025")
+_t_item("Seoul Software Academy (SeSAC) — AI Big-Data Analyst course: GIS module", "2025")
+_t_item("Chungcheongnam-do Agricultural Research & Extension Services — QGIS disease-spread visualization", "2024")
+_t_item("Gyeonggi-do HRD Institute — Data visualization for better reports", "2022")
+_t_item("BK21 SmartCity · SNU GSES — WISE-UP urban spatial-data analysis workshop", "2024")
+_t_item("SNU Lifelong Education Center — “Map My School Using Public Data” (high-school outreach)", "2024")
 
 # ---------------------------------------------------------------- Professional Experience
 section("Professional Experience")
-prof = _work("professional")
+prof = [
+    ("Founder / CEO", " — TREE:ID (startup)", "2023.09 — 2025.03",
+     "A web platform for individual-tree detection & mapping — urban-tree inventory, diagnosis, and "
+     "management. ~$71,000 startup grant; two patents held as assignee. Republic of Korea"),
+    ("Landscape Architect", " — SUNJIN Engineering & Architecture Co., Ltd. (full-time)",
+     "2017.03 — 2018.11", "Seoul, Republic of Korea · landscape and urban-planning practice"),
+    ("Landscape Design Intern", " — ATLAS Landscape Architecture, China", "2016.09 — 2017.02",
+     "China · landscape design practice"),
+]
 for lead, rest, date, sub in prof:
     entry(lead, right=date, sub=sub, left_rest=rest)
 
