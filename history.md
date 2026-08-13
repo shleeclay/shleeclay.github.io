@@ -283,3 +283,18 @@
 - CV 파일 분석 (v9 CV 콘텐츠, 출판물, 초청 강연 및 학회 발표)
 - Fulbright 지원용 CV 페이지 및 단어 수 확인
 
+## 2026-08-13
+
+* `04.faculty/01.ehwa_2026_august` 폴더 구조 생성
+* `.gitignore`에 `00.account` 폴더 규칙 추가
+* `03.apply/00.assets` 폴더 생성 및 기존 공통 서류 이동
+* `03.apply/04.faculty/01.ehwa_2026_august` 폴더에 `.gitkeep` 파일 추가
+* `Fulbright` 추천서 동명 파일 충돌 수정
+* `031` 번호 중복 건 해결
+* `03.apply/00.assets/01.master/` 폴더에 `application_info.xlsx` 등 마스터 데이터 이동
+* `build_resume_ko.py` 생성에 필요한 `application_info.xlsx` 시트 확장
+* `03.apply/00.assets/01.master/`에 `_export_csv.py` 스크립트 추가 및 CSV 미러 생성
+* `application_info.xlsx`에 국내 대학 서식에 맞는 필드 추가
+* `Personal` 시트에 ORCID, Scopus Author ID 등 연구자 식별자 정보 입력
+* `03.apply` 폴더 변경 사항 커밋
+
