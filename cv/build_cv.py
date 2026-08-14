@@ -710,7 +710,7 @@ _t_sub("Online Courses  (1,000+ students enrolled)")
 for _o in _teach("online"):
     _t_item(_o["CV 표기(EN)"], str(_o["CV 기간(EN)"]), _o["URL"])
 
-_t_sub("Invited Lectures & Workshops  (20+ sessions, 2022 — 2025)")
+_t_sub("Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)")
 for _v in _teach("special"):
     _t_item(_v["CV 표기(EN)"], str(_v["CV 기간(EN)"]))
 
@@ -745,6 +745,6 @@ else:
     _set_run(p.add_run("\tSignature: ____________________     Date: " + _today), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v9.docx"
+out = "Lee_Seunghyeon_CV_v10.docx"
 doc.save(out)
 print("saved:", out)
