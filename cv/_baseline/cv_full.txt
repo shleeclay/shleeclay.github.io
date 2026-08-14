@@ -56,6 +56,7 @@ Invited Talks
 • Seunghyeon Lee (2024). Remotely sensed Smartcity ecological value maps. NEF (Neocity Empowerment Forum), Orlando, FL, US.
 Conference Presentations (International)
 First author / presenter unless marked “team”.  10 domestic presentations (KOSERT, KSEE, KILA) available on request.
+• Seunghyeon Lee, Uirin Ha, Heejae Lee, Hyeyeong Choe, Hansoo Kim, Youngkeun Song (2026). Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests. [Poster] None, West Lafayette, IN, US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2025). Novel LiDAR indices reveal scale-dependent vertical structure and typologies in a temperate forest. [Poster] AGU Fall Meeting, New Orleans, US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2024). Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types. [Poster] AGU Fall Meeting, Washington D.C., US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2024). Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR. [Oral] ICLEE, Kitakyushu, Japan.
@@ -148,6 +149,7 @@ Best Presentation Award — KOSERT Spring Meeting (forest layer-structure indice
 Best Presentation Award — KOSERT Autumn Meeting (GEDI vs. airborne LiDAR field agreement by vegetation type and season)	2022
 Professional Service & Membership
 Peer reviewer, International Journal of Applied Earth Observation and Geoinformation	2026 – present
+Peer reviewer, Landscape and Ecological Engineering	2026 – present
 Professional memberships
 Member, American Geophysical Union (AGU)	2021 – present
 Member, Ecological Society of America (ESA)	2021 – present
@@ -165,13 +167,16 @@ Online Courses  (1,000+ students enrolled)
 • QGIS Beginner All-in-One Starter Pack (theory & practice)	2024
 • QGIS Mapping Visualization A to Z (Vector / Basic)	2023
 • QGIS Python Automation	2022
-Invited Lectures & Workshops  (20+ sessions, 2022 — 2025)
+Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)
+• Incheon Urban Regeneration Center — QGIS analysis and visualization of urban-regeneration sites (baseline conditions, performance indicators, and mapping)	2026
+• Korea Water & Wastewater Works Association (KWWA) — Water-environment engineering QGIS tool-master course (basic & advanced)	2026
+• Hanyang Cyber University — QGIS spatial analysis and visualization (beginner to advanced)	2026
 • Hyundai NGV — Understanding GIS & spatial analysis/visualization via DBMS (basic & advanced)	2025
 • Korea Water Resources Corp. (K-water) — Q-GIS practice for water-sector professionals	2023 — 2025
 • Seoul Software Academy (SeSAC) — AI Big-Data Analyst course: GIS module	2025
 • Korea Environment Corporation (K-eco) — Data-analysis expert training program	2024 — 2025
 • Chungcheongnam-do Agricultural Research & Extension Services — QGIS disease-spread visualization	2024
-• SNU Lifelong Education Center — “Map My School Using Public Data” (high-school outreach)	2024
+• SNU Lifelong Education Center — “Map My School Using Public Data” (high-school outreach)	2024, 2026
 • BK21 SmartCity · SNU GSES — WISE-UP urban spatial-data analysis workshop	2024
 • Gyeonggi-do HRD Institute — Data visualization for better reports	2022
 Professional Experience
