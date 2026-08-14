@@ -298,3 +298,14 @@
 * `Personal` 시트에 ORCID, Scopus Author ID 등 연구자 식별자 정보 입력
 * `03.apply` 폴더 변경 사항 커밋
 
+## 2026-08-14
+
+- `application_info.xlsx`에 학회 발표 정보 추가
+- `site.json`의 `conferences` 항목에 학회 발표 정보 반영
+- `_export_csv.py`를 실행하여 CSV 미러 갱신
+- `_check_sync.py`를 실행하여 데이터 동기화 검증
+- `build_cv.py`를 실행하여 CV 문서 재생성
+- `Lee_Seunghyeon_CV_v10.docx` 생성 및 회귀 검증
+- `Landscape and Ecological Engineering` 저널 리뷰어 정보 추가
+- 2026년 특강 7건 정보 추가 및 CV 내 기관별 병합 처리
+
