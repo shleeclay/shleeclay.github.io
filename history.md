@@ -309,3 +309,14 @@
 - `Landscape and Ecological Engineering` 저널 리뷰어 정보 추가
 - 2026년 특강 7건 정보 추가 및 CV 내 기관별 병합 처리
 
+## 2026-08-15
+
+* About 섹션의 stats 숫자에 primary 색 하이라이트 배경을 적용했습니다.
+* About 섹션의 stats 숫자 강조를 박스에서 색상(선명한 그린)으로 변경했습니다.
+* About 섹션의 stats 숫자 강조를 다크 모드에서 금색에서 밝은 민트 그린으로 변경했습니다.
+* `application_info.xlsx`에 Publications의 교신저자(KO/EN) 및 Patents의 등록국가(KO/EN) 컬럼을 추가했습니다.
+* `application_info.xlsx`의 Publications No.7 게재일자를 '2025/12/31'로 채우고 웹에도 반영했습니다.
+* `application_info.xlsx`의 Work No.1 고용형태를 '대학원 연구원 / Graduate Researcher'로 채웠습니다.
+* `application_info.xlsx`의 Patents No.1, No.3, No.8에 각각 출원번호를 채웠습니다.
+* `application_info.xlsx`의 Patents No.6 출원번호를 '10-2023-0187077'로 채웠습니다.
+
