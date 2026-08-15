@@ -282,7 +282,7 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
 
 /* About stat 숫자 색상 강조 (박스 없이 색으로만) */
 .stat-num { color: #1b8a57; }                          /* 라이트: 선명한 포레스트 그린 */
-[data-theme="shlee-dark"] .stat-num { color: #e0b941; } /* 다크: 금색(accent)으로 강조 */
+[data-theme="shlee-dark"] .stat-num { color: #86e6b5; } /* 다크: 밝은 민트그린 — primary보다 밝아 은은히 강조 */
 
 /* Certification chip — small inline chip */
 .cert-chip {
