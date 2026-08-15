@@ -280,6 +280,10 @@ body, .drawer-content, .drawer-side, aside, .navbar, .btn, .badge {
   box-shadow: 0 6px 18px rgba(224, 185, 65, 0.16);
 }
 
+/* About stat 숫자 색상 강조 (박스 없이 색으로만) */
+.stat-num { color: #1b8a57; }                          /* 라이트: 선명한 포레스트 그린 */
+[data-theme="shlee-dark"] .stat-num { color: #6fbf94; } /* 다크: 라이트 그린 */
+
 /* Certification chip — small inline chip */
 .cert-chip {
   transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
