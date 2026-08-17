@@ -44,3 +44,7 @@ cv/application_info.xlsx
 cv/논문실적_지원용.xlsx
 cv/_csv/
 cv/old/application_info_v*.xlsx
+
+# Python 캐시
+__pycache__/
+*.pyc
