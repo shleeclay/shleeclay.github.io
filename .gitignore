@@ -41,7 +41,8 @@ _figures_inbox/
 
 # 개인용 지원서 정보(비공개)
 cv/application_info.xlsx
-cv/논문실적_지원용.xlsx
+cv/old/논문실적_지원용.xlsx
+cv/old/국가rnd정보.xlsx
 cv/_csv/
 cv/old/application_info_v*.xlsx
 

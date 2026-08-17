@@ -24,7 +24,6 @@ BASE = os.path.join(HERE, "_baseline")
 
 TARGETS = [
     ("build_cv.py", "Lee_Seunghyeon_CV_v11.docx", "cv_full.txt"),
-    ("build_cv_short.py", "Lee_Seunghyeon_CV_short.docx", "cv_short.txt"),
 ]
 
 # 매 실행마다 달라지는 부분 — 대조에서 제외
