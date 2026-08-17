@@ -189,8 +189,8 @@ Work.CV 소속(EN)          = CV 표기      " — Virginia Tech (PI: Prof. Jaey
   재할당한다. 새 헬퍼는 긴 이름(`years_only`, `sentence_case`)을 쓴다.
 - **시트를 지우면 `_check_sync.py` 가 크래시하지 않고 보고한다.** 보고가 뜨면
   시트명이 바뀐 것인지 확인한다.
-- **`build_cv_short.py` 는 아직 이관 전이다.** 데이터가 하드코딩되어 있어
-  xlsx 를 고쳐도 반영되지 않는다. 두 CV 의 내용이 어긋날 수 있다.
+- **short CV 는 은퇴했다.** `build_cv_short.py` 와 산출물(`Lee_Seunghyeon_CV_short.docx/.pdf`)은
+  `cv/old/` 로 옮겼고, `_cv_baseline.py` 의 검증 대상에서도 제외했다. 이제 CV 는 full 한 종류다.
 - **`cv/Lee_Seunghyeon_CV_v11.docx` 와 `public/cv/Lee_Seunghyeon_Clay_CV.pdf`** 는
   같은 CV 의 다른 이름이다. CV 를 갱신하면 두 곳 다 바꿔야 사이트가 구버전을 안 보여준다.
 
