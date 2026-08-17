@@ -745,6 +745,6 @@ else:
     _set_run(p.add_run("\tSignature: ____________________     Date: " + _today), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v10.docx"
+out = "Lee_Seunghyeon_CV_v11.docx"
 doc.save(out)
 print("saved:", out)
