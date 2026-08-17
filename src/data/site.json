@@ -125,6 +125,21 @@
     "intro": { "ko": "Peer-reviewed 학술논문 목록. 최신 순으로 정렬.", "en": "Peer-reviewed publications, sorted by most recent." },
     "items": [
       {
+        "id": 10,
+        "date": "2026/08/17",
+        "year": 2026,
+        "role": "first",
+        "journal": "Forest Science and Technology",
+        "if": "2.4 (2026)",
+        "quartile": "Q2 (2026)",
+        "doi": "10.1080/21580103.2026.2712965",
+        "authors": ["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],
+        "title": {
+          "ko": "Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest",
+          "en": "Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest"
+        }
+      },
+      {
         "id": 9,
         "date": "2026/04/30",
         "year": 2026,
@@ -289,11 +304,10 @@
     "underReview": {
       "_help": "심사 중 원고. 카드가 아니라 학술대회처럼 리스트로 표시됨. role: 'first'=1저자, 'co'=공저. status는 심사 단계(이중언어). title은 영문 단일.",
       "label": { "ko": "심사 중인 논문", "en": "Manuscripts Under Review" },
-      "note":  { "ko": "투고 · 심사 중 (5편)", "en": "Submitted / under peer review (5)" },
+      "note":  { "ko": "투고 · 심사 중 (4편)", "en": "Submitted / under peer review (4)" },
       "items": [
         { "role": "first", "date": "2026/04", "journal": "Science of Remote Sensing",   "status": { "ko": "심사 중",            "en": "Under review" },          "authors": ["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song", "James H. Thorne"],                  "title": "Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation." },
         { "role": "first", "date": "2026/06", "journal": "Geoscience Letters",            "status": { "ko": "수정 후 재심사 · 1차", "en": "Revise & resubmit · R1" }, "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"],                                             "title": "Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys." },
-        { "role": "first", "date": "2026/05", "journal": "Forest Science and Technology", "status": { "ko": "수정 후 재심사 · 2차", "en": "Revise & resubmit · R2" }, "authors": ["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],                  "title": "Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest." },
         { "role": "co",    "date": "2026/05", "journal": "Global Ecology and Conservation","status": { "ko": "수정 후 재심사 · 1차", "en": "Revise & resubmit · R1" }, "authors": ["Yonghwan Kim", "Seunghyeon Lee", "Wonhyeop Shin", "Youngkeun Song"],                          "title": "Integrating UAV-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands." },
         { "role": "co",    "date": "2026/02", "journal": "Journal of Coastal Conservation","status": { "ko": "수정 후 재심사 · 1차", "en": "Revise & resubmit · R1" }, "authors": ["Gapseong Jekal", "Yong Hwan Kim", "Seunghyeon Lee", "Ji Weon Yun", "Dae Yeol Kim", "Youngkeun Song"], "title": "Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from multi-season Sentinel-2 in a coastal wetland." }
       ]

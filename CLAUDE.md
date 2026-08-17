@@ -20,7 +20,7 @@
 citations/individual/*.bib ──merge_bib.py──▶ publications.bib
                                               ├─▶ build-citations.mjs ─▶ src/data/citations.json ─▶ 웹 인용문
                                               └─▶ build_cv.py 논문 섹션
-application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghyeon_CV_v10.docx
+application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghyeon_CV_v11.docx
                         ├─▶ _sync_site.py ─▶ site.json 사실 필드 ─▶ 웹
                         └─▶ _export_csv.py ─▶ cv/_csv/ (git diff 용 미러)
 ```
@@ -79,7 +79,7 @@ application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghye
 
 ### CV 재생성
 ```
-cd cv && python build_cv.py            → Lee_Seunghyeon_CV_v10.docx
+cd cv && python build_cv.py            → Lee_Seunghyeon_CV_v11.docx
 python _cv_baseline.py --check         → 의도한 줄만 바뀌었는지 확인
 python _cv_baseline.py --save          → 승인된 변경이면 기준선 갱신
 ```
@@ -191,7 +191,7 @@ Work.CV 소속(EN)          = CV 표기      " — Virginia Tech (PI: Prof. Jaey
   시트명이 바뀐 것인지 확인한다.
 - **`build_cv_short.py` 는 아직 이관 전이다.** 데이터가 하드코딩되어 있어
   xlsx 를 고쳐도 반영되지 않는다. 두 CV 의 내용이 어긋날 수 있다.
-- **`cv/Lee_Seunghyeon_CV_v10.docx` 와 `public/cv/Lee_Seunghyeon_Clay_CV.pdf`** 는
+- **`cv/Lee_Seunghyeon_CV_v11.docx` 와 `public/cv/Lee_Seunghyeon_Clay_CV.pdf`** 는
   같은 CV 의 다른 이름이다. CV 를 갱신하면 두 곳 다 바꿔야 사이트가 구버전을 안 보여준다.
 
 ---
