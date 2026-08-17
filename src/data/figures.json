@@ -268,5 +268,23 @@
    "src": "/papers/figures/2026_KOSERT_Comparing-LST/figS1.webp",
    "caption": "Land surface temperature at original resolution."
   }
+ ],
+ "10": [
+  {
+   "src": "/papers/figures/2026_FST_Bi-temporal-structures/fig1.webp",
+   "caption": "Location of the study site and tree species distribution; (a) study site location in the Republic of Korea; (b) distribution of eight major tree species in the study site with expert field investigation polygon borders (thick orange outlines). Numbers in brackets in the legend indicate the number of polygons."
+  },
+  {
+   "src": "/papers/figures/2026_FST_Bi-temporal-structures/fig2.webp",
+   "caption": "Comparison of field investigation and ALS-derived coverage for three layers by tree species; (a) radar chart for mean coverage comparison by species (solid line with circle: field investigation; dashed line with square markers: ALS results; dark green, green, and yellow-green lines represent tree, subtree, and shrub layer results, respectively); (b) boxplot for coverage difference (Field − ALS) of each polygon for three layers by tree species."
+  },
+  {
+   "src": "/papers/figures/2026_FST_Bi-temporal-structures/fig3.webp",
+   "caption": "Assessment of ALS-derived vertical point distributions and horizontal coverage by tree species and layers across late-autumn and early-spring periods. (a) Vertical point distribution assessment: (a1) late-autumn period; (a2) early-spring period; (a3) difference (late-autumn minus early-spring). (b) Horizontal coverage assessment: (b1) late-autumn period; (b2) early-spring period; (b3) difference (late-autumn minus early-spring)."
+  },
+  {
+   "src": "/papers/figures/2026_FST_Bi-temporal-structures/fig4.webp",
+   "caption": "Correlation analysis of ALS-derived vertical point distribution and horizontal coverage by layers and periods for eight tree species. The x-axis represents horizontal coverage and the y-axis represents vertical point distribution. Thick black rectangles indicate correlations analyzed for the same period."
+  }
  ]
 }
