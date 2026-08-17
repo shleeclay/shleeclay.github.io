@@ -73,7 +73,7 @@
       "en": ["Forest vertical structure (LiDAR)", "GEDI · Spaceborne LiDAR", "Urban ecosystems · Green infrastructure", "Remote sensing · Satellite analysis", "Wildlife monitoring (UAV / thermal)", "GIS · Spatial analysis"]
     },
     "stats": [
-      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "9",    "unit": { "ko": "편",    "en": "papers" } },
+      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "10",    "unit": { "ko": "편",    "en": "papers" } },
       { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
@@ -133,6 +133,7 @@
         "if": "2.4 (2026)",
         "quartile": "Q2 (2026)",
         "doi": "10.1080/21580103.2026.2712965",
+        "cover": "/papers/covers/2026_FST_Bi-temporal-structures.webp",
         "pdf":   "/papers/pdfs/2026_FST_Bi-temporal-structures.pdf",
         "authors": ["Seunghyeon Lee", "Yonghwan Kim", "Dohee Kim", "Hansoo Kim", "Youngkeun Song"],
         "title": {
