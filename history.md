@@ -320,3 +320,14 @@
 * `application_info.xlsx`의 Patents No.1, No.3, No.8에 각각 출원번호를 채웠습니다.
 * `application_info.xlsx`의 Patents No.6 출원번호를 '10-2023-0187077'로 채웠습니다.
 
+## 2026-08-17
+
+*   `lee2026_fst.bib` 파일을 생성하여 citation 자동 반영 준비
+*   Under Review 시트의 논문을 Publications 시트로 이동하고 웹에 반영
+*   `site.json` 파일에 신규 논문 추가 및 Under Review 섹션 업데이트
+*    논문 PDF 파일을 `public/papers/pdfs` 경로로 이동하고 `site.json`에 연결
+*   논문 관련 figure 4장을 JPG에서 WebP로 변환하고 `figures.json`에 캡션 추가
+*   논문 카드 표지 이미지를 WebP로 변환하고 `site.json`에 연결
+*   About 페이지의 게재 논문 수를 9편에서 10편으로 수정
+*   `cv/` 폴더 내 불필요한 파일들을 `old/` 디렉토리로 이동하고 민감 파일 추적 해제
+
