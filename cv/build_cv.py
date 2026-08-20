@@ -666,8 +666,15 @@ for name, period in members:
 
 # ---------------------------------------------------------------- Teaching
 section("Teaching Experience")
+_tw = _site["teaching"]["items"]
+_n_univ   = sum(1 for _t in _tw if _t["type"] == "univ")
+_n_online = sum(1 for _t in _tw if _t["type"] == "online")
+_meta     = _site.get("meta", {})
+_students = _meta.get("onlineStudents", "1,100+")
+_sessions = _meta.get("invitedSessions", "20+")
+_years    = _meta.get("invitedYears", "2022 — 2026")
 p = doc.add_paragraph()
-r = p.add_run("2 university courses · 4 online courses (1,100+ students) · 20+ invited lectures and workshops.")
+r = p.add_run(f"{_n_univ} university courses · {_n_online} online courses ({_students} students) · {_sessions} invited lectures and workshops.")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 def _t_sub(text):
@@ -706,11 +713,11 @@ for _u in _teach("univ"):
         if _i == len(_lines) - 1:
             _set_run(p.add_run("	" + str(_u["CV 기간(EN)"])), 9, color=GREY)
 
-_t_sub("Online Courses  (1,100+ students enrolled)")
+_t_sub(f"Online Courses  ({_students} students enrolled)")
 for _o in _teach("online"):
     _t_item(_o["CV 표기(EN)"], str(_o["CV 기간(EN)"]), _o["URL"])
 
-_t_sub("Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)")
+_t_sub(f"Invited Lectures & Workshops  ({_sessions} sessions, {_years})")
 for _v in _teach("special"):
     _t_item(_v["CV 표기(EN)"], str(_v["CV 기간(EN)"]))
 

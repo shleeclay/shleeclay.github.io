@@ -1,5 +1,11 @@
 {
   "_help": "이 파일 하나에 사이트의 모든 텍스트와 데이터가 들어 있습니다. 각 항목은 한국어(ko) / 영어(en) 필드로 분리되어 있으며, 사이트 헤더의 언어 토글이 두 필드를 전환합니다. 따옴표 안의 내용만 바꾸세요. 콤마(,), 중괄호({}), 대괄호([])는 건드리지 마세요. 마지막 항목 뒤에 콤마가 있으면 안 됩니다. 줄바꿈은 문자열 안에 \\n 으로 표시하세요.",
+  "meta": {
+    "_help": "웹·CV 공용 외부 집계 토큰. 데이터에서 파생 불가한 값만 여기 둔다(단일 출처).",
+    "onlineStudents": "1,100+",
+    "invitedSessions": "20+",
+    "invitedYears": "2022 — 2026"
+  },
 
   "site": {
     "ko": {
@@ -77,8 +83,8 @@
       { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "{pat}",   "unit": { "ko": "건",    "en": "patents" } },
-      { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "{univ}/20+", "unit": { "ko": "건", "en": "lectures" } },
-      { "label": { "ko": "온라인 강의", "en": "Online lectures" },        "value": "1,100+", "unit": { "ko": "수강생 · {online}개 과정", "en": "students · {online} courses" } }
+      { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "{univ}/{invitedSessions}", "unit": { "ko": "건", "en": "lectures" } },
+      { "label": { "ko": "온라인 강의", "en": "Online lectures" },        "value": "{onlineStudents}", "unit": { "ko": "수강생 · {online}개 과정", "en": "students · {online} courses" } }
     ]
   },
 

@@ -213,9 +213,13 @@ export const counts: Record<string, number> = {
   special: teaching.filter((t) => t.type === 'special').length,
 };
 
-/** site.json 표시 문자열의 {token} 을 파생 카운트로 치환 (토큰 없으면 원문 그대로) */
+/** 외부 집계 토큰(파생 불가) — site.json meta 에서. drift 방지 단일 출처. */
+const metaTokens: Record<string, string> = ((site as { meta?: Record<string, string> }).meta) ?? {};
+
+/** site.json 표시 문자열의 {token} 을 파생 카운트(숫자) 또는 meta 토큰(문자열)으로 치환. */
 export function fillTokens(str: string): string {
-  return String(str ?? '').replace(/\{(\w+)\}/g, (m, k) => (k in counts ? String(counts[k]) : m));
+  return String(str ?? '').replace(/\{(\w+)\}/g, (m, k) =>
+    k in counts ? String(counts[k]) : (k in metaTokens ? metaTokens[k] : m));
 }
 
 export default site;
