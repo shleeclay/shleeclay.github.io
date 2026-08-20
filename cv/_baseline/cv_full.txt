@@ -156,13 +156,13 @@ Member, Ecological Society of America (ESA)	2021 – present
 Member, Korean Society of Environmental Restoration Technology (KOSERT)	2020 – present
 Member, Ecological Society of Korea (ESK)	2023 – present
 Teaching Experience
-2 university courses · 4 online courses (1,000+ students) · 20+ invited lectures and workshops.
+2 university courses · 4 online courses (1,100+ students) · 20+ invited lectures and workshops.
 University Courses
 • Instructor — “Understanding and Application of Spatial Information” (3 credits; 30 students)
 Division of Architecture & Urban Design, Incheon National University.
 Designed and taught a semester-long undergraduate course (20% lecture / 80% hands-on lab): GIS fundamentals (coordinate systems, vector/raster data models); QGIS labs (data acquisition, editing, spatial analysis, cartographic visualization); and remote sensing — satellite-image preprocessing and spectral-index (e.g., NDVI) analysis, plus UAV imagery.
 Term project: public open-data GIS analysis projects and map outputs on urban, architectural, environmental, and ecological topics for the Incheon region.	2024 — 2025
-Online Courses  (1,000+ students enrolled)
+Online Courses  (1,100+ students enrolled)
 • QGIS Trendy Visualization — Election-Result Mapping	2025
 • QGIS Beginner All-in-One Starter Pack (theory & practice)	2024
 • QGIS Mapping Visualization A to Z (Vector / Basic)	2023
