@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import io
-p = r"D:\20.git_research\01.topics\21.shleeclay.github.io\src\data\site.json"
+from pathlib import Path
+p = str(Path(__file__).resolve().parents[1] / 'src' / 'data' / 'site.json')
 s = io.open(p, encoding="utf-8").read()
 lines = s.split("\n")
 

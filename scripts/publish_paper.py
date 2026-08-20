@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import openpyxl
+from pathlib import Path
 from openpyxl.styles import Font, Alignment, Border, Side
-xlsx = r"D:\20.git_research\01.topics\21.shleeclay.github.io\cv\application_info.xlsx"
+xlsx = str(Path(__file__).resolve().parents[1] / 'cv' / 'application_info.xlsx')
 wb = openpyxl.load_workbook(xlsx)
 thin = Side(style="thin", color="D9D9D9"); Bd = Border(left=thin,right=thin,top=thin,bottom=thin)
 def style_last(ws):

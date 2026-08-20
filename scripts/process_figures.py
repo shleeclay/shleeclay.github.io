@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import os, json, io, shutil
+from pathlib import Path
 from PIL import Image
-ROOT = r"D:\20.git_research\01.topics\21.shleeclay.github.io"
+ROOT = str(Path(__file__).resolve().parents[1])
 SLUG = "2026_FST_Bi-temporal-structures"
 src_dir = os.path.join(ROOT, "public", "papers", "figures", "fst")
 out_dir = os.path.join(ROOT, "public", "papers", "figures", SLUG)
