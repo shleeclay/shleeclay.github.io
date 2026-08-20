@@ -73,12 +73,12 @@
       "en": ["Forest vertical structure (LiDAR)", "GEDI · Spaceborne LiDAR", "Urban ecosystems · Green infrastructure", "Remote sensing · Satellite analysis", "Wildlife monitoring (UAV / thermal)", "GIS · Spatial analysis"]
     },
     "stats": [
-      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "10",    "unit": { "ko": "편",    "en": "papers" } },
+      { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "{pub}",    "unit": { "ko": "편",    "en": "papers" } },
       { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
-      { "label": { "ko": "특허",        "en": "Patents" },               "value": "11",   "unit": { "ko": "건",    "en": "patents" } },
-      { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "2/20+", "unit": { "ko": "건", "en": "lectures" } },
-      { "label": { "ko": "온라인 강의", "en": "Online lectures" },        "value": "1,100+", "unit": { "ko": "수강생 · 4개 과정", "en": "students · 4 courses" } }
+      { "label": { "ko": "특허",        "en": "Patents" },               "value": "{pat}",   "unit": { "ko": "건",    "en": "patents" } },
+      { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "{univ}/20+", "unit": { "ko": "건", "en": "lectures" } },
+      { "label": { "ko": "온라인 강의", "en": "Online lectures" },        "value": "1,100+", "unit": { "ko": "수강생 · {online}개 과정", "en": "students · {online} courses" } }
     ]
   },
 
@@ -306,7 +306,7 @@
     "underReview": {
       "_help": "심사 중 원고. 카드가 아니라 학술대회처럼 리스트로 표시됨. role: 'first'=1저자, 'co'=공저. status는 심사 단계(이중언어). title은 영문 단일.",
       "label": { "ko": "심사 중인 논문", "en": "Manuscripts Under Review" },
-      "note":  { "ko": "투고 · 심사 중 (4편)", "en": "Submitted / under peer review (4)" },
+      "note":  { "ko": "투고 · 심사 중 ({underReview}편)", "en": "Submitted / under peer review ({underReview})" },
       "items": [
         { "role": "first", "date": "2026/04", "journal": "Science of Remote Sensing",   "status": { "ko": "심사 중",            "en": "Under review" },          "authors": ["Seunghyeon Lee", "Dennis Heejoon Choi", "Youngkeun Song", "James H. Thorne"],                  "title": "Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation." },
         { "role": "first", "date": "2026/06", "journal": "Geoscience Letters",            "status": { "ko": "수정 후 재심사 · 1차", "en": "Revise & resubmit · R1" }, "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"],                                             "title": "Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys." },

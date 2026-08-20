@@ -12,7 +12,7 @@ import site, {
   publications, underReview, conferences, projects, patents,
   teaching, career, education,
   scholarships, certifications, books,
-  groupByYear, fmtRange, fmtDate,
+  groupByYear, fmtRange, fmtDate, fillTokens,
 } from "../data";
 
 // Page language is fixed per route: "/" → ko, "/en" → en
@@ -159,10 +159,10 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="en">{stat.label.en}</span>
           </p>
           <p class="text-primary" style="font-size:26px;font-weight:600;line-height:1;">
-            <span class="stat-num">{stat.value}</span>
+            <span class="stat-num">{fillTokens(stat.value)}</span>
             <span class="text-xs font-normal text-base-content/70 ml-1">
-              <span data-only="ko">{stat.unit.ko}</span>
-              <span data-only="en">{stat.unit.en}</span>
+              <span data-only="ko">{fillTokens(stat.unit.ko)}</span>
+              <span data-only="en">{fillTokens(stat.unit.en)}</span>
             </span>
           </p>
         </div>
@@ -244,8 +244,8 @@ const confTypeLabels: Record<string, string> = {
             <span data-only="en">Under Review</span>
           </span>
           <p class="type-caption text-base-content/70">
-            <span data-only="ko">{site.publications.underReview.note.ko}</span>
-            <span data-only="en">{site.publications.underReview.note.en}</span>
+            <span data-only="ko">{fillTokens(site.publications.underReview.note.ko)}</span>
+            <span data-only="en">{fillTokens(site.publications.underReview.note.en)}</span>
           </p>
         </div>
         <div class="space-y-2 pl-4 border-l-2 border-base-300/40">

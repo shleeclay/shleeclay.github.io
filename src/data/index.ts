@@ -200,4 +200,22 @@ export function fmtRange(start: string, end: string | null | undefined): string 
   return `${fmtDate(start)} ~ ${fmtDate(end)}`;
 }
 
+// ───────── Derived counts (단일 출처 — drift 방지) ─────────
+// 표시용 숫자를 데이터 배열에서 파생한다. site.json 문자열의 {pub} 등 토큰을 fillTokens 가 치환.
+export const counts: Record<string, number> = {
+  pub: publications.length,
+  pat: patents.length,
+  conf: conferences.length,
+  proj: projects.length,
+  underReview: underReview.length,
+  univ: teaching.filter((t) => t.type === 'univ').length,
+  online: teaching.filter((t) => t.type === 'online').length,
+  special: teaching.filter((t) => t.type === 'special').length,
+};
+
+/** site.json 표시 문자열의 {token} 을 파생 카운트로 치환 (토큰 없으면 원문 그대로) */
+export function fillTokens(str: string): string {
+  return String(str ?? '').replace(/\{(\w+)\}/g, (m, k) => (k in counts ? String(counts[k]) : m));
+}
+
 export default site;
