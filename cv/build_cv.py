@@ -667,7 +667,7 @@ for name, period in members:
 # ---------------------------------------------------------------- Teaching
 section("Teaching Experience")
 p = doc.add_paragraph()
-r = p.add_run("2 university courses · 4 online courses (1,000+ students) · 20+ invited lectures and workshops.")
+r = p.add_run("2 university courses · 4 online courses (1,100+ students) · 20+ invited lectures and workshops.")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 def _t_sub(text):
@@ -706,7 +706,7 @@ for _u in _teach("univ"):
         if _i == len(_lines) - 1:
             _set_run(p.add_run("	" + str(_u["CV 기간(EN)"])), 9, color=GREY)
 
-_t_sub("Online Courses  (1,000+ students enrolled)")
+_t_sub("Online Courses  (1,100+ students enrolled)")
 for _o in _teach("online"):
     _t_item(_o["CV 표기(EN)"], str(_o["CV 기간(EN)"]), _o["URL"])
 
