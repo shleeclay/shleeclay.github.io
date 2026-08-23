@@ -339,3 +339,17 @@
 - `build_cv.py`에서 하드코딩된 수강생 및 세션 정보를 `site.json`의 메타 토큰으로 대체했습니다.
 - `preview.astro`의 디자인 목업 숫자는 그대로 유지했습니다.
 
+## 2026-08-23
+
+- `CLAUDE.md`에 커밋 메시지 규칙 및 `site.json` 데이터 원본 관련 내용 추가
+- `check_pointers.py` 스크립트 생성 및 업데이트
+- `fix_memory_pointers.py` 및 `fix_memory_pointers2.py` 스크립트 생성
+- `.claude/hooks/read_guard.py` 및 `test_read_guard.py` 파일 생성
+- `split_gitignore.py` 스크립트 생성 및 `.gitignore` 파일 분할 작업 반영
+- `update_history.py` 스크립트 업데이트
+- `02.projects/CLAUDE.md` 문서 초안 생성 및 핵심 키워드 점검
+- `02.projects/CLAUDE.md` 문서 업데이트 (여섯 원칙 산문 압축)
+- 프로젝트 메모리 대 README 비교 작업 결과 요약 및 반영
+- `02.projects/CLAUDE.md` 문서 업데이트 (데이터 저장 위치 규칙)
+- `restructure_memory.py` 스크립트 생성
+
