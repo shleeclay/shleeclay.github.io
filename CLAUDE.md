@@ -83,7 +83,7 @@ cd cv && python build_cv.py            → Lee_Seunghyeon_CV_v11.docx
 python _cv_baseline.py --check         → 의도한 줄만 바뀌었는지 확인
 python _cv_baseline.py --save          → 승인된 변경이면 기준선 갱신
 ```
-PDF 는 Word 에서 내보내고, 공개용은 `public/cv/Lee_Seunghyeon_Clay_CV.pdf` 로 복사한다.
+PDF 는 Word 에서 내보내고, 공개용은 `public/cv/Lee_Seunghyeon_CV.pdf` 로 복사한다.
 
 ---
 
@@ -191,7 +191,7 @@ Work.CV 소속(EN)          = CV 표기      " — Virginia Tech (PI: Prof. Jaey
   시트명이 바뀐 것인지 확인한다.
 - **short CV 는 은퇴했다.** `build_cv_short.py` 와 산출물(`Lee_Seunghyeon_CV_short.docx/.pdf`)은
   `cv/old/` 로 옮겼고, `_cv_baseline.py` 의 검증 대상에서도 제외했다. 이제 CV 는 full 한 종류다.
-- **`cv/Lee_Seunghyeon_CV_v11.docx` 와 `public/cv/Lee_Seunghyeon_Clay_CV.pdf`** 는
+- **`cv/Lee_Seunghyeon_CV_v11.docx` 와 `public/cv/Lee_Seunghyeon_CV.pdf`** 는
   같은 CV 의 다른 이름이다. CV 를 갱신하면 두 곳 다 바꿔야 사이트가 구버전을 안 보여준다.
 
 ---
