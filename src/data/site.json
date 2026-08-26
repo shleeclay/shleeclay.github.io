@@ -10,11 +10,11 @@
   "site": {
     "ko": {
       "title": "이승현 (Seunghyeon Lee) — 산림·도시생태 박사 연구자 · 서울대학교",
-      "description": "이승현(Seunghyeon Lee, Clay Lee) — 서울대학교(SNU) 조경학 박사, 생태계획연구실 연구자. 산림 구조·도시생태·LiDAR/GEDI 원격탐사 연구. 경북대학교(KNU) 조경학 학사."
+      "description": "이승현(Seunghyeon Lee) — 서울대학교(SNU) 조경학 박사, 생태계획연구실 연구자. 산림 구조·도시생태·LiDAR/GEDI 원격탐사 연구. 경북대학교(KNU) 조경학 학사."
     },
     "en": {
       "title": "Seunghyeon Lee (이승현) — Forest & Urban Ecology Ph.D. · Seoul National University",
-      "description": "Seunghyeon Lee (이승현, Clay Lee) — Ph.D. in Landscape Architecture, Seoul National University (SNU). Forest & urban ecology, LiDAR/GEDI remote sensing. B.S., Kyungpook National University (KNU)."
+      "description": "Seunghyeon Lee (이승현) — Ph.D. in Landscape Architecture, Seoul National University (SNU). Forest & urban ecology, LiDAR/GEDI remote sensing. B.S., Kyungpook National University (KNU)."
     }
   },
 
@@ -41,7 +41,7 @@
 
   "hero": {
     "name":        { "ko": "이승현",                                                 "en": "Seunghyeon Lee" },
-    "nameSub":     { "ko": "Clay Lee",                                              "en": "(Clay Lee)" },
+    "nameSub":     { "ko": "",                                              "en": "" },
     "tagline":     { "ko": "항공·위성 LiDAR를 현장 관측과 연결해 산림·도시 생태계의 구조와 변화를 정량화합니다.", "en": "I quantify the structure and change of forest and urban ecosystems by linking airborne and spaceborne LiDAR with field observations." },
     "focusLabel":  { "ko": "연구 분야", "en": "Research focus" },
     "focus": [
@@ -502,6 +502,6 @@
     "researchGateUrl":"",
     "kakaoUrl":       "https://qr.kakao.com/talk/H.QjhP5duPBfGw2rVFLHCekI8LE-",
     "githubUrl":      "",
-    "cvFullUrl":       "/cv/Lee_Seunghyeon_Clay_CV.pdf"
+    "cvFullUrl":       "/cv/Lee_Seunghyeon_CV.pdf"
   }
 }
