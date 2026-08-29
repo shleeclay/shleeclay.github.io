@@ -360,3 +360,16 @@
 - 국문 페이지 사이드바에 영문명 'Seunghyeon Lee'를 추가했습니다.
 - 모든 변경 사항을 빌드 및 검증 후 Git으로 커밋하고 푸시했습니다.
 
+## 2026-08-29
+
+* Personal 정보, Education, Publications, Technical Skills, Work & Internships 항목의 CV 데이터를 업데이트하고 동기화했습니다.
+* FST 논문의 DOI, 권/호, 페이지, 게재일자 등 세부 정보를 추가했습니다.
+* 2026년 KOSERT 논문의 초록 및 결과 부분을 추출했습니다.
+* 최근 4년 실적 목록에서 학위 논문을 제외하고 연구 논문 및 학술 대회 성과를 포함하여 순위를 매겼습니다.
+* 지원서류 파일들을 탐색하고, 장학금 지원서의 사회 기여 활동 계획서 내용을 발췌했습니다.
+* `application_info.xlsx` 파일의 Personal, Education, Publications, Technical Skills, Work & Internships 시트의 상태를 확인하고 업데이트했습니다.
+* `_check_sync.py`와 `_sync_site.py` 스크립트를 실행하여 CV 데이터 동기화 상태를 검증했습니다.
+* `2026_FST_Bi-temporal-structures.pdf`, `2026_KOSERT_Forest-Type-Seasonal.pdf` 파일의 내용을 확인했습니다.
+* KOSERT 논문의 결과 섹션이 요약 및 요구사항에 부합하는지 검토했습니다.
+* `01.topics/21.shleeclay.github.io` 폴더 내의 PDF 파일에서 연구 실적 관련 내용을 추출하고 정리했습니다.
+
