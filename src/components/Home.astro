@@ -38,6 +38,8 @@ const sortedPublications = [...publications].sort((a, b) => {
   if (sa !== sb) return sa ? -1 : 1;                 // SCI group first
   return pubDateKey(b).localeCompare(pubDateKey(a)); // newest first within group
 });
+const sciPubs = sortedPublications.filter(isSCI);
+const kciPubs = sortedPublications.filter((p) => !isSCI(p));
 
 // Group time-based items by year (Patents render as a grid; Conferences/Teaching stay year-grouped)
 const confsByYear  = groupByYear(conferences);
@@ -227,11 +229,41 @@ const confTypeLabels: Record<string, string> = {
 
     <div class="js-viewgroup" data-view="grid" data-viewkey="pub">
       <ViewToggle />
-      <div class="view-grid grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
-        {sortedPublications.map((p) => <CardPaper paper={p} />)}
+      <div class="view-grid">
+        <p class="type-caption font-semibold text-base-content/60 tracking-wide mb-3">
+          <span data-only="ko">{site.publications.groupSci.ko}</span>
+          <span data-only="en">{site.publications.groupSci.en}</span>
+        </p>
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+          {sciPubs.map((p) => <CardPaper paper={p} />)}
+        </div>
+        {kciPubs.length > 0 && (
+          <>
+            <p class="type-caption font-semibold text-base-content/60 tracking-wide mb-3 mt-8 pt-6 border-t border-base-300">
+              <span data-only="ko">{site.publications.groupKci.ko}</span>
+              <span data-only="en">{site.publications.groupKci.en}</span>
+            </p>
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
+              {kciPubs.map((p) => <CardPaper paper={p} />)}
+            </div>
+          </>
+        )}
       </div>
       <div class="view-list">
-        {sortedPublications.map((p) => <RowPaper paper={p} />)}
+        <p class="type-caption font-semibold text-base-content/60 tracking-wide mb-2">
+          <span data-only="ko">{site.publications.groupSci.ko}</span>
+          <span data-only="en">{site.publications.groupSci.en}</span>
+        </p>
+        {sciPubs.map((p) => <RowPaper paper={p} />)}
+        {kciPubs.length > 0 && (
+          <>
+            <p class="type-caption font-semibold text-base-content/60 tracking-wide mb-2 mt-6 pt-5 border-t border-base-300">
+              <span data-only="ko">{site.publications.groupKci.ko}</span>
+              <span data-only="en">{site.publications.groupKci.en}</span>
+            </p>
+            {kciPubs.map((p) => <RowPaper paper={p} />)}
+          </>
+        )}
       </div>
     </div>
 

@@ -129,6 +129,8 @@
     "eyebrow": "03 — PUBLICATIONS",
     "title": { "ko": "게재 논문", "en": "Publications" },
     "intro": { "ko": "Peer-reviewed 학술논문 목록. 최신 순으로 정렬.", "en": "Peer-reviewed publications, sorted by most recent." },
+    "groupSci": { "ko": "국제 학술지 · SCIE", "en": "International journals · SCIE" },
+    "groupKci": { "ko": "국내 학술지 · KCI", "en": "Domestic journals · KCI" },
     "items": [
       {
         "id": 10,
