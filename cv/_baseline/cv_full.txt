@@ -1,11 +1,11 @@
-Seunghyeon Lee  (Clay Lee)    ·    Curriculum Vitae
+Seunghyeon Lee    ·    Curriculum Vitae
 Ph.D., expected Aug 2026 · Forest Structure & Remote Sensing & GIS & AI
 Landscape & Ecological Planning Lab, Seoul National University, Seoul, Republic of Korea
 shlee5598@snu.ac.kr  |  +82-10-8455-5598  |  ORCID 0000-0003-4612-065X  |  Google Scholar  |  drseunghyeonlee.com
 Research Interests
 Airborne & spaceborne LiDAR (GEDI) for vertical forest structure · forest typology and stratification · biomass and carbon estimation · urban ecology, green infrastructure, and microclimate · thermal remote sensing · reproducible, code-driven geospatial science.
 Education
-Ph.D., Interdisciplinary Program in Landscape Architecture	2022.03 — Aug 2026
+Ph.D., Interdisciplinary Program in Landscape Architecture	2022.03 — 2026.08 (expected)
 Integrated Major in SmartCity Global Convergence · Seoul National University · Landscape & Ecological Planning Lab · Advisor: Prof. Youngkeun Song
 Dissertation: “LiDAR-Based Characterization of Vertical Structure and Disturbance in Temperate Forests”
 Committee: Dongkun Lee, Youngryel Ryu (Seoul National Univ.); Hansoo Kim (Gyeonggi Research Institute); Dennis Heejoon Choi (Dankook Univ.); Youngkeun Song (advisor, SNU)

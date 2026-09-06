@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Academic CV builder — Seunghyeon Lee
+Academic CV builder — Seunghyeon (Clay) Lee
 Forest remote sensing / LiDAR · GEDI / ecology — postdoc application
 
 Structure follows field-standard academic CVs (Pascual UMD / Harvard GSAS).
@@ -232,6 +232,7 @@ _set_run(_pg, 8, color=LIGHT)
 # ---------------------------------------------------------------- header
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 r = p.add_run("Seunghyeon Lee"); _set_run(r, 22, bold=True, color=INK)
+r = p.add_run("  (Clay Lee)"); _set_run(r, 12, color=GREY)
 r = p.add_run("    ·    Curriculum Vitae"); _set_run(r, 10.5, color=LIGHT, caps=True, spacing=20)
 p.paragraph_format.space_after = Pt(1)
 
@@ -308,12 +309,13 @@ p.paragraph_format.space_after = Pt(2)
 # ---------------------------------------------------------------- Education
 section("Education")
 def _edu_period(r):
-    """기간은 항상 Start-End(YYYY.MM)를 그대로 쓴다(석·박·학사 형식 통일).
-    수여 예정이면 '(expected)'만 덧붙여 미래 날짜를 확정 학위로 오독하지 않게 한다."""
+    """수여 예정이면 CV 는 'Aug 2026' 형식으로 쓴다. 확정 학위는 Start-End 를 그대로."""
     se = str(r["Start–End"] or "")
-    if str(r["Date Degree Received"] or "").startswith("Expected"):
-        return f"{se} (expected)"
-    return se
+    if not str(r["Date Degree Received"] or "").startswith("Expected"):
+        return se
+    head, _, tail = se.partition(" — ")
+    y, _, m = tail.partition(".")
+    return f"{head} — {_MONTHS[int(m)]} {y}" if m.isdigit() else se
 
 
 def _edu_bullets(r):
