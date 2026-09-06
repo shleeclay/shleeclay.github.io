@@ -60,43 +60,14 @@ def _ym(v):
     return f"{m.group(1)}.{m.group(2)}" if m else ""
 
 
-def _yr(v):
-    """'2024/07/22' · '2024.07' -> '2024'. 학력·직위 기간은 연도만 (영문 학술 CV 관행)."""
-    m = re.match(r"(\d{4})", str(v or ""))
-    return m.group(1) if m else ""
-
-
-def _year_range(start, end):
-    """연도 범위. 같은 해면 한 번만('2024'), 종료가 없으면 Present."""
-    a, b = _yr(start), (_yr(end) or "Present")
-    return a if a == b else f"{a} — {b}"
-
-
-def _mon_yyyy(v):
-    """'2026/08' -> 'Aug 2026' (수여 월 같은 특정 시점만 Mon YYYY).
-    'Expected 2026/08 ...' -> 'expected Aug 2026'."""
-    s = str(v or "")
-    m = re.search(r"(\d{4})[/.](\d{2})", s)
-    if not m:
-        return s
-    mon = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][int(m.group(2))]
-    t = f"{mon} {m.group(1)}"
-    return f"expected {t}" if s.startswith("Expected") else t
-
-
-def _period_years(v):
-    """'2025/07 — 2025/11' -> '2025', '2023/04 — 2027/12' -> '2023 — 2027' (과제 기간도 연도만)."""
-    head, _, tail = str(v or "").partition(" — ")
-    return _year_range(head, tail) if tail else _yr(head)
-
-
 def _work(kind):
     """Work & Internships 에서 CV 구분으로 골라 (직위, 소속, 기간, 서술) 튜플로."""
     out = []
     for r in sheet("Work & Internships", where=lambda r: r["CV 구분"] == kind,
                    order=lambda r: _desc(r["Start Date"])):
+        end = _ym(r["End Date"]) or "Present"
         out.append((r["CV 직위(EN)"], r["CV 소속(EN)"],
-                    _year_range(r["Start Date"], r["End Date"]), r["CV 서술(EN)"]))
+                    f'{_ym(r["Start Date"])} — {end}', r["CV 서술(EN)"]))
     return out
 
 
@@ -265,8 +236,7 @@ r = p.add_run("    ·    Curriculum Vitae"); _set_run(r, 10.5, color=LIGHT, caps
 p.paragraph_format.space_after = Pt(1)
 
 p = doc.add_paragraph()
-_phd = next(r for r in sheet("Education") if str(r["Degree(EN)"]).startswith("Ph.D"))
-r = p.add_run(f"Ph.D., {_mon_yyyy(_phd['Date Degree Received'])} · Forest Structure & Remote Sensing & GIS & AI")
+r = p.add_run("Ph.D., expected Aug 2026 · Forest Structure & Remote Sensing & GIS & AI")
 _set_run(r, 10, color=ACCENT, bold=True)
 p.paragraph_format.space_after = Pt(1)
 
@@ -338,10 +308,9 @@ p.paragraph_format.space_after = Pt(2)
 # ---------------------------------------------------------------- Education
 section("Education")
 def _edu_period(r):
-    """학력 기간은 연도만('2022 — 2026') — 영문 학술 CV 관행. xlsx 의 YYYY.MM 은 렌더러가 연도로 줄인다.
-    수여 예정이면 '(expected)' 를 덧붙인다."""
-    head, _, tail = str(r["Start–End"] or "").partition(" — ")
-    se = _year_range(head, tail)
+    """기간은 항상 Start-End(YYYY.MM)를 그대로 쓴다(석·박·학사 형식 통일).
+    수여 예정이면 '(expected)'만 덧붙여 미래 날짜를 확정 학위로 오독하지 않게 한다."""
+    se = str(r["Start–End"] or "")
     if str(r["Date Degree Received"] or "").startswith("Expected"):
         return f"{se} (expected)"
     return se
@@ -482,7 +451,7 @@ _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(
 # 심사중 원고: 저자는 쉼표 구분 문자열이므로 리스트로 되돌린다.
 under_review = [([a.strip() for a in str(r["Authors(EN)"]).split(",")],
                  _dot(r["Title(EN)"]), r["Journal(EN)"],
-                 f'{r["Status"]}|{_mon_yyyy(r["Status Date"])}')
+                 f'{r["Status"]}|{r["Status Date"]}')
                 for r in sheet("Under Review", order=lambda r: r["No."])]
 for n, (auth, title, jour, status) in enumerate(under_review, 1):
     apa = [_apa_author(a) for a in auth]
@@ -593,7 +562,7 @@ _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(
 # 과제는 CV 표기(다듬은 과제명 · 기여 불릿 · 성과 요약)를 쓴다.
 # xlsx 의 Title(EN)/기여(EN)/논문(EN)/특허(EN) 은 지원서 서식용 원문이라 별도로 둔다.
 projects = [(r["CV 과제명(EN)"], r["Institute(EN)"],
-             _period_years(r["기간"]), r["Role(EN)"], r["PI(EN)"],
+             str(r["기간"] or "").replace("/", "."), r["Role(EN)"], r["PI(EN)"],
              r["예산(USD)"],
              str(r["CV 기여(EN)"]).splitlines() if r["CV 기여(EN)"] else None,
              r["CV 성과(EN)"])
@@ -645,9 +614,8 @@ def _patents(status, datecol, fmt):
     out = []
     for r in sheet("Patents", where=lambda r: r["Status"] == status,
                    order=lambda r: _desc(r[datecol])):
-        raw = str(r[datecol] or "")
-        when = _mon_yyyy(raw) if fmt == "Registered" else _yr(raw)   # 등록=시점(Mon YYYY), 출원중=연도
-        out.append((r["CV 특허명(EN)"], f'{fmt} {when}'
+        d = str(r[datecol] or "").replace("/", ".")
+        out.append((r["CV 특허명(EN)"], f'{fmt} {d[:7] if fmt == "Registered" else d[:4]}'
                     f' · {r["CV 권리자(EN)"]}'))
     return out
 
