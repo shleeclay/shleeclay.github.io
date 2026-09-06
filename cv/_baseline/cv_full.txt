@@ -1,27 +1,27 @@
 Seunghyeon Lee    ·    Curriculum Vitae
-Ph.D., expected Aug 2026 · Forest Structure & Remote Sensing & GIS & AI
+Ph.D., Aug 2026 · Forest Structure & Remote Sensing & GIS & AI
 Landscape & Ecological Planning Lab, Seoul National University, Seoul, Republic of Korea
 shlee5598@snu.ac.kr  |  +82-10-8455-5598  |  ORCID 0000-0003-4612-065X  |  Google Scholar  |  drseunghyeonlee.com
 Research Interests
 Airborne & spaceborne LiDAR (GEDI) for vertical forest structure · forest typology and stratification · biomass and carbon estimation · urban ecology, green infrastructure, and microclimate · thermal remote sensing · reproducible, code-driven geospatial science.
 Education
-Ph.D., Interdisciplinary Program in Landscape Architecture	2022.03 — 2026.08 (expected)
+Ph.D., Interdisciplinary Program in Landscape Architecture	2022 — 2026
 Integrated Major in SmartCity Global Convergence · Seoul National University · Landscape & Ecological Planning Lab · Advisor: Prof. Youngkeun Song
 Dissertation: “LiDAR-Based Characterization of Vertical Structure and Disturbance in Temperate Forests”
 Committee: Dongkun Lee, Youngryel Ryu (Seoul National Univ.); Hansoo Kim (Gyeonggi Research Institute); Dennis Heejoon Choi (Dankook Univ.); Youngkeun Song (advisor, SNU)
-M.A., Landscape Architecture	2020.03 — 2022.02
+M.A., Landscape Architecture	2020 — 2022
 Integrated Major in SmartCity Global Convergence · Graduate School of Environmental Studies, Seoul National University · Advisor: Prof. Youngkeun Song
 Thesis: “Feasibility of Wildlife Detection Using UAV-derived Thermal and True-color Imagery”
-B.S., Landscape Architecture	2011.03 — 2017.02
+B.S., Landscape Architecture	2011 — 2017
 College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea
 Research Experience
-Visiting Research Intern — Virginia Tech (PI: Prof. Jaeyoung Ha)	2024.07 — 2024.08
+Visiting Research Intern — Virginia Tech (PI: Prof. Jaeyoung Ha)	2024
 Blacksburg, VA, United States · Landscape architecture
-Visiting Research Intern — Purdue University, FNR FUSE Lab (PI: Prof. Brady Hardiman)	2023.12 — 2024.02
+Visiting Research Intern — Purdue University, FNR FUSE Lab (PI: Prof. Brady Hardiman)	2023 — 2024
 West Lafayette, IN, United States · Forest structure & LiDAR
-Graduate Researcher — Landscape & Ecological Planning Lab, Seoul National University	2020.03 — Present
+Graduate Researcher — Landscape & Ecological Planning Lab, Seoul National University	2020 — 2026
 National R&D and municipal projects on LiDAR forest structure, carbon, and urban ecology
-Research Assistant — Architecture & Urban Research Institute (AURI)	2019.08 — 2019.11
+Research Assistant — Architecture & Urban Research Institute (AURI)	2019
 Republic of Korea
 Peer-Reviewed Publications
 APA 7th.  Name in bold = author; † = first author.  Impact Factor / quartile shown where available.  (SCI then KCI; newest first)
@@ -37,10 +37,10 @@ APA 7th.  Name in bold = author; † = first author.  Impact Factor / quartile s
 10. Han, Y.-H., Shin, W.-H., Kim, J.-H., Kim, D.-H., Yun, J.-W., Yi, S.-Y., Kim, Y.-H., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55
 Manuscripts Under Review
 APA 7th.  Name in bold = author; † = first author.  (5 manuscripts; first-author listed first)
-1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation [Manuscript under review]. Science of Remote Sensing.  · 2026.04
-2. Lee, S.†, Kim, H., & Song, Y. (2026). Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys [Revise and resubmit, 1st round]. Geoscience Letters.  · 2026.06
-3. Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating UAV-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands [Revise and resubmit, 1st round]. Global Ecology and Conservation.  · 2026.05
-4. Jekal, G., Kim, Y. H., Lee, S., Yun, J. W., Kim, D. Y., & Song, Y. (2026). Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from multi-season Sentinel-2 in a coastal wetland [Revise and resubmit, 1st round]. Journal of Coastal Conservation.  · 2026.02
+1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation [Manuscript under review]. Science of Remote Sensing.  · Apr 2026
+2. Lee, S.†, Kim, H., & Song, Y. (2026). Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys [Revise and resubmit, 1st round]. Geoscience Letters.  · Jun 2026
+3. Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating UAV-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands [Revise and resubmit, 1st round]. Global Ecology and Conservation.  · May 2026
+4. Jekal, G., Kim, Y. H., Lee, S., Yun, J. W., Kim, D. Y., & Song, Y. (2026). Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from multi-season Sentinel-2 in a coastal wetland [Revise and resubmit, 1st round]. Journal of Coastal Conservation.  · Feb 2026
 Books
 1. YOZMDOSI collective (Seunghyeon Lee, contributing author) (2021). New Normal City. Urban Issue. ISBN 9791197343100.
 Fellowships & Funding
@@ -73,71 +73,71 @@ First author / presenter unless marked “team”.  10 domestic presentations (K
 Research Projects
 National R&D and municipal projects (newest first).  Budget = total project funding (national R&D).
 Janghang National Wetland Restoration — ecosystem monitoring
-2025.07 — 2025.11 · Korea Environmental Conservation Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
+2025 · Korea Environmental Conservation Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Led UAV multispectral and LiDAR mapping of the restoration site
 Estimated current carbon stock from UAV LiDAR and predicted future stock from the wetland-park vegetation master plan
 → Related outputs:  Coastal-wetland multi-season Sentinel-2 monitoring (manuscript under review)
 Carbon storage/sink analysis and inventory for Gyeonggi-do by biotope type
-2024.06 — 2025.05 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
+2024 — 2025 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Analyzed province-wide vertical and horizontal forest structure from ALS
 Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery
 → Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Science of Remote Sensing, under review); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
 Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services
-2023.04 — 2027.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M (total project)
+2023 — 2027 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M (total project)
 Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR
 Quantified carbon storage of abandoned paddies and adjacent vegetation
 → Related outputs:  Insect diversity & ecological structure (Agric., Ecosyst. & Environ. 2026); Rook habitat preferences (Global Ecology & Conservation 2025)
 Gyeonggi-do biotope property-information analysis
-2022.12 — 2023.11 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
+2022 — 2023 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Developed and quantified a method to analyze vegetation layer structure by forest type
 → Related outputs:  Forest layer-typology metrics (Ecological Indicators 2026); JCK 2023 presentation
 Creation, restoration & management technology of carbon-accumulated abandoned-paddy wetland
-2022.04 — 2026.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Bonhak Koo (Sangmyung Univ.) · $391K (total project)
+2022 — 2026 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Bonhak Koo (Sangmyung Univ.) · $391K (total project)
 Mapped abandoned-paddy sites and built field drone multispectral / LiDAR datasets
 → Related outputs:  Non-destructive carbon storage of Salix spp. (KOSERT 2025); paddy-terrestrialization patent (pending)
 Gwacheon-si urban ecological status mapping
-2021.09 — 2022.12 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
+2021 — 2022 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Classified forest types and tree species of Gwacheon-si forests and urban green spaces
 Analyzed the vertical and horizontal forest structure of Gwacheon-si
 → Related outputs:  Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science & Technology, under review)
 Real-time web-based positioning surveillance system for introduced exotic species
-2021.04 — 2023.12 · Korean Ministry of Environment · Role: Project Manager · PI: Prof. Youngkeun Song (SNU) · $863K (total project)
+2021 — 2023 · Korean Ministry of Environment · Role: Project Manager · PI: Prof. Youngkeun Song (SNU) · $863K (total project)
 Led the project as managing researcher — scheduling, budget, and research-output management
 Attached GPS trackers to four invasive species (red-eared slider, Formosan sika deer, nutria, raccoon) and built movement datasets
 Built drone multispectral, LiDAR, and hyperspectral imagery of invasive-turtle habitats
 Produced invasive-species control manuals and developed a real-time positioning-tracking platform
 → Related outputs:  Invasive-turtle habitat model (manuscript under review, GEC); wildlife-tracker missing-point patent (reg. 2023) and optimal-capture-range patent (pending)
 IT·ET·BT convergence-based distribution and spread models for introduced exotic species
-2021.04 — 2023.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Wanmo Kang (Kookmin Univ.) · $464K (total project)
+2021 — 2023 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Wanmo Kang (Kookmin Univ.) · $464K (total project)
 Modeled habitat distribution and spread of invasive turtles from GPS-tracking data using MaxEnt
 → Related outputs:  Invasive-turtle MaxEnt distribution model (manuscript under review, GEC)
 Redundancy-based green-infrastructure technology for urban ecosystem challenges
-2020.04 — 2022.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $662K (total project)
+2020 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $662K (total project)
 Tracked wild-boar distribution / movement with camera traps and analyzed home range
 Built drone multispectral / LiDAR imagery of wild-boar habitat and performed real-time thermal-UAV tracking
 → Related outputs:  Diel activity of water deer & wild boar via long-term camera-trapping (KOSERT 2024); drone thermal/RGB & LiDAR wild-boar habitat datasets
 Monitoring and simulation of climate conditions by spatial type
-2020.01 — 2020.08 · The Seoul Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
+2020 · The Seoul Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Acquired and analyzed field measurements of particulate matter and temperature/humidity by urban spatial type
 Ran ENVI-met microclimate simulations and designed green-space planting plans for PM reduction, predicting post-implementation outcomes
 → Related outputs:  LST estimation comparison — satellite / simulation / UAV (KOSERT 2026); outdoor thermal-comfort optimization patent (reg. 2022)
 Customized habitat-management technique for urban species
-2019.04 — 2022.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Chan Park (Univ. of Seoul) · $525K (total project)
+2019 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Chan Park (Univ. of Seoul) · $525K (total project)
 Developed a wildlife-detection method using thermal UAV imagery
 → Related outputs:  Real-time UAV thermal/RGB wildlife detection (Remote Sensing 2021, first author); UAV thermal wildlife-detection patent (reg. 2022)
 Assessment scheme and ecosystem-restoration model by degradation type
-2018.07 — 2020.12 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $257K (total project)
+2018 — 2020 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $257K (total project)
 Performed land-cover classification using satellite imagery
 Patents (Republic of Korea)
 7 registered, 4 pending.
 Registered
-• System and method for providing a tree-management platform. Registered 2025.09 · Seunghyeon Lee
-• Method and system for determining wetland vegetation structure using drone LiDAR. Registered 2025.04 · Seoul National University
-• Image-based roadside-tree information management system and method. Registered 2024.11 · Seunghyeon Lee
-• Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological information. Registered 2023.07 · Seoul National University
-• Self-heating target module for thermal-camera performance testing and precision data acquisition. Registered 2022.10 · Seoul National University
-• Automated wildlife detection method and device using drone-mounted thermal-camera imagery. Registered 2022.05 · Seoul National University
-• A method to derive an optimal plan for outdoor thermal-comfort mitigation. Registered 2022.04 · Seoul National University
+• System and method for providing a tree-management platform. Registered Sep 2025 · Seunghyeon Lee
+• Method and system for determining wetland vegetation structure using drone LiDAR. Registered Apr 2025 · Seoul National University
+• Image-based roadside-tree information management system and method. Registered Nov 2024 · Seunghyeon Lee
+• Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological information. Registered Jul 2023 · Seoul National University
+• Self-heating target module for thermal-camera performance testing and precision data acquisition. Registered Oct 2022 · Seoul National University
+• Automated wildlife detection method and device using drone-mounted thermal-camera imagery. Registered May 2022 · Seoul National University
+• A method to derive an optimal plan for outdoor thermal-comfort mitigation. Registered Apr 2022 · Seoul National University
 Pending
 • Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR. Pending 2025 · Seoul National University & Dankook Univ.
 • Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands. Pending 2025 · Seoul National University
@@ -180,11 +180,11 @@ Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)
 • BK21 SmartCity · SNU GSES — WISE-UP urban spatial-data analysis workshop	2024
 • Gyeonggi-do HRD Institute — Data visualization for better reports	2022
 Professional Experience
-Founder / CEO — TREE:ID (startup)	2023.09 — 2025.03
+Founder / CEO — TREE:ID (startup)	2023 — 2025
 A web platform for individual-tree detection & mapping — urban-tree inventory, diagnosis, and management. ~$71,000 startup grant; two patents held as assignee. Republic of Korea
-Landscape Architect — SUNJIN Engineering & Architecture Co., Ltd. (full-time)	2017.03 — 2018.11
+Landscape Architect — SUNJIN Engineering & Architecture Co., Ltd. (full-time)	2017 — 2018
 Seoul, Republic of Korea · landscape and urban-planning practice
-Landscape Design Intern — ATLAS Landscape Architecture, China	2016.09 — 2017.02
+Landscape Design Intern — ATLAS Landscape Architecture, China	2016 — 2017
 China · landscape design practice
 References
 Available upon request.
