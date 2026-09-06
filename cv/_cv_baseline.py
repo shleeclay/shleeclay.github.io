@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = os.path.join(HERE, "_baseline")
 
 TARGETS = [
-    ("build_cv.py", "Lee_Seunghyeon_CV_v11.docx", "cv_full.txt"),
+    ("build_cv.py", "Lee_Seunghyeon_CV_v12.docx", "cv_full.txt"),
 ]
 
 # 매 실행마다 달라지는 부분 — 대조에서 제외
