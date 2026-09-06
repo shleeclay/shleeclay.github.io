@@ -782,6 +782,6 @@ else:
     _set_run(p.add_run("Last updated: " + _dtdate.today().strftime("%b %Y")), 8.5, italic=True, color=LIGHT)
 
 # ---------------------------------------------------------------- save
-out = "Lee_Seunghyeon_CV_v11.docx"
+out = "Lee_Seunghyeon_CV_v12.docx"
 doc.save(out)
 print("saved:", out)
