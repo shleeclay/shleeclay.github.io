@@ -765,21 +765,21 @@ _set_run(p.add_run("Available upon request."), 9, italic=True, color=GREY)
 
 # (Technical Skills section intentionally omitted)
 
-# ---------------------------------------------------------------- last updated / (opt-in) signature
-# 공개 CV 에는 서명을 넣지 않는다 — 영문 학술 CV 관행이 아니고(cv/refs 4편 모두 없음),
-# 서명 이미지는 신원 자격증명이라 공개 PDF·저장소에 두면 위조 위험이 있다.
-# 기본은 'Last updated: Mon YYYY' 한 줄. 서명본을 요구하는 지원서에만 CV_SIGNED=1 로 빌드하고,
-# 서명 파일은 저장소 밖 %USERPROFILE%\.config\shleeclay\signature.png 에서만 읽는다 (커밋 금지).
-_sig_img = os.path.join(os.path.expanduser("~"), ".config", "shleeclay", "signature.png")
-if os.environ.get("CV_SIGNED") == "1" and os.path.exists(_sig_img):
+# ---------------------------------------------------------------- date / signature
+# Drop a signature image at cv/assets/signature.png (transparent PNG, tightly cropped) to embed it;
+# otherwise a blank signature line is printed.
+_sig_img = os.path.join(HERE, "assets", "signature.png")
+_today = _dtdate.today().strftime("%d %B %Y")
+if os.path.exists(_sig_img):
     pim = doc.add_paragraph(); pim.paragraph_format.space_before = Pt(16)
     pim.add_run().add_picture(_sig_img, height=Inches(0.6))
     p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(1)
     _set_run(p.add_run("Seunghyeon Lee"), 9.5, bold=True)
-    _set_run(p.add_run("\tDate: " + _dtdate.today().strftime("%d %B %Y")), 9, color=GREY)
+    _set_run(p.add_run("\tDate: " + _today), 9, color=GREY)
 else:
-    p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; p.paragraph_format.space_before = Pt(18)
-    _set_run(p.add_run("Last updated: " + _dtdate.today().strftime("%b %Y")), 8.5, italic=True, color=LIGHT)
+    p = doc.add_paragraph(); add_right_tab(p); p.paragraph_format.space_before = Pt(18)
+    _set_run(p.add_run("Seunghyeon Lee"), 9.5, bold=True)
+    _set_run(p.add_run("\tSignature: ____________________     Date: " + _today), 9, color=GREY)
 
 # ---------------------------------------------------------------- save
 out = "Lee_Seunghyeon_CV_v11.docx"

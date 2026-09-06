@@ -49,3 +49,9 @@ cv/old/application_info_v*.xlsx
 # Python 캐시
 __pycache__/
 *.pyc
+
+# 서명 이미지 — 신원 자격증명. 저장소에 절대 커밋하지 않는다 (비공개 %USERPROFILE%\.config\shleeclay\ 보관)
+cv/signature.png
+cv/assets/signature.png
+cv/old/signature_original_2021.png
+cv/**/*signature*.png

@@ -29,6 +29,7 @@ TARGETS = [
 # 매 실행마다 달라지는 부분 — 대조에서 제외
 VOLATILE = [
     re.compile(r"Date:\s*\d{1,2}\s+\w+\s+\d{4}"),
+    re.compile(r"Last updated:\s*\w+\s+\d{4}"),
     re.compile(r"Signature:\s*_+"),
 ]
 
