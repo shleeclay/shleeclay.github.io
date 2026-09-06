@@ -391,3 +391,14 @@
 - gedisim 분석 결과를 SRS 저널에 투고하기 위한 논의가 포함된 세션 `dbec910c-eee0-4d97-a1f5-0379843b6250` 검색 및 결과 제공
 - 재해 전후 위성 영상(NDVI, NBR) 비교를 위한 Sentinel-2 영상 처리 작업 준비
 
+## 2026-09-06
+
+*   게재 논문의 SCI/KCI 그룹 구분을 유지하며, 그룹 구분을 명확히 하기 위해 라벨과 구분선을 추가함
+*   `build_cv.py` 스크립트에서 CV의 'Clay Lee' 이름 제거 및 학력/직위 기간 형식을 'Mon YYYY' 또는 연도만으로 통일함
+*   CV의 'Ph.D., expected Aug 2026' 문구를 'Ph.D., Aug 2026'으로 수정하고, SNU 연구원 기간을 2026년 8월 종료로 업데이트함
+*   CV의 서명 이미지를 완전히 제거하고, 공개 CV에는 'Last updated: Sep 2026' 문구를 추가함
+*   Google Search Console API를 설정하고, 서비스 계정 생성 및 권한 부여를 통해 SEO 성과 데이터 조회 기능을 구현함
+*   Bing Webmaster Tools를 Google Search Console에서 가져오는 방식으로 연동하고 API 키를 설정함
+*   GitHub 저장소의 모든 이력에서 서명 관련 이미지 파일(PNG)을 완전히 제거하고, 이를 위한 Git 후기(history) 재작성을 완료함
+*   CV 문서 버전 v11에서 v12로 업데이트하며, 최종본 PDF를 생성하고 라이브 사이트에 배포함
+
