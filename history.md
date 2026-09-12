@@ -402,3 +402,8 @@
 *   GitHub 저장소의 모든 이력에서 서명 관련 이미지 파일(PNG)을 완전히 제거하고, 이를 위한 Git 후기(history) 재작성을 완료함
 *   CV 문서 버전 v11에서 v12로 업데이트하며, 최종본 PDF를 생성하고 라이브 사이트에 배포함
 
+## 2026-09-12
+
+- application_info.xlsx 파일의 Personal, Research Interests, Education, Publications, Under Review, Books, Conferences, Invited Talks, Teaching 시트 데이터를 읽어옵니다.
+- build_cv.py 파일을 수정하여 CV 데이터에서 짧은 저자 소개를 생성하는 로직을 구현합니다.
+
