@@ -407,3 +407,8 @@
 - application_info.xlsx 파일의 Personal, Research Interests, Education, Publications, Under Review, Books, Conferences, Invited Talks, Teaching 시트 데이터를 읽어옵니다.
 - build_cv.py 파일을 수정하여 CV 데이터에서 짧은 저자 소개를 생성하는 로직을 구현합니다.
 
+## 2026-09-13
+
+- `user_profile.md` 파일 업데이트
+- `site.json` 파일에서 "education" 관련 정보 파악
+
