@@ -409,6 +409,7 @@
       "online":   { "ko": "온라인 강의", "en": "Online class" }
     },
     "items": [
+      { "date": "2026/09/10", "dateEnd": "",           "type": "special", "students": 12,  "url": "",                   "host": { "ko": "구미도시공사",                "en": "Gumi Urban Corporation" },                              "title": { "ko": "하수도 설계기준 해설 과정", "en": "Sewerage Design Standards Commentary Course" } },
       { "date": "2026/07/30", "dateEnd": "2026/07/31", "type": "special", "students": 15,  "url": "",                   "host": { "ko": "인천도시재생센터",            "en": "Incheon Urban Regeneration Center" },                       "title": { "ko": "QGIS를 활용한 도시재생 대상지 종합성과지표 분석", "en": "Comprehensive performance-indicator analysis of urban-regeneration sites using QGIS" } },
       { "date": "2026/07/27", "dateEnd": "2026/07/29", "type": "special", "students": 25,  "url": "",                   "host": { "ko": "한국상하수도협회",            "en": "Korea Water & Wastewater Works Association (KWWA)" },       "title": { "ko": "74기 물환경 엔지니어링 TOOL 마스터 과정(고급)", "en": "74th Water-Environment Engineering Tool Master Course (Advanced)" } },
       { "date": "2026/07/22", "dateEnd": "2026/07/23", "type": "special", "students": 15,  "url": "",                   "host": { "ko": "인천도시재생센터",            "en": "Incheon Urban Regeneration Center" },                       "title": { "ko": "QGIS를 활용한 도시재생 대상지 기초현황 분석", "en": "Baseline-condition analysis of urban-regeneration sites using QGIS" } },
