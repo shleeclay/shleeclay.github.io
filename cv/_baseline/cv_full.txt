@@ -168,6 +168,7 @@ Online Courses  (1,100+ students enrolled)
 • QGIS Mapping Visualization A to Z (Vector / Basic)	2023
 • QGIS Python Automation	2022
 Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)
+• Gumi Urban Corporation — Sewerage design-standards course for wastewater-sector professionals	2026
 • Incheon Urban Regeneration Center — QGIS analysis and visualization of urban-regeneration sites (baseline conditions, performance indicators, and mapping)	2026
 • Korea Water & Wastewater Works Association (KWWA) — Water-environment engineering QGIS tool-master course (basic & advanced)	2026
 • Hanyang Cyber University — QGIS spatial analysis and visualization (beginner to advanced)	2026
