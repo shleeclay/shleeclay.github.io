@@ -6,6 +6,10 @@
     "invitedSessions": "20+",
     "invitedYears": "2022 — 2026"
   },
+  "analytics": {
+    "_help": "Google Analytics 4 측정 ID(G-XXXXXXXXXX). 비어 있으면 태그를 렌더하지 않는다. 방문자 조회는 scripts/seo/seo_report.py --engine ga4.",
+    "gtagId": ""
+  },
 
   "site": {
     "ko": {
