@@ -71,6 +71,19 @@ const seoKeywords = "이승현, Seunghyeon Lee, Seunghyeonlee, 박사, PhD, doct
 <meta name="google-site-verification" content="-xA8fxV1SiADabECs-TeuCIGXaIGmUUyAkh9zabPwI0" />
 <meta name="naver-site-verification" content="ff4deaf3ac2b576c9b21dad48f5eb2023521c2b1" />
 
+<!-- Google Analytics 4 — site.json analytics.gtagId 가 비어 있으면 렌더하지 않는다 -->
+{site.analytics?.gtagId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.analytics.gtagId}`}></script>
+    <script is:inline define:vars={{ gtagId: site.analytics.gtagId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', gtagId);
+    </script>
+  </>
+)}
+
 <!-- Theme detection (runs before paint to avoid flash). Language is fixed per route. -->
 <script is:inline>
   (function () {
