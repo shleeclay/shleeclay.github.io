@@ -7,7 +7,7 @@ Structure follows field-standard academic CVs (Pascual UMD / Harvard GSAS).
 All content is sourced from the verified portfolio data in
   ../src/data/site.json
 Edit the data blocks below, then run:  python build_cv.py
-Output: Lee_Seunghyeon_CV_v1.docx  ->  export to PDF in Word for ../public/cv/
+Output: Lee_Seunghyeon_CV_v12.docx  ->  PDF via make_pdf.ps1 -Publish (LibreOffice; never Word/docx2pdf) -> ../public/cv/
 """
 from docx import Document
 from docx.shared import Pt, RGBColor, Inches
