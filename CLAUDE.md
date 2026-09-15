@@ -83,7 +83,9 @@ cd cv && python build_cv.py            → Lee_Seunghyeon_CV_v12.docx
 python _cv_baseline.py --check         → 의도한 줄만 바뀌었는지 확인
 python _cv_baseline.py --save          → 승인된 변경이면 기준선 갱신
 ```
-PDF 는 Word 에서 내보내고, 공개용은 `public/cv/Lee_Seunghyeon_CV.pdf` 로 복사한다.
+PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice headless) 로 만든다 — 최신 `Lee_Seunghyeon_CV_v*.docx` 를 변환하고 `public/cv/Lee_Seunghyeon_CV.pdf` 까지 복사한다.
+**Word 내보내기·docx2pdf·Word COM 금지.** Word 는 Cambria 를 서브셋 여러 개로 쪼개고 일부를 임베드하지 않아 뷰어에서 자간이 깨진다
+(2026-06-06 진단, 2026-09-15 재발 — 그때 `make_pdf.ps1` 을 old/ 로 치우고 docx2pdf 를 쓴 것이 원인). `make_pdf.ps1` 은 old/ 로 옮기지 말 것.
 
 ---
 
