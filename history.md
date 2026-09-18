@@ -423,3 +423,9 @@
 - GitHub 계정 복구 절차 중 SSH 키 관련 정보를 확인하고, 복구 가능성을 평가함
 - GA4 방문자 통계 연동을 완료하고, 향후 SEO 관련 문의 시 검색 유입 및 방문자 데이터를 통합하여 제공할 준비를 함
 
+## 2026-09-18
+
+* 추천서 초안 작성 및 프로젝트 소개를 위해 `application_info.xlsx` 파일의 정보를 활용했습니다.
+* `application_info.xlsx` 파일의 시트 목록을 조회했습니다.
+* 추천서 작성을 위해 `application_info.xlsx` 파일의 publications, under review, patents, education, funding, service, skills, projects, positions, teaching 시트 정보를 추출했습니다.
+
