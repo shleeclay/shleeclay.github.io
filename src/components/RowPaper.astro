@@ -11,7 +11,10 @@ const isFirst = paper.role === "first";
 const yearText = paper.year ? String(paper.year) : "—";
 const hasPdf = !!paper.pdf;
 const hasWeb = !!paper.doi;
-const isSCI = !!(paper.quartile || paper.if);
+// 등재구분(index, xlsx 정본)이 있으면 그것으로 판정하고(KCI 가 아니면 국제),
+// 없을 때만 quartile/IF 유무로 추정한다.
+const isIntl = paper.index ? paper.index !== 'KCI' : !!(paper.quartile || paper.if);
+const indexLabel = paper.index || (isIntl ? 'SCIE' : 'KCI');
 
 const figures = paper.figures ?? [];
 const hasFigs = figures.length > 0;
@@ -30,14 +33,14 @@ const figuresJson = JSON.stringify(figures);
     <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 mb-1">
       <div class="flex flex-wrap items-center gap-1.5">
         <span class={`pill ${isFirst ? "pill-first" : "pill-co"}`}>{isFirst ? "First author" : "Co-author"}</span>
-        {isSCI ? (
+        {isIntl ? (
           <>
-            <span class="pill pill-co">SCI</span>
+            <span class="pill pill-idx">{indexLabel}</span>
             {paper.quartile && <span class="pill pill-q1">{paper.quartile.split(' ')[0]}</span>}
             {paper.if && <span class="pill pill-co">IF {paper.if.split(' ')[0]}</span>}
           </>
         ) : (
-          <span class="pill pill-co">KCI</span>
+          <span class="pill pill-idx">{indexLabel}</span>
         )}
       </div>
 

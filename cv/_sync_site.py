@@ -105,6 +105,7 @@ for it in site["publications"]["items"]:
     w = f'publications[{it.get("id")}]'
     put(it, "year", r["Year"], w)
     put(it, "role", r["Role"], w)
+    put(it, "index", r["Index"], w)
     put(it, "if", r["IF"], w)
     put(it, "quartile", r["Quartile"], w)
     put(it, "journal", r["Journal(EN)"], w)

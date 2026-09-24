@@ -26,8 +26,10 @@ const figures = paper.figures ?? [];
 const hasFigs = figures.length > 0;
 const figuresJson = JSON.stringify(figures);
 
-// Indexing tier: SCI(E) if it carries quartile/IF, otherwise KCI (domestic).
-const isSCI = !!(paper.quartile || paper.if);
+// Indexing tier: 등재구분(index, xlsx 정본)이 있으면 그것으로 판정하고
+// (KCI 가 아니면 국제), 없을 때만 quartile/IF 유무로 추정한다.
+const isIntl = paper.index ? paper.index !== 'KCI' : !!(paper.quartile || paper.if);
+const indexLabel = paper.index || (isIntl ? 'SCIE' : 'KCI');
 
 // Cover is served from the generated web/ subfolder (800px webp). Originals in
 // covers/ are preserved; optimize-images.mjs writes covers/web/<name>.webp.
@@ -70,11 +72,11 @@ const coverSrc = paper.cover
     <!-- Bottom fade overlay tinted with paper hue — subtle color identity even with cover -->
     {paper.cover && <div class="paper-cover-fade"></div>}
 
-    <!-- Top-left: indexing tier (SCI/KCI) + Q-rank + Impact Factor badges -->
+    <!-- Top-left: indexing tier (SCIE/ESCI/KCI) + Q-rank + Impact Factor badges -->
     <div class="absolute top-3 left-3 z-10 flex gap-1.5 flex-wrap">
-      {isSCI ? (
+      {isIntl ? (
         <>
-          <span class="cover-badge cover-badge-sci">SCI</span>
+          <span class="cover-badge cover-badge-sci">{indexLabel}</span>
           {paper.quartile && (
             <span class="cover-badge cover-badge-q1">{paper.quartile.split(' ')[0]}</span>
           )}
@@ -83,7 +85,7 @@ const coverSrc = paper.cover
           )}
         </>
       ) : (
-        <span class="cover-badge cover-badge-kci">KCI</span>
+        <span class="cover-badge cover-badge-kci">{indexLabel}</span>
       )}
     </div>
 

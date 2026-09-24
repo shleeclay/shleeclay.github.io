@@ -55,8 +55,8 @@ application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghye
 3. cd cv/citations && python merge_bib.py && python bib_to_xlsx.py
 4. xlsx Publications 시트에 행 추가
    - bib 이 갖는 것(권·호·페이지·DOI)은 참고용으로만, 정본은 bib
-   - 여기서만 입력: Role(first/co) · Index(SCI/KCI) · IF · Quartile
-     · 저자순위(본인) · 총저자수 · 게재일자 · 등재구분
+   - 여기서만 입력: Role(first/co) · Index(SCIE/ESCI/KCI) · IF · Quartile
+     · 저자순위(본인) · 총저자수 · 게재일자
 5. cd cv && python _export_csv.py && python _check_sync.py
 6. site.json publications.items 에 항목 추가 (표지·PDF 경로는 사람이 결정)
 7. python _sync_site.py        미리보기 → 이상 없으면 --write
@@ -96,7 +96,7 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | Personal | 16 | — (지원서 전용, CV·웹 미사용) |
 | Research Interests | 6 | — |
 | Education | 4 | `CV 표시` `웹 표시` `CV 서술(EN)` `심사위원(EN)` |
-| Publications | 9 | — |
+| Publications | 10 | — |
 | Under Review | 5 | — |
 | Books | 1 | — |
 | Conferences | 25 | `CV 분류` `CV 학회(EN)` `팀 발표` |

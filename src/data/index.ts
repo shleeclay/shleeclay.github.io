@@ -43,6 +43,7 @@ export type Publication = {
   year: number;
   role: 'first' | 'co' | string;
   journal: string;
+  index?: 'SCIE' | 'ESCI' | 'KCI' | string;  // 등재 구분 (xlsx Publications.Index 정본)
   if: string;
   quartile: string;
   doi: string;

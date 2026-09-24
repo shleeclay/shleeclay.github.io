@@ -45,6 +45,7 @@ cv/old/논문실적_지원용.xlsx
 cv/old/국가rnd정보.xlsx
 cv/_csv/
 cv/old/application_info_v*.xlsx
+cv/old/application_info_backup_*.xlsx
 
 # Python 캐시
 __pycache__/
@@ -55,3 +56,4 @@ cv/signature.png
 cv/assets/signature.png
 cv/old/signature_original_2021.png
 cv/**/*signature*.png
+cv/pys_old/
