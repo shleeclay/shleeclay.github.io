@@ -84,7 +84,7 @@
     },
     "stats": [
       { "label": { "ko": "게재 논문",   "en": "Publications" },          "value": "{pub}",    "unit": { "ko": "편",    "en": "papers" } },
-      { "label": { "ko": "학회 발표",   "en": "Conference talks" },      "value": "25+",  "unit": { "ko": "건",    "en": "presentations" } },
+      { "label": { "ko": "학회 발표 · 초청 강연", "en": "Conference talks · Invited talks" }, "value": "{conf}/{invitedTalks}", "unit": { "ko": "건",    "en": "presentations" } },
       { "label": { "ko": "연구 과제",   "en": "Projects" },              "value": "12+",  "unit": { "ko": "건",    "en": "projects" } },
       { "label": { "ko": "특허",        "en": "Patents" },               "value": "{pat}",   "unit": { "ko": "건",    "en": "patents" } },
       { "label": { "ko": "대학 정규 강의 · 특강", "en": "University & special lectures" }, "value": "{univ}/{invitedSessions}", "unit": { "ko": "건", "en": "lectures" } },
@@ -341,18 +341,17 @@
   "conferences": {
     "_help": "1저자 또는 발표자(presenter)인 학회 발표만 포함.",
     "eyebrow": "04 — CONFERENCES",
-    "title": { "ko": "학회 발표", "en": "Conference Presentations" },
+    "title": { "ko": "학회 발표 · 초청 강연", "en": "Conference Presentations & Invited Talks" },
+    "groupConf": { "ko": "학회 발표", "en": "Conference presentations" },
     "intro": { "ko": "1저자 또는 발표자(presenter)인 국내·국제 학회 발표.", "en": "Domestic and international presentations where I am first author or presenter." },
     "items": [
       { "id": 26, "date": "2026/06/03", "year": 2026, "type": "poster", "scope": "international", "conference": "Applications and Solutions in Digital Forestry Int'l. Conference", "venue": { "ko": "미국 웨스트라피엣, 인디애나", "en": "West Lafayette, IN, US" }, "authors": ["Seunghyeon Lee", "Uirin Ha", "Heejae Lee", "Hyeyeong Choe", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests", "en": "Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests" } },
       { "id": 25, "date": "2025/12/17", "year": 2025, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)", "venue": { "ko": "미국 뉴올리언스",      "en": "New Orleans, US" },              "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest", "en": "Novel LiDAR Indices Reveal Scale-Dependent Vertical Structure and Typologies in a Temperate Forest" } },
       { "id": 24, "date": "2025/04/04", "year": 2025, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국환경복원기술학회 / KOSERT (2025 춘계)", "en": "KOSERT (2025 Spring)" }, "venue": { "ko": "대한민국 서울",       "en": "Seoul, Republic of Korea" },     "authors": ["이승현", "김도희", "김용환", "김한수", "노지선", "송영근", "이희재", "제갈갑성", "하의린"], "title": { "ko": "산림 층위구조 지수의 개발과 탄소저장량과의 상관관계 분석", "en": "Development of forest layer-structure indices and their correlation with carbon storage" } },
       { "id": 23, "date": "2024/12/13", "year": 2024, "type": "poster", "scope": "international", "conference": "AGU (American Geophysical Union)", "venue": { "ko": "미국 워싱턴 D.C.",     "en": "Washington D.C., US" },            "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types", "en": "Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types" } },
-      { "id": 22, "date": "2024/11/06", "year": 2024, "type": "oral",   "scope": "international", "conference": "Asia Week",                       "venue": { "ko": "일본 후쿠오카 / 온라인","en": "Fukuoka, Japan / Online" },        "authors": ["Seunghyeon Lee"],                                  "title": { "ko": "Invasive species monitoring development and its application", "en": "Invasive species monitoring development and its application" } },
       { "id": 21, "date": "2024/10/06", "year": 2024, "type": "oral",   "scope": "international", "conference": "ICLEE (Intl. Consortium of Landscape and Ecological Engineering)", "venue": { "ko": "일본 기타큐슈", "en": "Kitakyushu, Japan" }, "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR", "en": "Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR" } },
       { "id": 20, "date": "2024/08/08", "year": 2024, "type": "poster", "scope": "international", "conference": "ESA (Ecological Society of America)", "venue": { "ko": "미국 롱비치",          "en": "Long Beach, CA, US" },           "authors": ["Seunghyeon Lee", "Hansoo Kim", "Youngkeun Song"], "title": { "ko": "Characterizing the forest vegetation stratification by forest biotope types using airborne LiDAR", "en": "Characterizing the forest vegetation stratification by forest biotope types using airborne LiDAR" } },
       { "id": 19, "date": "2024/04/19", "year": 2024, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국환경생태학회 / KSEE (2024 춘계)", "en": "KSEE (2024 Spring)" }, "venue": { "ko": "대한민국 시흥",       "en": "Siheung, Republic of Korea" },   "authors": ["이승현", "김한수", "송영근"],                       "title": { "ko": "항공라이다를 활용한 과천시 산림 층위별 피복 면적 및 변화량 분석", "en": "Analyzing the vegetation area of each forest layer and its change of Gwacheon-si using airborne LiDAR" } },
-      { "id": 18, "date": "2024/01/16", "year": 2024, "type": "oral",   "scope": "international", "conference": "NEF (Neocity Empowerment Forum)", "venue": { "ko": "미국 올란도",          "en": "Orlando, FL, US" },              "authors": ["Seunghyeon Lee"],                                  "title": { "ko": "Remotely sensed Smartcity ecological value maps", "en": "Remotely sensed Smartcity ecological value maps" } },
       { "id": 17, "date": "2024/01/10", "year": 2024, "type": "video",  "scope": "international", "conference": "CES (Consumer Electronics Show)", "venue": { "ko": "미국 라스베가스",       "en": "Las Vegas, NV, US" },            "authors": ["BK21 SmartCity Team"],                                    "title": { "ko": "Smart City & Green Infrastructure", "en": "Smart City & Green Infrastructure" } },
       { "id": 16, "date": "2023/11/29", "year": 2023, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국환경복원기술학회 / KOSERT (2023 추계)", "en": "KOSERT (2023 Fall)" }, "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["이승현", "송영근"],                                "title": { "ko": "위성라이다 GEDI를 활용하여 수종과 시기에 따라 임상별 식생 수직 구조 및 면적 변화 비교 연구", "en": "GEDI-based comparison of vegetation vertical structure and area change by tree species and seasons" } },
       { "id": 15, "date": "2023/11/12", "year": 2023, "type": "oral",   "scope": "international", "conference": "JCK (Japan-China-Korea Landscape Architectural Symposium, 18th)", "venue": { "ko": "일본 교토", "en": "Kyoto, Japan" }, "authors": ["Landscape & Ecological Planning Lab"], "title": { "ko": "Property Information Analysis Study of Gyeonggi-do Province Biotope", "en": "Property Information Analysis Study of Gyeonggi-do Province Biotope" } },
@@ -370,6 +369,25 @@
       { "id":  3, "date": "2021/03/26", "year": 2021, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국조경학회 / KILA (2021 춘계)", "en": "KILA (2021 Spring)" }, "venue": { "ko": "온라인",                "en": "Online" },                       "authors": ["이승현", "손용훈"], "title": { "ko": "안양시 녹지 서비스 공급과 수요 갭분석을 통한 공급 원활 및 부족지역 도출", "en": "Anyang City green space supply-demand gap analysis" } },
       { "id":  2, "date": "2020/10/22", "year": 2020, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국환경복원기술학회 / KOSERT (2020 추계)", "en": "KOSERT (2020 Fall)" }, "venue": { "ko": "대한민국 제주",      "en": "Jeju, Republic of Korea" },      "authors": ["이승현", "길승호", "송영근"], "title": { "ko": "무인비행체 탑재 열화상 센서 촬영환경에 따른 야생동물 탐지가능성 연구", "en": "UAV-mounted thermal sensor wildlife detection feasibility under varying conditions" } },
       { "id":  1, "date": "2020/05/22", "year": 2020, "type": "oral",   "scope": "domestic",      "conference": { "ko": "한국환경복원기술학회 / KOSERT (2020 춘계)", "en": "KOSERT (2020 Spring)" }, "venue": { "ko": "온라인",              "en": "Online" },                       "authors": ["이승현", "길승호", "송영근"], "title": { "ko": "무인비행체와 열화상 센서를 활용한 야생동물 개체 수 탐지방법에 대한 연구동향 분석", "en": "Trend analysis on UAV/thermal-based wildlife population detection" } }
+    ]
+  },
+
+  "invitedTalks": {
+    "_help": "초청 강연 — 남의 과목·행사에 초청되어 1~2시간 안에 끝나는 강연·발표(내가 과정의 주강사가 아닌 자리). 교과목 초청강의 · 세미나 · 콜로퀴엄 · 기조 · 패널, 그리고 학회 초청 세션이 여기 들어간다. 내가 주강사인 교육 과정(반나절~수일, 수강생·시수 관리)은 teaching, 학회 프로그램 안의 일반 발표는 conferences. 정본은 cv/application_info.xlsx 의 'Invited Talks' 시트(웹 표시=Y).",
+    "label": { "ko": "초청 강연", "en": "Invited talks" },
+    "_typeLabels": {
+      "guest lecture": { "ko": "교과목 초청강의", "en": "Guest lecture" },
+      "conference":    { "ko": "학회 초청발표",   "en": "Invited talk" },
+      "seminar":       { "ko": "초청 세미나",     "en": "Invited seminar" },
+      "colloquium":    { "ko": "콜로퀴엄",        "en": "Colloquium" },
+      "keynote":       { "ko": "기조강연",        "en": "Keynote" },
+      "panel":         { "ko": "패널",            "en": "Panel" }
+    },
+    "items": [
+      { "date": "", "year": 2025, "type": "guest lecture", "scope": "domestic", "title": { "ko": "The understanding and applications of thermal sensors", "en": "The understanding and applications of thermal sensors" }, "host": { "ko": "서울대학교 스마트시티 산업기술 세미나 (3학점)", "en": "SmartCity Industrial Technology Seminar (3 cr.), Seoul National University" }, "venue": { "ko": "서울", "en": "Seoul, Republic of Korea" } },
+      { "date": "", "year": 2025, "type": "guest lecture", "scope": "domestic", "title": { "ko": "Understanding spatial information and research cases", "en": "Understanding spatial information and research cases" }, "host": { "ko": "서울대학교 환경보전 및 국토관리 (3학점)", "en": "Environmental Conservation & Land Management (3 cr.), Seoul National University" }, "venue": { "ko": "서울", "en": "Seoul, Republic of Korea" } },
+      { "date": "2024/11/06", "year": 2024, "type": "conference", "scope": "international", "title": { "ko": "Invasive species monitoring development and its application", "en": "Invasive species monitoring development and its application" }, "host": { "ko": "Asia Week", "en": "Asia Week" }, "venue": { "ko": "일본 후쿠오카 / 온라인", "en": "Fukuoka, Japan / Online" } },
+      { "date": "2024/01/16", "year": 2024, "type": "conference", "scope": "international", "title": { "ko": "Remotely sensed Smartcity ecological value maps", "en": "Remotely sensed Smartcity ecological value maps" }, "host": { "ko": "NEF (Neocity Empowerment Forum)", "en": "NEF (Neocity Empowerment Forum)" }, "venue": { "ko": "미국 올란도", "en": "Orlando, FL, US" } }
     ]
   },
 

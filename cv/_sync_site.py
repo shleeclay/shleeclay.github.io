@@ -145,6 +145,28 @@ for it in site["conferences"]["items"]:
     put_pair(it, "title", r["발표제목(KO)"], r["Title(EN)"], w)
     put_list(it, "authors", r["Authors"], w)
 
+# ── 초청 강연: (Date 또는 Year) + 제목 앞부분으로 매칭 ───────────────
+def ikey(d, y, t):
+    d = str(d or "").strip()[:10]
+    return f'{d or str(y or "")}|{norm(t)[:24]}'
+
+
+xi = {ikey(r["Date"], r["Year"], r["Title(EN)"]): r
+      for r in rows("Invited Talks", lambda r: str(r["웹 표시"]).strip().upper() == "Y")}
+for it in site.get("invitedTalks", {}).get("items", []):
+    _lbl = (it.get("title") or {}).get("en", "")[:40]
+    r = xi.get(ikey(it.get("date"), it.get("year"), (it.get("title") or {}).get("en")))
+    if not r:
+        UNMATCHED.append(f"invitedTalks[{_lbl}] 매칭 실패 — 건너뜀")
+        continue
+    w = f"invitedTalks[{_lbl}]"
+    put(it, "year", r["Year"], w)
+    put(it, "type", r["Type"], w)
+    put(it, "scope", r["Scope"], w)
+    put_pair(it, "title", r["제목(KO)"], r["Title(EN)"], w)
+    put_pair(it, "host", r["주최(KO)"], r["Host(EN)"], w)
+    put_pair(it, "venue", r["장소(KO)"], r["Venue(EN)"], w)
+
 # ── 자격증: 취득일로 매칭 ────────────────────────────────────────────
 xcert = {str(r["취득일"] or "")[:10]: r for r in rows("Certifications")}
 for it in site["honors"]["certifications"]["items"]:

@@ -24,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # 사실 데이터의 정본은 application_info.xlsx 다. 이 파일에 값을 직접 적지 않는다.
 #   - 원자 필드로 CV 표기가 재현되면 규칙으로 조합한다
 #   - 재현되지 않는 curated 표기는 xlsx 의 'CV 표기(EN)' / 'CV 서술(EN)' 컬럼을 그대로 쓴다
-#   - 수록 대상은 xlsx 의 'CV 표시' / 'CV 구분' / 'CV 분류' 플래그로 고른다
+#   - 수록 대상은 xlsx 의 'CV 표시' / 'CV 구분' 플래그로 고른다
 import openpyxl as _oxl
 
 _WB = _oxl.load_workbook(os.path.join(HERE, "application_info.xlsx"), data_only=True)
@@ -547,14 +547,31 @@ for name, period, amount in funding:
 
 # ---------------------------------------------------------------- Invited talks
 section("Invited Talks")
-# 초청강연은 두 시트에 나뉘어 있다: 전용 시트(대학 초청강의) + 학회 시트의 CV분류=invited
-invited = [(_dot(r["Title(EN)"]), r["Venue(EN)"], str(r["Year"]))
-           for r in sheet("Invited Talks", order=lambda r: r["No."])] + \
-          [(_dot(r["Title(EN)"]), f'{r["Conference(EN)"]}, {r["Venue(EN)"]}', str(r["Year"]))
-           for r in sheet("Conferences", where=lambda r: r["CV 분류"] == "invited",
-                          order=lambda r: _desc(r["Date"]))]
-# 전 섹션 공통으로 최신순. 대학 초청강의(전용 시트)는 날짜가 없어 No. 순이며 모두 2025년이라
-# 학회 시트에서 오는 2024년 건들보다 앞선다.
+# 초청강연의 정본은 'Invited Talks' 시트 하나다 (교과목 초청강의 · 학회 초청세션 모두 포함).
+_INVITED_TYPE = {"guest lecture": "Guest lecture", "conference": "Invited talk",
+                 "seminar": "Invited seminar", "colloquium": "Colloquium",
+                 "keynote": "Keynote", "panel": "Panel"}
+
+
+def _invited_order(r):
+    """Date 내림차순. Date 가 비면 Year 내림차순 · No. 순 (연도만 아는 항목이 그 해 앞)."""
+    d = str(r["Date"] or "").strip()
+    return (-int(str(r["Year"])[:4]), 0 if not d else 1, _desc(d), r["No."])
+
+
+def _invited_tail(r):
+    """italic 꼬리 = 'TypeLabel, Host(EN), Venue(EN)'. 빈 값은 건너뛴다.
+    guest lecture 는 Host 에 대학명이 이미 들어가므로 Venue 를 생략한다."""
+    kind = str(r["Type"] or "").strip().lower()
+    parts = [_INVITED_TYPE.get(kind, str(r["Type"] or "").strip()),
+             str(r["Host(EN)"] or "").strip()]
+    if kind != "guest lecture":
+        parts.append(str(r["Venue(EN)"] or "").strip())
+    return ", ".join(x for x in parts if x)
+
+
+invited = [(_dot(r["Title(EN)"]), _invited_tail(r), str(r["Year"]))
+           for r in sheet("Invited Talks", order=_invited_order)]
 for title, venue, yr in invited:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
@@ -578,8 +595,7 @@ confs = [([a.strip() for a in str(r["Authors"]).split(",")], r["Year"],
           _dot(sentence_case(r["Title(EN)"])),
           f'{r["CV 학회(EN)"]}, {r["Venue(EN)"]}')
          for r in sheet("Conferences",
-                        where=lambda r: r["Scope"] == "international"
-                        and r["CV 분류"] == "conference",
+                        where=lambda r: r["Scope"] == "international",
                         order=lambda r: _desc(r["Date"]))]
 for auth, yr, kind, title, venue in confs:
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(4)

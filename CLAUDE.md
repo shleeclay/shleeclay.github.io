@@ -65,6 +65,15 @@ application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghye
 > `_sync_site.py` 는 **항목을 추가하지 않는다.** 기존 항목의 필드만 갱신한다.
 > 새 논문·학회를 웹에 올릴 때는 site.json 에 항목 골격을 먼저 만들어야 한다.
 
+### 초청 강연 추가
+```
+1. xlsx 'Invited Talks' 시트에 행 추가 (Date·Type·Scope·주최(KO)/Host(EN)·웹 표시=Y, No. 는 최신순 재부여)
+   → 넣을 시트는 4절 "세 시트의 경계" 판정 한 줄로 고른다
+2. python _export_csv.py && python _check_sync.py
+3. site.json invitedTalks.items 에 항목 골격 추가 후 python _sync_site.py --write
+4. python build_cv.py && python _cv_baseline.py --check
+```
+
 ### 학회 발표 · 특허 · 강의 · 경력 · 수상 · 자격증 추가
 ```
 1. xlsx 해당 시트에 행 추가 (+ 아래 4절의 제어 컬럼 지정)
@@ -97,16 +106,16 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | Research Interests | 6 | — |
 | Education | 4 | `CV 표시` `웹 표시` `CV 서술(EN)` `심사위원(EN)` |
 | Publications | 10 | — |
-| Under Review | 5 | — |
+| Under Review | 4 | — |
 | Books | 1 | — |
-| Conferences | 25 | `CV 분류` `CV 학회(EN)` `팀 발표` |
-| Invited Talks | 2 | — |
-| Teaching | 21 | `CV 표기(EN)` `CV 서술(EN)` `CV 기간(EN)` |
+| Conferences | 24 | `CV 학회(EN)` `팀 발표` |
+| Invited Talks | 4 | `웹 표시` |
+| Teaching | 29 | `CV 표기(EN)` `CV 서술(EN)` `CV 기간(EN)` |
 | Funding | 4 | `CV 표기(EN)` |
 | Projects | 12 | `CV 과제명(EN)` `CV 기여(EN)` `CV 성과(EN)` |
 | Patents | 11 | `CV 특허명(EN)` `CV 권리자(EN)` |
 | Awards | 2 | — |
-| Service & Membership | 5 | — |
+| Service & Membership | 6 | — |
 | Certifications | 4 | — |
 | Language Tests | 0 | — |
 | Technical Skills | 5 | — |
@@ -118,14 +127,23 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | 컬럼 | 값 | 뜻 |
 |---|---|---|
 | `CV 표시` | Y / N | CV 수록 여부 (Education: 고등학교 = N) |
-| `웹 표시` | Y / N | 웹 노출 여부 (Work: SNU 대학원 연구원 = N, 학력과 중복) |
+| `웹 표시` | Y / N | 웹 노출 여부 (Work: SNU 대학원 연구원 = N, 학력과 중복 / Invited Talks: 전 행 Y) |
 | `CV 구분` | research / professional | Work 를 CV 의 Research Experience / Professional Experience 로 나눔 |
-| `CV 분류` | conference / invited | 학회 시트의 행이 CV 에서 학회발표인지 초청강연인지 |
 | `팀 발표` | Y / N | Y 면 CV 에 `[Oral, team]` 처럼 team 이 붙음 |
 
-> CV 국제학회 13건 = `Scope=international` **AND** `CV 분류=conference`
-> CV 초청강연 4건 = `Invited Talks` 2건 + `Conferences` 의 `CV 분류=invited` 2건
+> CV 국제학회 14건 = `Conferences` 의 `Scope=international`
+> CV 초청강연 4건 = `Invited Talks` 전 행 (2026-09-24 통합 — 학회 시트의 `CV 분류` 열은 삭제)
 > 같은 사건은 한 행에만 존재한다. 두 시트에 중복 등록하지 말 것.
+
+### 세 시트의 경계 — 어디에 넣는가
+- **Teaching** (`특강`/special) = 본인이 **주강사(메인)인 교육 과정**. 반나절~수일, 수강생·시수를 관리한다 (K-water·환경공단·현대NGV 등).
+- **Invited Talks** = **남의 과목·행사에 초청되어 1~2시간 안에 끝나는 강연·발표**. 본인이 메인이 아니다 (교과목 초청강의, 세미나·콜로퀴엄·기조·패널).
+- **Conferences** = 학회 프로그램 안의 발표. **학회 초청 세션은 `Invited Talks`** 로 (`Type=conference`).
+
+> 판정 한 줄: 내가 과정의 주강사인가(→Teaching), 남의 자리에 1~2시간 초청됐나(→Invited Talks), 학회 발표인가(→Conferences).
+
+`Invited Talks` 의 `Type` 어휘(영문 소문자): `seminar` · `colloquium` · `keynote` · `panel` ·
+`guest lecture`(교과목 초청강의) · `conference`(학회 프로그램 안 초청 발표).
 
 ### `CV ...(EN)` 컬럼의 의미
 원자 필드로 CV 표기를 **규칙으로 만들 수 없을 때만** 둔다. 공식 명칭과 CV 표기가

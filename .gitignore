@@ -57,3 +57,6 @@ cv/assets/signature.png
 cv/old/signature_original_2021.png
 cv/**/*signature*.png
 cv/pys_old/
+
+# 스크립트 실행 로그 (로컬 보관 — 공개 저장소에 올리지 않는다)
+cv/_logs/
