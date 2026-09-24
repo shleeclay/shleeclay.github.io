@@ -378,7 +378,7 @@ for lead, rest, date, sub in exp:
 section("Peer-Reviewed Publications")
 p = doc.add_paragraph()
 r = p.add_run("APA 7th.  Name in bold = author; † = first author.  "
-              "Impact Factor / quartile shown where available.  (SCI then KCI; newest first)")
+              "Impact Factor / quartile shown where available.  (SCIE / ESCI, then KCI; newest first)")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 # --- source: citations/publications.bib (ascending) + IF/quartile from site.json (matched by DOI) ---
@@ -414,7 +414,8 @@ def _apa_author(name):
     return f"{sur}, {_initials(giv)}".strip().rstrip(","), (sur == "Lee" and giv.startswith("Seunghyeon"))
 
 _site = json.load(open(os.path.join(HERE, "..", "src", "data", "site.json"), encoding="utf-8"))
-IFQ = {(it.get("doi") or "").lower().strip(): (it.get("if", ""), it.get("quartile", ""))
+IFQ = {(it.get("doi") or "").lower().strip():
+           (it.get("if", ""), it.get("quartile", ""), it.get("index", ""))
        for it in _site["publications"]["items"] if it.get("doi")}
 
 _MO = {m: i for i, m in enumerate(
@@ -426,7 +427,7 @@ def _monthnum(raw):
 _pubs = []
 for raw in _bib_entries(os.path.join(HERE, "citations", "publications.bib")):
     doi = _bf(raw, "doi")
-    iff, q = IFQ.get(doi.lower(), ("", ""))
+    iff, q, idx = IFQ.get(doi.lower(), ("", "", ""))
     yv = _bf(raw, "year"); yv = int(yv) if yv.isdigit() else 0
     _pg = re.search(r"\d+", _bf(raw, "pages")); sp = int(_pg.group()) if _pg else 0
     _pubs.append({
@@ -435,14 +436,18 @@ for raw in _bib_entries(os.path.join(HERE, "citations", "publications.bib")):
         "title": re.sub(r"\s*-\s*$", "", _bf(raw, "title")).replace(" - ", ": ").rstrip(". "),
         "journal": _bf(raw, "journal").replace("\\&", "&"),
         "vol": _bf(raw, "volume"), "num": _bf(raw, "number"),
-        "pages": _bf(raw, "pages").replace("-", "–"), "doi": doi, "iff": iff, "q": q,
-        "sortk": (0 if (iff or q) else 1, -yv, -_monthnum(raw), sp),  # SCI→KCI, newest first, then start page
+        "pages": _bf(raw, "pages").replace("-", "–"), "doi": doi, "iff": iff, "q": q, "idx": idx,
+        # 국제(SCIE/ESCI)→KCI, newest first, then start page.
+        # 등재구분(index)이 있으면 그것으로, 없으면 IF/quartile 유무로 판정한다.
+        "sortk": (0 if idx in ("SCIE", "ESCI") else (0 if (iff or q) else 1),
+                  -yv, -_monthnum(raw), sp),
     })
 _pubs.sort(key=lambda d: d["sortk"])
 
 for n, d in enumerate(_pubs, 1):
     apa, year, title, journal = d["apa"], d["year"], d["title"], d["journal"]
     vol, num, pages, doi, iff, q = d["vol"], d["num"], d["pages"], d["doi"], d["iff"], d["q"]
+    idx = d["idx"]
     p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(5)
     p.paragraph_format.left_indent = Inches(0.28); p.paragraph_format.first_line_indent = Inches(-0.28)
     _set_run(p.add_run(f"{n}. "), 9, color=GREY)
@@ -468,6 +473,9 @@ for n, d in enumerate(_pubs, 1):
     _set_run(p.add_run(". "), 9)
     if doi:
         add_hyperlink(p, f"https://doi.org/{doi}", f"https://doi.org/{doi}", color="444444", size=9)
+    # 등재구분 태그(SCIE/ESCI/KCI) 먼저, 그 뒤에 기존 IF·quartile 태그.
+    if idx:
+        _set_run(p.add_run(f"  · {idx}"), 8.5, color=ACCENT)
     if iff or q:
         iv = iff.split("(")[0].strip()
         tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", q] if x)

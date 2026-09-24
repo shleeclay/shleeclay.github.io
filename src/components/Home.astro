@@ -29,17 +29,19 @@ const phoneChars       = [...phoneShown].map((c) => c.charCodeAt(0));
 const telChars         = [...contact.phoneTelLink].map((c) => c.charCodeAt(0));
 const phonePlaceholder = lang === "en" ? "Hover to reveal" : "마우스를 올리면 표시";
 
-// Publications order: SCI (newest first) → KCI (newest first).
-// SCI is detected by presence of quartile/IF (국제 저널 지표); KCI(KOSERT 등)은 없음.
-const isSCI = (p: typeof publications[number]) => !!(p.quartile || p.if);
+// Publications order: 국제(SCIE/ESCI, newest first) → KCI (newest first).
+// 등재구분(index)이 있으면 그것으로 판정하고(KCI 가 아니면 국제),
+// 없을 때만 quartile/IF 유무로 추정한다(국제 저널 지표; KCI(KOSERT 등)은 없음).
+const isIntl = (p: typeof publications[number]) =>
+  p.index ? p.index !== 'KCI' : !!(p.quartile || p.if);
 const pubDateKey = (p: typeof publications[number]) => p.date || `${p.year}/00/00`;
 const sortedPublications = [...publications].sort((a, b) => {
-  const sa = isSCI(a), sb = isSCI(b);
-  if (sa !== sb) return sa ? -1 : 1;                 // SCI group first
+  const sa = isIntl(a), sb = isIntl(b);
+  if (sa !== sb) return sa ? -1 : 1;                 // 국제 그룹 먼저
   return pubDateKey(b).localeCompare(pubDateKey(a)); // newest first within group
 });
-const sciPubs = sortedPublications.filter(isSCI);
-const kciPubs = sortedPublications.filter((p) => !isSCI(p));
+const sciPubs = sortedPublications.filter(isIntl);
+const kciPubs = sortedPublications.filter((p) => !isIntl(p));
 
 // Group time-based items by year (Patents render as a grid; Conferences/Teaching stay year-grouped)
 const confsByYear  = groupByYear(conferences);
