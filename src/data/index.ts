@@ -77,6 +77,18 @@ export type Conference = {
   title: Bi;
 };
 
+// 초청 강연 — 남의 과목·행사에 1~2시간 초청된 강연·발표 (학회 초청 세션 포함).
+// date 는 연도만 아는 항목에서 빈 문자열일 수 있다.
+export type InvitedTalk = {
+  date: string;
+  year: number;
+  type: 'guest lecture' | 'conference' | 'seminar' | 'colloquium' | 'keynote' | 'panel' | string;
+  scope: 'international' | 'domestic' | string;
+  title: Bi;
+  host: Bi;
+  venue: Bi;
+};
+
 export type ProjectItem = {
   id: number;
   period: string;
@@ -156,6 +168,7 @@ export const publications = (site.publications.items as Publication[]).map((p) =
 );
 export const underReview = site.publications.underReview.items as UnderReviewItem[];
 export const conferences = site.conferences.items as Conference[];
+export const invitedTalks = site.invitedTalks.items as InvitedTalk[];
 export const projects = site.projects.items as ProjectItem[];
 export const patents = site.patents.items as Patent[];
 export const teaching = site.teaching.items as Teaching[];
@@ -207,6 +220,7 @@ export const counts: Record<string, number> = {
   pub: publications.length,
   pat: patents.length,
   conf: conferences.length,
+  invitedTalks: invitedTalks.length,
   proj: projects.length,
   underReview: underReview.length,
   univ: teaching.filter((t) => t.type === 'univ').length,

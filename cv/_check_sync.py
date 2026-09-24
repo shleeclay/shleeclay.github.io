@@ -103,7 +103,7 @@ SPEC = [
     ("Under Review", "publications.underReview.items", None),
     ("Books", "honors.books.items", None),
     ("Conferences", "conferences.items", None),
-    ("Invited Talks", None, "학회 시트의 CV분류=invited 와 합산해 CV 4건"),
+    ("Invited Talks", "invitedTalks.items", None),
     ("Teaching", "teaching.items", None),
     ("Funding", "honors.scholarships.items", None),
     ("Projects", "projects.items", None),
@@ -167,6 +167,55 @@ blank = [i for i, v in enumerate(flags, 2) if not str(v or "").strip()]
 if blank:
     warn(f"경력 '웹 표시' 미지정 행: {blank}")
     print(f"    '웹 표시' 빈 칸 행: {blank}  <!>")
+
+# ── A-4. 초청 강연 · 학회 발표 — xlsx · site.json · CV 3자 대조 ──────
+# 초청 강연의 정본은 'Invited Talks' 시트 하나다 (2026-09-24 통합).
+# CV 쪽 수치는 _baseline/cv_full.txt (마지막 --save 시점의 CV 출력) 에서 센다.
+CVTXT = os.path.join(HERE, "_baseline", "cv_full.txt")
+
+
+def cv_bullets(header):
+    """CV 기준선에서 섹션 헤더 아래 '• ' 로 시작하는 줄 수. 없으면 None."""
+    if not os.path.exists(CVTXT):
+        return None
+    lines = open(CVTXT, encoding="utf-8").read().splitlines()
+    if header not in lines:
+        return None
+    j = lines.index(header) + 1
+    while j < len(lines) and not lines[j].startswith("• "):   # 섹션 설명 줄 건너뜀
+        j += 1
+        if j - lines.index(header) > 3:
+            return 0
+    n = 0
+    while j < len(lines) and lines[j].startswith("• "):
+        n += 1
+        j += 1
+    return n
+
+
+print()
+print("  초청 강연 · 학회 발표 — xlsx · web · CV(기준선)")
+_iv_web_y = sum(1 for v in col("Invited Talks", "웹 표시") if str(v).strip().upper() == "Y")
+_conf_intl = sum(1 for v in col("Conferences", "Scope") if str(v).strip() == "international")
+for label, x, w, c, note in [
+        ("Invited Talks", rows("Invited Talks"), len(sj("invitedTalks.items")),
+         cv_bullets("Invited Talks"), f"웹 표시=Y {_iv_web_y}건"),
+        ("Conferences", rows("Conferences"), len(sj("conferences.items")),
+         cv_bullets("Conference Presentations (International)"),
+         f"CV 는 international {_conf_intl}건만 수록")]:
+    cs = "-" if c is None else str(c)
+    print(f"    {label:16s} xlsx={x}  web={w}  CV={cs}   ({note})")
+if _iv_web_y != len(sj("invitedTalks.items")):
+    warn(f"초청 강연: 웹 표시=Y {_iv_web_y} 인데 site.json invitedTalks={len(sj('invitedTalks.items'))}")
+    print("      <!> 웹 표시=Y 수와 site.json 항목 수가 다름")
+_iv_cv = cv_bullets("Invited Talks")
+if _iv_cv is not None and _iv_cv != rows("Invited Talks"):
+    warn(f"초청 강연: xlsx {rows('Invited Talks')}행 인데 CV 기준선 {_iv_cv}줄")
+    print("      <!> xlsx 행수와 CV 기준선 줄수가 다름 (build_cv.py 재실행·기준선 갱신 필요)")
+_cf_cv = cv_bullets("Conference Presentations (International)")
+if _cf_cv is not None and _cf_cv != _conf_intl:
+    warn(f"학회 발표: xlsx international {_conf_intl}건 인데 CV 기준선 {_cf_cv}줄")
+    print("      <!> xlsx 국제학회 건수와 CV 기준선 줄수가 다름")
 
 # ── B. 논문 DOI 집합 대조 ─────────────────────────────────────────────
 print()
