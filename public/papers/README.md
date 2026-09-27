@@ -16,21 +16,23 @@ papers/
 
 - **연도**: 게재 연도 4자리 (`2026`, `2025`, ...)
 - **저널약어**: 학계 통용 약어 (5자 이하면 풀이름, 길면 단축). 띄어쓰기·콤마 제거.
-  - 예: `KOSERT`, `RSE`, `AEE`, `GEC` (5자 이하 → 풀이름)
+  - 예: `KOSERT`, `RSE`, `AEE`, `GECCO` (5자 이하 → 풀이름)
   - 예: `EcolIndic` (Ecological Indicators), `RemoteSens` (Remote Sensing MDPI), `JGR-Bio` (J. Geophys. Res. Biogeosciences)
 - **제목-시작-단어**: 제목 첫 1~3개 단어, 하이픈 연결. 영문만, 띄어쓰기 X, 특수문자 X.
 
-### 현재 9개 논문 파일명 (참고 매핑)
+### 현재 11개 논문 파일명 (참고 매핑)
 
 | id | 파일명 |
 |---|---|
+| 11 | `2026_GECCO_Integrating-unmanned-aerial` |
+| 10 | `2026_FST_Bi-temporal-structures` |
 | 9  | `2026_KOSERT_Comparing-LST` |
 | 8  | `2026_KOSERT_Forest-Type-Seasonal` |
 | 7  | `2026_EcolIndic_Multi-scale-typologies` |
 | 6  | `2026_KOSERT_Non-destructive-Carbon` |
 | 5  | `2026_RSE_Three-stage-framework` |
 | 4  | `2026_AEE_Ecological-structures` |
-| 3  | `2025_GEC_Assessing-Corvus` |
+| 3  | `2025_GECCO_Assessing-Corvus` |
 | 2  | `2024_KOSERT_Diel-Activity` |
 | 1  | `2021_RemoteSens_Feasibility` |
 

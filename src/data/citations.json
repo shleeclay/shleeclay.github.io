@@ -38,5 +38,9 @@
   "10.1080/21580103.2026.2712965": {
     "apa": "Lee, S., Kim, Y., Kim, D., Kim, H., & Song, Y. (2026). Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest. Forest Science and Technology. https://doi.org/10.1080/21580103.2026.2712965",
     "bibtex": "@article{lee2026_fst,\n  author  = {Lee, Seunghyeon and Kim, Yonghwan and Kim, Dohee and Kim, Hansoo and Song, Youngkeun},\n  title   = {Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest},\n  journal = {Forest Science and Technology},\n  year    = {2026},\n  month   = {aug},\n  doi     = {10.1080/21580103.2026.2712965}\n}"
+  },
+  "10.1016/j.gecco.2026.e04430": {
+    "apa": "Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands. Global Ecology and Conservation, 71, e04430. https://doi.org/10.1016/j.gecco.2026.e04430",
+    "bibtex": "@article{kim2026_gecco,\n  author  = {Kim, Yonghwan and Lee, Seunghyeon and Shin, Wonhyeop and Song, Youngkeun},\n  title   = {Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands},\n  journal = {Global Ecology and Conservation},\n  volume  = {71},\n  pages   = {e04430},\n  year    = {2026},\n  month   = {sep},\n  doi     = {10.1016/j.gecco.2026.e04430}\n}"
   }
 }

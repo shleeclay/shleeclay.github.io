@@ -483,15 +483,19 @@ for n, d in enumerate(_pubs, 1):
 
 # ---------------------------------------------------------------- Manuscripts under review
 section("Manuscripts Under Review")
-p = doc.add_paragraph()
-r = p.add_run("APA 7th.  Name in bold = author; † = first author.  (5 manuscripts; first-author listed first)")
-_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 # status = "stage|date"  (stage shown in brackets, date in grey)
 # 심사중 원고: 저자는 쉼표 구분 문자열이므로 리스트로 되돌린다.
 under_review = [([a.strip() for a in str(r["Authors(EN)"]).split(",")],
                  _dot(r["Title(EN)"]), r["Journal(EN)"],
                  f'{r["Status"]}|{_mon_yyyy(r["Status Date"])}')
                 for r in sheet("Under Review", order=lambda r: r["No."])]
+# 안내문의 건수는 'Under Review' 시트 행수에서 산출한다 (하드코딩 금지).
+n_under_review = len(under_review)
+p = doc.add_paragraph()
+r = p.add_run("APA 7th.  Name in bold = author; † = first author.  "
+              f"({n_under_review} manuscript{'' if n_under_review == 1 else 's'}; "
+              "first-author listed first)")
+_set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 for n, (auth, title, jour, status) in enumerate(under_review, 1):
     apa = [_apa_author(a) for a in auth]
     stage, _, dt = status.partition("|")

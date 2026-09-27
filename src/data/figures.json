@@ -69,35 +69,35 @@
  ],
  "3": [
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig1.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig1.webp",
    "caption": "Land use types of Suwon, South Korea."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig2.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig2.webp",
    "caption": "Process of excluding rook sightings collected within 20 min and 100 m radius."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig3.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig3.webp",
    "caption": "Process of two researchers categorizing flocks into three flock sizes."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig4.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig4.webp",
    "caption": "MaxENT results and jack-knife test based on AUC results of different flocks of rooks (LU: Land use, BL: Building(low), BM: Building (Medium), BH: Building (High), SL: Elevation, DF: Distance from agricultural land, DP: Distance from utility pole, DS: Distance from streetlamp)."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig5.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig5.webp",
    "caption": "Variables that showed the highest difference on logistic output of occurrence probability between small, medium and large flocks."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig6.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig6.webp",
    "caption": "dSDM calculation results using SDMm, SDMl and SDMa for under and overestimation analysis. (a) dSDM calculation method (SDM – SDMa); (b) dSDM calculation results. The areas that are closer to red color indicate regions where the existence probability were underestimated, and blue for overestimated; (b-1) overestimated of possibility of probability regions; (b-2) underestimated of possibility of probability regions."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig7.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig7.webp",
    "caption": "Difference between standardized interpolation(IDW) of rook flock size and standardized kernel density(KDE) of presence-only data (DV = standardized IDW − standardized KDE)."
   },
   {
-   "src": "/papers/figures/2025_GEC_Assessing-Corvus/fig8.webp",
+   "src": "/papers/figures/2025_GECCO_Assessing-Corvus/fig8.webp",
    "caption": "Hourly collected number of occurrences point data of rook (left); mean number of rook individuals (right)."
   }
  ],
@@ -285,6 +285,44 @@
   {
    "src": "/papers/figures/2026_FST_Bi-temporal-structures/fig4.webp",
    "caption": "Correlation analysis of ALS-derived vertical point distribution and horizontal coverage by layers and periods for eight tree species. The x-axis represents horizontal coverage and the y-axis represents vertical point distribution. Thick black rectangles indicate correlations analyzed for the same period."
+  }
+ ],
+ "11": [
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig1.webp",
+   "caption": "This figure shows the overall flow of our research. (a) In the field, some turtle location data may be missing for various reasons. (b) We propose a movement-based approach to fill these data gaps. (c) Using the enviromental space data, we can build models to predict animal occurrences, leading to more scientific management."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig2.webp",
+   "caption": "(a) The study site captured in October 2021 using UAV RGB ortho-mosaic imagery. (b) Land use and land cover (LULC) types derived from coarse 30-m resolution data. The site is primarily composed of wetlands and water, surrounded by a lake, buildings, and grass areas. To address the resolution limitation of the 30-m data, this study re-derived fine-scale cover types by integrating the datasets from (a) and (b)."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig3.webp",
+   "caption": "Photograph of invasive freshwater turtles being equipped with GPS-based location trackers and released into the study site."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig4.webp",
+   "caption": "Location data were obtained for 9 individual invasive turtles. Although data were intended to be collected at 20- to 240-minute intervals, some points were recorded at irregular intervals due to the characteristics of the tracking devices. In addition, extended submergence and reduced activity during transitional periods leading into overwintering resulted in substantial gaps in GPS reception, contributing to further irregularities in the temporal coverage of the dataset."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig5.webp",
+   "caption": "(a) shows the movement index results based on data acquired during the fall of 2021. (b) shows the movement index results based on data acquired during the spring of 2022."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig6.webp",
+   "caption": "Time-series of distances between location coordinates for each device (by device ID)."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig7.webp",
+   "caption": "Minimum Convex Polygon (MCP) areas for various regions (by device ID)."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig8.webp",
+   "caption": "MaxEnt maps derived from three movement-based occurrence datasets — Total, Below-mean MP, and Above-mean MP — for Fall (a–c) and Spring (d–f), with species-specific predictions weighted by the proportion of tracked individuals per taxon and combined into a seasonal ensemble output."
+  },
+  {
+   "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig9.webp",
+   "caption": "(a) A basking-exploitation trap was deployed at SDM-predicted high-suitability locations. (b) Placed in predicted appearance areas, the trap successfully captured invasive turtles between July and October, particularly in overlapping distribution zones. (c) The figure displays photographs of the trap and numerous captured individuals at installation sites guided by SDM modeling results."
   }
  ]
 }
