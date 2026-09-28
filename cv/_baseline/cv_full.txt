@@ -38,7 +38,7 @@ APA 7th.  Name in bold = author; † = first author.  Impact Factor / quartile s
 11. Han, Y.-H., Shin, W.-H., Kim, J.-H., Kim, D.-H., Yun, J.-W., Yi, S.-Y., Kim, Y.-H., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55  · KCI
 Manuscripts Under Review
 APA 7th.  Name in bold = author; † = first author.  (3 manuscripts; first-author listed first)
-1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation [Manuscript under review]. Science of Remote Sensing.  · Apr 2026
+1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation [Manuscript submitted (with editor)]. Remote Sensing Applications: Society and Environment.  · Sep 2026
 2. Lee, S.†, Kim, H., & Song, Y. (2026). Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys [Revise and resubmit, 1st round]. Geoscience Letters.  · Jun 2026
 3. Jekal, G., Kim, Y. H., Lee, S., Yun, J. W., Kim, D. Y., & Song, Y. (2026). Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from multi-season Sentinel-2 in a coastal wetland [Revise and resubmit, 1st round]. Journal of Coastal Conservation.  · Feb 2026
 Books
@@ -82,7 +82,7 @@ Carbon storage/sink analysis and inventory for Gyeonggi-do by biotope type
 2024 — 2025 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Analyzed province-wide vertical and horizontal forest structure from ALS
 Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery
-→ Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Science of Remote Sensing, under review); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
+→ Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Remote Sensing Applications: Society and Environment, submitted); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
 Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services
 2023 — 2027 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M (total project)
 Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR
