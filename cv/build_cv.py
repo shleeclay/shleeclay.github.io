@@ -651,7 +651,9 @@ for title, funder, period, role, pi, budget, bullets, outputs in projects:
 # ---------------------------------------------------------------- Patents
 section("Patents (Republic of Korea)")
 p = doc.add_paragraph()
-r = p.add_run("7 registered, 4 pending.")
+_n_reg = len(sheet("Patents", where=lambda r: r["Status"] == "registered"))
+_n_pend = len(sheet("Patents", where=lambda r: r["Status"] == "application"))
+r = p.add_run(f"{_n_reg} registered, {_n_pend} pending.")
 _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(3)
 
 def _patent_sub(text):

@@ -130,8 +130,9 @@ Assessment scheme and ecosystem-restoration model by degradation type
 2018 — 2020 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $257K (total project)
 Performed land-cover classification using satellite imagery
 Patents (Republic of Korea)
-7 registered, 4 pending.
+8 registered, 3 pending.
 Registered
+• Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR. Registered Aug 2026 · Seoul National University & Dankook Univ.
 • System and method for providing a tree-management platform. Registered Sep 2025 · Seunghyeon Lee
 • Method and system for determining wetland vegetation structure using drone LiDAR. Registered Apr 2025 · Seoul National University
 • Image-based roadside-tree information management system and method. Registered Nov 2024 · Seunghyeon Lee
@@ -140,7 +141,6 @@ Registered
 • Automated wildlife detection method and device using drone-mounted thermal-camera imagery. Registered May 2022 · Seoul National University
 • A method to derive an optimal plan for outdoor thermal-comfort mitigation. Registered Apr 2022 · Seoul National University
 Pending
-• Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR. Pending 2025 · Seoul National University & Dankook Univ.
 • Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands. Pending 2025 · Seoul National University
 • Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and stratigraphic volume change. Pending 2023 · Seoul National University
 • Deriving optimal wildlife-capture range via machine learning by fusing GPS-tracking data and drone footage. Pending 2023 · Seoul National University
