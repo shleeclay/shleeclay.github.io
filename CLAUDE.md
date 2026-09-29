@@ -119,7 +119,7 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | Certifications | 4 | — |
 | Language Tests | 0 | — |
 | Technical Skills | 5 | — |
-| Work & Internships | 7 | `웹 표시` `CV 구분` `CV 직위(EN)` `CV 소속(EN)` `CV 서술(EN)` |
+| Work & Internships | 9 | `웹 표시` `CV 구분` `CV 직위(EN)` `CV 소속(EN)` `CV 서술(EN)` |
 
 **헤더가 황토색인 컬럼**은 나중에 덧붙인 것이다 — 국내 지원서용이거나 CV 표기용.
 
