@@ -184,7 +184,7 @@ Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)
 • BK21 SmartCity · SNU GSES — WISE-UP urban spatial-data analysis workshop	2024
 • Gyeonggi-do HRD Institute — Data visualization for better reports	2022
 Professional Experience
-Principal Researcher — Invalab	2026 — Present
+Principal Researcher — InvaLab	2026 — Present
 Seoul, Republic of Korea · UAV seed-ball revegetation of disaster sites; MLS street-tree inventory and carbon
 Founder / CEO — TREE:ID (startup)	2023 — 2025
 A web platform for individual-tree detection & mapping — urban-tree inventory, diagnosis, and management. ~$71,000 startup grant; two patents held as assignee. Republic of Korea
