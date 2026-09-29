@@ -16,7 +16,7 @@ B.S., Landscape Architecture	2011 — 2017
 College of Agriculture & Life Sciences, Kyungpook National University, Daegu, Republic of Korea
 Research Experience
 Visiting Researcher — Institute for Sustainable Development, Seoul National University	2026 — Present
-Seoul, Republic of Korea · LiDAR-based forest vertical structure, disturbance, and urban ecology (continuing doctoral research)
+Seoul, Republic of Korea · LiDAR-based forest vertical structure, disturbance, and urban ecology
 Visiting Research Intern — Virginia Tech (PI: Prof. Jaeyoung Ha)	2024
 Blacksburg, VA, United States · Landscape architecture
 Visiting Research Intern — Purdue University, FNR FUSE Lab (PI: Prof. Brady Hardiman)	2023 — 2024
@@ -52,8 +52,8 @@ BK21 FOUR — Integrated Major in SmartCity Global Convergence (full)  ($39,285)
 Ilju Foundation Undergraduate Scholarship, 23rd Scholar (full)  ($10,714)	2015 — 2017
 Challenge Scholarship, Kyungpook National University (full)  ($18,571)	2011 — 2013
 Invited Talks
-• Seunghyeon Lee (2026). Principles and applications of LiDAR. Guest lecture, Landscape Systems Analysis Seminar, Department of Environmental Design, Seoul National University.
-• Seunghyeon Lee (2025). The understanding and applications of thermal sensors. Guest lecture, SmartCity Industrial Technology Seminar (3 cr.), Seoul National University.
+• Seunghyeon Lee (2026). Principles and applications of LiDAR. Guest lecture, Landscape Systems Analysis Seminar (3 cr.), Seoul National University.
+• Seunghyeon Lee (2026). The understanding and applications of thermal sensors. Guest lecture, SmartCity Industrial Technology Seminar (3 cr.), Seoul National University.
 • Seunghyeon Lee (2025). Understanding spatial information and research cases. Guest lecture, Environmental Conservation & Land Management (3 cr.), Seoul National University.
 • Seunghyeon Lee (2024). Invasive species monitoring development and its application. Invited talk, Asia Week, Fukuoka, Japan / Online.
 • Seunghyeon Lee (2024). Remotely sensed Smartcity ecological value maps. Invited talk, NEF (Neocity Empowerment Forum), Orlando, FL, US.
@@ -185,7 +185,7 @@ Invited Lectures & Workshops  (20+ sessions, 2022 — 2026)
 • Gyeonggi-do HRD Institute — Data visualization for better reports	2022
 Professional Experience
 Principal Researcher — Invalab	2026 — Present
-Seoul, Republic of Korea · Ecological restoration company. UAV seed-ball revegetation of disaster-affected sites; individual street-tree classification and attribute inventory (dendrometry, carbon) from urban mobile laser scanning
+Seoul, Republic of Korea · UAV seed-ball revegetation of disaster sites; MLS street-tree inventory and carbon
 Founder / CEO — TREE:ID (startup)	2023 — 2025
 A web platform for individual-tree detection & mapping — urban-tree inventory, diagnosis, and management. ~$71,000 startup grant; two patents held as assignee. Republic of Korea
 Landscape Architect — SUNJIN Engineering & Architecture Co., Ltd. (full-time)	2017 — 2018
