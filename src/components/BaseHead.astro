@@ -87,6 +87,22 @@ const seoKeywords = "이승현, Seunghyeon Lee, Seunghyeonlee, 박사, PhD, doct
 <!-- Theme detection (runs before paint to avoid flash). Language is fixed per route. -->
 <script is:inline>
   (function () {
+    // 외부 사이트(예: upwise.co.kr)에서 ?theme=dark|light 로 진입하면
+    // 해당 테마를 최우선 적용하고 localStorage에 저장(이후 탐색·재방문에도 유지).
+    function themeFromUrl() {
+      try {
+        const p = new URLSearchParams(window.location.search).get('theme');
+        if (p === 'dark') return 'shlee-dark';
+        if (p === 'light') return 'shlee-light';
+      } catch (e) {}
+      return null;
+    }
+    const urlTheme = themeFromUrl();
+    if (urlTheme) {
+      try { localStorage.setItem('shleeclay-theme', urlTheme); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', urlTheme);
+      return;
+    }
     const savedTheme = localStorage.getItem('shleeclay-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const theme = savedTheme || (prefersDark ? 'shlee-dark' : 'shlee-light');
