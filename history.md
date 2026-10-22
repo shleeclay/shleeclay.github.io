@@ -429,3 +429,112 @@
 * `application_info.xlsx` 파일의 시트 목록을 조회했습니다.
 * 추천서 작성을 위해 `application_info.xlsx` 파일의 publications, under review, patents, education, funding, service, skills, projects, positions, teaching 시트 정보를 추출했습니다.
 
+## 2026-10-16
+
+- 동국대학교 WISE캠퍼스 2027-1학기 신규교원 초빙 공고 PDF 3종(지원안내서·업로드 방법·교육연구활동계획서 양식) 텍스트 추출
+- `application_info.xlsx` 시트 구조 파악 및 Publications(12편) 전체 메타데이터 추출
+- `application_info.xlsx` 의 Projects·Patents 시트 추출하여 지원서 작성용 실적 자료 정리
+- 지원안내서에서 초빙 지원자격·접수 절차·심사 기준 확인
+- 교육연구활동계획서(정년트랙) 양식의 요구 항목(신입생 충원율·재학률·취업률 관리 방안 등) 정리
+
+## 2026-10-17
+
+- `application_info.xlsx` Teaching 시트 갱신 — 특강 3건(한밭대·현대NGV·한국엔지니어링) 추가 및 인프런 수강생 수 4건 상향, 작업 전 xlsx 백업 생성
+- `site.json` teaching.items 29 → 32건 반영 및 인프런 강의 수강생 수치 최신화
+- drseunghyeonlee.com 과 upwise.co.kr 의 출강 기록 대조 스크립트(`verify_match.py`) 작성 — 날짜별 인원 전건 일치·누적 707명 확인
+- 특강 인원 3건을 upwise 쪽 큰 값으로 통일하여 두 사이트 수치 불일치 해소
+- upwise 연결 버튼 요건 확인을 위해 `Home.astro`·`BaseHead.astro`·`TimeLine.astro`·`global.css` 의 외부 사이트 링크·테마 파라미터 처리 구조 분석
+- `_export_csv.py` 로 CSV 미러 재생성, `_check_sync.py`·`_sync_site.py` 로 xlsx ↔ site.json 일치 검증(변경 없음 확인)
+- `npm run build` 로 6페이지 빌드 성공 확인 및 dist 산출물에서 신규 특강 3건·수강생 수치 반영 검증
+- 교육·강의 데이터 갱신과 인원 상향을 각각 커밋·푸시하고 원격 해시로 반영 확인
+
+## 2026-09-24
+
+- 게재 논문 색인 구분을 SCI 일괄 표기에서 SCIE 5편·ESCI 1편(Forest Science and Technology)·KCI 4편으로 정정하고 정본 xlsx `Index` 열 수정 후 빈 `등재구분` 열 삭제
+- 웹 국제 그룹 라벨을 "국제 학술지 · SCIE / ESCI"로 바꾸고 `Home.astro` / `CardPaper.astro` / `RowPaper.astro` 에 논문별 SCIE·ESCI·KCI 배지 추가(`isSCI`→`isIntl`, Index 값 우선 판정)
+- `build_cv.py` 안내문을 "(SCIE / ESCI, then KCI; newest first)"로 고치고 DOI 뒤 등재 태그 출력 추가, `_sync_site.py`·`index.ts`·`global.css` 에 index 필드와 `.pill-idx` 스타일 반영
+- 시트 경계 규칙 확정(주강사 교육 과정=Teaching, 1~2시간 초청 발표=Invited Talks, 학회 발표=Conferences) 후 리포 CLAUDE.md 에 기준 명문화 및 시트 행수 실측값 갱신
+- `Invited Talks` 시트를 12열(Date·Type·Scope·주최/장소 분리·웹 표시 등)로 재구성하고 흩어진 초청 4건을 최신순으로 통합, `Conferences` 시트에서 초청 2행 제거·`CV 분류` 열 삭제·번호 1~24 재부여
+- 웹 학회 섹션에 "초청 강연" 그룹을 신설해 제목을 "학회 발표 · 초청 강연 (28)"로 바꾸고 `site.json` 에 `invitedTalks` 블록·`_typeLabels` 추가, About 통계를 "24/4" 2개 숫자로 변경
+- `_check_sync.py` 에 "A-4 초청 강연·학회 발표 xlsx·web·CV 3자 대조" 검증 항목 추가 및 CV docx/PDF·기준선·공개용 PDF 재생성
+- 두 변경 모두 커밋·푸시 후 원격 해시 일치와 라이브 사이트 반영(배지 수 1·5·4 일치, 섹션 제목 28) 확인, 작업 중 발견한 openpyxl 빈 값 이월 함정을 메모리에 기록
+
+## 2026-09-26
+
+- `application_info.xlsx`에서 최 교수 공저 논문·심사중 원고·특허 공동발명자 내역 조회
+- 극지연구소 2026년 하반기 연수연구원 채용 공고 원문·첨부파일(연수계획서 양식, 블라인드 검토 기준, 결격사유, NCS 직무기술서 23개 분야) 추출 및 "2차" 명칭 불일치 확인
+- `site.json` 논문 목록의 연도·저널·역할 필드 점검
+- `DrSHLee_Michigan_Letter_dhc.docx` 추천서 서식(여백·머리글·이미지) 확인
+
+## 2026-09-28
+
+- xlsx `Invited Talks` 시트에 서울대 경관체계분석 세미나 초청 강연(LiDAR의 원리와 활용) 1건 추가하고 장소 표기를 기존 4건과 동일하게 통일
+- GECCO 게재 논문(Integrating unmanned aerial vehicle-derived habitat metrics) 추가 — BibTeX 원본·individual 저장 및 병합, xlsx Publications No.11 등록(SCIE·IF 3.7·Q1·저자순위 2/4), Under Review 목록에서 제거
+- 새 논문 표지·PDF·figure 9장을 규칙에 맞게 `public/papers/`로 배치하고, PDF 원문에서 추출한 캡션 9건을 `figures.json`에 반영
+- 저널 약어 GEC→GECCO 통일 — 2025년 논문의 표지·PDF·figure 폴더 `git mv` 개명 및 `README.md`·`figures.json` 경로 정정
+- 산불 피해 정량화 특허(10-3004839) 등록 반영 — 등록증 PDF에서 등록번호·등록일 확인, 상태 registered 전환, 특허증 표지 webp 2종 생성
+- `build_cv.py`의 심사 중 편수·특허 집계 하드코딩을 시트 기반 계산으로 교체(심사 중 3편, 특허 8 registered·3 pending)
+- 산불 원고 투고 정보 정정 — 저널을 Remote Sensing Applications: Society and Environment로, 단계를 "Submitted · with editor", 날짜를 2026/09로 수정하고 과제 항목의 Related outputs 문구도 동기화
+- CV docx·PDF 재생성 후 기준선 대조·사이트 빌드·커밋·푸시 및 라이브 사이트·공개용 CV PDF 반영 검증(HTTP 200·원격 해시 일치)
+
+## 2026-09-29
+
+- 서울대 지속가능발전연구소 연구원(2026/09~, 상근)과 (주)인베랩/InvaLab 책임연구원(2026/03~, 겸직) 2건을 `application_info.xlsx` Work 시트와 `site.json` 에 현재 소속으로 추가
+- 기존 서울대 대학원 연구원 행의 Current Role 을 No 로 되돌리고 진행 중 기간을 국문 화면에서 "현재"로 표기하도록 수정
+- 신규 경력 서술이 CV 를 8쪽으로 늘린 것을 실제 렌더로 확인해 서술을 한 줄로 줄여 7쪽 복귀
+- 초청 강연 5건 중 LiDAR 건 제목 영문 통일·주최 표기 형식 일치·날짜 보강(thermal sensors 2026/05/07, spatial information 2025/11/20) 정정
+- 다운로드 폴더의 `invalab.svg` · `isd.png` 를 안전성(스크립트·외부참조 없음) 확인 후 `public/logos/career/` 에 설치하고 웹 경력 카드에 연결
+- 연구소 직함을 객원연구원/Visiting Researcher → 연구원/Researcher 로, 회사 표기를 Invalab → InvaLab 으로 변경하고 웹 설명에서 "(continuing doctoral research)" 제거
+- CV·웹·xlsx 3곳 일치와 라이브 반영(원격 해시, 공개 PDF 7쪽, 페이지 문구)을 매 배포마다 확인 후 커밋·푸시, 루트 리포 shleeclay 포인터 커밋(3590a2a → 8eb5d88)
+- 극지연구소 지원서용으로 CV 논문 11편 PDF 를 `인공위성무인기산출물개발_이승현_연구실적N.pdf` 규칙으로 복사·검산하고 게재구분·저자순위·ISSN 등 항목을 엑셀 붙여넣기용 표로 정리
+
+## 2026-09-30
+
+- 기록된 변경 작업 없음 (파일 검색 조회만 수행)
+
+## 2026-10-01
+
+- GitHub 공개 프로필 작성 값(이름·Bio·소속·위치·URL·Social accounts·ORCID iD) 제안 및 Include private contributions 등 설정 권고
+- 사이트 언어 결정 로직·hreflang 확인 후 GitHub 프로필 URL을 영문판 `/en/` 으로 권고, 용도별(해외/국내) 링크 기준 정리
+- 공개 저장소 두 곳의 git 이력에서 개인정보 노출 실태 조사 — 타인 이메일·옛 CV 문서·전화번호 잔존 확인, 프론트 복제는 실질 위험 아님으로 판정
+- 소스 비공개 + 빌드 결과물만 공개하는 2-저장소 배포 구조안 설계 및 전환 절차·중단 시간·Actions 한도 정리
+- `purge_shleeclay_history_261001.sh` / `purge_upwise_history_261001.sh` 와 삭제 경로 목록 작성, 임시 복제본 드라이런으로 PDF 바이트 불변·치환 규칙 검증
+- shleeclay 저장소 이력에서 `cv/refs`·`cv/old`·옛 공개 CV 제거 및 타인 이메일 3건 치환, GitHub API로 404/200 대조 후 원격 반영(커밋 258→254)
+- upwise 저장소 이력·커밋 메시지에서 전화번호 33줄+3건 제거(현재 파일 내용 불변), 백업 번들 저장소 밖 보관 및 원격 해시 일치 확인
+- 두 사이트 저장소 LICENSE 를 템플릿 MIT 에서 All rights reserved 로 교체(과거 버전 MIT 소급 불가 명시), 루트 저장소 포인터 갱신 및 filter-repo 함정 메모리 기록
+
+## 2026-10-04
+
+- Education 시트 전수 확인으로 박사 학위 수여 표기(Expected/expected Aug 2026) 처리 로직 점검
+- CV docx·PDF 전체(표 포함)에서 `expected` 표기 잔존 여부 전수 검사 및 산출물 갱신 시각 확인
+- `_sync_site.py` 의 학력 기간·수여 예정 표기 렌더링 규칙 확인
+
+## 2026-10-07
+
+- 한경국립대·동국대 2027학년도 전임교원 공고 PDF를 병렬 판독하여 지원자격·연구실적 인정범위 조항 추출
+- 한경대 조경학과 인정률 계산(주저자만 인정, 136~169%로 200% 미달) 및 반증 검증으로 4년 창 연장 조항 부재·공동저자 6편 불인정 확정
+- `dku_extract.py` 작성해 글자 겹침 PDF를 좌표 기반으로 복원, 동국대 환경지구과학 평점표·환산율·가중치 규칙 판독
+- 동국대 상한 재계산(968점, 요건 1,080점 미달)과 Ecological Indicators JCR 상위 11~12% 확인으로 3배 가중치 분기 폐기
+- `Books.csv` / `Publications.csv` / `Patents.csv` 대조해 심사창(2022.10~2026.09) 내 산입 실적 판정 — 저서 2021년·출원 특허 3건 제외
+- FST 색인 메모를 SCOPUS 등재 반영으로 정정하고 KCI 추가 1편 시 저자수별 인정률 충족선(5인 이하) 산출
+- 미지원 확정 대학 검증 산출물 삭제(동국대 16개·충북대 4개)와 `verify_ledger.csv` V15 14행만 제거, 타 세션 V14 5행 보존
+- 과천 층위구조 논문 원자료 폴더 인벤토리·shp 대조(`mountain` 컬럼으로 관악 1,661·청계 1,796 구분 확인), 경기도 비오톱 유형해설 PDF 범위 발췌, 게재본 ALS 취득 서술 확보
+
+## 2026-10-08
+
+- CV 사이트 운영 체계를 동료가 이식할 수 있도록 전달 방법 설계 — 공개 레포 fork + 비공개 xlsx 사본 + 인수인계 노트 1장 구성으로 결정
+- `application_info_template.xlsx` 생성 — 운영 xlsx 사본에서 Personal 시트 값 5건만 비우고, 나머지 17개 시트 행수·컬럼명 원본 일치 검증
+- `HANDOVER.md` 작성 — 받는 것 세 묶음(공개 레포/비공개 전달분/직접 만들 것), 정본 3원 구조, gitignore 로컬 폴더 역할, 초기 구동 순서, 함정 2건 정리
+- 커스텀 도메인 `drseunghyeonlee.com` 설정을 nslookup 실측(A 레코드 4개 + www CNAME)으로 확인하고 `HANDOVER.md` §5 신설
+- fork 레포에 `public/CNAME` 이 딸려가 도메인 바인딩 실패하는 함정을 초기 구동 순서 2단계에 추가
+- Pages 활성화를 데이터 교체 완료 후(7단계)로 이동하고, 교체 중에는 `npx astro preview` 로컬 확인만 하도록 안내 추가
+- 이 시스템이 Claude Code 유지보수 전제로 설계됐다는 점과 `CLAUDE.md` 내 고유값(CV 파일명·도메인·건수)을 교체하지 않으면 AI가 참값으로 인식하는 경고를 `HANDOVER.md` 에 추가
+- `.gitignore` 에 `_handover/` 제외 추가 후 shleeclay 레포에 커밋·푸시(`ef5dc48`), 원격 해시 일치로 검증
+
+## 2026-10-12
+
+- 전신주(전선) 치환 래스터 정본 위치 확인 — `vli11_10m_clean_master.tif` / `chm_10m_clean_master.tif` 및 100 m 저항면·전류면 파생 경로 정리
+- CV 사이트 시스템 인수인계 패키지 `cv_system_handover.zip` 생성 (HANDOVER.md + `application_info_template.xlsx`, 52KB)
+- 인수인계 전달 방식 정리 — 이메일 첨부 권장, 공개 저장소 커밋 금지 및 미공개 이력 행 포함 주의사항 명시
+- 동료 전달용 안내 메시지 초안 작성 (공개 레포 주소 + HANDOVER.md 선행 안내)
+
