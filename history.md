@@ -556,3 +556,12 @@
 * 생성된 변경 사항에 대해 커밋 메시지를 작성하고 Git 저장소에 커밋 및 푸시를 진행했습니다.
 * ICESat-2 워크숍 자료 (PDF, R 스크립트, HTML)를 검토하여 면접 활용 가능 요소를 확인했습니다.
 
+## 2026-11-01
+
+*   `build_cv.py`를 수정하여 'Under Review' 섹션의 논문 정보 업데이트
+*   `build_cv.py`를 수정하여 'Projects' 섹션의 정보 업데이트
+*   `build_cv.py`에서 `application_info.xlsx` 파일을 사용하여 CV 데이터를 로드하도록 수정
+*   `make_pdf.ps1` 스크립트를 사용하여 CV를 PDF로 변환하는 과정 확인
+*   `fix_appinfo.py`를 생성하여 CV 정보 수정 작업 수행
+*   `1.posting_info.md` 파일을 생성하여 지원 포스팅 정보 기록
+
