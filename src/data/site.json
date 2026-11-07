@@ -300,8 +300,8 @@
         "pdf":   "/papers/pdfs/2025_GECCO_Assessing-Corvus.pdf",
         "authors": ["Jiweon Yun", "Seunghyeon Lee", "Youngkeun Song"],
         "title": {
-          "ko": "Assessing Corvus Frugilegus (Rook) Habitat Preferences through Flock-Size-Specific Species Distribution Modeling Using Citizen Science Data",
-          "en": "Assessing Corvus Frugilegus (Rook) Habitat Preferences through Flock-Size-Specific Species Distribution Modeling Using Citizen Science Data"
+          "ko": "Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species distribution modeling using citizen science data",
+          "en": "Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species distribution modeling using citizen science data"
         }
       },
       {
@@ -524,7 +524,7 @@
       { "id": 4, "period": "2023/12 — 2024/02", "logo": "/logos/career/purdue_university.svg", "type": { "ko": "방문 연구원",     "en": "Visiting Scholar" },          "company": { "ko": "Purdue University FNR FUSE Lab (Prof. Brady Hardiman)", "en": "Purdue University FNR FUSE Lab (Prof. Brady Hardiman)" }, "country": { "ko": "미국",     "en": "United States" }, "url": "https://www.purdue.edu/fnr/sites/hardiman/", "papers": "A three-stage framework for stand-level automated stem segmentation (Remote Sensing of Environment, 2026; co-author)" },
       { "id": 3, "period": "2019/08 — 2019/11", "logo": "/logos/career/auri.svg", "type": { "ko": "위촉연구원",     "en": "Research Assistant" },  "company": { "ko": "건축공간연구원 (AURI)",                       "en": "Architecture & Urban Research Institute (AURI)" }, "country": { "ko": "대한민국", "en": "Republic of Korea" }, "url": "https://www.auri.re.kr/" },
       { "id": 2, "period": "2017/03 — 2018/11", "logo": "/logos/career/sunjin.svg", "type": { "ko": "정규직",        "en": "Full-time" },           "company": { "ko": "(주)선진엔지니어링종합건축사사무소",            "en": "SUNJIN Engineering & Architecture Co., Ltd." }, "country": { "ko": "대한민국", "en": "Republic of Korea" }, "url": "https://www.sunjin.co.kr/" },
-      { "id": 1, "period": "2016/09 — 2017/02", "logo": "/logos/career/atlas.svg", "type": { "ko": "인턴",          "en": "Internship" },          "company": { "ko": "ATLAS CHINA 조경설계회사",                     "en": "ATLAS Landscape Architecture CHINA" }, "country": { "ko": "중국",     "en": "China" }, "url": "http://www.atlaschina.com.cn/" }
+      { "id": 1, "period": "2016/09 — 2017/02", "logo": "/logos/career/atlas.svg", "type": { "ko": "인턴",          "en": "Internship" },          "company": { "ko": "ATLAS CHINA 조경설계회사",                     "en": "ATLAS Landscape Architecture" }, "country": { "ko": "중국",     "en": "China" }, "url": "http://www.atlaschina.com.cn/" }
     ]
   },
 
@@ -544,9 +544,9 @@
     "certifications": {
       "label": { "ko": "자격증", "en": "Certifications" },
       "items": [
-        { "date": "2024/10/25", "name": { "ko": "초경량비행장치 조종자 (2종)", "en": "Drone Pilot License" } },
+        { "date": "2022/10/07", "name": { "ko": "초경량비행장치 조종자 (2종)", "en": "Drone Pilot License" } },
         { "date": "", "name": { "ko": "1종 운전면허",                "en": "Driver's License" } },
-        { "date": "2024/10/02", "name": { "ko": "산림기사",                    "en": "Engineer Forest" } },
+        { "date": "2018/05/25", "name": { "ko": "산림기사",                    "en": "Engineer Forest" } },
         { "date": "2016/08/05", "name": { "ko": "조경기사",                    "en": "Engineer Landscape Architecture" } }
       ]
     },
