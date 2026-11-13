@@ -27,13 +27,13 @@ Research Assistant — Architecture & Urban Research Institute (AURI)	2019
 Republic of Korea
 Peer-Reviewed Publications
 APA 7th.  Name in bold = author; † = first author.  Impact Factor / quartile shown where available.  (SCIE / ESCI, then KCI; newest first)
-1. Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands. Global Ecology and Conservation, 71, e04430. https://doi.org/10.1016/j.gecco.2026.e04430  · SCIE  · IF 3.7, Q1 (2026)
-2. Lee, S.†, Kim, Y., Kim, D., Kim, H., & Song, Y. (2026). Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest. Forest Science and Technology. https://doi.org/10.1080/21580103.2026.2712965  · ESCI  · IF 2.4, Q2 (2026)
-3. Kim, J., Han, S., Yun, J., Lee, S., & Song, Y. (2026). Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy fields. Agriculture, Ecosystems & Environment, 399, 110172. https://doi.org/10.1016/j.agee.2025.110172  · SCIE  · IF 6.4, Q1 (2026)
-4. Lee, S.†, Ha, U., Lee, H., Choe, H., Kim, H., & Song, Y. (2026). Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests. Ecological Indicators, 185, 114798. https://doi.org/10.1016/j.ecolind.2026.114798  · SCIE  · IF 7.4, Q1 (2026)
-5. Shao, J., Choi, D. H., Liu, J., Tian, X., Thapa, B., Lee, S., Habib, A., & Fei, S. (2026). A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning. Remote Sensing of Environment, 335, 115246. https://doi.org/10.1016/j.rse.2026.115246  · SCIE  · IF 11.4, Q1 (2026)
-6. Yun, J., Lee, S., & Song, Y. (2025). Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species distribution modeling using citizen science data. Global Ecology and Conservation, 63, e03866. https://doi.org/10.1016/j.gecco.2025.e03866  · SCIE  · IF 3.4, Q1 (2025)
-7. Lee, S.†, Song, Y., & Kil, S.-H. (2021). Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images. Remote Sensing, 13(11), 2169. https://doi.org/10.3390/rs13112169  · SCIE  · IF 5.0, Q1 (2022)
+1. Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands. Global Ecology and Conservation, 71, e04430. https://doi.org/10.1016/j.gecco.2026.e04430  · SCIE  · IF 3.7, Q1
+2. Lee, S.†, Kim, Y., Kim, D., Kim, H., & Song, Y. (2026). Bi-temporal ALS assessment of vertical–horizontal forest structures and their structural association in a temperate urban forest. Forest Science and Technology. https://doi.org/10.1080/21580103.2026.2712965  · ESCI  · IF 2.4, Q2
+3. Kim, J., Han, S., Yun, J., Lee, S., & Song, Y. (2026). Ecological structures and terrestrial insect diversity across successional stages in abandoned paddy fields. Agriculture, Ecosystems & Environment, 399, 110172. https://doi.org/10.1016/j.agee.2025.110172  · SCIE  · IF 6.4, Q1
+4. Lee, S.†, Ha, U., Lee, H., Choe, H., Kim, H., & Song, Y. (2026). Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests. Ecological Indicators, 185, 114798. https://doi.org/10.1016/j.ecolind.2026.114798  · SCIE  · IF 7.4, Q1
+5. Shao, J., Choi, D. H., Liu, J., Tian, X., Thapa, B., Lee, S., Habib, A., & Fei, S. (2026). A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning. Remote Sensing of Environment, 335, 115246. https://doi.org/10.1016/j.rse.2026.115246  · SCIE  · IF 11.4, Q1
+6. Yun, J., Lee, S., & Song, Y. (2025). Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species distribution modeling using citizen science data. Global Ecology and Conservation, 63, e03866. https://doi.org/10.1016/j.gecco.2025.e03866  · SCIE  · IF 3.4, Q1
+7. Lee, S.†, Song, Y., & Kil, S.-H. (2021). Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images. Remote Sensing, 13(11), 2169. https://doi.org/10.3390/rs13112169  · SCIE  · IF 5.0, Q1
 8. Hwang, H., Kim, Y., Lee, S., & Son, Y. (2026). A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces. Journal of the Korean Institute of Landscape Architecture, 54(5), 61–85. https://doi.org/10.9715/kila.2026.54.5.061  · KCI
 9. Lee, S.†, & Song, Y. (2026). Forest-Type and Seasonal Analysis of GEDI-ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI): A Case Study of Forests in Gwacheon-si and Uiwang-si. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 21–40. https://doi.org/10.13087/kosert.2026.29.2.21  · KCI
 10. Lee, S.†, Jang, G., Song, Y., & Kil, S.-H. (2026). Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 41–59. https://doi.org/10.13087/kosert.2026.29.2.41  · KCI
@@ -61,7 +61,7 @@ Invited Talks
 • Seunghyeon Lee (2024). Remotely sensed Smartcity ecological value maps. Invited talk, NEF (Neocity Empowerment Forum), Orlando, FL, US.
 Conference Presentations (International)
 First author / presenter unless marked “team”.  10 domestic presentations (KOSERT, KSEE, KILA) available on request.
-• Seunghyeon Lee, Uirin Ha, Heejae Lee, Hyeyeong Choe, Hansoo Kim, Youngkeun Song (2026). Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests. [Poster] None, West Lafayette, IN, US.
+• Seunghyeon Lee, Uirin Ha, Heejae Lee, Hyeyeong Choe, Hansoo Kim, Youngkeun Song (2026). Multi-scale forest typologies using novel vertical layer metrics from airborne LiDAR in temperate mixed forests. [Poster] Digital Forestry Int'l Conference, West Lafayette, IN, US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2025). Novel LiDAR indices reveal scale-dependent vertical structure and typologies in a temperate forest. [Poster] AGU Fall Meeting, New Orleans, US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2024). Quantifying the number of forest stratification layers of city-scale forest and characterizing by forest types. [Poster] AGU Fall Meeting, Washington D.C., US.
 • Seunghyeon Lee, Hansoo Kim, Youngkeun Song (2024). Canopy layers distribution by forest patch and species at the city-level forest using airborne LiDAR. [Oral] ICLEE, Kitakyushu, Japan.
@@ -88,7 +88,7 @@ Analyzed province-wide vertical and horizontal forest structure from ALS
 Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery
 → Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Fire Ecology, in preparation); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
 Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services
-2023 — 2027 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M (total project)
+2023 — 2027 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M
 Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR
 Quantified carbon storage of abandoned paddies and adjacent vegetation
 → Related outputs:  Insect diversity & ecological structure (Agric., Ecosyst. & Environ. 2026); Rook habitat preferences (Global Ecology & Conservation 2025)
@@ -97,7 +97,7 @@ Gyeonggi-do biotope property-information analysis
 Developed and quantified a method to analyze vegetation layer structure by forest type
 → Related outputs:  Forest layer-typology metrics (Ecological Indicators 2026); JCK 2023 presentation
 Creation, restoration & management technology of carbon-accumulated abandoned-paddy wetland
-2022 — 2026 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Bonhak Koo (Sangmyung Univ.) · $391K (total project)
+2022 — 2026 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Bonhak Koo (Sangmyung Univ.) · $391K
 Mapped abandoned-paddy sites and built field drone multispectral / LiDAR datasets
 → Related outputs:  Non-destructive carbon storage of Salix spp. (KOSERT 2025); paddy-terrestrialization patent (pending)
 Gwacheon-si urban ecological status mapping
@@ -106,18 +106,18 @@ Classified forest types and tree species of Gwacheon-si forests and urban green 
 Analyzed the vertical and horizontal forest structure of Gwacheon-si
 → Related outputs:  Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science and Technology 2026)
 Real-time web-based positioning surveillance system for introduced exotic species
-2021 — 2023 · Korean Ministry of Environment · Role: Project Manager · PI: Prof. Youngkeun Song (SNU) · $863K (total project)
+2021 — 2023 · Korean Ministry of Environment · Role: Project Manager · PI: Prof. Youngkeun Song (SNU) · $863K
 Led the project as managing researcher — scheduling, budget, and research-output management
 Attached GPS trackers to four invasive species (red-eared slider, Formosan sika deer, nutria, raccoon) and built movement datasets
 Built drone multispectral, LiDAR, and hyperspectral imagery of invasive-turtle habitats
 Produced invasive-species control manuals and developed a real-time positioning-tracking platform
 → Related outputs:  Invasive-turtle habitat model (manuscript under review, GEC); wildlife-tracker missing-point patent (reg. 2023) and optimal-capture-range patent (pending)
 IT·ET·BT convergence-based distribution and spread models for introduced exotic species
-2021 — 2023 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Wanmo Kang (Kookmin Univ.) · $464K (total project)
+2021 — 2023 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Wanmo Kang (Kookmin Univ.) · $464K
 Modeled habitat distribution and spread of invasive turtles from GPS-tracking data using MaxEnt
 → Related outputs:  Invasive-turtle MaxEnt distribution model (manuscript under review, GEC)
 Redundancy-based green-infrastructure technology for urban ecosystem challenges
-2020 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $662K (total project)
+2020 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $662K
 Tracked wild-boar distribution / movement with camera traps and analyzed home range
 Built drone multispectral / LiDAR imagery of wild-boar habitat and performed real-time thermal-UAV tracking
 → Related outputs:  Diel activity of water deer & wild boar via long-term camera-trapping (KOSERT 2024); drone thermal/RGB & LiDAR wild-boar habitat datasets
@@ -127,27 +127,27 @@ Acquired and analyzed field measurements of particulate matter and temperature/h
 Ran ENVI-met microclimate simulations and designed green-space planting plans for PM reduction, predicting post-implementation outcomes
 → Related outputs:  LST estimation comparison — satellite / simulation / UAV (KOSERT 2026); outdoor thermal-comfort optimization patent (reg. 2022)
 Customized habitat-management technique for urban species
-2019 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Chan Park (Univ. of Seoul) · $525K (total project)
+2019 — 2022 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Chan Park (Univ. of Seoul) · $525K
 Developed a wildlife-detection method using thermal UAV imagery
 → Related outputs:  Real-time UAV thermal/RGB wildlife detection (Remote Sensing 2021, first author); UAV thermal wildlife-detection patent (reg. 2022)
 Assessment scheme and ecosystem-restoration model by degradation type
-2018 — 2020 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $257K (total project)
+2018 — 2020 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $257K
 Performed land-cover classification using satellite imagery
 Patents (Republic of Korea)
 9 registered, 2 pending.
 Registered
-• Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands. Registered Sep 2026 · Seoul National University
-• Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR. Registered Aug 2026 · Seoul National University & Dankook Univ.
-• System and method for providing a tree-management platform. Registered Sep 2025 · Seunghyeon Lee
-• Method and system for determining wetland vegetation structure using drone LiDAR. Registered Apr 2025 · Seoul National University
-• Image-based roadside-tree information management system and method. Registered Nov 2024 · Seunghyeon Lee
-• Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological information. Registered Jul 2023 · Seoul National University
-• Self-heating target module for thermal-camera performance testing and precision data acquisition. Registered Oct 2022 · Seoul National University
-• Automated wildlife detection method and device using drone-mounted thermal-camera imagery. Registered May 2022 · Seoul National University
-• A method to derive an optimal plan for outdoor thermal-comfort mitigation. Registered Apr 2022 · Seoul National University
+• Monitoring halophyte distribution from multi-period vegetation indices in coastal wetlands. Registered Sep 2026 · Seoul National University
+• Quantitative assessment and automatic classification of wildfire damage using spaceborne LiDAR. Registered Aug 2026 · Seoul National University & Dankook Univ.
+• System and method for providing a tree-management platform. Registered Sep 2025 · Seunghyeon Lee
+• Method and system for determining wetland vegetation structure using drone LiDAR. Registered Apr 2025 · Seoul National University
+• Image-based roadside-tree information management system and method. Registered Nov 2024 · Seunghyeon Lee
+• Prediction of missing location points of a wildlife GPS tracker by combining in-situ and biological information. Registered Jul 2023 · Seoul National University
+• Self-heating target module for thermal-camera performance testing and precision data acquisition. Registered Oct 2022 · Seoul National University
+• Automated wildlife detection method and device using drone-mounted thermal-camera imagery. Registered May 2022 · Seoul National University
+• A method to derive an optimal plan for outdoor thermal-comfort mitigation. Registered Apr 2022 · Seoul National University
 Pending
-• Method And System for Automatic Classification of Forest Vertical Structure Types Using Airborne LiDAR-Derived Vertical Layer Indices. Pending 2026 · Seoul National University
-• Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and stratigraphic volume change. Pending 2023 · Seoul National University
+• Method And System for Automatic Classification of Forest Vertical Structure Types Using Airborne LiDAR-Derived Vertical Layer Indices. Pending 2026 · Seoul National University
+• Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and stratigraphic volume change. Pending 2023 · Seoul National University
 Awards & Honors
 Awards
 Best Presentation Award — KOSERT (forest layer-structure indices and their correlation with carbon storage)	2025

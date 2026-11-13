@@ -478,8 +478,9 @@ for n, d in enumerate(_pubs, 1):
         _set_run(p.add_run(f"  · {idx}"), 8.5, color=ACCENT)
     if iff or q:
         iv = iff.split("(")[0].strip()
-        tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", q] if x)
-        _set_run(p.add_run(tag), 8.5, color=ACCENT)
+        qv = str(q).split("(")[0].strip() if q else ""   # JCR 연도 괄호는 표기 생략 (줄 밀림 방지, xlsx 에는 유지)
+        tag = "  · " + ", ".join(x for x in [f"IF {iv}" if iv else "", qv] if x)
+        _set_run(p.add_run(tag.replace(" ", " ")), 8.5, color=ACCENT)
 
 # ---------------------------------------------------------------- Manuscripts under review
 section("Manuscripts Under Review & In Preparation")
@@ -597,7 +598,7 @@ _set_run(r, 8.5, italic=True, color=LIGHT); p.paragraph_format.space_after = Pt(
 confs = [([a.strip() for a in str(r["Authors"]).split(",")], r["Year"],
           str(r["Type"]).capitalize() + (", team" if r["팀 발표"] == "Y" else ""),
           _dot(sentence_case(r["Title(EN)"])),
-          f'{r["CV 학회(EN)"]}, {r["Venue(EN)"]}')
+          f'{r["CV 학회(EN)"] or r["Conference(EN)"]}, {r["Venue(EN)"]}')   # CV 표기 비면 정식명으로 폴백 (None 인쇄 방지)
          for r in sheet("Conferences",
                         where=lambda r: r["Scope"] == "international",
                         order=lambda r: _desc(r["Date"]))]
@@ -637,7 +638,8 @@ for title, funder, period, role, pi, budget, bullets, outputs in projects:
     _set_run(ps.add_run(f"Role: {role}"), 9, italic=True, bold=True, color=ACCENT)
     _set_run(ps.add_run(f" · PI: {pi}"), 9, italic=True, color=GREY)
     if budget:
-        _set_run(ps.add_run(f" · {budget} (total project)"), 9, italic=True, color=GREY)
+        # "(total project)" 는 섹션 안내문에서 이미 정의 — 각 줄에 반복하면 한두 단어 밀림만 만든다
+        _set_run(ps.add_run(f" · {budget}"), 9, italic=True, color=GREY)
     for b in bullets:
         pb = doc.add_paragraph(style="List Bullet")
         pb.paragraph_format.left_indent = Inches(0.25); pb.paragraph_format.space_after = Pt(0)
@@ -677,8 +679,9 @@ def _patents(status, datecol, fmt):
                    order=lambda r: _desc(r[datecol])):
         raw = str(r[datecol] or "")
         when = _mon_yyyy(raw) if fmt == "Registered" else _yr(raw)   # 등록=시점(Mon YYYY), 출원중=연도
+        # 메타는 NBSP 로 묶어 중간에서 갈라지지 않게 한다 (통째로 다음 줄 이동)
         out.append((r["CV 특허명(EN)"], f'{fmt} {when}'
-                    f' · {r["CV 권리자(EN)"]}'))
+                    f' · {r["CV 권리자(EN)"]}'.replace(" ", " ")))
     return out
 
 
