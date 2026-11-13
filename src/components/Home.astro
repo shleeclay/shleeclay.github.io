@@ -50,9 +50,11 @@ const invitedSorted = [...invitedTalks].sort((a, b) =>
   (b.date || `${b.year}/99/99`).localeCompare(a.date || `${a.year}/99/99`));
 const teachByYear  = groupByYear(teaching);
 
-// Split patents: registered → card grid; application → compact list
-const registeredPatents  = patents.filter((p) => p.status === 'registered');
-const applicationPatents = patents.filter((p) => p.status === 'application');
+// Split patents: registered → card grid (등록일 최신순); application → compact list (출원일 최신순)
+const registeredPatents  = patents.filter((p) => p.status === 'registered')
+  .sort((a, b) => (b.registrationDate || '').localeCompare(a.registrationDate || ''));
+const applicationPatents = patents.filter((p) => p.status === 'application')
+  .sort((a, b) => (b.applicationDate || '').localeCompare(a.applicationDate || ''));
 
 // Type label maps
 const teachTypeLabels: Record<string, { ko: string; en: string }> = {

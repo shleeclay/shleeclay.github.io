@@ -110,7 +110,7 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | Teaching | 32 | `CV 표기(EN)` `CV 서술(EN)` `CV 기간(EN)` |
 | Funding | 4 | `CV 표기(EN)` |
 | Projects | 12 | `CV 과제명(EN)` `CV 기여(EN)` `CV 성과(EN)` |
-| Patents | 12 | `CV 특허명(EN)` `CV 권리자(EN)` |
+| Patents | 11 | `CV 특허명(EN)` `CV 권리자(EN)` |
 | Awards | 2 | — |
 | Service & Membership | 6 | — |
 | Certifications | 4 | — |
