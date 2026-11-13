@@ -150,8 +150,8 @@ Pending
 • Determining terrestrialization of abandoned-paddy wetlands using multi-temporal drone LiDAR and stratigraphic volume change. Pending 2023 · Seoul National University
 Awards & Honors
 Awards
-Best Presentation Award — KOSERT Spring Meeting (forest layer-structure indices and their correlation with carbon storage)	2025
-Best Presentation Award — KOSERT Autumn Meeting (GEDI vs. airborne LiDAR field agreement by vegetation type and season)	2022
+Best Presentation Award — KOSERT (forest layer-structure indices and their correlation with carbon storage)	2025
+Best Presentation Award — KOSERT (GEDI vs. airborne LiDAR field agreement by vegetation type and season)	2022
 Professional Service & Membership
 Peer reviewer, International Journal of Applied Earth Observation and Geoinformation	2026 – present
 Peer reviewer, Landscape and Ecological Engineering	2026 – present
