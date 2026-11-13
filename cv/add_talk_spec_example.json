@@ -1,0 +1,12 @@
+{
+  "_comment": "add_talk.py 입력 양식. 이 파일은 실제 2026-11-04 SNU 특강의 spec 이며 예시를 겸한다. 선택 키: web(기본 Y). type 은 CLAUDE.md §4 어휘(seminar/colloquium/keynote/panel/guest lecture/conference)만 허용.",
+  "date": "2026/11/04",
+  "type": "seminar",
+  "scope": "domestic",
+  "title_ko": "환경설계 연구 방법론",
+  "title_en": "Research methodology in environmental design",
+  "host_ko": "서울대학교 협동과정 조경학 2026 특강 시리즈",
+  "host_en": "2026 Special Lecture Series, Interdisciplinary Program in Landscape Architecture, Seoul National University",
+  "venue_ko": "서울",
+  "venue_en": "Seoul, Republic of Korea"
+}

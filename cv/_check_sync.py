@@ -17,6 +17,9 @@ import sys
 
 import openpyxl
 
+# cp949 콘솔에서 em-dash(—) 출력 크래시 방지 — 인코딩 불가 문자는 ?로 대체
+sys.stdout.reconfigure(errors="replace")
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 XLSX = os.path.join(HERE, "application_info.xlsx")
 SITE = os.path.join(HERE, "..", "src", "data", "site.json")

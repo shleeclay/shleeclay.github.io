@@ -1,0 +1,30 @@
+{
+  "_comment": "add_paper.py 입력 양식. 이 파일은 실제 논문 #12(JKILA)의 spec 이며 예시를 겸한다. 선택 키: no(미지정 시 site 최대 id+1), if, quartile, volume, issue, pages, cover/pdf(미지정 시 public/papers/ 에서 slug 로 자동 탐지), cover_src/pdf_src(자산 복사 원본), figures(캐러셀; src 미지정 시 figures/<slug>/figN.webp)",
+  "doi": "10.9715/KILA.2026.54.5.061",
+  "date": "2026/10/31",
+  "role": "co",
+  "index": "KCI",
+  "journal_en": "JKILA",
+  "journal_ko": "한국조경학회지",
+  "title_ko": "도시녹지의 기능 기반 분류체계 구축을 위한 체계적 문헌 고찰",
+  "title_en": "A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces",
+  "authors_en": ["Haekwon Hwang", "Yonghwan Kim", "Seunghyeon Lee", "Yonghoon Son"],
+  "authors_ko": ["황해권", "김용환", "이승현", "손용훈"],
+  "corr_ko": "손용훈",
+  "corr_en": "Yonghoon Son",
+  "volume": 54,
+  "issue": 5,
+  "pages": "61-85",
+  "author_rank": 3,
+  "author_total": 4,
+  "slug": "2026_JKILA_Systematic-Review",
+  "figures": [
+    {"caption": "PRISMA flow diagram of the literature screening process."},
+    {"caption": "Number of collected articles by publication year."},
+    {"caption": "Co-occurrence matrix of urban green space functions and assessment indicators."},
+    {"caption": "Dendrogram of hierarchical clustering of functions using Ward's linkage."},
+    {"caption": "Stability verification of functional-group clustering using a bootstrap consensus matrix."},
+    {"caption": "Correspondence between the derived functional groups and the CICES classification."},
+    {"caption": "Indicator weights for each function derived using TF-IDF."}
+  ]
+}

@@ -48,30 +48,27 @@ application_info.xlsx ──┬─▶ build_cv.py (13시트) ─▶ Lee_Seunghye
 
 ## 3. 작업 절차
 
-### 논문 추가
+### 논문 추가 — `cv/add_paper.py` (일회성 스크립트를 새로 쓰지 말 것)
 ```
 1. 출판사 BibTeX 를 cv/citations/original/ 에 원본 그대로 저장
-2. 같은 파일을 individual/ 에 복사 → normalize_bib.py 로 양식 통일
-3. cd cv/citations && python merge_bib.py && python bib_to_xlsx.py
-4. xlsx Publications 시트에 행 추가
-   - bib 이 갖는 것(권·호·페이지·DOI)은 참고용으로만, 정본은 bib
-   - 여기서만 입력: Role(first/co) · Index(SCIE/ESCI/KCI) · IF · Quartile
-     · 저자순위(본인) · 총저자수 · 게재일자
-5. cd cv && python _export_csv.py && python _check_sync.py
-6. site.json publications.items 에 항목 추가 (표지·PDF 경로는 사람이 결정)
-7. python _sync_site.py        미리보기 → 이상 없으면 --write
-8. python build_cv.py && python _cv_baseline.py --check
+   → individual/ 에 복사 → normalize_bib.py → cd citations && python merge_bib.py && python bib_to_xlsx.py
+2. 표지·PDF·그림 자산을 public/papers/ 명명 규칙(slug)으로 준비 (public/papers/README.md)
+3. spec JSON 작성 — 양식: cv/add_paper_spec_example.json (실제 #12 JKILA 의 spec)
+   여기서만 입력: Role(first/co) · Index(SCIE/ESCI/KCI) · IF · Quartile · 저자순위 · 총저자수 · 게재일자
+4. python add_paper.py --spec <spec.json>
+   → xlsx 행 + site.json 골격 + figures.json + papers/README 표 + _export_csv/_check_sync 일괄. 멱등(재실행 안전)
+5. python _sync_site.py → "반영할 변경 없음" 확인 → python build_cv.py && python _cv_baseline.py --check
 ```
-> `_sync_site.py` 는 **항목을 추가하지 않는다.** 기존 항목의 필드만 갱신한다.
-> 새 논문·학회를 웹에 올릴 때는 site.json 에 항목 골격을 먼저 만들어야 한다.
+> `_sync_site.py` 는 **항목을 추가하지 않는다.** 골격 삽입은 add_paper.py / add_talk.py 가 한다.
+> Claude 세션이 site.json 쓰기를 차단당하면: spec 까지 준비하고 4번 실행만 사용자가 `!` 한 줄로.
 
-### 초청 강연 추가
+### 초청 강연 추가 — `cv/add_talk.py`
 ```
-1. xlsx 'Invited Talks' 시트에 행 추가 (Date·Type·Scope·주최(KO)/Host(EN)·웹 표시=Y, No. 는 최신순 재부여)
-   → 넣을 시트는 4절 "세 시트의 경계" 판정 한 줄로 고른다
-2. python _export_csv.py && python _check_sync.py
-3. site.json invitedTalks.items 에 항목 골격 추가 후 python _sync_site.py --write
-4. python build_cv.py && python _cv_baseline.py --check
+1. 넣을 시트는 4절 "세 시트의 경계" 판정 한 줄로 먼저 고른다 (Teaching/Invited Talks/Conferences)
+2. spec JSON 작성 — 양식: cv/add_talk_spec_example.json
+3. python add_talk.py --spec <spec.json>
+   → xlsx 행(No. 최신순 재부여) + site.json 골격 + _export_csv/_check_sync 일괄. 멱등
+4. python _sync_site.py → "반영할 변경 없음" 확인 → python build_cv.py && python _cv_baseline.py --check
 ```
 
 ### 학회 발표 · 특허 · 강의 · 경력 · 수상 · 자격증 추가
@@ -105,15 +102,15 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | Personal | 16 | — (지원서 전용, CV·웹 미사용) |
 | Research Interests | 6 | — |
 | Education | 4 | `CV 표시` `웹 표시` `CV 서술(EN)` `심사위원(EN)` |
-| Publications | 10 | — |
-| Under Review | 4 | — |
+| Publications | 12 | — |
+| Under Review | 3 | — |
 | Books | 1 | — |
 | Conferences | 24 | `CV 학회(EN)` `팀 발표` |
-| Invited Talks | 4 | `웹 표시` |
-| Teaching | 29 | `CV 표기(EN)` `CV 서술(EN)` `CV 기간(EN)` |
+| Invited Talks | 6 | `웹 표시` |
+| Teaching | 32 | `CV 표기(EN)` `CV 서술(EN)` `CV 기간(EN)` |
 | Funding | 4 | `CV 표기(EN)` |
 | Projects | 12 | `CV 과제명(EN)` `CV 기여(EN)` `CV 성과(EN)` |
-| Patents | 11 | `CV 특허명(EN)` `CV 권리자(EN)` |
+| Patents | 12 | `CV 특허명(EN)` `CV 권리자(EN)` |
 | Awards | 2 | — |
 | Service & Membership | 6 | — |
 | Certifications | 4 | — |
@@ -132,7 +129,7 @@ PDF 는 **반드시 `powershell -File make_pdf.ps1 -Publish`** (LibreOffice head
 | `팀 발표` | Y / N | Y 면 CV 에 `[Oral, team]` 처럼 team 이 붙음 |
 
 > CV 국제학회 14건 = `Conferences` 의 `Scope=international`
-> CV 초청강연 4건 = `Invited Talks` 전 행 (2026-09-24 통합 — 학회 시트의 `CV 분류` 열은 삭제)
+> CV 초청강연 6건 = `Invited Talks` 전 행 (2026-09-24 통합 — 학회 시트의 `CV 분류` 열은 삭제)
 > 같은 사건은 한 행에만 존재한다. 두 시트에 중복 등록하지 말 것.
 
 ### 세 시트의 경계 — 어디에 넣는가
@@ -191,6 +188,8 @@ Work.CV 소속(EN)          = CV 표기      " — Virginia Tech (PI: Prof. Jaey
 
 | 명령 | 하는 일 | 종료코드 |
 |---|---|---|
+| `python cv/add_paper.py --spec <json>` | 새 논문 일괄 등록 (xlsx+site.json+figures+README, 멱등) | — |
+| `python cv/add_talk.py --spec <json>` | 새 초청 강연 일괄 등록 (xlsx+site.json, 멱등) | — |
 | `python cv/_export_csv.py` | xlsx → `cv/_csv/*.csv` 미러. **xlsx 수정 후 반드시 실행** | — |
 | `python cv/_check_sync.py` | xlsx ↔ site.json 대조, 미입력 컬럼, 리팩터 회귀 감시 | 0=정상 |
 | `python cv/_sync_site.py` | 변경 미리보기 | 1=변경 있음 |
