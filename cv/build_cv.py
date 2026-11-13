@@ -482,7 +482,7 @@ for n, d in enumerate(_pubs, 1):
         _set_run(p.add_run(tag), 8.5, color=ACCENT)
 
 # ---------------------------------------------------------------- Manuscripts under review
-section("Manuscripts Under Review")
+section("Manuscripts Under Review & In Preparation")
 # status = "stage|date"  (stage shown in brackets, date in grey)
 # 심사중 원고: 저자는 쉼표 구분 문자열이므로 리스트로 되돌린다.
 under_review = [([a.strip() for a in str(r["Authors(EN)"]).split(",")],

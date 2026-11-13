@@ -20,10 +20,11 @@ papers/
   - 예: `EcolIndic` (Ecological Indicators), `RemoteSens` (Remote Sensing MDPI), `JGR-Bio` (J. Geophys. Res. Biogeosciences)
 - **제목-시작-단어**: 제목 첫 1~3개 단어, 하이픈 연결. 영문만, 띄어쓰기 X, 특수문자 X.
 
-### 현재 11개 논문 파일명 (참고 매핑)
+### 현재 12개 논문 파일명 (참고 매핑)
 
 | id | 파일명 |
 |---|---|
+| 12 | `2026_JKILA_Systematic-Review` |
 | 11 | `2026_GECCO_Integrating-unmanned-aerial` |
 | 10 | `2026_FST_Bi-temporal-structures` |
 | 9  | `2026_KOSERT_Comparing-LST` |

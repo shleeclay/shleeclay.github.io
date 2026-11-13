@@ -34,13 +34,14 @@ APA 7th.  Name in bold = author; † = first author.  Impact Factor / quartile s
 5. Shao, J., Choi, D. H., Liu, J., Tian, X., Thapa, B., Lee, S., Habib, A., & Fei, S. (2026). A three-stage framework for stand-level automated stem volume estimation in temperate forests using Mobile laser scanning. Remote Sensing of Environment, 335, 115246. https://doi.org/10.1016/j.rse.2026.115246  · SCIE  · IF 11.4, Q1 (2026)
 6. Yun, J., Lee, S., & Song, Y. (2025). Assessing Corvus frugilegus (Rook) habitat preferences through flock-size-specific species distribution modeling using citizen science data. Global Ecology and Conservation, 63, e03866. https://doi.org/10.1016/j.gecco.2025.e03866  · SCIE  · IF 3.4, Q1 (2025)
 7. Lee, S.†, Song, Y., & Kil, S.-H. (2021). Feasibility Analyses of Real-Time Detection of Wildlife Using UAV-Derived Thermal and RGB Images. Remote Sensing, 13(11), 2169. https://doi.org/10.3390/rs13112169  · SCIE  · IF 5.0, Q1 (2022)
-8. Lee, S.†, & Song, Y. (2026). Forest-Type and Seasonal Analysis of GEDI-ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI): A Case Study of Forests in Gwacheon-si and Uiwang-si. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 21–40. https://doi.org/10.13087/kosert.2026.29.2.21  · KCI
-9. Lee, S.†, Jang, G., Song, Y., & Kil, S.-H. (2026). Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 41–59. https://doi.org/10.13087/kosert.2026.29.2.41  · KCI
-10. Jekal, G., Yang, Y., Lee, S., & Song, Y. (2025). Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR: A Case Study of Ungok Wetland. Journal of the Korean Society of Environmental Restoration Technology, 28(6), 95–105. https://doi.org/10.13087/kosert.2025.28.6.95  · KCI
-11. Han, Y.-H., Shin, W.-H., Kim, J.-H., Kim, D.-H., Yun, J.-W., Yi, S.-Y., Kim, Y.-H., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55  · KCI
-Manuscripts Under Review
+8. Hwang, H., Kim, Y., Lee, S., & Son, Y. (2026). A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces. Journal of the Korean Institute of Landscape Architecture, 54(5), 61–85. https://doi.org/10.9715/kila.2026.54.5.061
+9. Lee, S.†, & Song, Y. (2026). Forest-Type and Seasonal Analysis of GEDI-ALS Canopy Height Agreement and GEDI Structural Metrics (FHD, PAI): A Case Study of Forests in Gwacheon-si and Uiwang-si. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 21–40. https://doi.org/10.13087/kosert.2026.29.2.21  · KCI
+10. Lee, S.†, Jang, G., Song, Y., & Kil, S.-H. (2026). Comparing LST Estimation Methods under Matched Spatiotemporal Conditions in Low- and High-Rise Residential Areas: Satellite, Simulation, and UAV Approaches. Journal of the Korean Society of Environmental Restoration Technology, 29(2), 41–59. https://doi.org/10.13087/kosert.2026.29.2.41  · KCI
+11. Jekal, G., Yang, Y., Lee, S., & Song, Y. (2025). Non-destructive Carbon Storage Estimation of Salix Spp community In Wetlands Using LiDAR: A Case Study of Ungok Wetland. Journal of the Korean Society of Environmental Restoration Technology, 28(6), 95–105. https://doi.org/10.13087/kosert.2025.28.6.95  · KCI
+12. Han, Y.-H., Shin, W.-H., Kim, J.-H., Kim, D.-H., Yun, J.-W., Yi, S.-Y., Kim, Y.-H., Lee, S., & Song, Y. (2024). Diel Activity Patterns of Water Deer (Hydropotes inermis) and Wild Boar (Sus scrofa) in a Suburban Area Monitored by Long-term Camera-Trapping. Journal of the Korean Society of Environmental Restoration Technology, 27(2), 55–65. https://doi.org/10.13087/kosert.2024.27.2.55  · KCI
+Manuscripts Under Review & In Preparation
 APA 7th.  Name in bold = author; † = first author.  (3 manuscripts; first-author listed first)
-1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in a dense temperate Asian conifer plantation [Manuscript submitted (with editor)]. Remote Sensing Applications: Society and Environment.  · Sep 2026
+1. Lee, S.†, Choi, D. H., Song, Y., & Thorne, J. H. (2026). Spaceborne LiDAR reveals post-fire vertical structural loss in Korean pine plantations [Manuscript in preparation]. Fire Ecology.  · Oct 2026
 2. Lee, S.†, Kim, H., & Song, Y. (2026). Systematic bias in urban-forest vegetation coverage assessment: the influence of topo-edaphic conditions on discrepancies between ALS and field surveys [Revise and resubmit, 1st round]. Geoscience Letters.  · Jun 2026
 3. Jekal, G., Kim, Y. H., Lee, S., Yun, J. W., Kim, D. Y., & Song, Y. (2026). Monitoring transition-zone dynamics of a Phragmites communis–Suaeda japonica mosaic from multi-season Sentinel-2 in a coastal wetland [Revise and resubmit, 1st round]. Journal of Coastal Conservation.  · Feb 2026
 Books
@@ -52,6 +53,7 @@ BK21 FOUR — Integrated Major in SmartCity Global Convergence (full)  ($39,285)
 Ilju Foundation Undergraduate Scholarship, 23rd Scholar (full)  ($10,714)	2015 — 2017
 Challenge Scholarship, Kyungpook National University (full)  ($18,571)	2011 — 2013
 Invited Talks
+• Seunghyeon Lee (2026). Research methodology in environmental design. Invited seminar, 2026 Special Lecture Series, Interdisciplinary Program in Landscape Architecture, Seoul National University, Seoul, Republic of Korea.
 • Seunghyeon Lee (2026). Principles and applications of LiDAR. Guest lecture, Landscape Systems Analysis Seminar (3 cr.), Seoul National University.
 • Seunghyeon Lee (2026). The understanding and applications of thermal sensors. Guest lecture, SmartCity Industrial Technology Seminar (3 cr.), Seoul National University.
 • Seunghyeon Lee (2025). Understanding spatial information and research cases. Guest lecture, Environmental Conservation & Land Management (3 cr.), Seoul National University.
@@ -84,7 +86,7 @@ Carbon storage/sink analysis and inventory for Gyeonggi-do by biotope type
 2024 — 2025 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Analyzed province-wide vertical and horizontal forest structure from ALS
 Estimated forest carbon storage by fusing ALS, airborne hyperspectral, and PlanetScope imagery
-→ Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Remote Sensing Applications: Society and Environment, submitted); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
+→ Related outputs:  Multi-scale forest typologies (Ecological Indicators 2026, first author); post-fire structural loss via spaceborne LiDAR (Fire Ecology, in preparation); coastal-wetland Phragmites–Suaeda monitoring (Journal of Coastal Conservation, under review); AGU & ESA presentations
 Integrated assessment tool for carbon reduction by offset and synergy with ecosystem services
 2023 — 2027 · Korean Ministry of Environment · Role: Researcher · PI: Prof. Youngkeun Song (SNU) · $1.13M (total project)
 Acquired 3-D structure of abandoned-paddy wetlands using drone LiDAR
@@ -102,7 +104,7 @@ Gwacheon-si urban ecological status mapping
 2021 — 2022 · Gyeonggi Research Institute · Role: Researcher · PI: Prof. Youngkeun Song (SNU)
 Classified forest types and tree species of Gwacheon-si forests and urban green spaces
 Analyzed the vertical and horizontal forest structure of Gwacheon-si
-→ Related outputs:  Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science & Technology, under review)
+→ Related outputs:  Forest-type GEDI–ALS canopy height (KOSERT 2026, first author); systematic ALS-vs-field urban-forest bias (Geoscience Letters, under review); bi-temporal ALS forest-structure assessment (Forest Science and Technology 2026)
 Real-time web-based positioning surveillance system for introduced exotic species
 2021 — 2023 · Korean Ministry of Environment · Role: Project Manager · PI: Prof. Youngkeun Song (SNU) · $863K (total project)
 Led the project as managing researcher — scheduling, budget, and research-output management

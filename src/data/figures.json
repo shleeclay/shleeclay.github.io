@@ -324,5 +324,35 @@
    "src": "/papers/figures/2026_GECCO_Integrating-unmanned-aerial/fig9.webp",
    "caption": "(a) A basking-exploitation trap was deployed at SDM-predicted high-suitability locations. (b) Placed in predicted appearance areas, the trap successfully captured invasive turtles between July and October, particularly in overlapping distribution zones. (c) The figure displays photographs of the trap and numerous captured individuals at installation sites guided by SDM modeling results."
   }
+ ],
+ "12": [
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig1.webp",
+   "caption": "PRISMA flow diagram of the literature screening process."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig2.webp",
+   "caption": "Number of collected articles by publication year."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig3.webp",
+   "caption": "Co-occurrence matrix of urban green space functions and assessment indicators."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig4.webp",
+   "caption": "Dendrogram of hierarchical clustering of functions using Ward's linkage."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig5.webp",
+   "caption": "Stability verification of functional-group clustering using a bootstrap consensus matrix."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig6.webp",
+   "caption": "Correspondence between the derived functional groups and the CICES classification."
+  },
+  {
+   "src": "/papers/figures/2026_JKILA_Systematic-Review/fig7.webp",
+   "caption": "Indicator weights for each function derived using TF-IDF."
+  }
  ]
 }

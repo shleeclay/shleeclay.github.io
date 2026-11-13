@@ -42,5 +42,9 @@
   "10.1016/j.gecco.2026.e04430": {
     "apa": "Kim, Y., Lee, S., Shin, W., & Song, Y. (2026). Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands. Global Ecology and Conservation, 71, e04430. https://doi.org/10.1016/j.gecco.2026.e04430",
     "bibtex": "@article{kim2026_gecco,\n  author  = {Kim, Yonghwan and Lee, Seunghyeon and Shin, Wonhyeop and Song, Youngkeun},\n  title   = {Integrating unmanned aerial vehicle-derived habitat metrics with movement persistence and species distribution models to characterize seasonal habitat use of invasive turtles in urban wetlands},\n  journal = {Global Ecology and Conservation},\n  volume  = {71},\n  pages   = {e04430},\n  year    = {2026},\n  month   = {sep},\n  doi     = {10.1016/j.gecco.2026.e04430}\n}"
+  },
+  "10.9715/kila.2026.54.5.061": {
+    "apa": "Hwang, H., Kim, Y., Lee, S., & Son, Y. (2026). A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces. Journal of the Korean Institute of Landscape Architecture, 54(5), 61–85. https://doi.org/10.9715/kila.2026.54.5.061",
+    "bibtex": "@article{hwang2026_jkila,\n  author  = {Hwang, Haekwon and Kim, Yonghwan and Lee, Seunghyeon and Son, Yonghoon},\n  title   = {A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces},\n  journal = {Journal of the Korean Institute of Landscape Architecture},\n  volume  = {54},\n  number  = {5},\n  pages   = {61-85},\n  year    = {2026},\n  month   = {oct},\n  doi     = {10.9715/kila.2026.54.5.061}\n}"
   }
 }

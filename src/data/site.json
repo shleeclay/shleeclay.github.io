@@ -137,6 +137,26 @@
     "groupKci": { "ko": "국내 학술지 · KCI", "en": "Domestic journals · KCI" },
     "items": [
       {
+        "id": 12,
+        "date": "2026/10/31",
+        "year": 2026,
+        "role": "co",
+        "journal": "JKILA",
+        "index": "KCI",
+        "if": "",
+        "quartile": "",
+        "doi": "10.9715/KILA.2026.54.5.061",
+        "cover": "/papers/covers/2026_JKILA_Systematic-Review.webp",
+        "pdf":   "/papers/pdfs/2026_JKILA_Systematic-Review.pdf",
+        "authors": ["Haekwon Hwang", "Yonghwan Kim", "Seunghyeon Lee", "Yonghoon Son"],
+        "journalKo": "한국조경학회지",
+        "authorsKo": ["황해권", "김용환", "이승현", "손용훈"],
+        "title": {
+          "ko": "도시녹지의 기능 기반 분류체계 구축을 위한 체계적 문헌 고찰",
+          "en": "A Systematic Review for Developing a Function-based Classification Framework of Urban Green Spaces"
+        }
+      },
+      {
         "id": 11,
         "date": "2026/09/18",
         "year": 2026,
@@ -401,6 +421,24 @@
       "panel":         { "ko": "패널",            "en": "Panel" }
     },
     "items": [
+      {
+        "date": "2026/11/04",
+        "year": 2026,
+        "type": "seminar",
+        "scope": "domestic",
+        "title": {
+          "ko": "환경설계 연구 방법론",
+          "en": "Research methodology in environmental design"
+        },
+        "host": {
+          "ko": "서울대학교 협동과정 조경학 2026 특강 시리즈",
+          "en": "2026 Special Lecture Series, Interdisciplinary Program in Landscape Architecture, Seoul National University"
+        },
+        "venue": {
+          "ko": "서울",
+          "en": "Seoul, Republic of Korea"
+        }
+      },
       {
         "date": "2026/09/28",
         "year": 2026,
