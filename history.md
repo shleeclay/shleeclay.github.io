@@ -596,3 +596,9 @@
 * 추후 작업을 위해 `4.lessons.md`에 저주행 차량의 보험이력 교차 검증 필요성을 기록함
 * 찜 목록 차량들의 상세 정보 수집을 완료하고, 데이터를 파일로 저장함
 
+## 2026-11-15
+
+- cover letter guide 내용을 보강하고 구조화
+- application_info.xlsx 파일에서 personal, research interests, education, publications, under review 시트 정보를 추출
+- _build_playbook.py 및 _build_coverletter_guide.py 스크립트 실행
+
