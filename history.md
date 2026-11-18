@@ -602,3 +602,12 @@
 - application_info.xlsx 파일에서 personal, research interests, education, publications, under review 시트 정보를 추출
 - _build_playbook.py 및 _build_coverletter_guide.py 스크립트 실행
 
+## 2026-11-18
+
+- `1.direction_options_v1.md` 파일을 생성하여 4가지 연구 방향안을 제시하고, A를 주선으로 D를 2단계 확장으로 권고함
+- 연구 방향 설정을 위한 3가지 결정적 발견 사항을 문서에 포함함
+- GL 및 KILA 논문 게재 관련 정보 업데이트
+- 특허 관련 정보를 확인하고, FSCT 특허 존재 여부 및 공저자 논문 선호도에 대한 질문에 답변함
+- `_help` 필드에 대한 정보 확인 및 `certificates` 필드 경로 규격 변경 사항 인지
+- 질적 성과 중심의 성과관리 고도화 방안에 대한 문서 내용 검토
+
